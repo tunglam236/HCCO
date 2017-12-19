@@ -1,0 +1,6 @@
+E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackupConsole\bin\Debug\AutoBackupConsole.exe.config
+E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackupConsole\bin\Debug\AutoBackupConsole.exe
+E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackupConsole\bin\Debug\AutoBackupConsole.pdb
+E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackupConsole\obj\Debug\AutoBackupConsole.exe
+E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackupConsole\obj\Debug\AutoBackupConsole.pdb
+E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackupConsole\obj\Debug\AutoBackupConsole.csprojResolveAssemblyReference.cache

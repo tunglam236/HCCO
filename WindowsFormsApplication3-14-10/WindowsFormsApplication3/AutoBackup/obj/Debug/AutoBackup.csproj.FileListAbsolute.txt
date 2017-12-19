@@ -1,0 +1,9 @@
+E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackup\bin\Debug\AutoBackup.exe.config
+E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackup\bin\Debug\AutoBackup.exe
+E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackup\bin\Debug\AutoBackup.pdb
+E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackup\obj\Debug\AutoBackup.csprojResolveAssemblyReference.cache
+E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackup\obj\Debug\AutoBackup.Form1.resources
+E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackup\obj\Debug\AutoBackup.Properties.Resources.resources
+E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackup\obj\Debug\AutoBackup.csproj.GenerateResource.Cache
+E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackup\obj\Debug\AutoBackup.exe
+E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackup\obj\Debug\AutoBackup.pdb

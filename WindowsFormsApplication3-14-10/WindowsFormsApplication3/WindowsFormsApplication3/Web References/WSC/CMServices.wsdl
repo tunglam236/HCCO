@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="getConnection">
+        <s:complexType />
+      </s:element>
+      <s:element name="getConnectionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getConnectionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getDateTime">
+        <s:complexType />
+      </s:element>
+      <s:element name="getDateTimeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getDateTimeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="getConnectionSoapIn">
+    <wsdl:part name="parameters" element="tns:getConnection" />
+  </wsdl:message>
+  <wsdl:message name="getConnectionSoapOut">
+    <wsdl:part name="parameters" element="tns:getConnectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDateTimeSoapIn">
+    <wsdl:part name="parameters" element="tns:getDateTime" />
+  </wsdl:message>
+  <wsdl:message name="getDateTimeSoapOut">
+    <wsdl:part name="parameters" element="tns:getDateTimeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CMServicesSoap">
+    <wsdl:operation name="getConnection">
+      <wsdl:input message="tns:getConnectionSoapIn" />
+      <wsdl:output message="tns:getConnectionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getDateTime">
+      <wsdl:input message="tns:getDateTimeSoapIn" />
+      <wsdl:output message="tns:getDateTimeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CMServicesSoap" type="tns:CMServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getConnection">
+      <soap:operation soapAction="http://tempuri.org/getConnection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDateTime">
+      <soap:operation soapAction="http://tempuri.org/getDateTime" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CMServicesSoap12" type="tns:CMServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getConnection">
+      <soap12:operation soapAction="http://tempuri.org/getConnection" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDateTime">
+      <soap12:operation soapAction="http://tempuri.org/getDateTime" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CMServices">
+    <wsdl:port name="CMServicesSoap" binding="tns:CMServicesSoap">
+      <soap:address location="http://103.7.43.146:8008/CMServices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CMServicesSoap12" binding="tns:CMServicesSoap12">
+      <soap12:address location="http://103.7.43.146:8008/CMServices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

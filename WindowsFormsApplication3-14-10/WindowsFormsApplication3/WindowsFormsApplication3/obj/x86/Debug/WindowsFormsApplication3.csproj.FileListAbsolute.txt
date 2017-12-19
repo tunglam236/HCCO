@@ -1,0 +1,65 @@
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\WindowsFormsApplication3.exe.config
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.exe
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.pdb
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\WindowsFormsApplication3.exe
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\WindowsFormsApplication3.pdb
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.csprojResolveAssemblyReference.cache
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmHelp.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmInfo.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmInputReturn.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmPrintOrder.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmPrintStockInputInternal.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmPrintStockOutputList.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmProduct.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmReportInventory.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmReportRevenue.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmSummaryStockInutDetail.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmSummaryStockOutputDetail.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.Form1.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmChangePass.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmInputStock.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmLogin.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmMember.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmOpenConnection.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmOutputStock.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmOutputStockInternal.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmPrintStockOutputInternal.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmSummaryStockInput.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmSummaryStockOutput.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.Properties.Resources.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.csproj.GenerateResource.Cache
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmInputSupplier.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmPrintDraw.resources
+C:\Users\HEINEKEN\Documents\Visual Studio 2010\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmBarCode.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmBarCode.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmPrintDraw.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmHelp.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmInfo.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmInputReturn.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmInputSupplier.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmPrintOrder.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmPrintStockInputInternal.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmPrintStockOutputList.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmProduct.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmReportInventory.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmReportRevenue.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmSummaryStockInutDetail.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmSummaryStockOutputDetail.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.Form1.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmChangePass.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmInputStock.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmLogin.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmMember.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmOpenConnection.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmOutputStock.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmOutputStockInternal.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmPrintStockOutputInternal.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmSummaryStockInput.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmSummaryStockOutput.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.Properties.Resources.resources
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.csproj.GenerateResource.Cache
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\CManagerv1.exe.config
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\CManagerv1.exe
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\CManagerv1.pdb
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\CManagerv1.exe
+F:\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\CManagerv1.pdb
