@@ -1,0 +1,1575 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CMS" Class="CFileManagerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=CMS;Persist Security Info=True;User ID=it_hcc" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="CFashionManagerConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tSupplier" Member="tSuppliers">
+    <Type Name="tSupplier">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SupplierCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="SupplierName" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ContactName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Info" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tSupplier_tStockInput" Member="tStockInputs" ThisKey="Id" OtherKey="SupplierId" Type="tStockInput" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tBrand" Member="tBrands">
+    <Type Name="tBrand">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BrandCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="BrandName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tBrand_tProduct" Member="tProducts" ThisKey="Id" OtherKey="BrandId" Type="tProduct" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tComboDetail" Member="tComboDetails">
+    <Type Name="tComboDetail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ComboId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Association Name="tCombo_tComboDetail" Member="tCombo" ThisKey="ComboId" OtherKey="Id" Type="tCombo" IsForeignKey="true" />
+      <Association Name="tProduct_tComboDetail" Member="tProduct" ThisKey="ProductId" OtherKey="Id" Type="tProduct" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tConnection" Member="tConnections">
+    <Type Name="tConnection">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ServerName" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Trusted_Connection" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tGroupRole" Member="tGroupRoles">
+    <Type Name="tGroupRole">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GroupId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sView" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="sInsert" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="sModifie" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="sDel" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tGroupUser" Member="tGroupUsers">
+    <Type Name="tGroupUser">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GroupCode" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="GroupName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tGroupUser_tAccount" Member="tAccounts" ThisKey="Id" OtherKey="GroupUserId" Type="tAccount" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tMember" Member="tMembers">
+    <Type Name="tMember">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MemberCode" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="MemberName" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Birthday" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Sex" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="JoinCreateAt" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tMember_tStockOutput" Member="tStockOutputs" ThisKey="Id" OtherKey="MemberId" Type="tStockOutput" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tProductType" Member="tProductTypes">
+    <Type Name="tProductType">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductTypeCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="ProductTypeName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ParentTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tProductType_tProduct" Member="tProducts" ThisKey="Id" OtherKey="ProductTypeId" Type="tProduct" />
+      <Association Name="tBranchType_tProductType" Member="tBranchType" ThisKey="BranchTypeId" OtherKey="Id" Type="tBranchType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tStockInput" Member="tStockInputs">
+    <Type Name="tStockInput">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StockInputCode" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchFromId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StockOutputCode" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="InputType" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="VAT" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tSupplier_tStockInput" Member="tSupplier" ThisKey="SupplierId" OtherKey="Id" Type="tSupplier" IsForeignKey="true" />
+      <Association Name="tBranchType_tStockInput" Member="tBranchType" ThisKey="BranchTypeId" OtherKey="Id" Type="tBranchType" IsForeignKey="true" />
+      <Association Name="tBranch_tStockInput" Member="tBranch" ThisKey="BranchId" OtherKey="Id" Type="tBranch" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tStockInputDetail" Member="tStockInputDetails">
+    <Type Name="tStockInputDetail">
+      <Column Name="StockInputId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IsCombo" Type="System.Boolean" DbType="Bit NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ComboId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ComboQuantity" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Association Name="tProduct_tStockInputDetail" Member="tProduct" ThisKey="ProductId" OtherKey="Id" Type="tProduct" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tStockInventory" Member="tStockInventories">
+    <Type Name="tStockInventory">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="QuantityIn" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="QuantityOut" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Association Name="tProduct_tStockInventory" Member="tProduct" ThisKey="ProductId" OtherKey="Id" Type="tProduct" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tStockOutput" Member="tStockOutputs">
+    <Type Name="tStockOutput">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchToId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MemberId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OutputType" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CustomePay" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CustomeReturn" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="PaymentType" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tMember_tStockOutput" Member="tMember" ThisKey="MemberId" OtherKey="Id" Type="tMember" IsForeignKey="true" />
+      <Association Name="tBranch_tStockOutput" Member="tBranch" ThisKey="BranchId" OtherKey="Id" Type="tBranch" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tStockOutputDetail" Member="tStockOutputDetails">
+    <Type Name="tStockOutputDetail">
+      <Column Name="StockOutputId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IsCombo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ComboId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ComboQuantity" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="tProduct_tStockOutputDetail" Member="tProduct" ThisKey="ProductId" OtherKey="Id" Type="tProduct" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tHourGoldDetail" Member="tHourGoldDetails">
+    <Type Name="tHourGoldDetail">
+      <Column Name="HourGoldId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="tHourGold_tHourGoldDetail" Member="tHourGold" ThisKey="HourGoldId" OtherKey="Id" Type="tHourGold" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tHourGold" Member="tHourGolds">
+    <Type Name="tHourGold">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FromDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ToDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="FromHour" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="ToHour" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="MinBill" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="SaleType" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="SaleValue" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tHourGold_tHourGoldDetail" Member="tHourGoldDetails" ThisKey="Id" OtherKey="HourGoldId" Type="tHourGoldDetail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tSendMail" Member="tSendMails">
+    <Type Name="tSendMail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReportId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TimeSend" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Association Name="tReport_tSendMail" Member="tReport" ThisKey="ReportId" OtherKey="Id" Type="tReport" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tReport" Member="tReports">
+    <Type Name="tReport">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReportCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ReportName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tReport_tSendMail" Member="tSendMails" ThisKey="Id" OtherKey="ReportId" Type="tSendMail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tDiscount" Member="tDiscounts">
+    <Type Name="tDiscount">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DiscountName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="DiscountType" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="DiscountNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DiscountValue" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OrderMinValue" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tDiscount_tDiscountList" Member="tDiscountLists" ThisKey="Id" OtherKey="DiscountId" Type="tDiscountList" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tDiscountList" Member="tDiscountLists">
+    <Type Name="tDiscountList">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DiscountId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DiscountCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsUsing" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tDiscount_tDiscountList" Member="tDiscount" ThisKey="DiscountId" OtherKey="Id" Type="tDiscount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tOrderDetail" Member="tOrderDetails">
+    <Type Name="tOrderDetail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Score" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="IsSale" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tOrder_tOrderDetail" Member="tOrder" ThisKey="OrderId" OtherKey="Id" Type="tOrder" IsForeignKey="true" />
+      <Association Name="tProduct_tOrderDetail" Member="tProduct" ThisKey="ProductId" OtherKey="Id" Type="tProduct" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tOrder" Member="tOrders">
+    <Type Name="tOrder">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MemberId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RefId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CustomerName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Sex" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(12)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CountryName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DistrictId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DistrictName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="AddressType" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Address2" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="TimeReceiver" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PaymentType" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="DiscountId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PaymentName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="PaymentPhone" Type="System.String" DbType="VarChar(12)" CanBeNull="true" />
+      <Column Name="PaymentEmail" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="PaymentAddress" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="PaymentCountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PaymentCountryName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PaymentDistrictId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PaymentDistrictName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="DateConfirm" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ConfirmBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ConfirmStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tOrder_tOrderDetail" Member="tOrderDetails" ThisKey="Id" OtherKey="OrderId" Type="tOrderDetail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tNews" Member="tNews">
+    <Type Name="tNew">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="Body" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="MenuId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tMenu" Member="tMenus">
+    <Type Name="tMenu">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Position" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsParam" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="IsNews" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tGallery" Member="tGalleries">
+    <Type Name="tGallery">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GalleryCode" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="GalleryName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="Image1" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Image2" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tColor" Member="tColors">
+    <Type Name="tColor">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ColorCode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="ColorName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tColor_tProduct" Member="tProducts" ThisKey="Id" OtherKey="Color" Type="tProduct" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tCountry" Member="tCountries">
+    <Type Name="tCountry">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CountryName" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Sort" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tCombo" Member="tCombos">
+    <Type Name="tCombo">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ComboId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ComboCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ComboName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tCombo_tComboDetail" Member="tComboDetails" ThisKey="Id" OtherKey="ComboId" Type="tComboDetail" />
+      <Association Name="tBranchType_tCombo" Member="tBranchType" ThisKey="BranchTypeId" OtherKey="Id" Type="tBranchType" IsForeignKey="true" />
+      <Association Name="tBranch_tCombo" Member="tBranch" ThisKey="BranchId" OtherKey="Id" Type="tBranch" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tRole" Member="tRoles">
+    <Type Name="tRole">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ModuleCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ModuleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Position" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Sort" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Icon" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="IsFunction" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tAccount" Member="tAccounts">
+    <Type Name="tAccount">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Sex" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Birthday" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="GroupUserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tGroupUser_tAccount" Member="tGroupUser" ThisKey="GroupUserId" OtherKey="Id" Type="tGroupUser" IsForeignKey="true" />
+      <Association Name="tBranch_tAccount" Member="tBranch" ThisKey="BranchId" OtherKey="Id" Type="tBranch" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tBranchType" Member="tBranchTypes">
+    <Type Name="tBranchType">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Website" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="Facebook" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="Instagram" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tBranchType_tProductType" Member="tProductTypes" ThisKey="Id" OtherKey="BranchTypeId" Type="tProductType" />
+      <Association Name="tBranchType_tStockInput" Member="tStockInputs" ThisKey="Id" OtherKey="BranchTypeId" Type="tStockInput" />
+      <Association Name="tBranchType_tCombo" Member="tCombos" ThisKey="Id" OtherKey="BranchTypeId" Type="tCombo" />
+      <Association Name="tBranchType_tBranch" Member="tBranches" ThisKey="Id" OtherKey="BranchTypeId" Type="tBranch" />
+      <Association Name="tBranchType_tProduct" Member="tProducts" ThisKey="Id" OtherKey="BranchTypeId" Type="tProduct" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tCapacity" Member="tCapacities">
+    <Type Name="tCapacity">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CapacityCode" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+      <Column Name="CapacityName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tSize" Member="tSizes">
+    <Type Name="tSize">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SizeCode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="SizeName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tSize_tProduct" Member="tProducts" ThisKey="Id" OtherKey="Size" Type="tProduct" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tUnit" Member="tUnits">
+    <Type Name="tUnit">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UnitCode" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+      <Column Name="UnitName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tProductPrice" Member="tProductPrices">
+    <Type Name="tProductPrice">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="FromDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tBranch" Member="tBranches">
+    <Type Name="tBranch">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BranchParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchCode" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CountryName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DistrictId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DistrictName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="Time" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.String" DbType="VarChar(24)" CanBeNull="true" />
+      <Column Name="Latitude" Type="System.String" DbType="VarChar(24)" CanBeNull="true" />
+      <Column Name="IsDisplay" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Info" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="ContactName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tBranch_tStockInput" Member="tStockInputs" ThisKey="Id" OtherKey="BranchId" Type="tStockInput" />
+      <Association Name="tBranch_tStockOutput" Member="tStockOutputs" ThisKey="Id" OtherKey="BranchId" Type="tStockOutput" />
+      <Association Name="tBranch_tCombo" Member="tCombos" ThisKey="Id" OtherKey="BranchId" Type="tCombo" />
+      <Association Name="tBranch_tAccount" Member="tAccounts" ThisKey="Id" OtherKey="BranchId" Type="tAccount" />
+      <Association Name="tBranchType_tBranch" Member="tBranchType" ThisKey="BranchTypeId" OtherKey="Id" Type="tBranchType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tFeedback" Member="tFeedbacks">
+    <Type Name="tFeedback">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MemberId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tProduct" Member="tProducts">
+    <Type Name="tProduct">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="YearId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ParentProductTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductTypeCode" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImageZoom" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="NoteSale" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Score" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BrandId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Color" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Size" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Material" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Composition" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CountryName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ExpiryDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Catalog" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CapacityId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CapacityName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tProduct_tComboDetail" Member="tComboDetails" ThisKey="Id" OtherKey="ProductId" Type="tComboDetail" />
+      <Association Name="tProduct_tStockInputDetail" Member="tStockInputDetails" ThisKey="Id" OtherKey="ProductId" Type="tStockInputDetail" />
+      <Association Name="tProduct_tStockInventory" Member="tStockInventories" ThisKey="Id" OtherKey="ProductId" Type="tStockInventory" />
+      <Association Name="tProduct_tStockOutputDetail" Member="tStockOutputDetails" ThisKey="Id" OtherKey="ProductId" Type="tStockOutputDetail" />
+      <Association Name="tProduct_tOrderDetail" Member="tOrderDetails" ThisKey="Id" OtherKey="ProductId" Type="tOrderDetail" />
+      <Association Name="tBranchType_tProduct" Member="tBranchType" ThisKey="BranchTypeId" OtherKey="Id" Type="tBranchType" IsForeignKey="true" />
+      <Association Name="tBrand_tProduct" Member="tBrand" ThisKey="BrandId" OtherKey="Id" Type="tBrand" IsForeignKey="true" />
+      <Association Name="tColor_tProduct" Member="tColor" ThisKey="Color" OtherKey="Id" Type="tColor" IsForeignKey="true" />
+      <Association Name="tProductType_tProduct" Member="tProductType" ThisKey="ProductTypeId" OtherKey="Id" Type="tProductType" IsForeignKey="true" />
+      <Association Name="tSize_tProduct" Member="tSize" ThisKey="Size" OtherKey="Id" Type="tSize" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.sp_Account_Load" Method="sp_Account_Load">
+    <ElementType Name="sp_Account_LoadResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Sex" Type="System.String" DbType="NVarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Birthday" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="GroupName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="BranchTypeName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getBillById" Method="sp_getBillById">
+    <Parameter Name="code" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="sp_getBillByIdResult">
+      <Column Name="OutputType" Type="System.String" DbType="NVarChar(14) NOT NULL" CanBeNull="false" />
+      <Column Name="BranchType" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="MemberName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalDiscount" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="CustomePay" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CustomeReturn" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IsCombo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComboId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getBillCode_Return" Method="sp_getBillCode_Return">
+    <Parameter Name="code" Type="System.String" DbType="NVarChar(32)" />
+    <ElementType Name="sp_getBillCode_ReturnResult">
+      <Column Name="ProductId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IsCombo" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getBillStockInputInternalById" Method="sp_getBillStockInputInternalById">
+    <Parameter Name="code" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="sp_getBillStockInputInternalByIdResult">
+      <Column Name="OutputType" Type="System.String" DbType="NVarChar(22) NOT NULL" CanBeNull="false" />
+      <Column Name="BranchType" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="BranchToName" Type="System.String" DbType="NVarChar(141)" CanBeNull="true" />
+      <Column Name="StockCode" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IsCombo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComboId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getBillStockOutputInternalById" Method="sp_getBillStockOutputInternalById">
+    <Parameter Name="code" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="sp_getBillStockOutputInternalByIdResult">
+      <Column Name="OutputType" Type="System.String" DbType="NVarChar(22) NOT NULL" CanBeNull="false" />
+      <Column Name="BranchType" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="BranchToName" Type="System.String" DbType="NVarChar(144)" CanBeNull="true" />
+      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IsCombo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComboId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getComboList" Method="sp_getComboList">
+    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="branchId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="year" Type="System.Int32" DbType="Int" />
+    <Parameter Name="month" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_getComboListResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ComboName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Product_GetDetailByCodeId" Method="sp_Product_GetDetailByCodeId">
+    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="branchId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="codeid" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Product_GetDetailByCodeIdResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ProductCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IsCombo" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Product_Load" Method="sp_Product_Load">
+    <Parameter Name="branchtype" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Product_LoadResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ProductTypeName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Product_Search" Method="sp_Product_Search">
+    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="type" Type="System.Int32" DbType="Int" />
+    <Parameter Name="code" Type="System.String" DbType="NVarChar(128)" />
+    <ElementType Name="sp_Product_SearchResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ProductTypeName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_ReportInventory" Method="sp_ReportInventory">
+    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="branchId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="fromDate" Type="System.DateTime" DbType="SmallDateTime" />
+    <Parameter Name="toDate" Type="System.DateTime" DbType="SmallDateTime" />
+    <ElementType Name="sp_ReportInventoryResult">
+      <Column Name="ProductId" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Pre" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuantityInput" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuantityOutput" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_ReportRevenue" Method="sp_ReportRevenue">
+    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="branchId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="fromDate" Type="System.DateTime" DbType="SmallDateTime" />
+    <Parameter Name="toDate" Type="System.DateTime" DbType="SmallDateTime" />
+    <ElementType Name="sp_ReportRevenueResult">
+      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="MemberName" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="TotalDiscount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_StockInput_Get" Method="sp_StockInput_Get">
+    <Parameter Name="branchId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="code" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="sp_StockInput_GetResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_StockInput_GetCodeId" Method="sp_StockInput_GetCodeId">
+    <ElementType Name="sp_StockInput_GetCodeIdResult">
+      <Column Name="CodeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_StockInput_InsertData" Method="sp_StockInput_InsertData">
+    <Parameter Name="inputCode" Type="System.String" DbType="VarChar(64)" />
+    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="branchId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="branchFrom" Type="System.Int32" DbType="Int" />
+    <Parameter Name="outputCode" Type="System.String" DbType="VarChar(64)" />
+    <Parameter Name="note" Type="System.String" DbType="NVarChar(1024)" />
+    <Parameter Name="createBy" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_StockInput_InsertDataResult">
+      <Column Name="stt" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_StockOutput_GetCodeId" Method="sp_StockOutput_GetCodeId">
+    <ElementType Name="sp_StockOutput_GetCodeIdResult">
+      <Column Name="CodeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_StockOutput_Return" Method="sp_StockOutput_Return">
+    <Parameter Name="stock_code_old" Type="System.String" DbType="NVarChar(32)" />
+    <Parameter Name="user" Type="System.Int32" DbType="Int" />
+    <Parameter Name="stockcode_in" Type="System.String" DbType="NVarChar(32)" />
+    <Parameter Name="stockcode_out" Type="System.String" DbType="NVarChar(32)" />
+    <Parameter Name="total_price_out" Type="System.Double" DbType="Float" />
+    <Parameter Name="note" Type="System.String" DbType="NVarChar(1024)" />
+    <Parameter Name="brachId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="code_in" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="code_out" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="ton_out" Type="System.String" DbType="NVarChar(MAX)" />
+    <ElementType Name="sp_StockOutput_ReturnResult">
+      <Column Name="stt" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadSupplier" Method="sp_web_loadSupplier">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadSupplierResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="SupplierCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="SupplierName" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ContactName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Info" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadComboDetail" Method="sp_web_loadComboDetail">
+    <Parameter Name="comboId" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="sp_web_loadComboDetailResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ComboId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_getStockOutputInternalByCode" Method="sp_web_getStockOutputInternalByCode">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branchTo" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="stockCode" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="sp_web_getStockOutputInternalByCodeResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranhFrom" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="BranchTo" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadRevenue" Method="sp_web_loadRevenue">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branch" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="fromdate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="todate" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadRevenueResult">
+      <Column Name="CreateDate" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="BranchTypeName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Revenue" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadBill_detail" Method="sp_web_loadBill_detail">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branchId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="fromDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="toDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="outputType" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadBill_detailResult">
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_dashboard_total" Method="sp_web_dashboard_total">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="fromdate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="todate" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_dashboard_totalResult">
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchTypeName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="sCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadDashboardRevenue" Method="sp_web_loadDashboardRevenue">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="fromdate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="todate" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadDashboardRevenueResult">
+      <Column Name="CreateDate" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchTypeName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Revenue" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadDashboardBill" Method="sp_web_loadDashboardBill">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="fromdate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="todate" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadDashboardBillResult">
+      <Column Name="CreateDate" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchTypeName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Bill" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadDashboardTopProduct" Method="sp_web_loadDashboardTopProduct">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branchId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="fromDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="toDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="outputType" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadDashboardTopProductResult">
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchTypeName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadAccount" Method="sp_web_loadAccount">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branchId" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadAccountResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GroupUserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="GroupName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Sex" Type="System.String" DbType="NVarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="Birthday" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(14)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadGiftDetail" Method="sp_web_loadGiftDetail">
+    <Parameter Name="saleId" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="sp_web_loadGiftDetailResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(234)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadGiftDetail_Insert" Method="sp_web_loadGiftDetail_Insert">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="codeId" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="sp_web_loadGiftDetail_InsertResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(234)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadGift_getProductByType" Method="sp_web_loadGift_getProductByType">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="proType" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="sp_web_loadGift_getProductByTypeResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(234)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadGift" Method="sp_web_loadGift">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branch" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadGiftResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="FromDate" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="ToDate" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="FromHour" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="ToHour" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="SaleType" Type="System.String" DbType="NVarChar(18) NOT NULL" CanBeNull="false" />
+      <Column Name="SaleValue" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_SendReport" Method="sp_web_SendReport">
+    <Parameter Name="branchtype" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="user" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_SendReportResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BranchTypeName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="ReportName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="TimeSend" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadDiscount" Method="sp_web_loadDiscount">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="sp_web_loadDiscountResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DiscountName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="DiscountType" Type="System.String" DbType="NVarChar(18) NOT NULL" CanBeNull="false" />
+      <Column Name="DiscountNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DiscountValue" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="OrderMinValue" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadOrderDetail" Method="sp_web_loadOrderDetail">
+    <Parameter Name="orderId" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadOrderDetailResult">
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(234)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getPrice" Method="sp_getPrice">
+    <Parameter Name="proId" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="date" Type="System.DateTime" DbType="SmallDateTime" />
+    <ElementType Name="sp_getPriceResult">
+      <Column Name="Price" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_getDetailProduct" Method="sp_web_getDetailProduct">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="code" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="sp_web_getDetailProductResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(234)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadMenu" Method="sp_web_loadMenu">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadMenuResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Parent" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Position" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(14) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_Log" Method="sp_web_Log">
+    <ElementType Name="sp_web_LogResult">
+      <Column Name="gr" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Mess" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_mail_list" Method="sp_mail_list">
+    <ElementType Name="sp_mail_listResult">
+      <Column Name="mailitem_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="subject" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="body" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="recipients" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="send_request_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="sent_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="sent_status" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadNews" Method="sp_web_loadNews">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadNewsResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(14) NOT NULL" CanBeNull="false" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_cf_loadProductTypeCode" Method="sp_web_cf_loadProductTypeCode">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_cf_loadProductTypeCodeResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(98)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadProductImage" Method="sp_web_loadProductImage">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadProductImageResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="ProductTypeName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ProductTypeCode" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(181)" CanBeNull="true" />
+      <Column Name="ImageZoom" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ColorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImageCount" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="rn" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_ReportInventory" Method="sp_web_ReportInventory">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branchId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="fromDate" Type="System.DateTime" DbType="SmallDateTime" />
+    <Parameter Name="toDate" Type="System.DateTime" DbType="SmallDateTime" />
+    <ElementType Name="sp_web_ReportInventoryResult">
+      <Column Name="BranchCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Pre" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuantityInput" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuantityOutput" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Total" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadPrice" Method="sp_web_loadPrice">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="productTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="codeId" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="sp_web_loadPriceResult">
+      <Column Name="PriceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="BranchTypeName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="FromDate" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_OutputStock_detail" Method="sp_web_OutputStock_detail">
+    <Parameter Name="stockoutputId" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_OutputStock_detailResult">
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(90)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(234)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="DiscountPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadBill" Method="sp_web_loadBill">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branchId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="fromDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="toDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="outputType" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadBillResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="OutputType" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="DiscountPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalDiscount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ObjectName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ObjectReceiver" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="PaymentType" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadCombo" Method="sp_web_loadCombo">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branchId" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadComboResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="ComboCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComboName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadRole" Method="sp_web_loadRole">
+    <Parameter Name="groupId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_web_loadRoleResult">
+      <Column Name="idRole" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="sView" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="sInsert" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="sModified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="sDel" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sSort" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_RoleMenu" Method="sp_web_RoleMenu">
+    <Parameter Name="groupId" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_RoleMenuResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ModuleCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ModuleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Position" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Sort" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Icon" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="IsFunction" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="sView" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_InputStock" Method="sp_web_InputStock">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branchId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="fromDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="toDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="inputType" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_InputStockResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="InputType" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ObjectReceiver" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ObjectName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_getStockInputDetail" Method="sp_web_getStockInputDetail">
+    <Parameter Name="stockCode" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="sp_web_getStockInputDetailResult">
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(72)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(234)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadOrder" Method="sp_web_loadOrder">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="fromdate" Type="System.DateTime" DbType="SmallDateTime" />
+    <Parameter Name="todate" Type="System.DateTime" DbType="SmallDateTime" />
+    <ElementType Name="sp_web_loadOrderResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="OrderCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CustomerName" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(12)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(14) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_ReportRevenue" Method="sp_web_ReportRevenue">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branhId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="fromDate" Type="System.DateTime" DbType="SmallDateTime" />
+    <Parameter Name="toDate" Type="System.DateTime" DbType="SmallDateTime" />
+    <ElementType Name="sp_web_ReportRevenueResult">
+      <Column Name="BranchCode" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="StockCode" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="MemberCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="MemberName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalDiscount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="DiscountPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CustomePay" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="CustomeReturn" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getCategory" Method="sp_getCategory">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branchtype" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="branch" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="supplier" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="producttype" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="brand" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="color" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="size" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="year" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="unit" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="capacity" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="sp_getCategoryResult">
+      <Column Name="Id" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="sType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_baocaoxuathang" Method="sp_web_baocaoxuathang">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branchId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="fromdate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="todate" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_baocaoxuathangResult">
+      <Column Name="BranchCode" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="MemberCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="MemberName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(90)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(234)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="DiscountPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="UnitName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="PaymentType" Type="System.String" DbType="NVarChar(12) NOT NULL" CanBeNull="false" />
+      <Column Name="Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalDiscount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalDiscountPercent" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TTPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CustomePay" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CustomeReturn" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadStockInternal" Method="sp_web_loadStockInternal">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branchId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="fromDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="toDate" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadStockInternalResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchCode" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="ToBranchCode" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="ToBranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="CodeId" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="UnitName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadInputStock" Method="sp_web_loadInputStock">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branchId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="fromDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="toDate" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadInputStockResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchCode" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="CodeId" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="UnitName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="SupplierCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="SupplierName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="SuppAddress" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadBranch" Method="sp_web_loadBranch">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadBranchResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchCode" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Info" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Time" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DistrictId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContactName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadMember" Method="sp_web_loadMember">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="buy" Type="System.String" DbType="VarChar(2)" />
+    <ElementType Name="sp_web_loadMemberResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="MemberCode" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="MemberName" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Sex" Type="System.String" DbType="NVarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Birthday" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="JoinCreateAt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Feedback_load" Method="sp_Feedback_load">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branchId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="type" Type="System.String" DbType="VarChar(2)" />
+    <ElementType Name="sp_Feedback_loadResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="MemberName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="OrderAt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Feedback_loaddetail" Method="sp_Feedback_loaddetail">
+    <Parameter Name="stockId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Feedback_loaddetailResult">
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Material" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Composition" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadProduct" Method="sp_web_loadProduct">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="productType" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadProductResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductTypeCode" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ProductTypeName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Size" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Composition" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Material" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="BrandName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="BranchTypeName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="SupplierName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="UnitName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="CapacityName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CountryName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

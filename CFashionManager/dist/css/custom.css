@@ -1,0 +1,42 @@
+﻿.p5 { padding: 5px;}
+.p10 { padding: 10px;}
+.p15 { padding: 15px;}
+.p20 { padding: 20px;}
+.m5 { margin: 5px;}
+.m10 { margin: 10px;}
+.m15 { margin: 15px;}
+.mt10 { margin-top:10px;}
+.mt15 { margin-top:15px;}
+.mt30 { margin-top:30px;}
+.mb10 { margin-bottom:10px;}
+.mb15 { margin-bottom:15px;}
+.pt10 { padding-top:10px;}
+.pt15 { padding-top:15px;}
+.pt22 { padding-top:22px;}
+.text { text-align:justify;}
+.bold{ font-weight:bold;}
+.f10 {font-size:10px;}
+.f13 {font-size:13px;}
+.f14 {font-size:14px;}
+.f15 {font-size:15px;}
+.f16 {font-size:16px;}
+.f20 {font-size:20px;}
+.f25 {font-size:25px;}
+.border-right{ border-right:1px solid #ccc;}
+.center { text-align: center !important;}
+.right{text-align:right !important;}
+.txtup { text-transform:uppercase;}
+.none-border-bottom{ border:none; border-bottom:1px dotted #ddd;}
+.middle { vertical-align:middle !important;}
+
+@media (min-width: 1061px)
+{
+    .navbar1{display:none;}    
+}
+
+@media (max-width: 1060px)
+{
+   .navbar {display:none;}
+   .pl_todate { padding-left:0px !important}
+}
+.dt-buttons {margin-bottom: 10px !important}

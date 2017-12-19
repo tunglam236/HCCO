@@ -1,0 +1,147 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="cnine_MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Administrator</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        name="viewport">
+    <link rel="shortcut icon" href="/dist/img/favicon.ico" sizes="32x32">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link href="/dist/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+    <link href="/plugins/datepicker/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap.css">
+    <link href="/plugins/datatables/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="/plugins/datatables/responsive.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
+    <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css">
+    <link href="/dist/css/custom.css" rel="stylesheet" type="text/css" />
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    <%@ Register TagPrefix="uHeader" TagName="uHeader" Src="/control/header.ascx" %>
+    <%@ Register TagPrefix="uLeftBar" TagName="uLeftBar" Src="/control/leftbar.ascx" %>
+    <%@ Register TagPrefix="uFooter" TagName="uFooter" Src="/control/footer.ascx" %>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        .fixed .content-wrapper, .fixed .right-side {
+            padding-top: 100px;
+        }
+
+        .dropdown-menu > li > a {
+            padding: 10px 20px;
+            color: White;
+        }
+
+        .dropdown-menu {
+            background-color: #219452;
+        }
+
+        .black {
+            color: Black !important;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-green sidebar-mini sidebar-collapse">
+    <div class="wrapper">
+        <uHeader:uHeader ID="uHeader" runat="server" />
+        <uLeftBar:uLeftBar ID="uleftbar" runat="server" />
+        <div class="navbar1" style="z-index: auto !important; position: relative;">
+            <div style="height: 25px; margin: 10px;">
+                <a href="#menu-mobile" data-toggle="collapse" style="font-size: 18px; color: White;">MENU</a>
+            </div>
+            <div id="menu-mobile" class="collapse">
+                
+                <asp:Literal ID="mbMenu" runat="server"></asp:Literal>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <form id="form1" runat="server">
+                <asp:ContentPlaceHolder ID="cph" runat="server">
+                </asp:ContentPlaceHolder>
+            </form>
+        </div>
+        <uFooter:uFooter ID="uFooter" runat="server" />
+        <div class="control-sidebar-bg">
+        </div>
+        <div class="alert alert-success" id="success-alert" style="position: fixed; top: 0px; right: 0px; width: auto; z-index: 999999; height: 50px;">
+            <button type="button" class="close">x</button>
+            <b>Thông báo ! </b>
+            <div id="lbmess" style="display: inline; padding: 8px;">...</div>
+        </div>
+        <div class="alert alert-success" id="divloading" style="position: fixed; top: 0px; right: 0px; width: auto; z-index: 999999; height: 50px;">
+            <button type="button" class="close" data-dismiss="alert">
+                x</button>
+            <b>Đang tải dữ liệu...</b>
+        </div>
+        <img class="crop-loading" src="/dist/img/crop.gif" style="position:fixed; top:50%; left:50%" />
+        <script src="/plugins/select2/select2.full.min.js" type="text/javascript"></script>
+        <script src="/plugins/datepicker/moment-with-locales.js"></script>
+        <script src="/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
+        <script src="/plugins/datepicker/bootstrap-datetimepicker.js"></script>
+        <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
+        <script src="/plugins/datatables/dataTables.buttons.min.js"></script>
+
+        <script src="/plugins/datatables/jszip.min.js"></script>
+        <script src="/plugins/datatables/buttons.html5.min.js"></script>
+        <script src="/plugins/datatables/buttons.print.min.js"></script>
+
+        <script src="/plugins/datatables/dataTables.responsive.min.js" type="text/javascript"></script>
+        <script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="/dist/js/app.min.js"></script>
+        <script src="/dist/js/demo.js"></script>
+        <script src="/plugins/chartjs/Chart.bundle.js"></script>
+        <script src="/plugins/chartjs/utils.js"></script>
+        <script>
+            $(window).load(function () {
+                $('.datepicker2').datepicker({
+                    autoclose: true
+                });
+
+                $('.timepicker').datetimepicker({
+                    format: 'LT'
+                });
+
+                var table = $('#example1').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "pageLength": 25,
+                    "autoWidth": false,
+                    "responsive": true
+                });
+                $(".select2").select2();
+
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#success-alert").hide();
+                $("#divloading").hide();
+                $(".crop-loading").hide();
+            });
+        </script>
+        <script type="text/javascript">
+            function showAlert(x) {
+                var m = document.getElementById("lbmess");
+                m.innerHTML = x;
+                $("#success-alert").fadeTo(5000, 5000).slideUp(1000, function () {
+                    $("#success-alert").slideUp(1000);
+                });
+            }
+        </script>
+</body>
+</html>
