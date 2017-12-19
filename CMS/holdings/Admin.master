@@ -1,0 +1,275 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="Admin" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head id="Head1" runat="server">
+    <title>HCC Holding</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="/xmlrpc.php">
+    <script rel="abtf">        WebFontConfig = { google: { "families": ["Source Sans Pro:200,200italic,300,300italic,regular,italic,600,600italic,700,700italic,900,900italic:latin", "Montserrat:regular,700:latin", "Open Sans:300italic,400italic,600italic,300,400,600:latin"]} }; ; window.Abtf = function (window) { var Abtf = { cnf: {}, h: function (cnf, css) { this.cnf = cnf, cnf.proxy && window.Abtf.proxy_setup(cnf.proxy), this.cnf.js && !this.cnf.js[1] && this.js(this.cnf.js[0]); var noref = !("undefined" == typeof this.cnf.noref || !this.cnf.noref); noref || this.ref(), "undefined" != typeof cnf.gwf && cnf.gwf[0] && !cnf.gwf[1] && ("a" === cnf.gwf[0] ? this.async(cnf.gwf[2], "webfont") : "undefined" != typeof WebFont && ("string" == typeof cnf.gwf[0] && (cnf.gwf[0] = eval("(" + cnf.gwf[0] + ")")), WebFont.load(cnf.gwf[0]))) }, f: function (a) { a && this.css && this.css(), this.cnf.js && this.cnf.js[1] && this.js(this.cnf.js[0]), "undefined" != typeof this.cnf.gwf && this.cnf.gwf[0] && this.cnf.gwf[1] && ("a" === this.cnf.gwf[0] ? this.async(this.cnf.gwf[2], "webfont") : "undefined" != typeof WebFont && WebFont.load(this.cnf.gwf[0])) }, ready: function (a, b, c) { b = document, c = "addEventListener", b[c] ? b[c]("DocumentContentLoaded", a) : window.attachEvent("onload", a) }, ref: function () { "undefined" != typeof window.console && console.log("\n%c100", "font: 1em sans-serif; color: white; background-color: #079c2d;padding:2px;", "Google PageSpeed Score optimized using https://goo.gl/C1gw96\n\nTest your website: https://pagespeed.pro/tests\n\n") }, async: function (a, b) { !function (c) { var d = c.createElement("script"); d.src = a, b && (d.id = b), d.async = !0; var e = c.getElementsByTagName("script")[0]; if (e) e.parentNode.insertBefore(d, e); else { var f = document.head || document.getElementsByTagName("head")[0]; f.appendChild(d) } } (document) } }, SITE_URL, BASE_URL_REGEX; return Abtf } (window); !function (a, b) { a.Abtf.css = function () { var a, b = this.cnf.css; if ([[["all"], "/wp-content/plugins/miniorange-login-openid/includes/css/mo_openid_style.css?version=5.0.6"], [["all"], "/wp-content/themes/arkeytect/frontend/css/owl.carousel.css"], [["all"], "/wp-content/themes/arkeytect/frontend/css/prettyphoto.min.css"]] !== b && b) { var c = !!document.getElementById("AbtfCSS") && document.getElementById("AbtfCSS").nextSibling; for (i in b) "object" == typeof b[i] && (a = b[i][0].join(","), this.loadCSS(b[i][1], c, a)) } } } (window, window.Abtf); !function (a, b) { a.Abtf.loadCSS = function (c, d, e, f) { function g(a) { return j.body ? a() : void setTimeout(function () { g(a) }) } function h() { function a() { b.raf(function () { k.media = e || "all", f && f() }) } n || (n = !0, k.addEventListener && k.removeEventListener("load", h), "undefined" != typeof b.cnf.delay && parseInt(b.cnf.delay) > 0 ? setTimeout(a, b.cnf.delay) : a()) } var i, j = a.document, k = j.createElement("link"); if (d) i = d; else { var l = (j.body || j.getElementsByTagName("head")[0]).childNodes; i = l[l.length - 1] } var m = j.styleSheets; k.rel = "stylesheet", k.href = c, k.media = "only x", g(function () { i.parentNode.insertBefore(k, d ? i : i.nextSibling) }); var n = !1, o = function (a) { if (!n) { for (var b = k.href, c = m.length; c-- && !n; ) if (m[c].href === b) return a(); setTimeout(function () { o(a) }) } }; return k.addEventListener ? k.addEventListener("load", h) : k.onload = h, o(h), k }, a.Abtf.raf = function (a) { "function" == typeof requestAnimationFrame ? requestAnimationFrame(a) : "function" == typeof mozRequestAnimationFrame ? mozRequestAnimationFrame(a) : "function" == typeof webkitRequestAnimationFrame ? webkitRequestAnimationFrame(a) : "function" == typeof msRequestAnimationFrame ? msRequestAnimationFrame(a) : b.ready(a) } } (window, window.Abtf); Abtf.h({ "gwf": ["a", true, "https:\/\/ajax.googleapis.com\/ajax\/libs\/webfont\/1.6.26\/webfont.js"], "css": [[["all"], "/wp-content/plugins/miniorange-login-openid/includes/css/mo_openid_style.css?version=5.0.6"], [["all"], "/wp-content/themes/arkeytect/frontend/css/owl.carousel.css"], [["all"], "/wp-content/themes/arkeytect/frontend/css/prettyphoto.min.css"]] });</script>
+    <style type="text/css" rel="abtf" id="AbtfCSS"></style>
+    <script rel="abtf">        Abtf.css();</script>
+    <link rel='dns-prefetch' href='//fonts.googleapis.com' />
+    <link rel='dns-prefetch' href='//s.w.org' />
+    <link rel="shortcut icon" href="/wp-content/uploads/2017/02/favicon.ico" sizes="32x32">
+    <script type="text/javascript">
+        window._wpemojiSettings = { "baseUrl": "https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/72x72\/", "ext": ".png", "svgUrl": "https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/svg\/", "svgExt": ".svg", "source": { "concatemoji": "http:\/\/crunchpress.com\/demo\/arkeytect\/wp-includes\/js\/wp-emoji-release.min.js"} };
+        !function (a, b, c) { function d(a) { var b, c, d, e, f = String.fromCharCode; if (!k || !k.fillText) return !1; switch (k.clearRect(0, 0, j.width, j.height), k.textBaseline = "top", k.font = "600 32px Arial", a) { case "flag": return k.fillText(f(55356, 56826, 55356, 56819), 0, 0), !(j.toDataURL().length < 3e3) && (k.clearRect(0, 0, j.width, j.height), k.fillText(f(55356, 57331, 65039, 8205, 55356, 57096), 0, 0), b = j.toDataURL(), k.clearRect(0, 0, j.width, j.height), k.fillText(f(55356, 57331, 55356, 57096), 0, 0), c = j.toDataURL(), b !== c); case "emoji4": return k.fillText(f(55357, 56425, 55356, 57341, 8205, 55357, 56507), 0, 0), d = j.toDataURL(), k.clearRect(0, 0, j.width, j.height), k.fillText(f(55357, 56425, 55356, 57341, 55357, 56507), 0, 0), e = j.toDataURL(), d !== e } return !1 } function e(a) { var c = b.createElement("script"); c.src = a, c.defer = c.type = "text/javascript", b.getElementsByTagName("head")[0].appendChild(c) } var f, g, h, i, j = b.createElement("canvas"), k = j.getContext && j.getContext("2d"); for (i = Array("flag", "emoji4"), c.supports = { everything: !0, everythingExceptFlag: !0 }, h = 0; h < i.length; h++) c.supports[i[h]] = d(i[h]), c.supports.everything = c.supports.everything && c.supports[i[h]], "flag" !== i[h] && (c.supports.everythingExceptFlag = c.supports.everythingExceptFlag && c.supports[i[h]]); c.supports.everythingExceptFlag = c.supports.everythingExceptFlag && !c.supports.flag, c.DOMReady = !1, c.readyCallback = function () { c.DOMReady = !0 }, c.supports.everything || (g = function () { c.readyCallback() }, b.addEventListener ? (b.addEventListener("DOMContentLoaded", g, !1), a.addEventListener("load", g, !1)) : (a.attachEvent("onload", g), b.attachEvent("onreadystatechange", function () { "complete" === b.readyState && c.readyCallback() })), f = c.source || {}, f.concatemoji ? e(f.concatemoji) : f.wpemoji && f.twemoji && (e(f.twemoji), e(f.wpemoji))) } (window, document, window._wpemojiSettings);
+    </script>
+    <link rel="stylesheet" href="/styles/css-media-all.css" media="all">
+    <link rel="stylesheet" href="/styles/css-media-screen.css" media="all">
+    <link rel="stylesheet" href="/styles/css-client.css">
+    <script type='text/javascript' src='/wp-content/plugins/LayerSlider/static/layerslider/js/greensock.js'></script>
+    <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
+    <script type='text/javascript'>        try { jQuery.noConflict(); } catch (e) { };</script>
+    <script type='text/javascript' src='/wp-includes/js/jquery/jquery-migrate.min.js'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var LS_Meta = { "v": "6.0.5" };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='/wp-content/plugins/LayerSlider/static/layerslider/js/layerslider.kreaturamedia.jquery.js'></script>
+    <script type='text/javascript' src='/wp-content/plugins/LayerSlider/static/layerslider/js/layerslider.transitions.js'></script>
+    <script type='text/javascript' src='/wp-content/plugins/miniorange-login-openid/includes/js/jquery.cookie.min.js'></script>
+    <script type='text/javascript' src='/wp-content/plugins/miniorange-login-openid/includes/js/social_login.js'></script>
+    <!--[if lt IE 9]>
+<script type='text/javascript' src='/wp-content/themes/arkeytect/frontend/js/html5shive.js'></script>
+<![endif]-->
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var userSettings = { "url": "\/demo\/arkeytect\/", "uid": "0", "time": "1498634774", "secure": "" };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='/wp-includes/js/utils.min.js'></script>
+    <meta name="generator" content="Powered by LayerSlider 6.0.5 - Multi-Purpose, Responsive, Parallax, Mobile-Friendly Slider Plugin for WordPress." />
+    <!-- LayerSlider updates and docs at: https://layerslider.kreaturamedia.com -->
+    <link rel='https://api.w.org/' href='/wp-json/' />
+    <link rel="canonical" href="/" />
+    <link rel="alternate" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fcrunchpress.com%2Fdemo%2Farkeytect%2F" />
+    <link rel="alternate" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fcrunchpress.com%2Fdemo%2Farkeytect%2F&#038;format=xml" />
+    
+    <script type="text/javascript">
+        (function (url) {
+            if (/(?:Chrome\/26\.0\.1410\.63 Safari\/537\.31|WordfenceTestMonBot)/.test(navigator.userAgent)) { return; }
+            var addEvent = function (evt, handler) {
+                if (window.addEventListener) {
+                    document.addEventListener(evt, handler, false);
+                } else if (window.attachEvent) {
+                    document.attachEvent('on' + evt, handler);
+                }
+            };
+            var removeEvent = function (evt, handler) {
+                if (window.removeEventListener) {
+                    document.removeEventListener(evt, handler, false);
+                } else if (window.detachEvent) {
+                    document.detachEvent('on' + evt, handler);
+                }
+            };
+            var evts = 'contextmenu dblclick drag dragend dragenter dragleave dragover dragstart drop keydown keypress keyup mousedown mousemove mouseout mouseover mouseup mousewheel scroll'.split(' ');
+            var logHuman = function () {
+                var wfscr = document.createElement('script');
+                wfscr.type = 'text/javascript';
+                wfscr.async = true;
+                wfscr.src = url + '&r=' + Math.random();
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(wfscr);
+                for (var i = 0; i < evts.length; i++) {
+                    removeEvent(evts[i], logHuman);
+                }
+            };
+            for (var i = 0; i < evts.length; i++) {
+                addEvent(evts[i], logHuman);
+            }
+        })('');
+    </script>
+    <script type="text/JavaScript">
+        var ajaxurl = '/wp-admin/admin-ajax.php';
+        var directory_url = '/wp-content/themes/arkeytect';
+    </script>
+    <meta name="generator" content="Powered by Visual Composer - drag and drop page builder for WordPress." />
+    <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/wp-content/plugins/js_composer/assets/css/vc_lte_ie9.min.css" media="screen"><![endif]-->
+    <link rel="alternate" hreflang="en-US" href="/" />
+    <link rel="alternate" hreflang="fr-FR" href="/fr/" />
+    <link rel="alternate" hreflang="es-ES" href="/es/" />
+    <link rel="alternate" hreflang="tr-TR" href="/tr/" />
+    <link rel="apple-touch-icon-precomposed" href="/wp-content/uploads/2016/11/cropped-favicon-180x180.png" />
+    <meta name="msapplication-TileImage" content="/wp-content/uploads/2016/11/cropped-favicon-270x270.png" />
+    <style type="text/css" data-type="vc_shortcodes-custom-css">
+        .vc_custom_1477915087078
+        {
+            background: #0c0c0c url(/wp-content/uploads/2016/10/featured-work-bg.png?id=33) !important;
+        }
+        
+        .vc_custom_1477921942941
+        {
+            background: #0c0c0c url(/wp-content/uploads/2016/10/facts-bg.png?id=40) !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-size: cover !important;
+        }
+        
+        .vc_custom_1480070562323
+        {
+            background-color: #0a0a0a !important;
+        }
+        
+        .vc_custom_1478181235280
+        {
+            margin-bottom: 35px !important;
+        }
+        
+        .vc_custom_1478001242658
+        {
+            background: #0c0c0c url(/wp-content/uploads/2016/10/call-action-bg.png?id=88) !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-size: cover !important;
+        }
+        
+        .vc_custom_1488265417948
+        {
+            margin-top: -35px !important;
+        }
+        
+        .vc_custom_1488265427795
+        {
+            margin-top: -35px !important;
+        }
+    </style>
+    <noscript>
+        <style type="text/css">
+            .wpb_animate_when_almost_visible
+            {
+                opacity: 1;
+            }
+        </style>
+    </noscript>
+    <link href="/styles/owl.carousel.css" rel="stylesheet" type="text/css" media="all" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="Form1" runat="server">
+    <body class="home page-template-default page page-id-10 arkeytect_full_width wpb-js-composer js-comp-ver-5.0.1 vc_responsive">
+    <div id="wrapper" class="campers-theme theme-style-1">
+        <header id="header">
+            <div class="container-fluid">
+                <div class="holder">
+                    <strong class="logo">
+                        <a href="/home">
+                            <img width="100%" height="100%" src="/wp-content\uploads\2017\02\Logo - 175x120px-01.jpg" alt="Arkeytect">
+                        </a>
+                    </strong>
+                    <div class="left">
+                        <div class="head-top">
+                            <div class="left-box">
+
+                                <a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i><span class="__cf_email__" data-cfemail="5c35323a331c39243d312c3039723f3331">info@hcco.vn</span><script data-cfhash='f9e31' type="text/javascript">/* <![CDATA[                                                                                                                                                                                                                                                                          * / !function (t, e, r, n, c, a, p) { try { t = document.currentScript || function () { for (t = document.getElementsByTagName('script'), e = t.length; e--; ) if (t[e].getAttribute('data-cfhash')) return t[e] } (); if (t && (c = t.previousSibling)) { p = t.parentNode; if (a = c.getAttribute('data-cfemail')) { for (e = '', r = '0x' + a.substr(0, 2) | 0, n = 2; a.length - n; n += 2) e += '%' + ('0' + ('0x' + a.substr(n, 2) ^ r).toString(16)).slice(-2); p.replaceChild(document.createTextNode(decodeURIComponent(e)), c) } p.removeChild(t) } } catch (u) { } } ()/* ]]> */</script></a>
+                                <a><i class="fa fa-map-marker" aria-hidden="true"></i>Tầng 29, Tòa nhà HANDICO, Mễ Trì, Quận Nam Từ Liêm, Hà Nội</a>
+                            </div>
+                            <div class="right-box">
+                                
+                            </div>
+                        </div>
+                        <div class="head-btm-row">
+                            <!--NAVIGATION START-->
+                            <div class="navigation">
+                                <nav class="navbar navbar-inverse">
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                                    </div>
+                                    <div id="navbar" class="collapse navbar-collapse">
+                                        <div id="default-menu" class="header-menu">
+                                            <ul id="nav" class="navbar-nav">
+                                                <li id="menu-item-11" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-10 current_page_item current-menu-ancestor current-menu-parent current_page_parent current_page_ancestor menu-item-has-children menu-item-11"><a href="#">Hệ thống</a>
+                                                    <ul class="sub-menu">
+                                                        <li id="menu-item-131" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-131"><a href="/account">Quản trị người dùng</a></li>
+                                                        <asp:Literal ID="lbMenu" runat="server"></asp:Literal>
+                                                    </ul>
+                                                </li>
+                                                <li id="menu-item-208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-208"><a>Quản trị</a>
+                                                    <ul class="sub-menu">
+                                                        <li id="menu-item-207" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-207"><a href="/menu">Quản trị menu</a></li>
+                                                        <li id="menu-item-218" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-218"><a href="/slide">Quản trị Slide</a></li>
+                                                        <li id="Li1" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-218"><a href="/category">Quản trị lĩnh vực</a></li>
+                                                        <li id="Li3" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-218"><a href="/news">Quản trị tin tức</a></li>
+                                                        <li id="Li2" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-218"><a href="/partner">Quản trị đối tác</a></li>
+                                                        <li id="Li4" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-218"><a href="/product">Quản trị hình ảnh SP</a></li>
+                                                        <li id="Li5" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-218"><a href="/member">Quản trị thành viên CĐ</a></li>
+                                                        <li id="Li6" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-218"><a href="/feedback">Quản trị feedback</a></li>
+                                                    </ul>
+                                                </li>
+                                               
+                                                <li id="menu-item-458" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-458"><a>Trợ giúp</a>
+                                                    <ul class="sub-menu">
+                                                        <li id="menu-item-457" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-457"><a href="#">Liên hệ quản trị</a></li>
+                                                        <li id="menu-item-462" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-462"><a href="#">Xem hướng dẫn</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </nav>
+                            </div>
+                            <!--NAVIGATION END-->
+                            <div class="head-btm-right">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        <footer id="footer">
+            <!--NEWSLETTER SECTION START-->
+           
+            <section class="footer-section-1">
+                <div class="container">
+                    <div class="row">
+                            <div class="widget box-1 footer-box">
+                                <%--<h3>Lĩnh vực hoạt động</h3>
+                                <div class="ideal-services">
+                                    <ul>
+                                        <li><a href="#">Mỹ phẩm</a></li>
+                                        <li><a href="#">Spa</a></li>
+                                        <li><a href="#">Thời trang</a></li>
+                                        <li><a href="#">Giáo dục</a></li>
+                                        <li><a href="#">Kim loại quý</a></li>
+                                    </ul>
+                                </div>--%>
+                            </div>
+                        
+                    </div>
+                </div>
+            </section>
+
+        </footer>
+    </div>
+    
+    <script type='text/javascript' src='/wp-content/themes/arkeytect/frontend/js/custom.js'></script>
+    <script type='text/javascript' src='/wp-content/themes/arkeytect/frontend/js/search-controller.js'></script>
+    <script type='text/javascript' src='/wp-includes/js/comment-reply.min.js'></script>
+    
+    <script type='text/javascript' src='/wp-content/themes/arkeytect/frontend/js/bootstrap.min.js'></script>
+    <script type='text/javascript' src='/wp-content/themes/arkeytect/frontend/js/modernizr.min.js'></script>
+    <script type='text/javascript' src='/wp-content/themes/arkeytect/frontend/js/easing.min.js'></script>
+    
+    <script type='text/javascript' src='/wp-content/plugins/wpglobus/includes/js/wpglobus.min.js'></script>
+    <script type='text/javascript' src='/wp-includes/js/wp-embed.min.js'></script>
+    <script type='text/javascript' src='/wp-content/plugins/js_composer/assets/js/dist/js_composer_front.min.js'></script>
+    <script type='text/javascript' src='/wp-content/themes/arkeytect/frontend/js/owl.carousel.min.js'></script>
+    <script type='text/javascript' src='/wp-content/themes/arkeytect/frontend/js/isotope.pkgd.min.js'></script>
+    <script type='text/javascript' src='/wp-content/themes/arkeytect/frontend/js/jquery.prettyphoto.min.js'></script>
+    <script type='text/javascript' src='/wp-content/plugins/wysija-newsletters/js/validate/languages/jquery.validationEngine-en.js'></script>
+    <script type='text/javascript' src='/wp-content/plugins/wysija-newsletters/js/validate/jquery.validationEngine.js'></script>
+   
+    <script type='text/javascript' src='/wp-content/plugins/wysija-newsletters/js/front-subscribers.js'></script>
+    <script>/* <![CDATA[ */(function (d, s, a, i, j, r, l, m, t) { try { l = d.getElementsByTagName('a'); t = d.createElement('textarea'); for (i = 0; l.length - i; i++) { try { a = l[i].href; s = a.indexOf('/cdn-cgi/l/email-protection'); m = a.length; if (a && s > -1 && m > 28) { j = 28 + s; s = ''; if (j < m) { r = '0x' + a.substr(j, 2) | 0; for (j += 2; j < m && a.charAt(j) != 'X'; j += 2) s += '%' + ('0' + ('0x' + a.substr(j, 2) ^ r).toString(16)).slice(-2); j++; s = decodeURIComponent(s) + a.substr(j, m - j) } t.innerHTML = s.replace(/</g, '&lt;').replace(/\>/g, '&gt;'); l[i].href = 'mailto:' + t.value } } catch (e) { } } } catch (e) { } })(document);/* ]]> */</script>
+</body>
+    </form>
+</body>
+</html>

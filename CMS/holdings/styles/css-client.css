@@ -1,0 +1,487 @@
+﻿ img.wp-smiley,
+ img.emoji {
+     display: inline !important;
+     border: none !important;
+     box-shadow: none !important;
+     height: 1em !important;
+     width: 1em !important;
+     margin: 0 .07em !important;
+     vertical-align: -0.1em !important;
+     background: none !important;
+     padding: 0 !important;
+ }
+ body,
+ .main-content {
+     background: #ffffff;
+ }
+ h1 {
+     font-size: 72px !important;
+ }
+ h2 {
+     font-size: 72px !important;
+ }
+ h3 {
+     font-size: 30px !important;
+ }
+ h4 {
+     font-size: 24px !important;
+ }
+ h5 {
+     font-size: 20px !important;
+ }
+ h6 {
+     font-size: 16px !important;
+ }
+ body {
+     font-size: 16px !important;
+ }
+ .classes-page .skill-inner .label,
+ body,
+ .comments-list li .text p,
+ .header-4-address strong.info,
+ .header-4-address a.email,
+ strong.copy,
+ .widget-box-inner p,
+ .blog-post-box .text p,
+ .box-1 p,
+ .box-1 .textwidget,
+ .get-touch-form input,
+ .get-touch-form strong.title,
+ .footer-copyright strong.copy,
+ #inner-banner p,
+ .welcome-text-box p,
+ .about-me-text p,
+ .about-me-text blockquote q,
+ .team-box .text p,
+ .accordition-box .accordion-inner p,
+ .facts-content-box p,
+ .our-detail-box p,
+ .our-detail-box ul li,
+ .widget_em_widget ul li,
+ .sidebar-recent-post ul li p,
+ blockquote p,
+ blockquote q,
+ .author-box .text p,
+ .contact-page address ul li strong.title,
+ .contact-page address ul li strong.ph,
+ .contact-page address ul li strong.mob,
+ .contact-page address ul li a.email,
+ a.comment-reply-link,
+ .timeline-project-box > .text p,
+ .comments .text p,
+ .event-row .text p,
+ .project-detail p,
+ .news-box .text p,
+ .error-page p,
+ .cp-columns p,
+ .cp-list-style ul li,
+ .customization-options ul li,
+ .cp-accordion .accordion-inner strong,
+ .list-box ul li,
+ .list-box2 ul li,
+ .list-box3 ul li,
+ .tab-content p,
+ .tab-content-area p,
+ .blockquote-1 q,
+ .blockquote-2 q,
+ .map h3,
+ .even-box .caption p,
+ .header-4-address strong.info,
+ .header-4-address a.email,
+ strong.copy,
+ .widget-box-inner p,
+ .cp-theme-style-1 p,
+ .cp_job_list strong.salary,
+ .load_more_jobs > strong,
+ #footer .box ul li a,
+ .bottom-row strong.copyrights,
+ .theme-style-1 p,
+ .testimonials-section .holder .text-box em,
+ .price-table .box ul li,
+ .sidebar .box .text-box strong.widget_price_featured,
+ .sidebar .box .text-box a.text,
+ .banner-menu ul li a,
+ .browse-job-section strong.title,
+ .load_more_resumes > strong,
+ .job-detail ul li,
+ #content-area .job-manager-application-wrapper .application .application_button,
+ #content-area .single_job_listing .application .application_button {} {
+     font-family: "Montserrat" !important;
+ }
+ {
+     font-family: "Montserrat" !important;
+ }
+ ::selection {
+     background: #0087d2;
+     /* Safari */
+     
+     color: #fff;
+ }
+ ::-moz-selection {
+     background: #0087d2;
+     /* Firefox */
+     
+     color: #fff;
+ }
+ {
+     background-color: #0087d2;
+     color: #fff;
+ }
+ .theme-style-1 a.btn-style-2,
+ .head-top,
+ #nav li ul li a:hover,
+ #nav li ul li:hover > a,
+ .top-search a.search-icon,
+ .language-box .btn-default:hover,
+ .language-box .btn-default:focus,
+ .language-box .btn-default.focus,
+ .language-box .btn-default:active,
+ .language-box .btn-default.active,
+ .language-box .open > .dropdown-toggle.btn-default,
+ .language-box .dropdown-menu > li > a:hover,
+ .language-box .dropdown-menu > li > a:focus,
+ #banner .owl-page,
+ .welcome-section .left-box,
+ .heading-style-1:before,
+ .heading-style-1:after,
+ .featured-work .frame .caption:before,
+ .thumb .caption:before,
+ .thumb .caption:after,
+ .blog-section .post-box .thumb .caption:before,
+ .blog-section .post-box .thumb .caption:after,
+ .skill-section .right-col .holder .progress-bar,
+ .testimonials-style-1 .holder .testi-container .text-col strong:before,
+ .testimonials-style-1 .holder .testi-container .text-col strong:after,
+ .newsletter-section .holder,
+ .footer-section-1 .footer-box a.more:before,
+ .footer-section-1 .footer-box a.more:after,
+ .footer-social ul li a:hover,
+ .progress-tab .nav-tabs > li:before,
+ .progress-tab .nav-tabs > li:after,
+ .progress-tab .nav li a:before,
+ .team-style-2-box .thumb .caption:before,
+ .tags a:hover,
+ .share-post ul li a:hover,
+ .blog-full .sticky:before,
+ .detail-row-1 .social ul li a:hover,
+ .detail-row-2 .skill-box .progress-bar,
+ .price-box ul li:hover,
+ .career-form-outer .head,
+ .why-choose-us .text-box,
+ .head-top-2 .left-col ul li a:hover,
+ .head-3-social ul li a:hover,
+ .navbar-toggle,
+ .theme-style-1 a.btn-style-1:before,
+ #cp-slide-search form button,
+ .blog-section .post-box:hover .text-box a.more,
+ .contact-section form input[type="submit"],
+ .quote-form form input[type="submit"],
+ .comment-box form input[type="submit"],
+ .register-section .holder form input[type="submit"],
+ .career-form form input[type="submit"],
+ .skill-section .left-col {
+     background: #0087d2;
+ }
+ .theme-style-1 a.btn-style-1,
+ .top-search a.search-icon:hover,
+ .featured-work .frame .caption a.link,
+ .featured-work-box:hover h3 a,
+ .services-style-1-box .icon-box,
+ .portfolioFilter a:hover,
+ .portfolioFilter a.current,
+ .portfolio-style-1 .outer .inner a.link:hover,
+ .blog-section .post-box .left-box span.date,
+ .blog-section .post-box .thumb .caption a.link:hover,
+ .blog-section .post-box:hover h3 a,
+ .team-style-1-social ul li a:hover,
+ .newsletter-section .holder form button[type="submit"]:hover,
+ .footer-section-1 .footer-box a.more,
+ .ideal-services ul li:hover a,
+ .ideal-services ul li:hover:before,
+ .footer-section-3 .footer-menu ul li a:hover,
+ .services-style-2 .services-style-2-box i,
+ .progress-tab .nav > li > a,
+ .tab-slider .owl-next:hover:before,
+ .tab-slider .owl-prev:hover:before,
+ .awards-section .award-box:hover a.title,
+ .team-style-2-box .thumb .caption a.link:hover,
+ .team-style-2-box .text-box .holder em,
+ .testimonials-style-2 .bx-wrapper .bx-next:hover:before,
+ .testimonials-style-2 .bx-wrapper .bx-prev:hover:before,
+ .testimonials-style-2 #bx-pager a.active strong.name,
+ .blog-section .owl-next:hover:before,
+ .blog-section .owl-prev:hover:before,
+ .sidebar-box form button[type="submit"],
+ .popular-post ul li:hover a,
+ .recent-post ul li:hover a,
+ .blog-section blockquote .fa,
+ .blog-section .bx-wrapper .bx-prev:hover:before,
+ .blog-section .bx-wrapper .bx-next:hover:before,
+ .detail-row-1 .text-box em,
+ .price-box strong.title,
+ .error-page .holder strong.number,
+ .error-page .holder form button[type="submit"],
+ .register-section .holder form strong,
+ .register-section .holder form strong a,
+ .header-style-3 #nav li.active a,
+ .blog-section blockquote:after,
+ .register-section .holder strong {
+     color: #0087d2;
+ }
+ .theme-style-1 a.btn-style-1,
+ .theme-style-1 a.btn-style-2:hover:before,
+ .top-search a.search-icon:hover,
+ .welcome-slider .owl-page.active,
+ .fact-figures .holder .fact-box .inner,
+ .blog-section .post-box .text-box,
+ .team-style-1 .text-col,
+ .testimonials-style-1 .owl-page.active,
+ .services-style-2 .services-style-2-box,
+ .tab-slider .frame:before,
+ .pagination-box .pagination > li.active,
+ .contact-section form input[type="submit"]:hover,
+ .quote-form form input[type="submit"]:hover,
+ .blog-section blockquote,
+ .price-box,
+ .register-section .holder form input[type="submit"]:hover,
+ .job-box,
+ .about-style-2 .owl-page.active {
+     border-color: #0087d2;
+ }
+ .number-box:hover .number-text:before {
+     border-color: transparent transparent transparent #0087d2;
+ }
+ .trip-detail-tab-section .nav-tabs > li.active > a:before {
+     border-color: #0087d2 transparent transparent transparent;
+ }
+ #nav li a:hover:before,
+ #nav li a:focus::before {
+     text-shadow: 7px 0 #0087d2, -7px 0 #0087d2;
+ }
+ #nav li.active a:before {
+     text-shadow: 7px 0 #0087d2, -7px 0 #0087d2;
+ }
+ .blue,
+ .cp-news-grid-style-1 .cp-news-post-excerpt h3 a:hover,
+ .cp-mega-menu ul .random a,
+ .cp-mega-menu ul .search-bar,
+ .cp-news-grid-style-2 a:hover,
+ .cp-news-grid-style-3 h3 a:hover,
+ .cp-news-grid-style-5 .cp-news-list h3 a:hover,
+ .cp-post-tools a,
+ .cp-rating a,
+ .tags-widget a,
+ .cp-post-rating a,
+ .cp-news-grid-style-6 .cp-post-content h3 a:hover,
+ .cp-pro-rating a,
+ .cp-product-grid .price ins,
+ .cp-product-grid ul.grid h3 a:hover,
+ .cp-single-post .cp-post-content h3 a:hover,
+ .cp-post-share span,
+ .cp-post-tags span,
+ .cp-post-content h3 a:hover,
+ .cp-comments h4 a:hover,
+ .cp-masonry-posts .cp-post-content blockquote:before,
+ .cp-masonry-posts .cp-post-content strong.link-post:before,
+ .cp-masonry-posts-50 .cp-post-content blockquote:before,
+ .cp-masonry-posts-50 .cp-post-content strong.link-post:before,
+ .cp-product-details .cp-pro-content h3 a:hover,
+ .cp-product-details .price ins,
+ .cp-pro-details-tabs .nav-tabs > li > a:hover,
+ .cp-pro-details-tabs .nav-tabs > li.active > a,
+ .cp-pro-details-tabs .nav-tabs > li.active > a:hover,
+ .cp-pro-details-tabs .nav-tabs > li.active > a:focus,
+ .cp-login-form .forgot a,
+ .cp-login-form .signup a,
+ .sidebar .popular-post .small-grid h3 a:hover,
+ .sidebar .latest-posts .small-grid h3 a:hover,
+ .sidebar .most-commented ul li a:hover,
+ .cp-featured-news-slider .cp-post-content h1 a:hover,
+ .sidebar .reviews li h4 a:hover,
+ .sidebar .cat-holder a:hover,
+ .cp-news-grid-style-4 .cp-fullwidth-news-post-excerpt .cp-post-content h3 a:hover,
+ .cp-news-grid-style-4 .cp-post .cp-post-content h3 a:hover,
+ #wrapper .cp-featured-news-slider a:hover,
+ #wrapper .cp-featured-news-slider .cp-post-content .cp-post-tools a:hover,
+ #main-woo .price ins {
+     color: ;
+ }
+ .nbs-flexisel-item .eventcd,
+ #footer .wpcf7-form .wpcf7-submit,
+ .events .eventcd,
+ .event-content .eventcd,
+ .fc.fc-ltr .fc-header,
+ .wrapper .woocommerce-page #respond #submit.submit,
+ .comment-form .form-submit .submit,
+ .wrapper .sidebar .widget #searchform input[type="submit"],
+ .readmore-button,
+ .side-banner .bx-wrapper .bx-pager.bx-default-pager a:hover,
+ .side-banner .bx-wrapper .bx-pager.bx-default-pager a.active,
+ .events .eventcd,
+ .event-content .eventcd,
+ .nbs-flexisel-item .eventcd,
+ .wrapper .testimonial .title,
+ .trave-home-blog .read-more,
+ .hot-deal .like a,
+ .hot-deal .cart a,
+ .list-view .like a,
+ .list-view .cart a,
+ .custom_accordion_cp h3,
+ .table th,
+ .table .progress,
+ .striker,
+ .category_list_filterable .gdl-button.active,
+ #signin .modal-content .btn-style,
+ .modal-dialog.modal-sm #sing-up .btn-style,
+ .full-fixture #booking_form #em-booking-submit,
+ .full-fixture #booking_form #em_wp-submit,
+ .btn-hover,
+ .btn-dark-hover,
+ #dbem-bookings-table thead,
+ .widget .em-calendar-wrapper tbody td a,
+ .value .reset_variations,
+ .post-password-form input[type="submit"],
+ .textwidget .wpcf7 .wpcf7-submit,
+ #header9 .main-navbar .hcart,
+ .widget #searchform input[type="submit"],
+ .widget_product_search input[type="submit"],
+ .pro-bottom .pcart:hover,
+ .woocommerce .shop_table.cart .actions .button,
+ .woocommerce .shipping_calculator .button,
+ #order_review #payment .button,
+ .woocommerce .login .button,
+ .entry-content-cp .checkout_coupon .button,
+ .summary.entry-summary .button,
+ .wrapper .woocommerce #respond input#submit.submit,
+ .wrapper .woocommerce-page #respond #submit.submit,
+ #place_order.button,
+ .woocommerce .shop_table.cart thead,
+ .em-search-submit,
+ #horizontal-tabs .nav-tabs > li > a:hover,
+ #horizontal-tabs .ui-tabs-active.ui-state-active a,
+ #vertical-tabs .nav-tabs > li > a:hover,
+ #vertical-tabs .ui-tabs-active.ui-state-active a,
+ .sidebar .readmore,
+ .sidebar .widget_shopping_cart_content .buttons .button,
+ #header9 .topbar-dropdowns .dropdown-menu > li > a:hover,
+ #header9 .topbar-dropdowns .dropdown-menu > li > a:focus,
+ .related.products .products .rel-box .add_to_cart_button,
+ #main-woo .woo-cat-products .add_to_cart_button,
+ #main-woo .woo-cat-products .added_to_cart,
+ .pricing .btn-style,
+ .form-404 input#searchsubmit,
+ .home-blog-container .post-meta .add_to_cart_button:hover,
+ .simple-grid .product-box .frame .add_to_cart_button:hover,
+ .simple-grid .product-box .frame .added_to_cart:hover,
+ {
+     background: ;
+ }
+ .blog-post-text blockquote,
+ .news-post-text blockquote {
+     border-bottom-color: ;
+ }
+ .side-banner .bx-wrapper .bx-pager.bx-default-pager a:hover,
+ .side-banner .bx-wrapper .bx-pager.bx-default-pager a.active,
+ .blog-post-text blockquote,
+ .news-post-text blockquote,
+ .blog-details > p:nth-last-child(1),
+ .testimonial img,
+ .team-box:hover,
+ .about-text .quote,
+ .arkeytect_wrapper2 .social-links li a:hover {
+     border-color: ;
+ }
+ .addtocart:before,
+ .home .pro-box .add_to_cart_button:before,
+ .addtocart:before,
+ .normal-grid .pro-box .add_to_cart_button:before,
+ .pro-box .thumb .sale,
+ .classes-time .nav-tabs > li.active > a:after {
+     border-top-color: #0087d2;
+ }
+ .copyright-row:before {
+     border-bottom: 12px solid #0087d2;
+ }
+ .home-menu .navbar-nav > li > .sub-menu,
+ .home-menu .menu ul > li .children,
+ #header .nav > li > a:hover,
+ #header .nav > li > a:focus,
+ #header .navbar-nav > li > .sub-menu,
+ #header .menu ul > li .children,
+ .home-menu .navbar-nav > li ul.sub-menu li ul.sub-menu,
+ .home-menu .menu > li ul.children li ul.children,
+ .pricing-table-curve .price-table:hover .pricing-footer {
+     border-bottom-color: #0087d2;
+ }
+ .ftop {
+     background: #C0617D;
+ }
+ #arkeytect_header6 .navigation-row,
+ #arkeytect_header6 .search-box .search,
+ #arkeytect_header1 .navigation-row,
+ #arkeytect_header4 .navigation-row,
+ .arkeytect_search_box,
+ #arkeytect_header2 .navbar-nav li a:hover,
+ #arkeytect_header2 .navbar-nav li a:focus,
+ #arkeytect_header2 .navbar-nav li a.active,
+ #arkeytect_header2 .search,
+ #arkeytect_header3 .logo-row,
+ #arkeytect_header3 .navbar-nav li a:hover,
+ #arkeytect_header3 .navbar-nav li a:focus,
+ #arkeytect_header3 .navbar-nav li a.active,
+ .pro-box button.add_to_cart_button,
+ .pro-box .added_to_cart,
+ .add_to_cart_button,
+ .product-box .bottom strong.price,
+ .added_to_cart,
+ .onsale,
+ .widget_search #searchsubmit,
+ .sidebar #searchform input[type="submit"],
+ .sidebar .widget_product_search #searchform input[type="submit"],
+ .sidebar .newsletter-box button,
+ .about .nav-tabs > li.active > a,
+ .nav-tabs > li.active > a:hover,
+ .nav-tabs > li.active > a:focus,
+ #header-login,
+ .about .nav-tabs > li a,
+ .percentage,
+ .progress span,
+ .p404 .buttons,
+ .service-grid span:hover,
+ .price,
+ .woocommerce a.button,
+ .woocommerce-page a.button,
+ .woocommerce button.button,
+ .woocommerce-page button.button,
+ .woocommerce input.button,
+ .woocommerce-page input.button,
+ .woocommerce #respond input#submit,
+ .woocommerce-page #respond input#submit,
+ .woocommerce #content input.button,
+ .woocommerce-page #content input.button,
+ .signup input[type="submit"],
+ .category_list_filterable .active,
+ input[type="submit"]:hover,
+ .block-image li.white-rounded:hover,
+ .ghover .pluss:hover,
+ .home .pro-box .add_to_cart_button:after,
+ .addtocart:after,
+ .addtocart,
+ .home .pro-box .add_to_cart_button,
+ .progress .percentage,
+ .pagination #pagination a:hover,
+ .pagination #pagination .active a {
+     background: #0087d2;
+ }
+ .pattren_arkeytect_footer {
+     background-color: #fff;
+     background-image: radial-gradient(circle at 100% 150%, #0087d2 24%, #0087d2 25%, #0087d2 28%, #0087d2 29%, #0087d2 36%, #0087d2 36%, #0087d2 40%, transparent 40%, transparent), radial-gradient(circle at 0 150%, #0087d2 24%, #0087d2 25%, #0087d2 28%, #0087d2 29%, #0087d2 36%, #0087d2 36%, #0087d2 40%, transparent 40%, transparent), radial-gradient(circle at 50% 100%, #0087d2 10%, #0087d2 11%, #0087d2 23%, #0087d2 24%, #0087d2 30%, #0087d2 31%, #0087d2 43%, #0087d2 44%, #0087d2 50%, #0087d2 51%, #0087d2 63%, #0087d2 64%, #0087d2 71%, transparent 71%, transparent), radial-gradient(circle at 100% 50%, #0087d2 5%, #0087d2 6%, #0087d2 15%, #0087d2 16%, #0087d2 20%, #0087d2 21%, #0087d2 30%, #0087d2 31%, #0087d2 35%, #0087d2 36%, #0087d2 45%, #0087d2 46%, #0087d2 49%, transparent 50%, transparent), radial-gradient(circle at 0 50%, #0087d2 5%, #0087d2 6%, #0087d2 15%, #0087d2 16%, #0087d2 20%, #0087d2 21%, #0087d2 30%, #0087d2 31%, #0087d2 35%, #0087d2 36%, #0087d2 45%, #0087d2 46%, #0087d2 49%, transparent 50%, transparent);
+     background-size: 30px 60px;
+     height: 25px;
+ }
+ .footer-copy {
+     background: rgba(0, 0, 0, 0.5);
+ }
+ #inner-banner {
+     background-image: url(/wp-content/themes/arkeytect/images/inner-banner.png);
+ }

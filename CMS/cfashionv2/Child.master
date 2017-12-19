@@ -1,0 +1,682 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Child.master.cs" Inherits="Child" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset='UTF-8'">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CFASHION - Sang trọng - Đẳng cấp - Quý phái</title>
+    <link rel="shortcut icon" href="/image/favicon.ico" sizes="32x32">
+    <meta name="description" content="CFASHION - Sang trọng - Đẳng cấp - Quý phái" />
+    <script src="/catalog/view/javascript/jquery/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/jquery/jquery-ui.js" type="text/javascript"></script>
+    <link href="/catalog/view/javascript/jquery/css/jquery-ui.css" rel="stylesheet" media="screen" />
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/oclayerednavigation/css/oclayerednavigation.css"
+        rel="stylesheet">
+    <script src="/catalog/view/javascript/opentheme/oclayerednavigation/oclayerednavigation.js"
+        type="text/javascript"></script>
+    <link href="/catalog/view/javascript/bootstrap/css/bootstrap.css" rel="stylesheet"
+        media="screen" />
+    <link href="/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+    <link href="/catalog/view/javascript/bootstrap/css/bootstrap-theme.css" rel="stylesheet"
+        media="screen" />
+    <script src="/catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <link href="/catalog/view/javascript/jquery/magnific/magnific-popup.css" type="text/css"
+        rel="stylesheet" />
+    <link href="/catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="/catalog/view/javascript/ionicons/css/ionicons.css" rel="stylesheet" type="text/css" />
+    <script src="/catalog/view/javascript/opentheme/hozmegamenu/custommenu.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/hozmegamenu/mobile_menu.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/jquery.plugin.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/ocslideshow/jquery.nivo.slider.js"
+        type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/vermegamenu/ver_menu.js" type="text/javascript"></script>
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/vermegamenu/css/ocvermegamenu.css"
+        rel="stylesheet" />
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/ocslideshow/ocslideshow.css"
+        rel="stylesheet" />
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/hozmegamenu/css/custommenu.css"
+        rel="stylesheet" />
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/css/animate.css" rel="stylesheet" />
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/css/owl.carousel.css"
+        rel="stylesheet" />
+    <script src="/catalog/view/javascript/jquery/elevatezoom/jquery.elevatezoom.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/jquery/owl-carousel/owl.carousel.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/ocquickview/ocquickview.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/ma.lettering.js" type="text/javascript"></script>
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/ocquickview/css/ocquickview.css"
+        rel="stylesheet">
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/stylesheet.css" rel="stylesheet">
+    <link href="/catalog/view/javascript/ionicons/css/ocblog.css" type="text/css" rel="stylesheet"
+        media="screen" />
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/ocajaxlogin/css/ocajaxlogin.css"
+        type="text/css" rel="stylesheet" media="screen" />
+    
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/ocpagebuilder.css"
+        type="text/css" rel="stylesheet" media="screen" />
+    <script src="/catalog/view/javascript/common.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/ocajaxlogin/ocajaxlogin.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/jquery/datetimepicker/moment.js" type="text/javascript"></script>
+    
+    <script src="/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/jquery.bpopup.min.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/ocslideshow/jquery.nivo.slider.js"
+        type="text/javascript"></script>
+    <%@ register tagprefix="umenu" tagname="Menu" src="/control/menu.ascx" %>
+    <%@ register tagprefix="usearch" tagname="Search" src="/control/search-box.ascx" %>
+    <%@ register tagprefix="uFooter" tagname="Footer" src="/control/footer.ascx" %>
+    <link href="/css/fbchat.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="product-category-254 home1">
+    <form id="form1" runat="server">
+    <header>
+         <div class="header-inner">
+            <div class="container">
+               <div class="container-inner">
+                  <div class="logo-container">
+                     <div id="logo">
+                        <a href="/home"><img src="/image/CFashion-logo-100.png" title="CFASHION" alt="CFASHION" class="img-responsive" /></a>
+                     </div>
+                  </div>
+                  <umenu:Menu ID="umenu" runat="server" />
+                  <usearch:Search ID="usearch" runat="server" />
+                  <div class="clearfix"></div>
+               </div>
+            </div>
+         </div>
+      </header>
+    <div class="ajax-body-login">
+        <div class="account-login">
+            <a href="javascript:void(0);" class="a-close-frm" onclick="ocajaxlogin.closeForm();">
+                <span>X</span></a>
+            <div class="ajax-content">
+                <div class="ajax-container">
+                    <div class="login-form-content">
+                        <h2>
+                            Đăng nhập</h2>
+                        <div id="ajax-login-form">
+                            <div class="form-group">
+                                <label class="control-label" for="inputemail">
+                                    Tên truy cập hoặc số điện thoại</label>
+                                <input type="text" name="email" runat="server" maxlength="64" placeholder="" id="inputemail"
+                                    class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="inputpassword">
+                                    Mật khẩu</label>
+                                <input type="password" name="password" runat="server" maxlength="64" placeholder=""
+                                    id="inputpassword" class="form-control" />
+                                <a class="forgotten" href="javascript:void(0)" onclick="ocajaxlogin.appendForgotPassForm()">Bạn quên mật khẩu</a>
+                            </div>
+                            <div class="action">
+                                <button class="button" type="button" onclick="client_login()">
+                                    <span>Đăng nhập</span></button>
+                                <button class="button" type="button" onclick="ocajaxlogin.appendRegisterForm()">
+                                    <span>Tạo tài khoản mới</span></button>
+                            </div>
+                            <div class="ajax-loader-container" style="display: none;">
+                                <img src="/image/catalog/AjaxLoader.gif" class="ajax-load-img" width="30" height="30"
+                                    alt="plazathemes.com" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="account-register">
+            <a href="javascript:void(0);" class="a-close-frm" onclick="ocajaxlogin.closeForm();">
+                <span>X</span></a>
+            <div class="ajax-content">
+                <div class="ajax-container">
+                    <div class="register-form-content">
+                        <h1>
+                            Đăng kí thành viên</h1>
+                        <p>
+                            Nếu bạn đã có tài khoản, hãy click <a onclick="ocajaxlogin.appendLoginForm()" href="javascript:void(0);">
+                                vào đây</a> để đăng nhập.</p>
+                        <div id="ajax-register-form" class="form-horizontal">
+                            <fieldset>
+                                <legend>Tài khoản</legend>
+                                <div class="form-group required">
+                                    <label class="col-sm-4 control-label" for="username">
+                                        Tên đăng nhập</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="username" runat="server" placeholder="Viết liền không dấu hoặc nhập số điện thoại" id="txtuser"
+                                            class="form-control" />
+                                    </div>
+                                </div> 
+                                <div class="form-group required">
+                                    <label class="col-sm-4 control-label" for="txtemail">
+                                        E-mail</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="email" runat="server" placeholder="Dùng để khôi phục mật khẩu"
+                                            id="txtemail" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group required">
+                                    <label class="col-sm-4 control-label" for="txtpassword">
+                                        Mật khẩu</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" name="password" runat="server" placeholder="Mật khẩu ít nhất 6 kí tự"
+                                            id="txtpassword" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group required">
+                                    <label class="col-sm-4 control-label" for="txtpassconfirm">
+                                        Nhập lại mật khẩu</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" name="confirm" runat="server" placeholder="Xác nhận lại mật khẩu"
+                                            id="txtpassconfirm" class="form-control" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset id="account">
+                                <legend>Thông tin</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="txtname">
+                                        * Họ và tên</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="lastname" runat="server" placeholder="" id="txtname" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dlsex">
+                                        Giới tính</label>
+                                    <div class="col-sm-8">
+                                        <select name="txtsex" id="dlsex" runat="server" class="form-control">
+                                            <option value="1" selected="selected">Nam</option>
+                                            <option value="0">Nữ</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="txtbirth">
+                                        Ngày sinh</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="input-birth" runat="server" placeholder="" id="txtbirth"
+                                            class="form-control datepicker2" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="txttelephone">
+                                        * Điện thoại</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="telephone" runat="server" placeholder="Số điện thoại dùng để đăng nhập" id="txttelephone"
+                                            class="form-control" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset id="address">
+                                <legend>Địa chỉ</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dlcountry">
+                                        Tỉnh, thành phố</label>
+                                    <div class="col-sm-8">
+                                        <select name="dlcountry" id="dlcountry_login" runat="server" class="form-control" onchange="changeCountry($(this).val())">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="dldistrict">
+                                        Quận, huyện</label>
+                                    <div class="col-sm-8">
+                                        <select name="dldistrict" id="dldistrict_login" runat="server" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="txtaddress">
+                                        Địa chỉ</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="txtaddress" runat="server" placeholder="" id="txtaddress"
+                                            class="form-control" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="form-group">
+                                <div class="col-sm-6 text-center">
+                                   <%-- <label>
+                                        <input type="checkbox" name="ckagree" id="ckagree" checked="checked" runat="server"
+                                            value="1" />
+                                        Tôi đã đọc và hiểu các <a href="javascript:void(0)" class="agree"><b>Điều khoản dịch vụ và chính sách
+                                            bảo mật</b></a>
+                                    </label>--%>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button class="button" type="button" onclick="client_register()">
+                                        <span>Đăng kí</span></button>
+                                    <button class="button" type="button" onclick="ocajaxlogin.closeForm();">
+                                        <span>Đóng lại</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-danger for-error error-warning">
+                        <i class="fa fa-exclamation-circle"></i><span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="account-forgotpass">
+        <a href="javascript:void(0);" class="a-close-frm" onclick="ocajaxlogin.closeForm();">
+            <span>X</span></a>
+        <div class="ajax-content">
+            <div class="ajax-container">
+                <div class="login-form-content">
+                    <h2>Khôi phục mật khẩu</h2>
+                    <div id="ajax-changepass-form">
+                    <div class="form-group">
+                        <label class="control-label" for="inputemail">
+                            Địa chỉ email</label>
+                        <input type="text" name="email" maxlength="64" placeholder="" id="email-forgot"
+                            class="form-control" />
+                    </div>
+                   
+                    <div class="action" style="line-height:45px;">
+                    <button class="button" type="button" onclick="forgotpassword();">
+                            <span>Gửi lại mật khẩu</span></button>
+                        &nbsp;&nbsp;<a href="javascript:void(0)" onclick="ocajaxlogin.appendLoginForm()">Bạn muốn đăng nhập ?</a>
+                    </div>
+                    <div class="ajax-loader-container" style="display: none;">
+                    <img src="/image/catalog/AjaxLoader.gif" class="ajax-load-img" width="30" height="30" alt="plazathemes.com" />
+                </div>                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+        <div class="account-changepass">
+            <a href="javascript:void(0);" class="a-close-frm" onclick="ocajaxlogin.closeForm();">
+                <span>X</span></a>
+            <div class="ajax-content">
+                <div class="ajax-container">
+                    <div class="login-form-content">
+                        <h2>
+                            Thay đổi mật khẩu</h2>
+                        <div id="ajax-login-form">
+                            <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="control-label" for="emailforgot">
+                                    Tên đăng nhập hoặc số điện thoại</label>
+                                <input type="text" name="email" runat="server" maxlength="64" placeholder="" id="emailforgot"
+                                    class="form-control" />
+                                    </div>
+                                <div class="col-md-6">
+                                <label class="control-label" for="passwordold">
+                                    Mật khẩu cũ</label>
+                                <input type="password" name="passwordold" runat="server" maxlength="64" placeholder=""
+                                    id="passwordold" class="form-control" />
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="control-label">
+                                    Mật khẩu mới</label>
+                                <input type="password" name="passwordnew" runat="server" maxlength="64" placeholder=""
+                                    id="passwordnew" class="form-control" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label" for="passwordnew2">
+                                    Xác nhận mật khẩu</label>
+                                <input type="password" name="passwordnew2" runat="server" maxlength="64" placeholder=""
+                                    id="passwordnew2" class="form-control" />
+                            </div>
+                            </div>
+                            <div class=" action" style="text-align:center;">
+                                <button class="button" type="button" onclick="changepassword()" style="margin:10px;">
+                                    <span>Thay đổi mật khẩu</span></button>
+                            </div>
+                            <div class="ajax-loader-container" style="display: none;">
+                                <img src="/image/catalog/AjaxLoader.gif" class="ajax-load-img" width="30" height="30"
+                                    alt="plazathemes.com" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+    <asp:ContentPlaceHolder ID="cph" runat="server">
+    </asp:ContentPlaceHolder>
+    </div>
+    <uFooter:Footer ID="ufooter" runat="server" />
+    <div class="alert alert-success" id="success-alert" style="position:fixed; bottom:13%; right:0px;width:auto; z-index:9999;">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <b>Thông báo ! </b>
+        <div id="lbmess" style="display:inline; padding:10px;">...</div>
+    </div>
+    </form>
+    <div class="fb-livechat"> <div class="ctrlq fb-overlay"></div><div class="fb-widget"> <div class="ctrlq fb-close"></div><div class="fb-page" data-href="https://www.facebook.com/CFashion.vn" data-tabs="messages" data-width="360" data-height="400" data-small-header="true" data-hide-cover="true" data-show-facepile="false"> </div><div class="fb-credit"> <a href="https://cfashion.vn" target="_blank">Powered by C'Fashion</a> </div><div id="fb-root"></div></div><a href="https://m.me/CFashion.vn" title="Gửi tin nhắn cho chúng tôi qua Facebook" class="ctrlq fb-button"> <div class="bubble">1</div><div class="bubble-msg">CHAT VỚI C'FASHION</div></a></div>
+    <script src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9"></script>
+    <script>$(document).ready(function(){function detectmob(){if( navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i) ){return true;}else{return false;}}var t={delay: 125, overlay: $(".fb-overlay"), widget: $(".fb-widget"), button: $(".fb-button")}; setTimeout(function(){$("div.fb-livechat").fadeIn()}, 8 * t.delay); if(!detectmob()){$(".ctrlq").on("click", function(e){e.preventDefault(), t.overlay.is(":visible") ? (t.overlay.fadeOut(t.delay), t.widget.stop().animate({bottom: 0, opacity: 0}, 2 * t.delay, function(){$(this).hide("slow"), t.button.show()})) : t.button.fadeOut("medium", function(){t.widget.stop().show().animate({bottom: "30px", opacity: 1}, 2 * t.delay), t.overlay.fadeIn(t.delay)})})}});</script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('.datepicker2').datepicker({
+                autoclose: true
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#success-alert").hide();
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Query.aspx/getTotalQuantityCart',
+
+                data: '',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    var totalquantity = document.getElementsByClassName("item-cart");
+                    totalquantity[0].innerHTML = data.d;
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Query.aspx/check_logined',
+                data: '',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.d) {
+                        var u6 = document.getElementById("uluser");
+                        var u5 = document.getElementById("ulorder");
+                        var u4 = document.getElementById("ullogout");
+                        var u7 = document.getElementById("ulscore");
+                        var u71 = document.getElementById("ulbuy");
+                        var u8 = document.getElementById("ulchangepass");
+
+                        var u1 = document.getElementById("ulregister");
+                        var u2 = document.getElementById("ullogin");
+                        u1.style.display = "none";
+                        u2.style.display = "none";
+                        u4.style.display = "block";
+                        u5.style.display = "block";
+                        u6.style.display = "block";
+                        u7.style.display = "block";
+                        u71.style.display = "block";
+                        u8.style.display = "block";
+                    }
+                    else {
+                        var u8 = document.getElementById("ulchangepass");
+                        var u7 = document.getElementById("ulscore");
+                        var u71 = document.getElementById("ulbuy");
+                        var u6 = document.getElementById("uluser");
+                        var u5 = document.getElementById("ulorder");
+                        var u4 = document.getElementById("ullogout");
+
+                        var u1 = document.getElementById("ulregister");
+                        var u2 = document.getElementById("ullogin");
+                        u1.style.display = "block";
+                        u2.style.display = "block";
+
+                        u4.style.display = "none";
+                        u5.style.display = "none";
+                        u6.style.display = "none";
+                        u7.style.display = "none";
+                        u71.style.display = "none";
+                        u8.style.display = "none";
+                    }
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+       
+        function showAlert(x) {
+            var m = document.getElementById("lbmess");
+            m.innerHTML = x;
+            $("#success-alert").fadeTo(5000, 5000).slideUp(1000, function () {
+                $("#success-alert").slideUp(1000);
+            });
+        }
+        function changepassword() {
+          var email = document.getElementById("emailforgot");
+          var pwold = document.getElementById("passwordold");
+          var pw1 = document.getElementById("passwordnew");
+          var pw2 = document.getElementById("passwordnew2");
+          if(email.value.length==0 || pwold.value.length==0 || pw1.value.length==0 || pw2.value.length==0)
+                alert('Nhập đầy đủ thông tin đăng nhập và mật khẩu');
+          else if(pw1.value != pw2.value)
+                alert('Mật khẩu xác nhận không trùng khớp');
+            else
+            {
+            $.ajax({
+                    type: 'POST',
+                    url: '/Query.aspx/changePassword',
+                    data: '{"email":"' + email.value + '","passold":"'+pwold.value+'","passnew":"'+pw1.value+'"}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                    email.value='';
+                    pwold.value='';
+                    pw1.value='';
+                    pw2.value='';
+                    alert(data.d._mess);
+                }
+            });
+          }
+        }
+        function forgotpassword() {
+          var email = document.getElementById("email-forgot");
+          if(email.value.length==0)
+            alert('Nhập địa chỉ email của bạn để khôi phục mật khẩu');
+         else
+            {
+            $.ajax({
+                type: 'POST',
+                url: '/Query.aspx/resetPassword',
+                data: '{"email":"' + email.value + '"}',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    email.value = '';
+                    alert(data.d._mess);
+                }
+            });
+          }
+        }
+        function logout() {
+            $.ajax({
+                type: 'POST',
+                url: '/Query.aspx/logout',
+                data: '',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    window.location.href = '/home';
+                    //setuserinfo(false);
+                }
+            });
+        }
+        function setuserinfo(signed) {
+            if (signed) {
+                var u8 = document.getElementById("ulchangepass");
+                var u7 = document.getElementById("ulscore");
+                var u71 = document.getElementById("ulbuy");
+                var u6 = document.getElementById("uluser");
+                var u5 = document.getElementById("ulorder");
+                var u4 = document.getElementById("ullogout");
+
+                var u1 = document.getElementById("ulregister");
+                var u2 = document.getElementById("ullogin");
+                u1.style.display = "none";
+                u2.style.display = "none";
+                u4.style.display = "block";
+                u5.style.display = "block";
+                u6.style.display = "block";
+                u7.style.display = "block";
+                u71.style.display = "block";
+                u8.style.display = "block";
+            }
+            else {
+                var u8 = document.getElementById("ulchangepass");
+                var u7 = document.getElementById("ulscore");
+                var u71 = document.getElementById("ulbuy");
+                var u6 = document.getElementById("uluser");
+                var u5 = document.getElementById("ulorder");
+                var u4 = document.getElementById("ullogout");
+
+                var u1 = document.getElementById("ulregister");
+                var u2 = document.getElementById("ullogin");
+                u1.style.display = "block";
+                u2.style.display = "block";
+
+                u4.style.display = "none";
+                u5.style.display = "none";
+                u6.style.display = "none";
+                u7.style.display = "none";
+                u71.style.display = "none";
+                u8.style.display = "none";
+            }
+        }
+        function client_login() {
+            var email = document.getElementById("inputemail");
+            var pw = document.getElementById("inputpassword");
+            if (email.value.length == 0 || pw.value.length == 0) {
+                alert('Nhập thông tin đăng nhập và mật khẩu');
+                return false;
+            }
+            else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Query.aspx/check_login',
+                    data: '{"us":"' + email.value + '","pw":"' + pw.value + '"}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.d.Ok) {
+                            window.location.href = window.location.href;
+                            setuserinfo(true);
+                            alert(data.d.Mess);
+                            email.value = '';
+                            pw.value = '';
+                            ocajaxlogin.closeForm();
+                        }
+                        else alert(data.d.Mess);
+                    }
+                });
+            }
+        }
+        function client_register() {
+            var user = document.getElementById("txtuser");
+            var email = document.getElementById("txtemail");
+            var pw = document.getElementById("txtpassword");
+            var pwc = document.getElementById("txtpassconfirm");
+            var name = document.getElementById("txtname");
+            var sex = document.getElementById("dlsex");
+            var birth = document.getElementById("txtbirth");
+            var phone = document.getElementById("txttelephone");
+            var country = document.getElementById("dlcountry_login");
+            var district = document.getElementById("dldistrict_login");
+            var add = document.getElementById("txtaddress");
+
+            var sexid= $("#dlsex").val();
+            var cid= $("#dlcountry_login").val();
+            var cname=$('#dlcountry_login option:selected').text()
+            
+            var did= $("#dldistrict_login").val();
+            var dname=$('#dldistrict_login option:selected').text()
+
+            if (email.value.length == 0 || pw.value.length == 0 || pwc.value.length == 0 || name.value.length == 0) {
+                alert('Nhập đầy đủ các trường yêu cầu (*)');
+                return false;
+            }
+            else if (pw.value != pwc.value) {
+                alert('Mật khẩu xác nhận không trùng khớp');
+                return false;
+            }
+            else if (pw.value.length<6 || pwc.value.length<6) {
+                alert('Nhập mật khẩu trên 6 kí tự');
+                return false;
+            }
+            else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Query.aspx/check_register',
+                    data: '{"user":"'+user.value+'","name":"' + name.value + '","email":"' + email.value + '","pw":"' + pw.value + '","sex":"' + sexid + '","phone":"' + phone.value + '","birth":"' + birth.value + '","add":"' + add.value + '","country":"' + cid + '","countryname":"'+cname+'","district":"' + did + '","districtname":"'+dname+'"}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.d._content == 'ok') {
+                            $("#txtuser").val("");
+                            $("#txtemail").val("");
+                            $("#txtpassword").val("");
+                            $("#txtpassconfirm").val("");
+                            $("#txtname").val("");
+                            $("#txtbirth").val("");
+                            $("#txttelephone").val("");
+                            $("#txtaddress").val("");
+                            alert(data.d._mess);
+                            ocajaxlogin.closeForm();
+                            window.location.href = window.location.href;
+                        }
+                        else alert(data.d._mess);
+                    }
+                });
+            }
+        }
+         function changeCountry(id) {
+            $('#dldistrict_login').find('option').remove().end();
+
+            if (id != "") {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Query.aspx/getCountry',
+                    data: '{"type":"' + id + '"}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        var d = document.getElementById('dldistrict_login');
+                        $('#dldistrict_login').find('option').remove().end();
+                        for (var i = 0; i < data.d.length; i++) {
+                            var opt = document.createElement('option');
+                            opt.value = data.d[i].Id;
+                            opt.innerHTML = data.d[i].Name;
+                            d.appendChild(opt);
+
+                        }
+                    }
+                });
+            }
+            else {
+                $('#dldistrict_login').find('option').remove().end().append('<option value="">Vui lòng chọn</option>').val('');
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Query.aspx/getCountry',
+                data: '{"type":"-1"}',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    var c1 = document.getElementById('dlcountry_login');
+                    for (var i = 0; i < data.d.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = data.d[i].Id;
+                        opt.innerHTML = data.d[i].Name;
+                        c1.appendChild(opt);
+                    }
+                    $('#dldistrict_login').find('option').remove().end().append('<option value="">Vui lòng chọn</option>').val('');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

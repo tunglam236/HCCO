@@ -1,0 +1,188 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CNICE - Shop of Natural</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109709329-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-109709329-1');
+    </script>
+    <link rel="shortcut icon" href="/image/favicon.ico" sizes="32x32">
+    <meta name="description" content="Melani, Responsive, Fashion, Opencart Theme" />
+    <script src="/catalog/view/javascript/jquery/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/jquery/jquery-ui.js" type="text/javascript"></script>
+    <link href="/catalog/view/javascript/jquery/css/jquery-ui.css" rel="stylesheet" media="screen" />
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/oclayerednavigation/css/oclayerednavigation.css"
+        rel="stylesheet">
+    <script src="/catalog/view/javascript/opentheme/oclayerednavigation/oclayerednavigation.js"
+        type="text/javascript"></script>
+    <link href="/catalog/view/javascript/bootstrap/css/bootstrap.css" rel="stylesheet"
+        media="screen" />
+    <link href="/catalog/view/javascript/bootstrap/css/bootstrap-theme.css" rel="stylesheet"
+        media="screen" />
+    <script src="/catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <link href="/catalog/view/javascript/jquery/magnific/magnific-popup.css" type="text/css"
+        rel="stylesheet" />
+    <link href="/catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="/catalog/view/javascript/ionicons/css/ionicons.css" rel="stylesheet" type="text/css" />
+    <script src="/catalog/view/javascript/opentheme/hozmegamenu/custommenu.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/hozmegamenu/mobile_menu.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/jquery.plugin.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/ocslideshow/jquery.nivo.slider.js"
+        type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/vermegamenu/ver_menu.js" type="text/javascript"></script>
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/vermegamenu/css/ocvermegamenu.css"
+        rel="stylesheet" />
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/ocslideshow/ocslideshow.css"
+        rel="stylesheet" />
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/hozmegamenu/css/custommenu.css"
+        rel="stylesheet" />
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/css/animate.css" rel="stylesheet" />
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/css/owl.carousel.css"
+        rel="stylesheet" />
+    <script src="/catalog/view/javascript/jquery/elevatezoom/jquery.elevatezoom.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/jquery/owl-carousel/owl.carousel.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/ocquickview/ocquickview.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/ma.lettering.js" type="text/javascript"></script>
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/ocquickview/css/ocquickview.css"
+        rel="stylesheet">
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/stylesheet.css" rel="stylesheet">
+    <link href="/catalog/view/javascript/ionicons/css/ocblog.css" type="text/css" rel="stylesheet"
+        media="screen" />
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/ocajaxlogin/css/ocajaxlogin.css"
+        type="text/css" rel="stylesheet" media="screen" />
+    <link href="/catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css"
+        type="text/css" rel="stylesheet" media="screen" />
+    <link href="/catalog/view/theme/tt_melani1/stylesheet/opentheme/ocpagebuilder.css"
+        type="text/css" rel="stylesheet" media="screen" />
+    <script src="/catalog/view/javascript/common.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/ocajaxlogin/ocajaxlogin.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/jquery/datetimepicker/moment.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js"
+        type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/jquery.bpopup.min.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/catalog/view/javascript/opentheme/ocslideshow/jquery.nivo.slider.js"
+        type="text/javascript"></script>
+    <%@ register tagprefix="umenu" tagname="Menu" src="/control/menu.ascx" %>
+    <%@ register tagprefix="usearch" tagname="Search" src="/control/search-box.ascx" %>
+    <%@ register tagprefix="uFooter" tagname="Footer" src="/control/footer.ascx" %>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="common-home home1">
+    <form id="form1" runat="server">
+    <header>
+         <div class="header-inner">
+            <div class="container">
+               <div class="container-inner">
+                  <div class="logo-container">
+                     <div id="logo">
+                        <a href="/home"><img src="/image/CNICE-logo.png" title="CNICE" alt="CNICE" class="img-responsive" /></a>
+                     </div>
+                  </div>
+                  <umenu:Menu ID="umenu" runat="server" />
+                  <usearch:Search ID="usearch" runat="server" />
+                  <div class="clearfix"></div>
+               </div>
+            </div>
+         </div>
+      </header>
+    <div id="content">
+        <asp:ContentPlaceHolder ID="hp" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    <uFooter:Footer ID="ufooter" runat="server" />
+     <div class="alert alert-success" id="success-alert" style="position:fixed; bottom:13%; right:0px;width:auto; z-index:9999;">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <b>Thông báo ! </b>
+        <div id="lbmess" style="display:inline; padding:10px;">...</div>
+    </div>
+    </form>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Query.aspx/getCountry',
+                data: '{"type":"-1"}',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    var c1 = document.getElementById('hp_ubanner_dlcountry_login');
+                    for (var i = 0; i < data.d.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = data.d[i].Id;
+                        opt.innerHTML = data.d[i].Name;
+                        c1.appendChild(opt);
+                    }
+                    $('#hp_ubanner_dldistrict_login').find('option').remove().end().append('<option value="">Vui lòng chọn</option>').val('');
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#success-alert").hide();
+            $.ajax({
+                type: 'POST',
+                url: '/Query.aspx/getTotalQuantityCart',
+
+                data: '',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    var totalquantity = document.getElementsByClassName("item-cart");
+                    totalquantity[0].innerHTML = data.d;
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        function showAlert(x) {
+            var m = document.getElementById("lbmess");
+            m.innerHTML = x;
+            $("#success-alert").fadeTo(5000, 5000).slideUp(1000, function () {
+                $("#success-alert").slideUp(1000);
+            });
+        }
+        function changeCountry(id) {
+            $('#hp_ubanner_dldistrict_login').find('option').remove().end();
+
+            if (id != "") {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Query.aspx/getCountry',
+                    data: '{"type":"' + id + '"}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        var d = document.getElementById('hp_ubanner_dldistrict_login');
+                        $('#hp_ubanner_dldistrict_login').find('option').remove().end();
+                        for (var i = 0; i < data.d.length; i++) {
+                            var opt = document.createElement('option');
+                            opt.value = data.d[i].Id;
+                            opt.innerHTML = data.d[i].Name;
+                            d.appendChild(opt);
+
+                        }
+                    }
+                });
+            }
+            else {
+                $('#hp_ubanner_dldistrict_login').find('option').remove().end().append('<option value="">Vui lòng chọn</option>').val('');
+            }
+        }
+    </script>
+   
+</body>
+</html>

@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="HCCO" Class="HoldingDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=HEINEKEN-PC\MSSQL2008R2;Initial Catalog=HCCO;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="HCCOConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tAccount" Member="tAccounts">
+    <Type Name="tAccount">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tAccount_tCategory" Member="tCategories" ThisKey="Id" OtherKey="CreateBy" Type="tCategory" />
+      <Association Name="tAccount_tCategory1" Member="tCategories1" ThisKey="Id" OtherKey="ModifedBy" Type="tCategory" />
+      <Association Name="tAccount_tFeedback" Member="tFeedbacks" ThisKey="Id" OtherKey="CreateBy" Type="tFeedback" />
+      <Association Name="tAccount_tFeedback1" Member="tFeedbacks1" ThisKey="Id" OtherKey="ModifedBy" Type="tFeedback" />
+      <Association Name="tAccount_tMenu" Member="tMenus" ThisKey="Id" OtherKey="CreateBy" Type="tMenu" />
+      <Association Name="tAccount_tMenu1" Member="tMenus1" ThisKey="Id" OtherKey="ModifedBy" Type="tMenu" />
+      <Association Name="tAccount_tNew" Member="tNews" ThisKey="Id" OtherKey="CreateBy" Type="tNew" />
+      <Association Name="tAccount_tNew1" Member="tNews1" ThisKey="Id" OtherKey="ModifedBy" Type="tNew" />
+      <Association Name="tAccount_tPartner" Member="tPartners" ThisKey="Id" OtherKey="CreateBy" Type="tPartner" />
+      <Association Name="tAccount_tPartner1" Member="tPartners1" ThisKey="Id" OtherKey="ModifedBy" Type="tPartner" />
+      <Association Name="tAccount_tPersonal" Member="tPersonals" ThisKey="Id" OtherKey="CreateBy" Type="tPersonal" />
+      <Association Name="tAccount_tPersonal1" Member="tPersonals1" ThisKey="Id" OtherKey="ModifedBy" Type="tPersonal" />
+      <Association Name="tAccount_tProduct" Member="tProducts" ThisKey="Id" OtherKey="CreateBy" Type="tProduct" />
+      <Association Name="tAccount_tProduct1" Member="tProducts1" ThisKey="Id" OtherKey="ModifedBy" Type="tProduct" />
+      <Association Name="tAccount_tUserRole" Member="tUserRoles" ThisKey="Id" OtherKey="UserId" Type="tUserRole" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tSlide" Member="tSlides">
+    <Type Name="tSlide">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Caption" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Style1" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="Style2" Type="System.String" DbType="VarChar(512)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tCategory" Member="tCategories">
+    <Type Name="tCategory">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Caption" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="Icon" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tCategory_tProduct" Member="tProducts" ThisKey="Id" OtherKey="CategoryId" Type="tProduct" />
+      <Association Name="tAccount_tCategory" Member="tAccount" ThisKey="CreateBy" OtherKey="Id" Type="tAccount" IsForeignKey="true" />
+      <Association Name="tAccount_tCategory1" Member="tAccount1" ThisKey="ModifedBy" OtherKey="Id" Type="tAccount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tFeedback" Member="tFeedbacks">
+    <Type Name="tFeedback">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tAccount_tFeedback" Member="tAccount" ThisKey="CreateBy" OtherKey="Id" Type="tAccount" IsForeignKey="true" />
+      <Association Name="tAccount_tFeedback1" Member="tAccount1" ThisKey="ModifedBy" OtherKey="Id" Type="tAccount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tMenu" Member="tMenus">
+    <Type Name="tMenu">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Position" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tMenu_tMenu" Member="tMenus" ThisKey="Id" OtherKey="ParentId" Type="tMenu" />
+      <Association Name="tMenu_tNew" Member="tNews" ThisKey="Id" OtherKey="MenuId" Type="tNew" />
+      <Association Name="tAccount_tMenu" Member="tAccount" ThisKey="CreateBy" OtherKey="Id" Type="tAccount" IsForeignKey="true" />
+      <Association Name="tAccount_tMenu1" Member="tAccount1" ThisKey="ModifedBy" OtherKey="Id" Type="tAccount" IsForeignKey="true" />
+      <Association Name="tMenu_tMenu" Member="tMenu1" ThisKey="ParentId" OtherKey="Id" Type="tMenu" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tNews" Member="tNews">
+    <Type Name="tNew">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="Body" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="MenuId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tAccount_tNew" Member="tAccount" ThisKey="CreateBy" OtherKey="Id" Type="tAccount" IsForeignKey="true" />
+      <Association Name="tAccount_tNew1" Member="tAccount1" ThisKey="ModifedBy" OtherKey="Id" Type="tAccount" IsForeignKey="true" />
+      <Association Name="tMenu_tNew" Member="tMenu" ThisKey="MenuId" OtherKey="Id" Type="tMenu" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tPartner" Member="tPartners">
+    <Type Name="tPartner">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tAccount_tPartner" Member="tAccount" ThisKey="CreateBy" OtherKey="Id" Type="tAccount" IsForeignKey="true" />
+      <Association Name="tAccount_tPartner1" Member="tAccount1" ThisKey="ModifedBy" OtherKey="Id" Type="tAccount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tPersonal" Member="tPersonals">
+    <Type Name="tPersonal">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tAccount_tPersonal" Member="tAccount" ThisKey="CreateBy" OtherKey="Id" Type="tAccount" IsForeignKey="true" />
+      <Association Name="tAccount_tPersonal1" Member="tAccount1" ThisKey="ModifedBy" OtherKey="Id" Type="tAccount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tProduct" Member="tProducts">
+    <Type Name="tProduct">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tAccount_tProduct" Member="tAccount" ThisKey="CreateBy" OtherKey="Id" Type="tAccount" IsForeignKey="true" />
+      <Association Name="tAccount_tProduct1" Member="tAccount1" ThisKey="ModifedBy" OtherKey="Id" Type="tAccount" IsForeignKey="true" />
+      <Association Name="tCategory_tProduct" Member="tCategory" ThisKey="CategoryId" OtherKey="Id" Type="tCategory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tSetting" Member="tSettings">
+    <Type Name="tSetting">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Title1" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Title2" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Title3" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tUserRole" Member="tUserRoles">
+    <Type Name="tUserRole">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sView" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="sInsert" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="sModifie" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="sDel" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tAccount_tUserRole" Member="tAccount" ThisKey="UserId" OtherKey="Id" Type="tAccount" IsForeignKey="true" />
+      <Association Name="tRole_tUserRole" Member="tRole" ThisKey="RoleId" OtherKey="Id" Type="tRole" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tRole" Member="tRoles">
+    <Type Name="tRole">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ModuleCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ModuleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="tRole_tUserRole" Member="tUserRoles" ThisKey="Id" OtherKey="RoleId" Type="tUserRole" />
+    </Type>
+  </Table>
+</Database>
