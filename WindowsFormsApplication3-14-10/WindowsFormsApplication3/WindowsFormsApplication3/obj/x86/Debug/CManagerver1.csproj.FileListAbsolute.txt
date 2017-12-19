@@ -89,3 +89,6 @@ E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsA
 E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\DevComponents.DotNetBar2.dll
 E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\DevComponents.DotNetBar2.xml
 E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\CManagerver1.csprojResolveAssemblyReference.cache
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\CManagerv1.exe.config
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\CManagerv1.exe
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\CManagerv1.pdb
