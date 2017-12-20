@@ -2460,18 +2460,19 @@ public partial class Command : System.Web.UI.Page
             if (supplierId.Trim() != "" && supplierId != null)
                 p.SupplierId = int.Parse(supplierId.Trim());
             p.Description = des.Trim();
-            if (brandId.Trim() != "null" && brandId != null)
+            if (brandId.Trim() != "null" && brandId != null && brandId != "")
                 p.BrandId = int.Parse(brandId.Trim());
-            if (color.Trim() != "null" && color != null)
+            if (color.Trim() != "null" && color != null && color != "")
                 p.Color = int.Parse(color.Trim());
-            if (size.Trim() != "null" && size != null)
+            if (size.Trim() != "null" && size != null && size != "")
                 p.Size = int.Parse(size.Trim());
-            if (material.Trim() != "" && material != null)
+            if (material.Trim() != "" && material != null && material != "")
                 p.Material = material.Trim();
-            if (composition.Trim() != "" && composition != null)
+            if (composition.Trim() != "" && composition != null && composition != "")
                 p.Composition = composition.Trim();
             p.Status = byte.Parse(status.Trim());
-            p.YearId = int.Parse(year.Trim());
+            if (year.Trim() != "" && year != null && year != "")
+                p.YearId = int.Parse(year.Trim());
             p.Note = note.Trim();
             p.NoteSale = notesale.Trim();
             p.Tag = tag.Trim();
@@ -2534,23 +2535,23 @@ public partial class Command : System.Web.UI.Page
                 else p.FirstOrDefault().SupplierId = null;
 
                 p.FirstOrDefault().Description = des.Trim();
-                if (brandId.Trim() != "null" && brandId != null)
+                if (brandId.Trim() != "null" && brandId != null && brandId != "")
                     p.FirstOrDefault().BrandId = int.Parse(brandId.Trim());
                 else p.FirstOrDefault().BrandId = null;
 
-                if (color.Trim() != "null" && color != null)
+                if (color.Trim() != "null" && color != null && color != "")
                     p.FirstOrDefault().Color = int.Parse(color.Trim());
                 else p.FirstOrDefault().Color = null;
 
-                if (size.Trim() != "null" && size != null)
+                if (size.Trim() != "null" && size != null && size != "")
                     p.FirstOrDefault().Size = int.Parse(size.Trim());
                 else p.FirstOrDefault().Size = null;
 
-                if (material.Trim() != "" && material != null)
+                if (material.Trim() != "" && material != null && material != "")
                     p.FirstOrDefault().Material = material.Trim();
                 else p.FirstOrDefault().Material = null;
 
-                if (composition.Trim() != "" && composition != null)
+                if (composition.Trim() != "" && composition != null && composition != "")
                     p.FirstOrDefault().Composition = composition.Trim();
                 else p.FirstOrDefault().Composition = null;
 
@@ -2578,7 +2579,10 @@ public partial class Command : System.Web.UI.Page
                     p.FirstOrDefault().CountryName = null;
                 }
                 p.FirstOrDefault().Status = byte.Parse(status.Trim());
-                p.FirstOrDefault().YearId = int.Parse(year.Trim());
+                if (year.Trim() != "" && year != null && year != "")
+                    p.FirstOrDefault().YearId = int.Parse(year.Trim());
+                else
+                    p.FirstOrDefault().YearId = null;
                 p.FirstOrDefault().Note = note.Trim();
                 p.FirstOrDefault().NoteSale = notesale.Trim();
                 p.FirstOrDefault().Tag = tag.Trim();

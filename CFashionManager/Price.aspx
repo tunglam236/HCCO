@@ -247,7 +247,7 @@
                                 Lưu lại</button>
                             <button type="button" class="btn btn-success" data-dismiss="modal">
                                 Đóng</button></span>
-                            &nbsp; <label> <input type="checkbox" id="ckLoad" /> Nhập liên tục</label>
+                            &nbsp; <label> <input type="checkbox" id="ckLoad" checked="checked" /> Nhập liên tục</label>
                         </div>
                     </div>
                 </div>

@@ -341,7 +341,8 @@
                         </div>
                     </div>
                     <div class="row" style="padding: 5px;">
-                        <div class="col-md-12 btn-group pull-right">
+                        <div class="col-md-12 pull-right">
+                            <span class=" btn-group">
                             <button type="button" id="btnAdd" class="btn btn-success" onclick="saveChanges();">
                                 Lưu lại</button>
                             <button type="button" id="btnUpdate" style="display:none;" class="btn btn-success" onclick="updateChanges();">
@@ -349,7 +350,8 @@
                             <button type="button" id="btnDel" style="display:none;" class="btn btn-success" onclick="removeChanges();">
                                 Xóa</button>
                             <button type="button" class="btn btn-success" data-dismiss="modal">
-                                Hủy bỏ</button>
+                                Hủy bỏ</button></span>
+                            &nbsp;<label> <input type="checkbox" id="ckAutoLoad" checked="checked" /> Nhập liên tục</label>
                         </div>
                     </div>
                 </div>
@@ -716,6 +718,9 @@
                 var notesale = $('#txtNoteSale').val();
                 var tag = $('#txtTag').val();
 
+                var checkbox = $('#ckAutoLoad:checked').val();
+                var ckload = checkbox == 'on' ? true : false;
+
                 $.ajax({
                     type: 'POST',
                     url: '/Command.aspx/InsertProduct',
@@ -725,10 +730,27 @@
                     success: function (data) {
                         if (data.d._content == '1') {
                             showAlert('Thêm sản phẩm thành công');
-
-                            setTimeout(function () {
-                                window.location.href = window.location.href;
-                            }, 1000);
+                            if (!ckload) {
+                                setTimeout(function () {
+                                    window.location.href = window.location.href;
+                                }, 1000);
+                            }
+                            else {
+                                $('#txtCapacity').val('');
+                                $('#txtExpiryDate').val('');
+                                $('#txtCatalog').val('');
+                                $('#txtcodeId').val('');
+                                $('#txtproductCode').val('');
+                                $('#txtproductName').val('');
+                                $('#txtProductTypeCode').val('');
+                                $('#txtDescription').val('');
+                                $('#txtComposition').val('');
+                                $('#txtMaterial').val('');
+                                $('#txtNote').val('');
+                                $('#txtNoteSale').val('');
+                                $('#txtTag').val('');
+                                $('#txtcodeId').focus();
+                            }
                         }
                         else {
                             showAlert('Có lỗi khi lưu sản phẩm. Chi tiết: ' + data.d._mess);
