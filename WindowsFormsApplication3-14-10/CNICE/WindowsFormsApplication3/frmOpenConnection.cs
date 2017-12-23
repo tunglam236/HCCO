@@ -25,11 +25,11 @@ namespace WindowsFormsApplication3
             {
                 if (InternetConnection.IsConnectedToInternet())
                 {
-                    //WSC.CMServices s = new WSC.CMServices();
-                    //var con = s.getConnection();
-                    //cls.clsProcess cls = new WindowsFormsApplication3.cls.clsProcess();
-                    //connection = cls.Decrypt(con);
-                    connection = @"Data Source=.;Initial Catalog=CMS;Persist Security Info=True;User ID=it_hcc;Password=123";
+                    WSC.CMServices s = new WSC.CMServices();
+                    var con = s.getConnection();
+                    cls.clsProcess cls = new WindowsFormsApplication3.cls.clsProcess();
+                    connection = cls.Decrypt(con);
+                    //connection = @"Data Source=.;Initial Catalog=CMS;Persist Security Info=True;User ID=it_hcc;Password=123";
                     this.Close();
                 }
                 else

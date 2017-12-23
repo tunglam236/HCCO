@@ -1101,4 +1101,11 @@
       <Column Name="saleValue" Type="System.Double" DbType="Float" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.sp_getTemphuCnice" Method="sp_getTemphuCnice">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="code" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="sp_getTemphuCniceResult">
+      <Column Name="Temp" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

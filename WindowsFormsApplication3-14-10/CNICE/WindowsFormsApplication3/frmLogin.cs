@@ -20,8 +20,8 @@ namespace WindowsFormsApplication3
         private string branchType = ConfigurationManager.AppSettings["branchtype"];
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            txtAccount.Text = "cg_quanly01";
-            txtPass.Text = "123456";
+            txtAccount.Text = "";
+            txtPass.Text = "";
             txtAccount.Focus();
         }
 

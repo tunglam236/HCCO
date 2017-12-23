@@ -158,19 +158,6 @@
       <Association Name="tProduct_tStockInputDetail" Member="tProduct" ThisKey="ProductId" OtherKey="Id" Type="tProduct" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.tStockInventory" Member="tStockInventories">
-    <Type Name="tStockInventory">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ProductId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="QuantityIn" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Column Name="QuantityOut" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Column Name="CreateAt" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Association Name="tProduct_tStockInventory" Member="tProduct" ThisKey="ProductId" OtherKey="Id" Type="tProduct" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.tStockOutput" Member="tStockOutputs">
     <Type Name="tStockOutput">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -633,14 +620,27 @@
       <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="tProduct_tComboDetail" Member="tComboDetails" ThisKey="Id" OtherKey="ProductId" Type="tComboDetail" />
       <Association Name="tProduct_tStockInputDetail" Member="tStockInputDetails" ThisKey="Id" OtherKey="ProductId" Type="tStockInputDetail" />
-      <Association Name="tProduct_tStockInventory" Member="tStockInventories" ThisKey="Id" OtherKey="ProductId" Type="tStockInventory" />
       <Association Name="tProduct_tStockOutputDetail" Member="tStockOutputDetails" ThisKey="Id" OtherKey="ProductId" Type="tStockOutputDetail" />
       <Association Name="tProduct_tOrderDetail" Member="tOrderDetails" ThisKey="Id" OtherKey="ProductId" Type="tOrderDetail" />
+      <Association Name="tProduct_tStockInventory" Member="tStockInventories" ThisKey="Id" OtherKey="ProductId" Type="tStockInventory" />
       <Association Name="tBranchType_tProduct" Member="tBranchType" ThisKey="BranchTypeId" OtherKey="Id" Type="tBranchType" IsForeignKey="true" />
       <Association Name="tBrand_tProduct" Member="tBrand" ThisKey="BrandId" OtherKey="Id" Type="tBrand" IsForeignKey="true" />
       <Association Name="tColor_tProduct" Member="tColor" ThisKey="Color" OtherKey="Id" Type="tColor" IsForeignKey="true" />
       <Association Name="tProductType_tProduct" Member="tProductType" ThisKey="ProductTypeId" OtherKey="Id" Type="tProductType" IsForeignKey="true" />
       <Association Name="tSize_tProduct" Member="tSize" ThisKey="Size" OtherKey="Id" Type="tSize" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tStockInventory" Member="tStockInventories">
+    <Type Name="tStockInventory">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="QuantityIn" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuantityOut" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Association Name="tProduct_tStockInventory" Member="tProduct" ThisKey="ProductId" OtherKey="Id" Type="tProduct" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.sp_Account_Load" Method="sp_Account_Load">

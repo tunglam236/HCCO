@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
+using System.Configuration;
+
 namespace WindowsFormsApplication3
 {
     public partial class frmLogin : Office2007Form
@@ -15,11 +17,11 @@ namespace WindowsFormsApplication3
         {
             InitializeComponent();
         }
-
+        private string branchType = ConfigurationManager.AppSettings["branchtype"];
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            txtAccount.Text = "km_quanly01";
-            txtPass.Text = "123456";
+            txtAccount.Text = "";
+            txtPass.Text = "";
             txtAccount.Focus();
         }
 
@@ -43,7 +45,7 @@ namespace WindowsFormsApplication3
                         from y in db.tGroupUsers
                         from z in db.tBranches
                         where x.GroupUserId == y.Id && x.BranchId == z.Id && x.Status != 0 && x.Status!=2 && x.Username == txtAccount.Text.Trim()
-                            && x.Password == cls.Encrypt(txtPass.Text.Trim())
+                            && x.Password == cls.Encrypt(txtPass.Text.Trim()) && x.BranchTypeId == int.Parse(branchType)
                         select new { x.Id, x.Username, x.FullName, x.GroupUserId, y.GroupCode, y.GroupName, x.BranchId, x.BranchTypeId, z.BranchName };
                 if (l.Count() > 0)
                 {

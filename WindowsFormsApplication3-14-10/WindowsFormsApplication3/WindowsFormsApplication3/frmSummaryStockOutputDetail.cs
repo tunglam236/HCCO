@@ -266,19 +266,19 @@ namespace WindowsFormsApplication3
 
             offset = offset + (int)FontHeight + 5;
             graphic.DrawString("Chiết khấu ", new Font("Tahoma", font_size, FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset);
-            graphic.DrawString(sale > 0 ? string.Format("{0:0,0 đ}", sale) : "0", font, new SolidBrush(Color.Black), startX + 125, startY + offset);
+            graphic.DrawString(sale > 0 ? string.Format("{0:0,0 đ}", sale) : "0 đ", font, new SolidBrush(Color.Black), startX + 125, startY + offset);
 
             offset = offset + (int)FontHeight + 5;
             graphic.DrawString("Tổng thanh toán ", new Font("Tahoma", font_size, FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset);
-            graphic.DrawString(string.Format("{0:0,0 đ}", total), font, new SolidBrush(Color.Black), startX + 125, startY + offset);
+            graphic.DrawString(total <= 0 ? "0 đ" : string.Format("{ 0:0,0 đ}", total), font, new SolidBrush(Color.Black), startX + 125, startY + offset);
 
             offset = offset + (int)FontHeight + 5;
             graphic.DrawString("Khách đưa ", new Font("Tahoma", font_size, FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset);
-            graphic.DrawString(custome_pay > 0 ? string.Format("{0:0,0 đ}", custome_pay) : "0", font, new SolidBrush(Color.Black), startX + 125, startY + offset);
+            graphic.DrawString(custome_pay > 0 ? string.Format("{0:0,0 đ}", custome_pay) : "0 đ", font, new SolidBrush(Color.Black), startX + 125, startY + offset);
 
             offset = offset + (int)FontHeight + 5;
             graphic.DrawString("Trả lại ", new Font("Tahoma", font_size, FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset);
-            graphic.DrawString(custome_return > 0 ? string.Format("{0:0,0 đ}", custome_return) : "0", font, new SolidBrush(Color.Black), startX + 125, startY + offset);
+            graphic.DrawString(custome_return > 0 ? string.Format("{0:0,0 đ}", custome_return) : "0 đ", font, new SolidBrush(Color.Black), startX + 125, startY + offset);
 
             money = cl.money_code(int.Parse(total.ToString()));
 

@@ -629,6 +629,13 @@ namespace WindowsFormsApplication3
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), branchType, branchId, codeid, quantity);
 			return ((ISingleResult<sp_Product_GetDetailByCodeIdCniceResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_getTemphuCnice")]
+		public ISingleResult<sp_getTemphuCniceResult> sp_getTemphuCnice([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string branchType, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string code)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), branchType, code);
+			return ((ISingleResult<sp_getTemphuCniceResult>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tAccount")]
@@ -18490,6 +18497,32 @@ namespace WindowsFormsApplication3
 				if ((this._saleValue != value))
 				{
 					this._saleValue = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_getTemphuCniceResult
+	{
+		
+		private string _Temp;
+		
+		public sp_getTemphuCniceResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Temp", DbType="NVarChar(4000)")]
+		public string Temp
+		{
+			get
+			{
+				return this._Temp;
+			}
+			set
+			{
+				if ((this._Temp != value))
+				{
+					this._Temp = value;
 				}
 			}
 		}

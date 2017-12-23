@@ -59,9 +59,6 @@ public partial class CFileManagerDataContext : System.Data.Linq.DataContext
   partial void InserttStockInputDetail(tStockInputDetail instance);
   partial void UpdatetStockInputDetail(tStockInputDetail instance);
   partial void DeletetStockInputDetail(tStockInputDetail instance);
-  partial void InserttStockInventory(tStockInventory instance);
-  partial void UpdatetStockInventory(tStockInventory instance);
-  partial void DeletetStockInventory(tStockInventory instance);
   partial void InserttStockOutput(tStockOutput instance);
   partial void UpdatetStockOutput(tStockOutput instance);
   partial void DeletetStockOutput(tStockOutput instance);
@@ -140,6 +137,9 @@ public partial class CFileManagerDataContext : System.Data.Linq.DataContext
   partial void InserttProduct(tProduct instance);
   partial void UpdatetProduct(tProduct instance);
   partial void DeletetProduct(tProduct instance);
+  partial void InserttStockInventory(tStockInventory instance);
+  partial void UpdatetStockInventory(tStockInventory instance);
+  partial void DeletetStockInventory(tStockInventory instance);
   #endregion
 	
 	public CFileManagerDataContext() : 
@@ -249,14 +249,6 @@ public partial class CFileManagerDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<tStockInputDetail>();
-		}
-	}
-	
-	public System.Data.Linq.Table<tStockInventory> tStockInventories
-	{
-		get
-		{
-			return this.GetTable<tStockInventory>();
 		}
 	}
 	
@@ -465,6 +457,14 @@ public partial class CFileManagerDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<tProduct>();
+		}
+	}
+	
+	public System.Data.Linq.Table<tStockInventory> tStockInventories
+	{
+		get
+		{
+			return this.GetTable<tStockInventory>();
 		}
 	}
 	
@@ -4220,277 +4220,6 @@ public partial class tStockInputDetail : INotifyPropertyChanging, INotifyPropert
 				else
 				{
 					this._ProductId = default(long);
-				}
-				this.SendPropertyChanged("tProduct");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tStockInventory")]
-public partial class tStockInventory : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private System.Nullable<int> _BranchTypeId;
-	
-	private System.Nullable<int> _BranchId;
-	
-	private System.Nullable<long> _ProductId;
-	
-	private System.Nullable<byte> _QuantityIn;
-	
-	private System.Nullable<byte> _QuantityOut;
-	
-	private System.Nullable<System.DateTime> _CreateAt;
-	
-	private System.Nullable<byte> _Status;
-	
-	private EntityRef<tProduct> _tProduct;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnBranchTypeIdChanging(System.Nullable<int> value);
-    partial void OnBranchTypeIdChanged();
-    partial void OnBranchIdChanging(System.Nullable<int> value);
-    partial void OnBranchIdChanged();
-    partial void OnProductIdChanging(System.Nullable<long> value);
-    partial void OnProductIdChanged();
-    partial void OnQuantityInChanging(System.Nullable<byte> value);
-    partial void OnQuantityInChanged();
-    partial void OnQuantityOutChanging(System.Nullable<byte> value);
-    partial void OnQuantityOutChanged();
-    partial void OnCreateAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreateAtChanged();
-    partial void OnStatusChanging(System.Nullable<byte> value);
-    partial void OnStatusChanged();
-    #endregion
-	
-	public tStockInventory()
-	{
-		this._tProduct = default(EntityRef<tProduct>);
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BranchTypeId", DbType="Int")]
-	public System.Nullable<int> BranchTypeId
-	{
-		get
-		{
-			return this._BranchTypeId;
-		}
-		set
-		{
-			if ((this._BranchTypeId != value))
-			{
-				this.OnBranchTypeIdChanging(value);
-				this.SendPropertyChanging();
-				this._BranchTypeId = value;
-				this.SendPropertyChanged("BranchTypeId");
-				this.OnBranchTypeIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BranchId", DbType="Int")]
-	public System.Nullable<int> BranchId
-	{
-		get
-		{
-			return this._BranchId;
-		}
-		set
-		{
-			if ((this._BranchId != value))
-			{
-				this.OnBranchIdChanging(value);
-				this.SendPropertyChanging();
-				this._BranchId = value;
-				this.SendPropertyChanged("BranchId");
-				this.OnBranchIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductId", DbType="BigInt")]
-	public System.Nullable<long> ProductId
-	{
-		get
-		{
-			return this._ProductId;
-		}
-		set
-		{
-			if ((this._ProductId != value))
-			{
-				if (this._tProduct.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnProductIdChanging(value);
-				this.SendPropertyChanging();
-				this._ProductId = value;
-				this.SendPropertyChanged("ProductId");
-				this.OnProductIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuantityIn", DbType="TinyInt")]
-	public System.Nullable<byte> QuantityIn
-	{
-		get
-		{
-			return this._QuantityIn;
-		}
-		set
-		{
-			if ((this._QuantityIn != value))
-			{
-				this.OnQuantityInChanging(value);
-				this.SendPropertyChanging();
-				this._QuantityIn = value;
-				this.SendPropertyChanged("QuantityIn");
-				this.OnQuantityInChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuantityOut", DbType="TinyInt")]
-	public System.Nullable<byte> QuantityOut
-	{
-		get
-		{
-			return this._QuantityOut;
-		}
-		set
-		{
-			if ((this._QuantityOut != value))
-			{
-				this.OnQuantityOutChanging(value);
-				this.SendPropertyChanging();
-				this._QuantityOut = value;
-				this.SendPropertyChanged("QuantityOut");
-				this.OnQuantityOutChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateAt", DbType="SmallDateTime")]
-	public System.Nullable<System.DateTime> CreateAt
-	{
-		get
-		{
-			return this._CreateAt;
-		}
-		set
-		{
-			if ((this._CreateAt != value))
-			{
-				this.OnCreateAtChanging(value);
-				this.SendPropertyChanging();
-				this._CreateAt = value;
-				this.SendPropertyChanged("CreateAt");
-				this.OnCreateAtChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="TinyInt")]
-	public System.Nullable<byte> Status
-	{
-		get
-		{
-			return this._Status;
-		}
-		set
-		{
-			if ((this._Status != value))
-			{
-				this.OnStatusChanging(value);
-				this.SendPropertyChanging();
-				this._Status = value;
-				this.SendPropertyChanged("Status");
-				this.OnStatusChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tProduct_tStockInventory", Storage="_tProduct", ThisKey="ProductId", OtherKey="Id", IsForeignKey=true)]
-	public tProduct tProduct
-	{
-		get
-		{
-			return this._tProduct.Entity;
-		}
-		set
-		{
-			tProduct previousValue = this._tProduct.Entity;
-			if (((previousValue != value) 
-						|| (this._tProduct.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._tProduct.Entity = null;
-					previousValue.tStockInventories.Remove(this);
-				}
-				this._tProduct.Entity = value;
-				if ((value != null))
-				{
-					value.tStockInventories.Add(this);
-					this._ProductId = value.Id;
-				}
-				else
-				{
-					this._ProductId = default(Nullable<long>);
 				}
 				this.SendPropertyChanged("tProduct");
 			}
@@ -13585,11 +13314,11 @@ public partial class tProduct : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntitySet<tStockInputDetail> _tStockInputDetails;
 	
-	private EntitySet<tStockInventory> _tStockInventories;
-	
 	private EntitySet<tStockOutputDetail> _tStockOutputDetails;
 	
 	private EntitySet<tOrderDetail> _tOrderDetails;
+	
+	private EntitySet<tStockInventory> _tStockInventories;
 	
 	private EntityRef<tBranchType> _tBranchType;
 	
@@ -13681,9 +13410,9 @@ public partial class tProduct : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this._tComboDetails = new EntitySet<tComboDetail>(new Action<tComboDetail>(this.attach_tComboDetails), new Action<tComboDetail>(this.detach_tComboDetails));
 		this._tStockInputDetails = new EntitySet<tStockInputDetail>(new Action<tStockInputDetail>(this.attach_tStockInputDetails), new Action<tStockInputDetail>(this.detach_tStockInputDetails));
-		this._tStockInventories = new EntitySet<tStockInventory>(new Action<tStockInventory>(this.attach_tStockInventories), new Action<tStockInventory>(this.detach_tStockInventories));
 		this._tStockOutputDetails = new EntitySet<tStockOutputDetail>(new Action<tStockOutputDetail>(this.attach_tStockOutputDetails), new Action<tStockOutputDetail>(this.detach_tStockOutputDetails));
 		this._tOrderDetails = new EntitySet<tOrderDetail>(new Action<tOrderDetail>(this.attach_tOrderDetails), new Action<tOrderDetail>(this.detach_tOrderDetails));
+		this._tStockInventories = new EntitySet<tStockInventory>(new Action<tStockInventory>(this.attach_tStockInventories), new Action<tStockInventory>(this.detach_tStockInventories));
 		this._tBranchType = default(EntityRef<tBranchType>);
 		this._tBrand = default(EntityRef<tBrand>);
 		this._tColor = default(EntityRef<tColor>);
@@ -14438,19 +14167,6 @@ public partial class tProduct : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tProduct_tStockInventory", Storage="_tStockInventories", ThisKey="Id", OtherKey="ProductId")]
-	public EntitySet<tStockInventory> tStockInventories
-	{
-		get
-		{
-			return this._tStockInventories;
-		}
-		set
-		{
-			this._tStockInventories.Assign(value);
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tProduct_tStockOutputDetail", Storage="_tStockOutputDetails", ThisKey="Id", OtherKey="ProductId")]
 	public EntitySet<tStockOutputDetail> tStockOutputDetails
 	{
@@ -14474,6 +14190,19 @@ public partial class tProduct : INotifyPropertyChanging, INotifyPropertyChanged
 		set
 		{
 			this._tOrderDetails.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tProduct_tStockInventory", Storage="_tStockInventories", ThisKey="Id", OtherKey="ProductId")]
+	public EntitySet<tStockInventory> tStockInventories
+	{
+		get
+		{
+			return this._tStockInventories;
+		}
+		set
+		{
+			this._tStockInventories.Assign(value);
 		}
 	}
 	
@@ -14691,18 +14420,6 @@ public partial class tProduct : INotifyPropertyChanging, INotifyPropertyChanged
 		entity.tProduct = null;
 	}
 	
-	private void attach_tStockInventories(tStockInventory entity)
-	{
-		this.SendPropertyChanging();
-		entity.tProduct = this;
-	}
-	
-	private void detach_tStockInventories(tStockInventory entity)
-	{
-		this.SendPropertyChanging();
-		entity.tProduct = null;
-	}
-	
 	private void attach_tStockOutputDetails(tStockOutputDetail entity)
 	{
 		this.SendPropertyChanging();
@@ -14725,6 +14442,289 @@ public partial class tProduct : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.tProduct = null;
+	}
+	
+	private void attach_tStockInventories(tStockInventory entity)
+	{
+		this.SendPropertyChanging();
+		entity.tProduct = this;
+	}
+	
+	private void detach_tStockInventories(tStockInventory entity)
+	{
+		this.SendPropertyChanging();
+		entity.tProduct = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tStockInventory")]
+public partial class tStockInventory : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _Id;
+	
+	private System.Nullable<int> _BranchTypeId;
+	
+	private System.Nullable<int> _BranchId;
+	
+	private System.Nullable<long> _ProductId;
+	
+	private System.Nullable<int> _QuantityIn;
+	
+	private System.Nullable<int> _QuantityOut;
+	
+	private System.Nullable<System.DateTime> _CreateAt;
+	
+	private System.Nullable<byte> _Status;
+	
+	private EntityRef<tProduct> _tProduct;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnBranchTypeIdChanging(System.Nullable<int> value);
+    partial void OnBranchTypeIdChanged();
+    partial void OnBranchIdChanging(System.Nullable<int> value);
+    partial void OnBranchIdChanged();
+    partial void OnProductIdChanging(System.Nullable<long> value);
+    partial void OnProductIdChanged();
+    partial void OnQuantityInChanging(System.Nullable<int> value);
+    partial void OnQuantityInChanged();
+    partial void OnQuantityOutChanging(System.Nullable<int> value);
+    partial void OnQuantityOutChanged();
+    partial void OnCreateAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreateAtChanged();
+    partial void OnStatusChanging(System.Nullable<byte> value);
+    partial void OnStatusChanged();
+    #endregion
+	
+	public tStockInventory()
+	{
+		this._tProduct = default(EntityRef<tProduct>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this.OnIdChanging(value);
+				this.SendPropertyChanging();
+				this._Id = value;
+				this.SendPropertyChanged("Id");
+				this.OnIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BranchTypeId", DbType="Int")]
+	public System.Nullable<int> BranchTypeId
+	{
+		get
+		{
+			return this._BranchTypeId;
+		}
+		set
+		{
+			if ((this._BranchTypeId != value))
+			{
+				this.OnBranchTypeIdChanging(value);
+				this.SendPropertyChanging();
+				this._BranchTypeId = value;
+				this.SendPropertyChanged("BranchTypeId");
+				this.OnBranchTypeIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BranchId", DbType="Int")]
+	public System.Nullable<int> BranchId
+	{
+		get
+		{
+			return this._BranchId;
+		}
+		set
+		{
+			if ((this._BranchId != value))
+			{
+				this.OnBranchIdChanging(value);
+				this.SendPropertyChanging();
+				this._BranchId = value;
+				this.SendPropertyChanged("BranchId");
+				this.OnBranchIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductId", DbType="BigInt")]
+	public System.Nullable<long> ProductId
+	{
+		get
+		{
+			return this._ProductId;
+		}
+		set
+		{
+			if ((this._ProductId != value))
+			{
+				if (this._tProduct.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnProductIdChanging(value);
+				this.SendPropertyChanging();
+				this._ProductId = value;
+				this.SendPropertyChanged("ProductId");
+				this.OnProductIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuantityIn", DbType="Int")]
+	public System.Nullable<int> QuantityIn
+	{
+		get
+		{
+			return this._QuantityIn;
+		}
+		set
+		{
+			if ((this._QuantityIn != value))
+			{
+				this.OnQuantityInChanging(value);
+				this.SendPropertyChanging();
+				this._QuantityIn = value;
+				this.SendPropertyChanged("QuantityIn");
+				this.OnQuantityInChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuantityOut", DbType="Int")]
+	public System.Nullable<int> QuantityOut
+	{
+		get
+		{
+			return this._QuantityOut;
+		}
+		set
+		{
+			if ((this._QuantityOut != value))
+			{
+				this.OnQuantityOutChanging(value);
+				this.SendPropertyChanging();
+				this._QuantityOut = value;
+				this.SendPropertyChanged("QuantityOut");
+				this.OnQuantityOutChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateAt", DbType="SmallDateTime")]
+	public System.Nullable<System.DateTime> CreateAt
+	{
+		get
+		{
+			return this._CreateAt;
+		}
+		set
+		{
+			if ((this._CreateAt != value))
+			{
+				this.OnCreateAtChanging(value);
+				this.SendPropertyChanging();
+				this._CreateAt = value;
+				this.SendPropertyChanged("CreateAt");
+				this.OnCreateAtChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="TinyInt")]
+	public System.Nullable<byte> Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this.OnStatusChanging(value);
+				this.SendPropertyChanging();
+				this._Status = value;
+				this.SendPropertyChanged("Status");
+				this.OnStatusChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tProduct_tStockInventory", Storage="_tProduct", ThisKey="ProductId", OtherKey="Id", IsForeignKey=true)]
+	public tProduct tProduct
+	{
+		get
+		{
+			return this._tProduct.Entity;
+		}
+		set
+		{
+			tProduct previousValue = this._tProduct.Entity;
+			if (((previousValue != value) 
+						|| (this._tProduct.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._tProduct.Entity = null;
+					previousValue.tStockInventories.Remove(this);
+				}
+				this._tProduct.Entity = value;
+				if ((value != null))
+				{
+					value.tStockInventories.Add(this);
+					this._ProductId = value.Id;
+				}
+				else
+				{
+					this._ProductId = default(Nullable<long>);
+				}
+				this.SendPropertyChanged("tProduct");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }
 

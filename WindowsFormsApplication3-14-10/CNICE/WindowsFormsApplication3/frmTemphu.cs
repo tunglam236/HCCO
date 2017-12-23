@@ -10,31 +10,25 @@ using DevComponents.DotNetBar;
 
 namespace WindowsFormsApplication3
 {
-    public partial class frmBarCode : Office2007Form
+    public partial class frmTemphu : Office2007Form
     {
-        public frmBarCode()
+        public frmTemphu()
         {
             InitializeComponent();
         }
-        public static string codeId = "";
-        private void frmBarCode_Load(object sender, EventArgs e)
+
+        private void frmTemphu_Load(object sender, EventArgs e)
         {
             txtCode.Focus();
             txtCount.Text = "1";
             txtCount.MinValue = 1;
-            if (codeId != "")
-                txtCode.Text = codeId;
         }
+
         private void btnCreateBarCode_Click(object sender, EventArgs e)
         {
-            report.rptBarCode cry = new report.rptBarCode();
+            report.rptCodeTemphu cry = new report.rptCodeTemphu();
             DataTable dt = new DataTable();
-            dt.Columns.Add("Id", typeof(string));
-            dt.Columns.Add("Code", typeof(string));
-            dt.Columns.Add("ProductCode", typeof(string));
-            dt.Columns.Add("ProductName", typeof(string));
-            dt.Columns.Add("Brand", typeof(string));
-            dt.Columns.Add("Country", typeof(string));
+            dt.Columns.Add("Content", typeof(string));
 
             CFManagerDataContext db = new CFManagerDataContext(frmOpenConnection.connection);
             if (txtCount.Text.Trim().Equals(""))
@@ -43,19 +37,14 @@ namespace WindowsFormsApplication3
             {
                 if (ckAll.Checked)
                 {
-                    var s = db.sp_getBarCodeCnice(WindowsFormsApplication3.Form1.branch_type_id.ToString(), "");
+                    var s = db.sp_getTemphuCnice(WindowsFormsApplication3.Form1.branch_type_id.ToString(),"");
                     int i = 0;
                     foreach (var item in s.ToList())
                     {
                         for (int k = 0; k < int.Parse(txtCount.Text.Trim()); k++)
                         {
                             DataRow dr = dt.NewRow();
-                            dr[0] = item.CodeId;
-                            dr[1] = item.Code;
-                            dr[2] = item.ProductCode;
-                            dr[3] = item.ProductName;
-                            dr[4] = item.Brand;
-                            dr[5] = item.Country;
+                            dr[0] = item.Temp;
                             dt.Rows.Add(dr);
                             i++;
                         }
@@ -73,19 +62,14 @@ namespace WindowsFormsApplication3
                         int i = 0;
                         for (int cp = 0; cp < spli.Length; cp++)
                         {
-                            var s = db.sp_getBarCodeCnice(WindowsFormsApplication3.Form1.branch_type_id.ToString(), spli[cp].Trim());
-                            
+                            var s = db.sp_getTemphuCnice(WindowsFormsApplication3.Form1.branch_type_id.ToString(), spli[cp].Trim());
+
                             foreach (var item in s.ToList())
                             {
                                 for (int k = 0; k < int.Parse(txtCount.Text.Trim()); k++)
                                 {
                                     DataRow dr = dt.NewRow();
-                                    dr[0] = item.CodeId;
-                                    dr[1] = item.Code;
-                                    dr[2] = item.ProductCode;
-                                    dr[3] = item.ProductName;
-                                    dr[4] = item.Brand;
-                                    dr[5] = item.Country;
+                                    dr[0] = item.Temp;
                                     dt.Rows.Add(dr);
                                     i++;
                                 }
@@ -99,8 +83,6 @@ namespace WindowsFormsApplication3
                 cry.SetDataSource(dt);
                 crystalReportViewer1.ReportSource = cry;
                 crystalReportViewer1.Refresh();
-
-                
             }
         }
 

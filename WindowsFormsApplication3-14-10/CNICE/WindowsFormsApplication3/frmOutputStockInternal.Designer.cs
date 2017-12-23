@@ -35,11 +35,21 @@
             this.btnList = new DevComponents.DotNetBar.ButtonX();
             this.btnExit = new DevComponents.DotNetBar.ButtonX();
             this.dgvTemp = new DevComponents.DotNetBar.Controls.DataGridViewX();
+            this.ProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CodeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BrandName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CountryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UnitName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CapacityName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSave = new DevComponents.DotNetBar.ButtonX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
-            this.btnDel = new DevComponents.DotNetBar.ButtonX();
             this.btnRefresh = new DevComponents.DotNetBar.ButtonX();
             this.grTTK = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.btnRemove = new DevComponents.DotNetBar.ButtonX();
             this.cboBranch = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.btnInsert = new DevComponents.DotNetBar.ButtonX();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
@@ -51,16 +61,6 @@
             this.txtProductCode = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.txtStockCode = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.ProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CodeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BrandName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CountryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UnitName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CapacityName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTemp)).BeginInit();
             this.grTTK.SuspendLayout();
             this.SuspendLayout();
@@ -155,6 +155,73 @@
             this.dgvTemp.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTemp_CellDoubleClick);
             this.dgvTemp.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTemp_CellEndEdit);
             // 
+            // ProductId
+            // 
+            this.ProductId.DataPropertyName = "ProductId";
+            this.ProductId.HeaderText = "Id";
+            this.ProductId.Name = "ProductId";
+            this.ProductId.Visible = false;
+            // 
+            // CodeId
+            // 
+            this.CodeId.DataPropertyName = "ProductCode";
+            this.CodeId.HeaderText = "Mã vạch";
+            this.CodeId.Name = "CodeId";
+            this.CodeId.Visible = false;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "Code";
+            this.Column2.HeaderText = "Mã sản phẩm";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.DataPropertyName = "ProductName";
+            this.Column3.HeaderText = "Tên sản phẩm";
+            this.Column3.Name = "Column3";
+            // 
+            // BrandName
+            // 
+            this.BrandName.DataPropertyName = "BrandName";
+            this.BrandName.HeaderText = "Nhãn hiệu";
+            this.BrandName.Name = "BrandName";
+            this.BrandName.ReadOnly = true;
+            // 
+            // CountryName
+            // 
+            this.CountryName.DataPropertyName = "CountryName";
+            this.CountryName.HeaderText = "Xuất xứ";
+            this.CountryName.Name = "CountryName";
+            this.CountryName.ReadOnly = true;
+            // 
+            // UnitName
+            // 
+            this.UnitName.DataPropertyName = "UnitName";
+            this.UnitName.HeaderText = "Đơn vị tính";
+            this.UnitName.Name = "UnitName";
+            this.UnitName.ReadOnly = true;
+            // 
+            // CapacityName
+            // 
+            this.CapacityName.DataPropertyName = "CapacityName";
+            this.CapacityName.HeaderText = "Dung tích";
+            this.CapacityName.Name = "CapacityName";
+            this.CapacityName.ReadOnly = true;
+            // 
+            // Quantity
+            // 
+            this.Quantity.DataPropertyName = "Quantity";
+            this.Quantity.HeaderText = "Số lượng";
+            this.Quantity.Name = "Quantity";
+            // 
+            // Column7
+            // 
+            this.Column7.DataPropertyName = "IsCombo";
+            this.Column7.HeaderText = "IsCombo";
+            this.Column7.Name = "Column7";
+            this.Column7.Visible = false;
+            // 
             // btnSave
             // 
             this.btnSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
@@ -183,20 +250,6 @@
             this.btnCancel.Text = "Ctrl + Z - Hủy phiếu xuất";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // btnDel
-            // 
-            this.btnDel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnDel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnDel.Image = global::WindowsFormsApplication3.Properties.Resources.DeleteRed;
-            this.btnDel.Location = new System.Drawing.Point(281, 86);
-            this.btnDel.Name = "btnDel";
-            this.btnDel.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.Del);
-            this.btnDel.Size = new System.Drawing.Size(75, 23);
-            this.btnDel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnDel.TabIndex = 4;
-            this.btnDel.Text = "Del - Xóa";
-            this.btnDel.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
             // btnRefresh
             // 
             this.btnRefresh.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
@@ -215,12 +268,12 @@
             // 
             this.grTTK.CanvasColor = System.Drawing.SystemColors.Control;
             this.grTTK.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
+            this.grTTK.Controls.Add(this.btnRemove);
             this.grTTK.Controls.Add(this.cboBranch);
             this.grTTK.Controls.Add(this.btnList);
             this.grTTK.Controls.Add(this.btnExit);
             this.grTTK.Controls.Add(this.btnCancel);
             this.grTTK.Controls.Add(this.btnSave);
-            this.grTTK.Controls.Add(this.btnDel);
             this.grTTK.Controls.Add(this.btnRefresh);
             this.grTTK.Controls.Add(this.btnInsert);
             this.grTTK.Controls.Add(this.labelX1);
@@ -267,6 +320,20 @@
             this.grTTK.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.grTTK.TabIndex = 5;
             this.grTTK.Text = "Thông tin xuất điều chuyển";
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnRemove.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnRemove.Image = global::WindowsFormsApplication3.Properties.Resources.DeleteRed;
+            this.btnRemove.Location = new System.Drawing.Point(280, 86);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.Del);
+            this.btnRemove.Size = new System.Drawing.Size(75, 23);
+            this.btnRemove.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnRemove.TabIndex = 12;
+            this.btnRemove.Text = "Del - Xóa";
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // cboBranch
             // 
@@ -416,73 +483,6 @@
             this.txtStockCode.Size = new System.Drawing.Size(137, 20);
             this.txtStockCode.TabIndex = 10;
             // 
-            // ProductId
-            // 
-            this.ProductId.DataPropertyName = "ProductId";
-            this.ProductId.HeaderText = "Id";
-            this.ProductId.Name = "ProductId";
-            this.ProductId.Visible = false;
-            // 
-            // CodeId
-            // 
-            this.CodeId.DataPropertyName = "ProductCode";
-            this.CodeId.HeaderText = "Mã vạch";
-            this.CodeId.Name = "CodeId";
-            this.CodeId.Visible = false;
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "Code";
-            this.Column2.HeaderText = "Mã sản phẩm";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.DataPropertyName = "ProductName";
-            this.Column3.HeaderText = "Tên sản phẩm";
-            this.Column3.Name = "Column3";
-            // 
-            // BrandName
-            // 
-            this.BrandName.DataPropertyName = "BrandName";
-            this.BrandName.HeaderText = "Nhãn hiệu";
-            this.BrandName.Name = "BrandName";
-            this.BrandName.ReadOnly = true;
-            // 
-            // CountryName
-            // 
-            this.CountryName.DataPropertyName = "CountryName";
-            this.CountryName.HeaderText = "Xuất xứ";
-            this.CountryName.Name = "CountryName";
-            this.CountryName.ReadOnly = true;
-            // 
-            // UnitName
-            // 
-            this.UnitName.DataPropertyName = "UnitName";
-            this.UnitName.HeaderText = "Đơn vị tính";
-            this.UnitName.Name = "UnitName";
-            this.UnitName.ReadOnly = true;
-            // 
-            // CapacityName
-            // 
-            this.CapacityName.DataPropertyName = "CapacityName";
-            this.CapacityName.HeaderText = "Dung tích";
-            this.CapacityName.Name = "CapacityName";
-            this.CapacityName.ReadOnly = true;
-            // 
-            // Quantity
-            // 
-            this.Quantity.DataPropertyName = "Quantity";
-            this.Quantity.HeaderText = "Số lượng";
-            this.Quantity.Name = "Quantity";
-            // 
-            // Column7
-            // 
-            this.Column7.DataPropertyName = "IsCombo";
-            this.Column7.HeaderText = "IsCombo";
-            this.Column7.Name = "Column7";
-            this.Column7.Visible = false;
-            // 
             // frmOutputStockInternal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -510,7 +510,6 @@
         private DevComponents.DotNetBar.Controls.DataGridViewX dgvTemp;
         private DevComponents.DotNetBar.ButtonX btnSave;
         private DevComponents.DotNetBar.ButtonX btnCancel;
-        private DevComponents.DotNetBar.ButtonX btnDel;
         private DevComponents.DotNetBar.ButtonX btnRefresh;
         private DevComponents.DotNetBar.Controls.GroupPanel grTTK;
         private DevComponents.DotNetBar.ButtonX btnInsert;
@@ -534,5 +533,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CapacityName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private DevComponents.DotNetBar.ButtonX btnRemove;
     }
 }

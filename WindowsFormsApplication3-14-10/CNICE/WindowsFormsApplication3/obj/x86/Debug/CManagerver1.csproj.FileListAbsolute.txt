@@ -172,7 +172,6 @@ E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3\bin\Debug\stdole.dll
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3\bin\Debug\DevComponents.DotNetBar2.xml
-E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3\obj\x86\Debug\CManagerver1.csprojResolveAssemblyReference.cache
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmBarCode.resources
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmCheckInventory.resources
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmCheckUpdate.resources
@@ -204,3 +203,4 @@ E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmSummaryStockOutput.resources
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.Properties.Resources.resources
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3\obj\x86\Debug\CManagerver1.csproj.GenerateResource.Cache
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmTemphu.resources

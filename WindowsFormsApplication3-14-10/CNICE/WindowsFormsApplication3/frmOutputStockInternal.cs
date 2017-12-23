@@ -18,6 +18,7 @@ namespace WindowsFormsApplication3
 
         CFManagerDataContext db = new CFManagerDataContext(frmOpenConnection.connection);
         private string id_current = "0";
+        private string id_pro = "0";
         private int quantity_current = 0;
         private DataTable dtTemp = new DataTable();
         private void resetControl()
@@ -27,7 +28,7 @@ namespace WindowsFormsApplication3
                                    && x.BranchTypeId == WindowsFormsApplication3.Form1.branch_type_id
                                    select new { x.BranchName, x.Id };
 
-            btnDel.Enabled = false;
+            btnRemove.Enabled = false;
             btnSave.Enabled = false;
             btnCancel.Enabled = false;
             btnInsert.Enabled = true;
@@ -46,6 +47,7 @@ namespace WindowsFormsApplication3
             txtStockCode.Text = "XKDC"+DateTime.Now.ToString("ddMMyy") + stt.ToString("D3");
             txtProductCode.Focus();
             id_current = "0";
+            id_pro = "0";
         }
         private void insertProduct()
         {
@@ -157,30 +159,6 @@ namespace WindowsFormsApplication3
         {
             insertProduct();
         }
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            if (dtTemp.Rows.Count > 0)
-            {
-                DataRow r = dtTemp.Rows.Find(id_current);
-                if (r != null && !r.IsNull("ProductId"))
-                {
-                    dtTemp.Rows.Remove(r);
-                }
-
-                dgvTemp.DataSource = dtTemp;
-
-                if (dtTemp.Rows.Count > 0)
-                {
-                    //object total_price = dtTemp.Compute("SUM(Total)", "");
-
-                    btnSave.Enabled = true;
-                    btnCancel.Enabled = true;
-                    txtProductCode.Text = "";
-                    txtProductCode.Focus();
-                }
-
-            }
-        }
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -290,7 +268,6 @@ namespace WindowsFormsApplication3
 
         private void dgvTemp_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show(dgvTemp.CurrentCell.ColumnIndex.ToString());
             if (e.RowIndex >= 0)
             {
                 if (dgvTemp.CurrentCell.ColumnIndex == 8)
@@ -330,9 +307,11 @@ namespace WindowsFormsApplication3
             {
                 if (dgvTemp.Rows.Count != -1 && e.RowIndex != -1)
                 {
-                    btnDel.Enabled = true;
+                    btnRemove.Enabled = true;
                     var id = dgvTemp.Rows[e.RowIndex].Cells["Quantity"].Value.ToString();
+                    var pro_id= dgvTemp.Rows[e.RowIndex].Cells["ProductId"].Value.ToString(); 
                     id_current = id;
+                    id_pro = pro_id;
                 }
             }
             catch (Exception a)
@@ -362,5 +341,27 @@ namespace WindowsFormsApplication3
             quantity_current = int.Parse(v.ToString());
         }
 
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            if (dtTemp.Rows.Count > 0)
+            {
+                DataRow r = dtTemp.Rows.Find(id_pro);
+                if (r != null && !r.IsNull("ProductId"))
+                {
+                    dtTemp.Rows.Remove(r);
+                }
+
+                dgvTemp.DataSource = dtTemp;
+
+                if (dtTemp.Rows.Count > 0)
+                {
+                    btnSave.Enabled = true;
+                    btnCancel.Enabled = true;
+                    txtProductCode.Text = "";
+                    txtProductCode.Focus();
+                }
+
+            }
+        }
     }
 }

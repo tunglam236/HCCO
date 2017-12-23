@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication3
 {
-    partial class frmBarCode
+    partial class frmTemphu
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBarCode));
-            this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTemphu));
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.ckAll = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.txtCount = new DevComponents.Editors.IntegerInput();
@@ -38,21 +37,11 @@
             this.btnCreateBarCode = new DevComponents.DotNetBar.ButtonX();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
+            this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
+            this.rptCodeTemphu1 = new WindowsFormsApplication3.report.rptCodeTemphu();
             this.groupPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtCount)).BeginInit();
             this.SuspendLayout();
-            // 
-            // crystalReportViewer1
-            // 
-            this.crystalReportViewer1.ActiveViewIndex = -1;
-            this.crystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.crystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.crystalReportViewer1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.crystalReportViewer1.Location = new System.Drawing.Point(0, 83);
-            this.crystalReportViewer1.Name = "crystalReportViewer1";
-            this.crystalReportViewer1.Size = new System.Drawing.Size(938, 413);
-            this.crystalReportViewer1.TabIndex = 1;
-            this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
             // 
             // groupPanel1
             // 
@@ -98,7 +87,7 @@
             // 
             // 
             this.groupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.groupPanel1.TabIndex = 0;
+            this.groupPanel1.TabIndex = 1;
             this.groupPanel1.Text = "Thông tin sản phẩm";
             // 
             // ckAll
@@ -113,7 +102,7 @@
             this.ckAll.Size = new System.Drawing.Size(125, 19);
             this.ckAll.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ckAll.TabIndex = 4;
-            this.ckAll.Text = "In tất cả  sản phẩm";
+            this.ckAll.Text = "In tất cả sản phẩm";
             // 
             // txtCount
             // 
@@ -150,7 +139,7 @@
             this.btnPrint.Size = new System.Drawing.Size(82, 23);
             this.btnPrint.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnPrint.TabIndex = 3;
-            this.btnPrint.Text = "In mã vạch";
+            this.btnPrint.Text = "In mã";
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // btnCreateBarCode
@@ -162,7 +151,7 @@
             this.btnCreateBarCode.Size = new System.Drawing.Size(82, 23);
             this.btnCreateBarCode.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnCreateBarCode.TabIndex = 2;
-            this.btnCreateBarCode.Text = "Tạo mã vạch";
+            this.btnCreateBarCode.Text = "Tạo mã";
             this.btnCreateBarCode.Click += new System.EventHandler(this.btnCreateBarCode_Click);
             // 
             // labelX2
@@ -191,19 +180,32 @@
             this.labelX1.TabIndex = 0;
             this.labelX1.Text = "Mã vạch sản phẩm";
             // 
-            // frmBarCode
+            // crystalReportViewer1
+            // 
+            this.crystalReportViewer1.ActiveViewIndex = 0;
+            this.crystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.crystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.crystalReportViewer1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.crystalReportViewer1.Location = new System.Drawing.Point(0, 83);
+            this.crystalReportViewer1.Name = "crystalReportViewer1";
+            this.crystalReportViewer1.ReportSource = this.rptCodeTemphu1;
+            this.crystalReportViewer1.Size = new System.Drawing.Size(938, 413);
+            this.crystalReportViewer1.TabIndex = 2;
+            this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
+            // 
+            // frmTemphu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(938, 496);
-            this.Controls.Add(this.groupPanel1);
             this.Controls.Add(this.crystalReportViewer1);
+            this.Controls.Add(this.groupPanel1);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmBarCode";
+            this.Name = "frmTemphu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "In mã vạch sản phẩm";
-            this.Load += new System.EventHandler(this.frmBarCode_Load);
+            this.Text = "In tem phụ sản phẩm";
+            this.Load += new System.EventHandler(this.frmTemphu_Load);
             this.groupPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtCount)).EndInit();
             this.ResumeLayout(false);
@@ -212,14 +214,15 @@
 
         #endregion
 
-        private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel1;
+        private DevComponents.DotNetBar.Controls.CheckBoxX ckAll;
+        private DevComponents.Editors.IntegerInput txtCount;
         private DevComponents.DotNetBar.Controls.TextBoxX txtCode;
+        private DevComponents.DotNetBar.ButtonX btnPrint;
         private DevComponents.DotNetBar.ButtonX btnCreateBarCode;
         private DevComponents.DotNetBar.LabelX labelX2;
         private DevComponents.DotNetBar.LabelX labelX1;
-        private DevComponents.Editors.IntegerInput txtCount;
-        private DevComponents.DotNetBar.Controls.CheckBoxX ckAll;
-        private DevComponents.DotNetBar.ButtonX btnPrint;
+        private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
+        private report.rptCodeTemphu rptCodeTemphu1;
     }
 }

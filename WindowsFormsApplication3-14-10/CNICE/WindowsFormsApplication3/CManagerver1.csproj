@@ -139,11 +139,23 @@
     <Compile Include="frmRevenue.Designer.cs">
       <DependentUpon>frmRevenue.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTemphu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTemphu.Designer.cs">
+      <DependentUpon>frmTemphu.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmUpdateVersion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmUpdateVersion.Designer.cs">
       <DependentUpon>frmUpdateVersion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="report\rptCodeTemphu.cs">
+      <DependentUpon>rptCodeTemphu.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="report\rptBarCode.cs">
       <AutoGen>True</AutoGen>
@@ -322,8 +334,15 @@
     <EmbeddedResource Include="frmRevenue.resx">
       <DependentUpon>frmRevenue.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmTemphu.resx">
+      <DependentUpon>frmTemphu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmUpdateVersion.resx">
       <DependentUpon>frmUpdateVersion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="report\rptCodeTemphu.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptCodeTemphu.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="report\rptBarCode.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

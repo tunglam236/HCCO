@@ -17,7 +17,7 @@ namespace WindowsFormsApplication3
         }
 
         CFManagerDataContext db = new CFManagerDataContext(frmOpenConnection.connection);
-        private string id_current = "0";
+        private string id_current = "0", id_pro = "0";
         private int quantity_current = 0;
         private DataTable dtTemp = new DataTable();
         private void resetControl()
@@ -46,6 +46,7 @@ namespace WindowsFormsApplication3
             txtStockCode.Text = "XKDC"+DateTime.Now.ToString("ddMMyy") + stt.ToString("D3");
             txtProductCode.Focus();
             id_current = "0";
+            id_pro = "0";
         }
         private void insertProduct()
         {
@@ -164,24 +165,20 @@ namespace WindowsFormsApplication3
         {
             if (dtTemp.Rows.Count > 0)
             {
-                DataRow r = dtTemp.Rows.Find(id_current);
+                DataRow r = dtTemp.Rows.Find(id_pro);
                 if (r != null && !r.IsNull("ProductId"))
                 {
                     dtTemp.Rows.Remove(r);
                 }
-
                 dgvTemp.DataSource = dtTemp;
 
                 if (dtTemp.Rows.Count > 0)
                 {
-                    object total_price = dtTemp.Compute("SUM(Total)", "");
-
                     btnSave.Enabled = true;
                     btnCancel.Enabled = true;
                     txtProductCode.Text = "";
                     txtProductCode.Focus();
                 }
-
             }
         }
 
@@ -336,8 +333,13 @@ namespace WindowsFormsApplication3
                 if (dgvTemp.Rows.Count != -1 && e.RowIndex != -1)
                 {
                     btnDel.Enabled = true;
-                    var id = dgvTemp[0, e.RowIndex].Value.ToString();
+                    var id = dgvTemp.Rows[e.RowIndex].Cells["Quantity"].Value.ToString();
+                    var pro_id = dgvTemp.Rows[e.RowIndex].Cells["ProductId"].Value.ToString();
                     id_current = id;
+                    id_pro = pro_id;
+
+                    //var id = dgvTemp[0, e.RowIndex].Value.ToString();
+                    //id_current = id;
                 }
             }
             catch (Exception a)

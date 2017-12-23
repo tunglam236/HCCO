@@ -3206,7 +3206,7 @@ public partial class Command : System.Web.UI.Page
                     inv.BranchTypeId = int.Parse(branchTypeId.Trim());
                     inv.BranchId = int.Parse(branchId.Trim());
                     inv.ProductId = int.Parse(d[0]);
-                    inv.QuantityOut = byte.Parse(d[1]);
+                    inv.QuantityOut = int.Parse(d[1]);
                     inv.QuantityIn = 0;
                     inv.CreateAt = DateTime.Now;
                     db.tStockInventories.InsertOnSubmit(inv);
@@ -3408,7 +3408,7 @@ public partial class Command : System.Web.UI.Page
                     inv.BranchTypeId = int.Parse(branchTypeId.Trim());
                     inv.BranchId = int.Parse(branchId.Trim());
                     inv.ProductId = int.Parse(d[0]);
-                    inv.QuantityIn = byte.Parse(d[1]);
+                    inv.QuantityIn = int.Parse(d[1]);
                     inv.QuantityOut = 0;
                     inv.CreateAt = DateTime.Now;
                     db.tStockInventories.InsertOnSubmit(inv);

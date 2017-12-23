@@ -221,9 +221,30 @@ namespace WindowsFormsApplication3
                 }
 
                 offset = offset + (int)FontHeight + 3;
-                graphic.DrawString((i + 1).ToString(), new Font("Tahoma", 6, FontStyle.Bold), new SolidBrush(Color.Black), startX+5, startY + offset);
-                graphic.DrawString(item.ProductCode + " - " + item.ProductName, new Font("Tahoma", 7, FontStyle.Regular), new SolidBrush(Color.Black), startX + 20, startY + offset);
+                graphic.DrawString((i + 1).ToString(), new Font("Tahoma", 6, FontStyle.Bold), new SolidBrush(Color.Black), startX+2, startY + offset);
+                string name_pro = item.ProductCode + " - " + item.ProductName;
 
+                var pro_sub = name_pro.Split(' ');
+                string pro_sub1 = "", pro_sub2 = "";
+                if (pro_sub.Length > 8)
+                {
+                    for (int t = 0; t < 8; t++)
+                    {
+                        pro_sub1 += pro_sub[t] + " ";
+                    }
+                    for (int t = 8; t < pro_sub.Length; t++)
+                    {
+                        pro_sub2 += pro_sub[t] + " ";
+                    }
+                    graphic.DrawString(pro_sub1, new Font("Tahoma", 7, FontStyle.Regular), new SolidBrush(Color.Black), startX + 15, startY + offset);
+                    offset = offset + (int)FontHeight + 5;
+                    graphic.DrawString(pro_sub2, new Font("Tahoma", 7, FontStyle.Regular), new SolidBrush(Color.Black), startX + 15, startY + offset);
+                }
+                else
+                {
+                    graphic.DrawString(name_pro, new Font("Tahoma", 7, FontStyle.Regular), new SolidBrush(Color.Black), startX + 15, startY + offset);
+                }
+               
                 if (item.Discount > 0)
                 {
                     offset = offset + (int)FontHeight + 5;
@@ -254,19 +275,19 @@ namespace WindowsFormsApplication3
 
             offset = offset + (int)FontHeight + 5;
             graphic.DrawString("Chiết khấu ", new Font("Tahoma", font_size, FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset);
-            graphic.DrawString(sale > 0 ? string.Format("{0:0,0 đ}", sale) : "0", font, new SolidBrush(Color.Black), startX + 125, startY + offset);
+            graphic.DrawString(sale > 0 ? string.Format("{0:0,0 đ}", sale) : "0 đ", font, new SolidBrush(Color.Black), startX + 125, startY + offset);
 
             offset = offset + (int)FontHeight + 5;
             graphic.DrawString("Tổng thanh toán ", new Font("Tahoma", font_size, FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset);
-            graphic.DrawString(string.Format("{0:0,0 đ}", total), font, new SolidBrush(Color.Black), startX + 125, startY + offset);
+            graphic.DrawString(total <= 0 ? "0 đ" : string.Format("{ 0:0,0 đ}", total), font, new SolidBrush(Color.Black), startX + 125, startY + offset);
 
             offset = offset + (int)FontHeight + 5;
             graphic.DrawString("Khách đưa ", new Font("Tahoma", font_size, FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset);
-            graphic.DrawString(custome_pay > 0 ? string.Format("{0:0,0 đ}", custome_pay) : "0", font, new SolidBrush(Color.Black), startX + 125, startY + offset);
+            graphic.DrawString(custome_pay > 0 ? string.Format("{0:0,0 đ}", custome_pay) : "0 đ", font, new SolidBrush(Color.Black), startX + 125, startY + offset);
 
             offset = offset + (int)FontHeight + 5;
             graphic.DrawString("Trả lại ", new Font("Tahoma", font_size, FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset);
-            graphic.DrawString(custome_return > 0 ? string.Format("{0:0,0 đ}", custome_return) : "0", font, new SolidBrush(Color.Black), startX + 125, startY + offset);
+            graphic.DrawString(custome_return > 0 ? string.Format("{0:0,0 đ}", custome_return) : "0 đ", font, new SolidBrush(Color.Black), startX + 125, startY + offset);
 
             money = cl.money_code(int.Parse(total.ToString()));
 

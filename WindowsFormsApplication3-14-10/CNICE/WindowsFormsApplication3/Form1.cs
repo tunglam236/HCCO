@@ -74,12 +74,14 @@ namespace WindowsFormsApplication3
             btnHelp.Enabled = logined;
             btnUpdateVersion.Enabled = logined;
             btnRevenue.Enabled = logined;
+            btnTemphu.Enabled = logined;
 
             if (group_code == "" || group_code == "SF")
             {
                 btnReportMoney.Enabled = false;
                 //btnReportInventory.Enabled = false;
                 btnBarCode.Enabled = false;
+                btnTemphu.Enabled = false;
                 btnOutputStockInternal.Enabled = false;
                 btnRevenue.Enabled = false;
             }
@@ -319,6 +321,13 @@ namespace WindowsFormsApplication3
         private void btnRevenue_Click(object sender, EventArgs e)
         {
             var f = new frmRevenue();
+            f.MdiParent = Form1.ActiveForm;
+            f.Show();
+        }
+
+        private void btnTemphu_Click(object sender, EventArgs e)
+        {
+            var f = new frmTemphu();
             f.MdiParent = Form1.ActiveForm;
             f.Show();
         }

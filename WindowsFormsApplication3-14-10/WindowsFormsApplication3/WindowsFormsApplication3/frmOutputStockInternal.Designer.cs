@@ -51,11 +51,11 @@
             this.txtProductCode = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.txtStockCode = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CodeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -112,11 +112,11 @@
             this.dgvTemp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvTemp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTemp.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
+            this.ProductId,
             this.CodeId,
             this.Column2,
             this.Column3,
-            this.Column4,
+            this.Quantity,
             this.Column5,
             this.Column6,
             this.Column7,
@@ -132,7 +132,7 @@
             this.dgvTemp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTemp.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvTemp.EnableHeadersVisualStyles = false;
-            this.dgvTemp.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.dgvTemp.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvTemp.Location = new System.Drawing.Point(0, 140);
             this.dgvTemp.MultiSelect = false;
             this.dgvTemp.Name = "dgvTemp";
@@ -230,6 +230,7 @@
             this.grTTK.Controls.Add(this.txtProductCode);
             this.grTTK.Controls.Add(this.labelX3);
             this.grTTK.Controls.Add(this.txtStockCode);
+            this.grTTK.DisabledBackColor = System.Drawing.Color.Empty;
             this.grTTK.Dock = System.Windows.Forms.DockStyle.Top;
             this.grTTK.Location = new System.Drawing.Point(0, 0);
             this.grTTK.Name = "grTTK";
@@ -267,8 +268,8 @@
             // 
             // cboBranch
             // 
-            this.cboBranch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboBranch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboBranch.DisplayMember = "BranchName";
             this.cboBranch.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cboBranch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -362,8 +363,8 @@
             // 
             // txtNote
             // 
-            this.txtNote.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNote.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // 
             // 
@@ -414,12 +415,12 @@
             this.txtStockCode.Size = new System.Drawing.Size(137, 20);
             this.txtStockCode.TabIndex = 10;
             // 
-            // Column1
+            // ProductId
             // 
-            this.Column1.DataPropertyName = "ProductId";
-            this.Column1.HeaderText = "Id";
-            this.Column1.Name = "Column1";
-            this.Column1.Visible = false;
+            this.ProductId.DataPropertyName = "ProductId";
+            this.ProductId.HeaderText = "Id";
+            this.ProductId.Name = "ProductId";
+            this.ProductId.Visible = false;
             // 
             // CodeId
             // 
@@ -439,11 +440,11 @@
             this.Column3.HeaderText = "Sản phẩm";
             this.Column3.Name = "Column3";
             // 
-            // Column4
+            // Quantity
             // 
-            this.Column4.DataPropertyName = "Quantity";
-            this.Column4.HeaderText = "Số lượng";
-            this.Column4.Name = "Column4";
+            this.Quantity.DataPropertyName = "Quantity";
+            this.Quantity.HeaderText = "Số lượng";
+            this.Quantity.Name = "Quantity";
             // 
             // Column5
             // 
@@ -512,11 +513,11 @@
         private DevComponents.DotNetBar.LabelX labelX3;
         private DevComponents.DotNetBar.Controls.TextBoxX txtStockCode;
         private DevComponents.DotNetBar.Controls.ComboBoxEx cboBranch;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProductId;
         private System.Windows.Forms.DataGridViewTextBoxColumn CodeId;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
