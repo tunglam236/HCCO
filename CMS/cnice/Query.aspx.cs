@@ -849,7 +849,7 @@ public partial class Query : System.Web.UI.Page
                 var pro = db.sp_web_cn_loadProductDetail(branchTypeId.ToString(), int.Parse(id.Trim())).FirstOrDefault();
 
                 cart.AddProduct(id.ToString(), cl.ConvertToUnSign(pro.ProductName), pro.ProductCode, pro.ProductName,
-                    pro.Image, int.Parse(quantity), pro.Price.Value, 0, pro.Score != null ? pro.Score.Value : 0,
+                    (pro.Image == null || pro.Image == "" ? "/image/image-coming-soon.png" : pro.Image), int.Parse(quantity), pro.Price.Value, 0, pro.Score != null ? pro.Score.Value : 0,
                     pro.BrandName, pro.CountryName, sale == "1" ? true : false);
 
                 HttpContext.Current.Session["cart_count"] = r._content = cart.GetTotalQuantity.ToString();

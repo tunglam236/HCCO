@@ -73,11 +73,12 @@ namespace WindowsFormsApplication3
                         int i = 0;
                         for (int cp = 0; cp < spli.Length; cp++)
                         {
-                            var s = db.sp_getBarCodeCnice(WindowsFormsApplication3.Form1.branch_type_id.ToString(), spli[cp].Trim());
+                            var tep = spli[cp].Trim().Split('-');
+                            var s = db.sp_getBarCodeCnice(WindowsFormsApplication3.Form1.branch_type_id.ToString(), tep[0].Trim());
                             
                             foreach (var item in s.ToList())
                             {
-                                for (int k = 0; k < int.Parse(txtCount.Text.Trim()); k++)
+                                for (int k = 0; k < int.Parse(tep[1].Trim()); k++)
                                 {
                                     DataRow dr = dt.NewRow();
                                     dr[0] = item.CodeId;

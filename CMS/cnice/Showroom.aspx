@@ -192,7 +192,7 @@
                     var time = document.getElementById("cph_lbTime");
                     var phone = document.getElementById("cph_lbPhone");
                     var fax = document.getElementById("cph_lbFax");
-
+                    
                     for (var i = 0; i < data.d.length; i++) {
                         if (i == 0) {
                             name.innerHTML = data.d[i].CountryName + ' » ' + data.d[i].Name;
@@ -227,7 +227,7 @@
         $.ajax({
             type: 'POST',
             url: '/Query.aspx/getBranch2',
-            data: '{"districtId":"7","branchId":"6"}',
+            data: '{"districtId":"7","branchId":"4"}',
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
@@ -237,6 +237,7 @@
                 var phone = document.getElementById("cph_lbPhone");
                 var fax = document.getElementById("cph_lbFax");
                 var i = 0;
+                console.log(data.d);
                 name.innerHTML = data.d[i].CountryName + ' » ' + data.d[i].Name;
                 add.innerHTML = data.d[i].Add + ' - ' + data.d[i].DistrictName + ' - ' + data.d[i].CountryName;
                 time.innerHTML = data.d[i].Time;

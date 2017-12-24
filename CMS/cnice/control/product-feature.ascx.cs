@@ -30,7 +30,8 @@ public partial class control_product_feature : System.Web.UI.UserControl
             if(item.NoteSale!=null && item.NoteSale!="")
                 result += "<div class='label-pro-new'><span>" + item.NoteSale + "</span></div>";
 
-            result += "<a class='product-image' href='/" + ref_member + "detail/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductName) + ".html'><img src='" + item.Image + "' alt='" + item.ProductName + "' /></a>";
+            string img = item.Image.Trim() == "" ? "/image/image-coming-soon.png" : item.Image.Trim();
+            result += "<a class='product-image' href='/" + ref_member + "detail/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductName) + ".html'><img src='" + img + "' alt='" + item.ProductName + "' /></a>";
             
             result += "</div><div class='des-container'>";
             result += "<p class='tags-product'>";
@@ -49,7 +50,7 @@ public partial class control_product_feature : System.Web.UI.UserControl
             }
 
             result += "</p>";
-            result += "<h2 class='product-name'><a href='/" + ref_member + "detail/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductName) + ".html'>" + item.ProductName + "</a></h2>";
+            result += "<h2 class='product-name' style='height:36px;'><a href='/" + ref_member + "detail/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductName) + ".html'>" + item.ProductName + "</a></h2>";
             result += "<div class='price-box box-special'><p class='special-price'><span class='price'>" + string.Format("{0:0,0 đ}",  item.Price) + "</span></p>";
             
             result += "</div><button class='button btn-cart' type='button' onclick=\"addCart(" + item.Id.ToString() + ",'" + item.ProductName + "',1" + ",'" + item.Image + "','" + string.Format("{0:0,0}", item.Price) + "',0)\" data-toggle='tooltip' title='Thêm nhanh vào giỏ hàng'>";

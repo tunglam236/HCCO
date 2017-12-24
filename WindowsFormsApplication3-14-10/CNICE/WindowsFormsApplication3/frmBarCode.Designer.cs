@@ -48,9 +48,9 @@
             this.crystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.crystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default;
             this.crystalReportViewer1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.crystalReportViewer1.Location = new System.Drawing.Point(0, 83);
+            this.crystalReportViewer1.Location = new System.Drawing.Point(0, 105);
             this.crystalReportViewer1.Name = "crystalReportViewer1";
-            this.crystalReportViewer1.Size = new System.Drawing.Size(938, 413);
+            this.crystalReportViewer1.Size = new System.Drawing.Size(968, 413);
             this.crystalReportViewer1.TabIndex = 1;
             this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
             // 
@@ -69,7 +69,7 @@
             this.groupPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupPanel1.Location = new System.Drawing.Point(0, 0);
             this.groupPanel1.Name = "groupPanel1";
-            this.groupPanel1.Size = new System.Drawing.Size(938, 77);
+            this.groupPanel1.Size = new System.Drawing.Size(968, 77);
             // 
             // 
             // 
@@ -195,11 +195,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(938, 496);
+            this.ClientSize = new System.Drawing.Size(968, 518);
             this.Controls.Add(this.groupPanel1);
             this.Controls.Add(this.crystalReportViewer1);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(984, 557);
             this.Name = "frmBarCode";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "In mã vạch sản phẩm";

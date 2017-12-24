@@ -61,7 +61,7 @@
                             <ul class="list-unstyled">
                                 <li>Mã sản phẩm: <span class="ex-text"><asp:Literal ID="lbProductCode" runat="server"></asp:Literal> </span></li>
                                 <li>Xuất xứ: <span class="ex-text"><asp:Literal ID="lbCountryName" runat="server"></asp:Literal></span></li>
-                                <li>Thương hiệu: <span class="ex-text"><asp:Literal ID="lbBrand" runat="server"></asp:Literal></span></li>
+                                <li>Nhãn hiệu: <span class="ex-text"><asp:Literal ID="lbBrand" runat="server"></asp:Literal></span></li>
                             </ul>
                         </div>
                         <p class="short-des">
@@ -93,7 +93,7 @@
                 <div class="col-3 product-info-detailed">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#tab-description" data-toggle="tab">Thông tin sản phẩm</a></li>
-                        <li><a href="#tab-review" data-toggle="tab">Tư vấn sản phẩm</a></li>
+                        <%--<li><a href="#tab-review" data-toggle="tab">Tư vấn sản phẩm</a></li>--%>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab-description">

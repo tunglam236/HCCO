@@ -33,7 +33,8 @@ public partial class control_product : System.Web.UI.UserControl
                     result += "<div class='label-pro-new'><span>" + x.NoteSale + "</span></div>";
 
                 content += "<a class='product-image' href='/" + ref_member + "detail/" + x.Id.ToString() + "/" + cl.ConvertToUnSign(x.ProductName) + ".html'><div class='product-image'>";
-                content += "<img src='" + x.Image + "' alt='" + x.ProductName + "' /></div></a>";
+                string img = x.Image.Trim() == "" ? "/image/image-coming-soon.png" : x.Image.Trim();
+                content += "<img src='" + img + "' alt='" + x.ProductName + "' /></div></a>";
                 
                 content += "</div><div class='des-container'>";
                 content += "<p class='tags-product'>";
@@ -52,7 +53,7 @@ public partial class control_product : System.Web.UI.UserControl
                 }
 
                 content += "</p>";
-                content += " <h2 class='product-name'>";
+                content += " <h2 class='product-name' style='height:36px;'>";
                 content += "<a href='/" + ref_member + "detail/" + x.Id.ToString() + "/" + cl.ConvertToUnSign(x.ProductName) + ".html'>" + x.ProductName + "</a></h2>";
                 content += "<div class='price-box'>";
 

@@ -59,7 +59,7 @@
                                                                             Xuất xứ
                                                                         </td>
                                                                         <td class="text-center">
-                                                                            Thương hiệu
+                                                                            Nhãn hiệu
                                                                         </td>
                                                                         <td class="text-center">
                                                                             Số lượng

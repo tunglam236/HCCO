@@ -66,7 +66,8 @@ public partial class Sale : System.Web.UI.Page
 
                 result += "</div>";
                 result += "<p class='product-des'>" + item.Description + "</p>";
-                result += "<button class='button btn-cart' type='button' data-toggle='tooltip' onclick=\"addCart(" + item.Id.ToString() + ",'" + item.ProductName + "','1'" + ",'" + item.Image + "','" + string.Format("{0:0,0}", item.Price) + "',0)\" title='Thêm nhanh vào giỏ hàng'><span><span>Thêm vào giỏ hàng</span></span></button>";
+                string img = item.Image.Trim() == "" ? "/image/image-coming-soon.png" : item.Image.Trim();
+                result += "<button class='button btn-cart' type='button' data-toggle='tooltip' onclick=\"addCart(" + item.Id.ToString() + ",'" + item.ProductName + "','1'" + ",'" + img + "','" + string.Format("{0:0,0}", item.Price) + "',0)\" title='Thêm nhanh vào giỏ hàng'><span><span>Thêm vào giỏ hàng</span></span></button>";
                 result += "<div class='box-hover'><div class='ratings'><div class='rating-box'><div class='rating5'>rating</div>";
                 result += "</div></div></div></div></div></div></div></div>";
             }

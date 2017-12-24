@@ -37,7 +37,8 @@ public partial class Product : System.Web.UI.Page
                             t.Id = item.Id.ToString();
                             t.ProductName = item.ProductName;
                             t.Description = item.Description;
-                            t.Image = item.Image;
+                            string img = item.Image.Trim() == "" ? "/image/image-coming-soon.png" : item.Image.Trim();
+                            t.Image = img;
                             t.Price = string.Format("{0:0,0 đ}", item.Price.Value);
                             t.Tag = item.Tag;
                             tol.Add(t);
@@ -63,7 +64,8 @@ public partial class Product : System.Web.UI.Page
                             t.Id = item.Id.ToString();
                             t.ProductName = item.ProductName;
                             t.Description = item.Description;
-                            t.Image = item.Image;
+                            string img = item.Image.Trim() == "" ? "/image/image-coming-soon.png" : item.Image.Trim();
+                            t.Image = img;
                             t.Price = string.Format("{0:0,0 đ}", item.Price.Value);
                             t.Tag = item.Tag;
                             tol.Add(t);
@@ -84,7 +86,8 @@ public partial class Product : System.Web.UI.Page
                         t.Id = item.Id.ToString();
                         t.ProductName = item.ProductName;
                         t.Description = item.Description;
-                        t.Image = item.Image;
+                        string img = item.Image.Trim() == "" ? "/image/image-coming-soon.png" : item.Image.Trim();
+                        t.Image = img;
                         t.Price = string.Format("{0:0,0 đ}", item.Price.Value);
                         t.Tag = item.Tag;
                         tol.Add(t);
@@ -107,7 +110,8 @@ public partial class Product : System.Web.UI.Page
                         t.Id = item.Id.ToString();
                         t.ProductName = item.ProductName;
                         t.Description = item.Description;
-                        t.Image = item.Image;
+                        string img = item.Image.Trim() == "" ? "/image/image-coming-soon.png" : item.Image.Trim();
+                        t.Image = img;
                         t.Price = string.Format("{0:0,0 đ}", item.Price.Value);
                         t.Tag = item.Tag;
                         tol.Add(t);
@@ -124,7 +128,8 @@ public partial class Product : System.Web.UI.Page
                         t.Id = item.Id.ToString();
                         t.ProductName = item.ProductName;
                         t.Description = item.Description;
-                        t.Image = item.Image;
+                        string img = item.Image.Trim() == "" ? "/image/image-coming-soon.png" : item.Image.Trim();
+                        t.Image = img;
                         t.Price = string.Format("{0:0,0 đ}", item.Price.Value);
                         t.Tag = item.Tag;
                         tol.Add(t);
@@ -174,12 +179,13 @@ public partial class Product : System.Web.UI.Page
 
                 result += "</p>";
 
-                result += "<h2 class='product-name'><a href='/" + ref_member + "detail/" + x.Id.ToString() + "/" + cl.ConvertToUnSign(x.ProductName) + ".html'>" + x.ProductName + "</a></h2>";
+                result += "<h2 class='product-name' style='height:36px;'><a href='/" + ref_member + "detail/" + x.Id.ToString() + "/" + cl.ConvertToUnSign(x.ProductName) + ".html'>" + x.ProductName + "</a></h2>";
                 result += "<div class='box-rating'></div><div class='price-box box-special'>";
                 result += "<p class='special-price'><span class='price'>" + string.Format("{0:0,0}", x.Price) + "</span></p>";
 
                 result += "</div><p class='product-des'>" + x.Description + "</p>";
-                result += "<button class='button btn-cart' type='button' onclick=\"addCart(" + x.Id.ToString() + ",'" + x.ProductName + "','1'" + ",'" + x.Image + "','" + string.Format("{0:0,0}", x.Price) + "',0)\" data-toggle='tooltip' title='Thêm nhanh vào giỏ hàng'>";
+                string img = x.Image.Trim() == "" ? "/image/image-coming-soon.png" : x.Image.Trim();
+                result += "<button class='button btn-cart' type='button' onclick=\"addCart(" + x.Id.ToString() + ",'" + x.ProductName + "','1'" + ",'" + img + "','" + string.Format("{0:0,0}", x.Price) + "',0)\" data-toggle='tooltip' title='Thêm nhanh vào giỏ hàng'>";
                 result += "<span><span>Thêm vào giỏ hàng</span></span></button>";
                 result += "<div class='box-hover'><div class='ratings'><div class='rating-box'><div class='rating5'>rating</div></div></div></div></div></div></div></div></div>";
             }
@@ -306,8 +312,10 @@ public partial class Product : System.Web.UI.Page
                 }
                 result += "<div class='item'><div class='item-inner'><div class='images-container'>";
                 result += "<a class='product-image' href='/" + ref_member + "detail/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductName) + ".html'>";
-                result += "<img  src='" + item.Image + "' alt='" + item.ProductName + "' />";
-                result += "</a><div class='actions'></div></div><div class='des-container'><h2 class='product-name'>";
+                string img = item.Image.Trim() == "" ? "/image/image-coming-soon.png" : item.Image.Trim();
+
+                result += "<img  src='" + img + "' alt='" + item.ProductName + "' />";
+                result += "</a><div class='actions'></div></div><div class='des-container'><h2 class='product-name' style='height:36px;'>";
                 result += "<a href='/" + ref_member + "detail/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductName) + ".html'>" + item.ProductName + "</a></h2>";
 
                 result += "<div class='price-box box-regular'>";

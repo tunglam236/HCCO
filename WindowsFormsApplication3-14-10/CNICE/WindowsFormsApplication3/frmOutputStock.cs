@@ -871,7 +871,7 @@ namespace WindowsFormsApplication3
             double total = 0;
             double sale = 0, custome_pay = 0, custome_return = 0;
             string code_bill = "", created = "", total_price = "", money = "", doitra = "", branchtype = "", address = "", phone = "", website = "", facebook = "", type = "", membername = "", memberphone = "", createdby = "", score = "";
-            var s = db.sp_getBillById(code);
+            var s = db.sp_getBillById(stockcode);
             int i = 0;
 
             Graphics graphic = e.Graphics;

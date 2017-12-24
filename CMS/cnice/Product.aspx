@@ -66,7 +66,7 @@
                                     
                                    
                                     <div class="filter-attribute-container filter-manufacturer">
-                                       <label>Lọc theo thương hiệu</label>
+                                       <label>Lọc theo nhãn hiệu</label>
                                        <div class="list-group-item">
                                           <div id="filter-group2">
                                                 <div id="lbBrand"></div>

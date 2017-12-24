@@ -8,7 +8,7 @@
                     <div class="sub-col col-sm-12 col-md-12">
                         <div class="featured-product-slider quickview-add module-style1">
                             <div class="group-title">
-                                <p>Những sản phẩm được ưa chuộng nhất hiện nay</p>
+                                <%--<p>Những sản phẩm được ưa chuộng nhất hiện nay</p>--%>
                                 <h2>Sản phẩm nổi bật</h2>
                             </div>
                             <div class="owl-container">
