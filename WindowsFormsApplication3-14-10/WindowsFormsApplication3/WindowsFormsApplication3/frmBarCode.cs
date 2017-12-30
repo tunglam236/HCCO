@@ -33,6 +33,8 @@ namespace WindowsFormsApplication3
             dt.Columns.Add("Code", typeof(string));
             dt.Columns.Add("ProductCode", typeof(string));
             dt.Columns.Add("ProductName", typeof(string));
+            dt.Columns.Add("Brand", typeof(string));
+            dt.Columns.Add("Country", typeof(string));
 
             CFManagerDataContext db = new CFManagerDataContext(frmOpenConnection.connection);
             if (txtCount.Text.Trim().Equals(""))
@@ -69,11 +71,12 @@ namespace WindowsFormsApplication3
                         int i = 0;
                         for (int cp = 0; cp < spli.Length; cp++)
                         {
-                            var s = db.sp_getBarCode(WindowsFormsApplication3.Form1.branch_type_id.ToString(), spli[cp].Trim());
-                            
+                            var tep = spli[cp].Trim().Split('-');
+                            var s = db.sp_getBarCode(WindowsFormsApplication3.Form1.branch_type_id.ToString(), tep[0].Trim());
+
                             foreach (var item in s.ToList())
                             {
-                                for (int k = 0; k < int.Parse(txtCount.Text.Trim()); k++)
+                                for (int k = 0; k < int.Parse(tep[1].Trim()); k++)
                                 {
                                     DataRow dr = dt.NewRow();
                                     dr[0] = item.Code;
@@ -94,7 +97,7 @@ namespace WindowsFormsApplication3
                 crystalReportViewer1.ReportSource = cry;
                 crystalReportViewer1.Refresh();
 
-                
+
             }
         }
 

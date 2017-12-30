@@ -34,8 +34,8 @@ namespace WindowsFormsApplication3
                         var check = from x in db.tAccounts
                                     where x.Username == txtUser.Text.Trim()
                                         && x.Password == cl.Encrypt(txtPassOld.Text.Trim())
-                                        && x.Status == 1
-                                        && x.BranchId == WindowsFormsApplication3.Form1.branch_id
+                                        && x.Status != 0
+                                        && x.BranchTypeId == WindowsFormsApplication3.Form1.branch_type_id
                                     select x;
                         if (check.Count() == 1)
                         {

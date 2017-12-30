@@ -113,6 +113,7 @@ public partial class ReportRevenue : System.Web.UI.Page
             i++;
         }
         //result += "<tr><td colspan='5'>Tổng chiết khấu: " + string.Format("{0:0,0}", total_discount) + "</td><td colspan='12'>Tổng doanh thu: " + string.Format("{0:0,0}", total_revenue) + "</td></tr>";
+        lbTongTien.Text = total_revenue == 0 ? "0" : string.Format("{0:0,0 đ}", total_revenue);
         return result;
     }
 }

@@ -182,7 +182,6 @@
           </div>
         </div>
       </div>
-
       </div>
       <div class="col-xs-12 col-md-10">
       <section class="">
@@ -190,7 +189,7 @@
       <h3 style="margin:5px; font-weight:bold;"><i class="fa fa-sign-in"></i> Quản lý nhập hàng</h3>
    </div>
    <div style="text-align:right; padding-bottom:10px;">
-      <a href="#" class="btn-sm btn-success" data-toggle="modal" data-target="#addStockInternal"><i class="glyphicon glyphicon glyphicon-share"></i> Nhập điều chuyển</a>
+      <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addStockInternal"><i class="glyphicon glyphicon glyphicon-share"></i> Nhập điều chuyển</a>
        <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addStock"><i class="glyphicon glyphicon glyphicon-edit"></i> Nhập từ nhà cung cấp</a>
       <div class="dropdown">
       <button class="btn btn-sm btn-danger dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-th"></i> Hiển thị</button>
@@ -337,6 +336,7 @@
             </div>
         </div>
     </div>
+    <img class="crop-loading" src="dist/img/crop.gif" style="display:none;position:fixed; top:50%; left:50%" />
     <input type="hidden" id="hdBranchFrom" value="" />
     <div class="modal fade" id="inputQuick" role="dialog">
         <div class="modal-dialog modal-md">
@@ -384,7 +384,7 @@
                     <button type="button" class="close" data-dismiss="modal">
                         &times;</button>
                     <h4 class="modal-title center">
-                        <i class="fa fa-calculator" aria-hidden="true"></i>NHẬP HÀNG TỪ NHÀ CUNG CẤP</h4>
+                        <i class="fa fa-calculator" aria-hidden="true"></i>NHẬP TỪ NHÀ CUNG CẤP</h4>
                 </div>
                 <div class="modal-body">
                     <div style="font-weight: bold; text-transform: uppercase; font-size: 16px; text-align: center;">
@@ -415,18 +415,24 @@
                     <div style="font-weight: bold; text-transform: uppercase; font-size: 16px; text-align: center;">
                         Chi tiết nhập hàng</div>
                     <div class="row" style="padding: 5px;">
-                        <div class="col-md-8">
+                        <%--<div class="col-md-2">
                             Mã vạch sản phẩm<br />
                             <input type="text" id="productCode" class="proCode form-control" style="width: 100%;" />
+                        </div>--%>
+                        <div class="col-md-10">
+                            Tìm kiếm sản phẩm<br />
+                            <select id="dlProduct" class="form-control select2" style="width: 100%;">
+                            </select>
                         </div>
+                        
                         <div class="col-md-2">
                             Số lượng<br />
                             <input type="text" id="quantity" class="proCode numbers form-control" style="width: 100%;" />
                         </div>
-                        <div class="col-md-2">
+                        <%--<div class="col-md-2">
                             <br />
-                            <a href="#" data-toggle="modal" data-target="#inputQuick" class="btn btn-sm btn-success">Nhập nhanh</a>
-                        </div>
+                            <a href="#" data-toggle="modal" data-target="#inputQuick" class="" style="color:white;">Nhập nhanh</a>
+                        </div>--%>
                     </div>
                     <div class="row" style="padding: 5px;max-height: 200px;overflow-y: scroll;">
                         <table id="tbdetail" cellpadding="5" cellspacing="5" border="0" width="98%" style="min-width: 500px;
@@ -467,6 +473,7 @@
                         </div>
                     </div>
                 </div>
+                <img class="process-loading" src="dist/img/3dots.gif" style="display:none; position:absolute; top:0px; left:0px; width:100px" />
             </div>
         </div>
     </div>
@@ -716,43 +723,54 @@
             return false;
         }
         function addProduct() {
-            var code = $('#productCode').val();
+            //var code = $('#productCode').val();
+            var pro_id = $('#dlProduct').val();
+            var pro_name = $('#dlProduct option:selected').text()
             var quantity = $('#quantity').val();
             if (quantity == '') quantity = '1';
-            if (code != '') {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Command.aspx/getDetailProduct',
-                    data: '{"branchTypeId":"' + $('#dlBranchType').val() + '","codeId":"' + code + '"}',
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.d.OK == '1') {
-                            var html = "";
-                            html += "<tr class='add-detail-rows' id='rows" + data.d.Id + "' data-code='" + data.d.Id + "'>" +
-                                        "<td>" +
-                                            "<a onclick='removeproduct(" + data.d.Id + ",\"" + data.d.ProductName + "\");'><i class='fa fa-trash-o' aria-hidden='true'></i></a>" +
-                                        "</td>" +
-                                        "<td>" + data.d.CodeId + "</td>" +
-                                        "<td>" + data.d.ProductCode + "</td>" +
-                                        "<td>" + data.d.ProductName + "</td>" +
-                                        "<td><input type='text' class='format-input numbers' id='quantity" + data.d.Id + "' value='" + quantity + "' /></td>" +
-                                    '</tr>';
-                            $('#data-detail').append(html);
-                            $('#productCode').val('');
-                            $('#productCode').focus();
-                            $('#quantity').val('1');
-                        }
-                        else
-                            showAlert('Không tìm thấy sản phẩm có mã ' + code + '. Kiểm tra lại');
-                    }
+            if (pro_id != '') {
+                var ok = true;
+                $("#data-detail tr").each(function () {
+                    var _id = $(this).attr("data-code");
+                    if (_id == pro_id) ok = false;
                 });
+                if (ok) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Command.aspx/getDetailProductBySearch',
+                        data: '{"branchTypeId":"' + $('#dlBranchType').val() + '","Id":"' + pro_id + '"}',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.d.OK == '1') {
+                                var html = "";
+                                html += "<tr class='add-detail-rows' id='rows" + data.d.Id + "' data-code='" + data.d.Id + "'>" +
+                                            "<td>" +
+                                                "<a onclick='removeproduct(" + data.d.Id + ",\"" + data.d.ProductName + "\");'><i class='fa fa-trash-o' aria-hidden='true'></i></a>" +
+                                            "</td>" +
+                                            "<td>" + data.d.CodeId + "</td>" +
+                                            "<td>" + data.d.ProductCode + "</td>" +
+                                            "<td>" + data.d.ProductName + "</td>" +
+                                            "<td><input type='text' class='format-input numbers' id='quantity" + data.d.Id + "' value='" + quantity + "' /></td>" +
+                                        '</tr>';
+                                $('#data-detail').append(html);
+                                //$('#productCode').val('');
+                                //$('#productCode').focus();
+                                $('#quantity').val('1');
+                            }
+                            else
+                                showAlert('Không tìm thấy sản phẩm ' + pro_name + '. Kiểm tra lại');
+                        }
+                    });
+                }
+                else
+                    showAlert('Đã tồn tại sản phẩm ' + pro_name+', hãy kiểm tra lại');
             }
-            else showAlert('Nhập mã vạch sản phẩm');
+            else showAlert('Chọn sản phẩm cần thêm');
             return false;
         }
         function saveChanges() {
-
+            $('.process-loading').show();
             var branchTypeId = $('#dlBranchType').val();
             var branchId = $('#dlBranch').val();
             var supplierId = $('#dlSupplier').val();
@@ -770,7 +788,6 @@
             else if (branchId == "") showAlert('Chọn chi nhánh');
             else if (data == "") showAlert('Chưa có dữ liệu nào để lưu');
             else {
-                console.log(data);
                 $.ajax({
                     type: 'POST',
                     url: '/Command.aspx/insertStockInput',
@@ -781,8 +798,8 @@
                         if (data.d._content == '1') {
                             $('.add-detail-rows').remove();
                             $('#txtNote').val('');
-                            $('#productCode').val('');
-                            $('#productCode').focus();
+                            //$('#productCode').val('');
+                            //$('#productCode').focus();
                             $('#quantity').val('1');
                             showAlert('Lưu phiếu nhập thành công');
 
@@ -795,6 +812,7 @@
                     }
                 });
             }
+            $('.process-loading').hide();
         }
         function numberWithCommas(x) {
             x = x.toString();
@@ -824,8 +842,8 @@
                     $('#data-detail').append(html);
                 }
             }
-            $('#productCode').val('');
-            $('#productCode').focus();
+            //$('#productCode').val('');
+            //$('#productCode').focus();
             $('#quantity').val('1');
             $('#inputQuick').modal('hide');
         }
@@ -833,9 +851,11 @@
 
     <script>
         function changeType(id) {
+            $('.process-loading').show();
             loadBranchbyType(id);
 
             loadSupplierbyType(id);
+            $('.process-loading').hide();
         }
 
         function loadBranchbyType(id) {
@@ -845,6 +865,13 @@
             opt_.value = '';
             opt_.innerHTML = 'Chọn chi nhánh';
             c1.appendChild(opt_);
+
+            $('#dlProduct').find('option').remove().end();
+            var c2 = document.getElementById('dlProduct');
+            var opt2_ = document.createElement('option');
+            opt2_.value = '';
+            opt2_.innerHTML = 'Chọn sản phẩm';
+            c2.appendChild(opt2_);
 
             if (id != '') {
                 $.ajax({
@@ -859,6 +886,22 @@
                             opt.value = data.d[i]._content;
                             opt.innerHTML = data.d[i]._mess;
                             c1.appendChild(opt);
+                        }
+                    }
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Command.aspx/loadProductByBranchType',
+                    data: '{"branchType":"' + id + '"}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        for (var i = 0; i < data.d.length; i++) {
+                            var opt = document.createElement('option');
+                            opt.value = data.d[i]._id;
+                            opt.innerHTML = data.d[i]._content;
+                            c2.appendChild(opt);
                         }
                     }
                 });
@@ -914,7 +957,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.input-hide').hide();
-
+            $('.process-loading').hide();
             $(".numbers").keypress(function (e) {
                 if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
                     return false;

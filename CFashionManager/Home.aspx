@@ -532,6 +532,7 @@
                     },
                     scales: {
                         xAxes: [{
+                            barPercentage: 0.4,
                             display: true,
                             scaleLabel: {
                                 display: true,
@@ -553,7 +554,13 @@
                                 labelString: 'Số lượng bán ra'
                             },
                             ticks: {
-                                min: 0
+                                min: 0,
+                                beginAtZero: false,
+                                callback: function (value, index, values) {
+                                    if (Math.floor(value) === value) {
+                                        return value;
+                                    }
+                                }
                             }
                         }]
                     }

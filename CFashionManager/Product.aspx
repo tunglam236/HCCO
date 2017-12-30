@@ -351,7 +351,7 @@
                                 Xóa</button>
                             <button type="button" class="btn btn-success" data-dismiss="modal">
                                 Hủy bỏ</button></span>
-                            &nbsp;<label> <input type="checkbox" id="ckAutoLoad" checked="checked" /> Nhập liên tục</label>
+                            &nbsp;<label> <input type="checkbox" id="ckAutoLoad" checked="checked" /> Auto load</label>
                         </div>
                     </div>
                 </div>
@@ -730,7 +730,7 @@
                     success: function (data) {
                         if (data.d._content == '1') {
                             showAlert('Thêm sản phẩm thành công');
-                            if (!ckload) {
+                            if (ckload) {
                                 setTimeout(function () {
                                     window.location.href = window.location.href;
                                 }, 1000);
@@ -750,6 +750,9 @@
                                 $('#txtNoteSale').val('');
                                 $('#txtTag').val('');
                                 $('#txtcodeId').focus();
+
+                                $(".crop-loading").hide();
+                                $("#addProduct").modal('hide');
                             }
                         }
                         else {
@@ -792,6 +795,10 @@
                 var notesale = $('#txtNoteSale').val();
                 var tag = $('#txtTag').val();
                 var Id = $('#hdId').val();
+
+                var checkbox = $('#ckAutoLoad:checked').val();
+                var ckload = checkbox == 'on' ? true : false;
+
                 $.ajax({
                     type: 'POST',
                     url: '/Command.aspx/UpdateProduct',
@@ -801,11 +808,31 @@
                     success: function (data) {
                         if (data.d._content == '1') {
                             showAlert('Đã cập nhật sản phẩm '+proName);
+                            if (ckload) {
+                                setTimeout(function () {
+                                    window.location.href = window.location.href;
+                                }, 1000);
+                            }
+                            else
+                            {
+                                $('#txtCapacity').val('');
+                                $('#txtExpiryDate').val('');
+                                $('#txtCatalog').val('');
+                                $('#txtcodeId').val('');
+                                $('#txtproductCode').val('');
+                                $('#txtproductName').val('');
+                                $('#txtProductTypeCode').val('');
+                                $('#txtDescription').val('');
+                                $('#txtComposition').val('');
+                                $('#txtMaterial').val('');
+                                $('#txtNote').val('');
+                                $('#txtNoteSale').val('');
+                                $('#txtTag').val('');
+                                $('#txtcodeId').focus();
 
-                            setTimeout(function () {
-                                window.location.href = window.location.href;
-                            }, 1000);
-
+                                $(".crop-loading").hide();
+                                $("#addProduct").modal('hide');
+                            }
                         }
                         else {
                             showAlert('Có lỗi khi cập nhật sản phẩm. Chi tiết: ' + data.d._mess);

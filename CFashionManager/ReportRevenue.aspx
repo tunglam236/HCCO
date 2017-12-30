@@ -140,6 +140,7 @@
       <section class="">
        <div class="pull-left">
           <h3 style="margin:5px; font-weight:bold;"><i class="fa fa-bar-chart"></i> Báo cáo doanh thu</h3>
+           
        </div>
        <div style="text-align:right; padding-bottom:10px;">
           <div class="dropdown">
@@ -157,12 +158,14 @@
                 <li><a href="#" class="small toggle-vis" data-column="10" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Tổng tiền</label> </a></li>
                 <li><a href="#" class="small toggle-vis" data-column="11" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;% CK</label> </a></li>
                 <li><a href="#" class="small toggle-vis" data-column="12" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Tổng chiết khấu</label> </a></li>
-                <li><a href="#" class="small toggle-vis" data-column="13" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;KH thanh toán</label> </a></li>
-                <li><a href="#" class="small toggle-vis" data-column="14" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Trả lại</label> </a></li>
-                <li><a href="#" class="small toggle-vis" data-column="15" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ghi chú</label> </a></li>
+                <li><a href="#" class="small toggle-vis" data-column="13" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Thành tiền</label> </a></li>
+                <li><a href="#" class="small toggle-vis" data-column="14" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;KH thanh toán</label> </a></li>
+                <li><a href="#" class="small toggle-vis" data-column="15" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Trả lại</label> </a></li>
+                <li><a href="#" class="small toggle-vis" data-column="16" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ghi chú</label> </a></li>
 
             </ul>
         </div>
+           <h4><i class="fa fa-money"></i> Tổng doanh thu: <asp:Literal ID="lbTongTien" runat="server"></asp:Literal></h4>
        </div>
       </section>
         <div class="box box-warning">
@@ -185,7 +188,7 @@
                     <th class="bg-th">Người xuất</th>
                     <th class="bg-th">Tổng tiền</th>
                     <th class="bg-th">% CK</th>
-                    <th class="bg-th">Tổng chiết khẩu</th>
+                    <th class="bg-th">Tổng chiết khấu</th>
                     <th class="bg-th">Thành tiền</th>
                     <th class="bg-th">KH thanh toán</th>
                     <th class="bg-th">Trả lại</th>
@@ -209,7 +212,7 @@
                     <th class="bg-th">Người xuất</th>
                     <th class="bg-th">Tổng tiền</th>
                     <th class="bg-th">% CK</th>
-                    <th class="bg-th">Tổng chiết khẩu</th>
+                    <th class="bg-th">Tổng chiết khấu</th>
                     <th class="bg-th">Thành tiền</th>
                     <th class="bg-th">KH thanh toán</th>
                     <th class="bg-th">Trả lại</th>
@@ -217,14 +220,14 @@
                     </tr>
                 </tfoot>
             </table>
-                </div>
+            </div>
         </div>
         </div>
       </div>
    </div>
 </section>
     <script>
-        var options = ["1","2","3", "4", "5","6","7","8","9","10","11","12","13","14","15","16","17"];
+        var options = ["1","2","3", "4", "5","6","7","8","9","10","11","12","13","14","15","16"];
 
         $('.ul-column a').on('click', function (event) {
 
@@ -285,9 +288,9 @@
 			        }],
                 language: {
                     buttons: {
-                        copy: 'Copy danh sách',
-                        print: 'In danh sách',
-                        excel: 'Xuất Excel'
+                        copy: 'Copy',
+                        print: 'Print',
+                        excel: 'Export'
                     }
                 }
             });

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Danh mục thương hiệu" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="Brand.aspx.cs" Inherits="Brand" %>
+﻿<%@ Page Title="Danh mục nhãn hiệu" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="Brand.aspx.cs" Inherits="Brand" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 <style type="text/css">
@@ -121,15 +121,15 @@
        <div class="col-xs-12 col-md-10">
       <section class="">
    <div class="pull-left">
-      <h3 style="margin:5px; font-weight:bold;"><i class="fa fa-star"></i> Danh mục thương hiệu</h3>
+      <h3 style="margin:5px; font-weight:bold;"><i class="fa fa-star"></i> Danh mục nhãn hiệu</h3>
    </div>
    <div style="text-align:right; padding-bottom:10px;">
-    <a href="#" onclick="addColor();" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addColor"><i class="glyphicon glyphicon glyphicon-edit"></i> Thêm thương hiệu</a>
+    <a href="#" onclick="addColor();" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addColor"><i class="glyphicon glyphicon glyphicon-edit"></i> Thêm nhãn hiệu</a>
       <div class="dropdown">
       <button class="btn btn-sm btn-danger dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-th"></i> Hiển thị</button>
         <ul class="dropdown-menu ul-column" style="margin-left:-65px;">
-            <li><a href="#" class="small toggle-vis" data-column="1" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mã thương hiệu</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="2" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Tên thương hiệu</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="1" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mã nhãn hiệu</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="2" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Tên nhãn hiệu</label> </a></li>
             <li><a href="#" class="small toggle-vis" data-column="3" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ngày tạo</label> </a></li>
         </ul>
     </div>
@@ -142,8 +142,8 @@
                   <thead>
                      <tr>
                         <th class='bg-th center' width="40px">STT</th>
-                        <th class="bg-th">Mã thương hiệu</th>
-                        <th class="bg-th">Tên thương hiệu</th>
+                        <th class="bg-th">Mã nhãn hiệu</th>
+                        <th class="bg-th">Tên nhãn hiệu</th>
                         <th class="bg-th">Ngày tạo</th>
                      </tr>
                   </thead>
@@ -153,8 +153,8 @@
                   <tfoot>
                      <tr>
                         <th class='bg-th center' width="40px">STT</th>
-                        <th class="bg-th">Mã thương hiệu</th>
-                        <th class="bg-th">Tên thương hiệu</th>
+                        <th class="bg-th">Mã nhãn hiệu</th>
+                        <th class="bg-th">Tên nhãn hiệu</th>
                         <th class="bg-th">Ngày tạo</th>
                      </tr>
                   </tfoot>
@@ -172,7 +172,7 @@
                         &times;</button>
                     <h4 class="modal-title center">
                         <i class="fa fa-calculator" aria-hidden="true"></i>
-                        <span id="lb">THÊM THƯƠNG HIỆU</span>
+                        <span id="lb">THÊM NHÃN HIỆU</span>
                     </h4>
                 </div>
                 <div class="modal-body">
@@ -183,21 +183,23 @@
                             </select>
                         </div>
                         <div class="col-md-4">
-                            Mã thương hiệu<br />
+                            Mã nhãn hiệu<br />
                             <input type="text" id="txtCode" class="form-control" style="width: 100%;" />
                         </div>
-                         <div class="col-md-4">Tên thương hiệu<br />
+                         <div class="col-md-4">Tên nhãn hiệu<br />
                             <input type="text" id="txtName" class="form-control" style="width: 100%;" />
                         </div>
                     </div>
                     <div class="row" style="padding: 5px;">
-                        <div class="col-md-12 btn-group pull-right">
+                        <div class="col-md-12 pull-right">
+                             <span class=" btn-group">
                             <button type="button" class="btn btn-success" onclick="saveChanges();">
                                 Lưu lại</button>
                             <button type="button" id="removeColor" style="display:none;" class="btn btn-success" onclick="deleteColor();">
                                 Xóa</button>
                             <button type="button" class="btn btn-success" data-dismiss="modal">
-                                Hủy bỏ</button>
+                                Hủy bỏ</button></span>
+                            &nbsp;<label> <input type="checkbox" id="ckAutoLoad" checked="checked" /> Auto load</label>
                         </div>
                     </div>
                 </div>
@@ -315,7 +317,7 @@
             $('#dlBranchType').val(branchtypeId);
             document.getElementById('select2-dlBranchType-container').innerText = branchTypeName;
             $('#removeColor').show();
-            document.getElementById('lb').innerText = 'CẬP NHẬT THƯƠNG HIỆU';
+            document.getElementById('lb').innerText = 'CẬP NHẬT NHÃN HIỆU';
         }
         function addColor() {
             $("#addColor").modal({ show: false });
@@ -323,7 +325,7 @@
             $('#txtCode').val('');
             $('#txtName').val('');
             $('#removeColor').hide();
-            document.getElementById('lb').innerText = 'THÊM THƯƠNG HIỆU';
+            document.getElementById('lb').innerText = 'THÊM NHÃN HIỆU';
         }
         function saveChanges() {
             var id = $('#hdColorId').val();
@@ -331,6 +333,9 @@
                 var branchType = $('#dlBranchType').val();
                 var code = $('#txtCode').val();
                 var name = $('#txtName').val();
+
+                var checkbox = $('#ckAutoLoad:checked').val();
+                var ckload = checkbox == 'on' ? true : false;
 
                 if (code != '' && name != '') {
                     $.ajax({
@@ -341,18 +346,27 @@
                         dataType: 'json',
                         success: function (data) {
                             if (data.d._content == '1') {
-                                showAlert('Đã thêm thương hiệu [' + name + ']');
-                                
-                                setTimeout(function () {
-                                    window.location.href = window.location.href;
-                                }, 1000);
+                                showAlert('Đã thêm nhãn hiệu [' + name + ']');
+                                if (ckload) {
+                                    setTimeout(function () {
+                                        window.location.href = window.location.href;
+                                    }, 1000);
+                                }
+                                else {
+                                    $('#txtCode').val('');
+                                    $('#txtName').val('');
+                                    $('#txtCode').focus();
+
+                                    $(".crop-loading").hide();
+                                    $("#addColor").modal('hide');
+                                }
                             }
                             else
                                 showAlert(data.d._mess);
                         }
                     });
                 }
-                else showAlert('Nhập mã và tên thương hiệu');
+                else showAlert('Nhập mã và tên nhãn hiệu');
             }
             else {
                 updateChanges();
@@ -364,6 +378,9 @@
             var name = $('#txtName').val();
             var id = $('#hdColorId').val();
 
+            var checkbox = $('#ckAutoLoad:checked').val();
+            var ckload = checkbox == 'on' ? true : false;
+
             if (code != '' && name != '') {
                 $.ajax({
                     type: 'POST',
@@ -374,18 +391,28 @@
                     success: function (data) {
                         if (data.d._content == '1') {
 
-                            showAlert('Đã cập nhật thương hiệu [' + name + ']');
+                            showAlert('Đã cập nhật nhãn hiệu [' + name + ']');
                             
-                            setTimeout(function () {
-                                window.location.href = window.location.href;
-                            }, 1000);
+                            if (ckload) {
+                                setTimeout(function () {
+                                    window.location.href = window.location.href;
+                                }, 1000);
+                            }
+                            else {
+                                $('#txtCode').val('');
+                                $('#txtName').val('');
+                                $('#txtCode').focus();
+
+                                $(".crop-loading").hide();
+                                $("#addColor").modal('hide');
+                            }
                         }
                         else
                             showAlert(data.d._mess);
                     }
                 });
             }
-            else showAlert('Nhập mã và tên thương hiệu');
+            else showAlert('Nhập mã và tên nhãn hiệu');
         }
         function deleteColor() {
             var id = $('#hdColorId').val();
@@ -402,7 +429,7 @@
                             if (data.d._content == '1') {
                                 $('#hdColorId').val('');
                                 $('#delete' + id).remove();
-                                showAlert('Đã xóa thương hiệu [' + name + ']');
+                                showAlert('Đã xóa nhãn hiệu [' + name + ']');
                                 $("#addColor").modal('hide');
                             }
                             else
@@ -410,7 +437,7 @@
                         }
                     });
                 }
-                else showAlert('Chọn thương hiệu muốn xóa');
+                else showAlert('Chọn nhãn hiệu muốn xóa');
             }
         }
     </script>

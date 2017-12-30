@@ -280,18 +280,23 @@
                     <div style="font-weight: bold; text-transform: uppercase; font-size: 16px; text-align: center;">
                         Chi tiết xuất hàng</div>
                     <div class="row" style="padding: 5px;">
-                        <div class="col-md-8">
+                        <%--<div class="col-md-8">
                             Mã vạch sản phẩm<br />
                             <input type="text" id="productCode" class="proCode form-control" style="width: 100%;" />
+                        </div>--%>
+                        <div class="col-md-10">
+                            Tìm kiếm sản phẩm<br />
+                            <select id="dlProduct" class="form-control select2" style="width: 100%;">
+                            </select>
                         </div>
                         <div class="col-md-2">
                             Số lượng<br />
                             <input type="text" id="quantity" class="proCode numbers form-control" style="width: 100%;" />
                         </div>
-                        <div class="col-md-2">
+                        <%--<div class="col-md-2">
                             <br />
-                            <a href="#" data-toggle="modal" data-target="#inputQuick" class="btn btn-sm btn-success">Nhập nhanh</a>
-                        </div>
+                            <a href="#" data-toggle="modal" data-target="#inputQuick" class="" style="color:white;">Nhập nhanh</a>
+                        </div>--%>
                     </div>
                     <div class="row" style="padding: 5px;max-height: 200px;overflow-y: scroll;">
                         <table id="tbdetail" cellpadding="5" cellspacing="5" border="0" width="98%" style="min-width: 500px;
@@ -519,38 +524,50 @@
             return false;
         }
         function addProduct() {
-            var code = $('#productCode').val();
+            //var code = $('#productCode').val();
+            var pro_id = $('#dlProduct').val();
+            var pro_name = $('#dlProduct option:selected').text()
+
             var quantity = $('#quantity').val();
             if (quantity == '') quantity = '1';
-            if (code != '') {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Command.aspx/getDetailProduct',
-                    data: '{"branchTypeId":"' + $('#dlBranchType').val() + '","codeId":"' + code + '"}',
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.d.OK == '1') {
-                            var html = "";
-                            html += "<tr class='output-detail-rows' id='rows" + data.d.Id + "' data-code='" + data.d.Id + "'>" +
-                                        "<td>" +
-                                            "<a onclick='removeproduct(" + data.d.Id + ",\"" + data.d.ProductName + "\");'><i class='fa fa-trash-o' aria-hidden='true'></i></a>" +
-                                        "</td>" +
-                                        "<td>" + data.d.CodeId + "</td>" +
-                                        "<td>" + data.d.ProductCode + "</td>" +
-                                        "<td>" + data.d.ProductName + "</td>" +
-                                        "<td><input type='text' class='format-input' id='quantity" + data.d.Id + "' value='" + quantity + "' /></td>" +
-                                    '</tr>';
-
-                            $('#data-detail').append(html);
-                            $('#productCode').val('');
-                            $('#productCode').focus();
-                            $('#quantity').val('1');
-                        }
-                        else
-                            showAlert('Không tìm thấy sản phẩm có mã ' + code + '. Kiểm tra lại');
-                    }
+            if (pro_id != '') {
+                var ok = true;
+                $("#data-detail tr").each(function () {
+                    var _id = $(this).attr("data-code");
+                    if (_id == pro_id) ok = false;
                 });
+                if (ok) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Command.aspx/getDetailProductBySearch',
+                        data: '{"branchTypeId":"' + $('#dlBranchType').val() + '","Id":"' + pro_id + '"}',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.d.OK == '1') {
+                                var html = "";
+                                html += "<tr class='output-detail-rows' id='rows" + data.d.Id + "' data-code='" + data.d.Id + "'>" +
+                                            "<td>" +
+                                                "<a onclick='removeproduct(" + data.d.Id + ",\"" + data.d.ProductName + "\");'><i class='fa fa-trash-o' aria-hidden='true'></i></a>" +
+                                            "</td>" +
+                                            "<td>" + data.d.CodeId + "</td>" +
+                                            "<td>" + data.d.ProductCode + "</td>" +
+                                            "<td>" + data.d.ProductName + "</td>" +
+                                            "<td><input type='text' class='format-input' id='quantity" + data.d.Id + "' value='" + quantity + "' /></td>" +
+                                        '</tr>';
+
+                                $('#data-detail').append(html);
+                                //$('#productCode').val('');
+                                //$('#productCode').focus();
+                                $('#quantity').val('1');
+                            }
+                            else
+                                showAlert('Không tìm thấy sản phẩm có mã ' + code + '. Kiểm tra lại');
+                        }
+                    });
+                }
+                else
+                    showAlert('Đã tồn tại sản phẩm ' + pro_name + ', hãy kiểm tra lại');
             }
             else showAlert('Nhập mã vạch sản phẩm');
             return false;
@@ -584,8 +601,8 @@
                         if (data.d._content == '1') {
                             $('.output-detail-rows').remove();
                             $('#txtNote').val('');
-                            $('#productCode').val('');
-                            $('#productCode').focus();
+                            //$('#productCode').val('');
+                            //$('#productCode').focus();
                             $('#quantity').val('1');
                             showAlert('Lưu phiếu xuất thành công');
 
@@ -619,8 +636,8 @@
                     $('#data-detail').append(html);
                 }
             }
-            $('#productCode').val('');
-            $('#productCode').focus();
+            //$('#productCode').val('');
+            //$('#productCode').focus();
             $('#quantity').val('1');
             $('#inputQuick').modal('hide');
         }
@@ -633,6 +650,7 @@
         function loadBranchbyType(id) {
             $('#dlBranch').find('option').remove().end();
             $('#dlToBranch').find('option').remove().end();
+            $('#dlProduct').find('option').remove().end();
 
             var c1 = document.getElementById('dlBranch');
             var c2 = document.getElementById('dlToBranch');
@@ -646,6 +664,13 @@
             opto_.value = '';
             opto_.innerHTML = 'Chọn chi nhánh';
             c2.appendChild(opto_);
+
+            
+            var c3 = document.getElementById('dlProduct');
+            var opt3_ = document.createElement('option');
+            opt3_.value = '';
+            opt3_.innerHTML = 'Chọn sản phẩm';
+            c3.appendChild(opt3_);
 
             if (id != '') {
                 $.ajax({
@@ -667,6 +692,22 @@
                             opt2.value = data.d[i]._content;
                             opt2.innerHTML = data.d[i]._mess;
                             c2.appendChild(opt2);
+                        }
+                    }
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Command.aspx/loadProductByBranchType',
+                    data: '{"branchType":"' + id + '"}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        for (var i = 0; i < data.d.length; i++) {
+                            var opt = document.createElement('option');
+                            opt.value = data.d[i]._id;
+                            opt.innerHTML = data.d[i]._content;
+                            c3.appendChild(opt);
                         }
                     }
                 });

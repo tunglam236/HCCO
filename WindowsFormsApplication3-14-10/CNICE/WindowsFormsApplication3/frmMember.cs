@@ -129,6 +129,7 @@ namespace WindowsFormsApplication3
                         txtNote.Text = d.FirstOrDefault().Note;
                         txtEmail.Text = d.FirstOrDefault().Email;
                         txtPhone.Text = d.FirstOrDefault().Phone;
+                        cboSex.SelectedValue = d.FirstOrDefault().Sex.Value ? "1" : "0";
                         if (d.FirstOrDefault().Birthday != null)
                             txtBirthday.Text = d.FirstOrDefault().Birthday.Value.ToString("MM/dd/yyyy");
                         else txtBirthday.Text = "";

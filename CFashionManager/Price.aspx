@@ -247,7 +247,7 @@
                                 Lưu lại</button>
                             <button type="button" class="btn btn-success" data-dismiss="modal">
                                 Đóng</button></span>
-                            &nbsp; <label> <input type="checkbox" id="ckLoad" checked="checked" /> Nhập liên tục</label>
+                            &nbsp; <label> <input type="checkbox" id="ckLoad" checked="checked" /> Auto load</label>
                         </div>
                     </div>
                 </div>
@@ -581,6 +581,7 @@
             var price = $('#txtPrice').val();
             var fromDate = $('#txtFromDate').val();
             var toDate = $('#txtToDate').val();
+
             var checkbox = $('#ckLoad:checked').val();
             var ckload = checkbox == 'on' ? true : false;
             
@@ -599,7 +600,7 @@
                     success: function (data) {
                         if (data.d._content == '1') {
                             showAlert('Thêm giá bán thành công');
-                            if (!ckload) {
+                            if (ckload) {
                                 setTimeout(function () {
                                     window.location.href = window.location.href;
                                 }, 1000);
@@ -610,6 +611,9 @@
                                 $('#txtFromDate').val('');
                                 $('#txtToDate').val('');
                                 $('#txtProductCodeId').focus();
+
+                                $(".crop-loading").hide();
+                                $("#addProduct").modal('hide');
                             }
                         }
                         else

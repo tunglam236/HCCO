@@ -28,16 +28,16 @@ public partial class Command : System.Web.UI.Page
             var l = new stockOutputDetail();
             l.ProductCode = item.ProductCode;
             l.ProductName = item.ProductName;
-            if (item.Discount != null)
-                l.Discount = item.Discount.Value > 999 ? string.Format("{0:0,0}", item.Discount.Value) : item.Discount.ToString();
+            if (item.Discount !=0)
+                l.Discount = item.Discount > 999 ? string.Format("{0:0,0}", item.Discount) : item.Discount.ToString();
             else
                 l.Discount = "0";
             l.DiscountPercent = item.DiscountPercent.ToString() + "%";
             l.Price = item.Price.Value > 999 ? string.Format("{0:0,0}", item.Price.Value) : item.Price.Value.ToString();
             l.Quantity = item.Quantity.ToString();
 
-            if (item.Discount != null)
-                total = (item.Price.Value * item.Quantity) - (item.Quantity * item.Discount.Value);
+            if (item.Discount != 0)
+                total = (item.Price.Value * item.Quantity) - (item.Quantity * item.Discount);
             else total = (item.Price.Value * item.Quantity);
 
             l.Total = total > 999 ? string.Format("{0:0,0}", total) : total.ToString();
@@ -229,7 +229,63 @@ public partial class Command : System.Web.UI.Page
         }
         return r;
     }
-    
+    [WebMethod]
+    public static List<result> loadProductByBranchType(string branchType)
+    {
+        var r = new List<result>();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = from x in db.tProducts
+                    where x.BranchTypeId == int.Parse(branchType.Trim()) && x.Status ==1
+                    orderby x.ProductTypeCode, x.ProductName
+                    select new { x.Id,x.CodeId, x.ProductTypeCode, x.ProductName };
+            foreach (var item in b.ToList())
+            {
+                var t = new result();
+                t._content = item.CodeId + " | " + item.ProductTypeCode + " | " + item.ProductName;
+                t._id = item.Id.ToString();
+                r.Add(t);
+            }
+        }
+        catch (Exception ax)
+        {
+            var t = new result();
+            t._id = "0";
+            t._content = ax.Message;
+            r.Add(t);
+        }
+        return r;
+    }
+    [WebMethod]
+    public static List<result> loadMaterial(string branchtype)
+    {
+        var r = new List<result>();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = from x in db.tMaterials
+                    where x.Status != 0 && x.BranchTypeId==int.Parse(branchtype.Trim())
+                    select new { x.Id, Name = x.MaterialCode + " | " + x.MaterialName };
+            foreach (var item in b.ToList())
+            {
+                var t = new result();
+                t._content = item.Id.ToString();
+                t._mess = item.Name;
+                t._id = "1";
+                r.Add(t);
+            }
+        }
+        catch (Exception ax)
+        {
+            var t = new result();
+            t._id = "0";
+            t._content = ax.Message;
+            r.Add(t);
+        }
+        return r;
+    }
+
     [WebMethod]
     public static List<result> loadProductTypeCode(string branchType)
     {
@@ -1167,6 +1223,559 @@ public partial class Command : System.Web.UI.Page
         return r;
     }
     [WebMethod]
+    public static result updateDept(string id, string code, string name, string des)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+
+            var b = from x in db.tDepts where x.Id == int.Parse(id.Trim()) select x;
+            if (b.Count() > 0)
+            {
+                b.FirstOrDefault().DeptCode = code.Trim();
+                b.FirstOrDefault().DeptName = name.Trim();
+                b.FirstOrDefault().Description = des.Trim();
+                b.FirstOrDefault().ModifiedAt = DateTime.Now;
+                b.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.SubmitChanges();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin bộ phận, hãy thử lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu bộ phận, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result insertDept(string code, string name, string des)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = new tDept();
+            b.DeptCode = code.Trim();
+            b.DeptName = name.Trim();
+            b.Description = des.Trim();
+            b.CreateAt = DateTime.Now;
+            b.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+            b.Status = 1;
+            db.tDepts.InsertOnSubmit(b);
+            db.SubmitChanges();
+            r._content = "1";
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu bộ phận, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result deleteDept(string id)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = from x in db.tDepts where x.Id == int.Parse(id.Trim()) select x;
+            if (b.Count() > 0)
+            {
+                b.FirstOrDefault().Status = 0;
+                b.FirstOrDefault().ModifiedAt = DateTime.Now;
+                b.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.SubmitChanges();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin bộ phận, hãy thử lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi xóa bộ phận, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result updateMaterial(string id, string branchtype,string code, string name, string des)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+
+            var b = from x in db.tMaterials where x.Id == int.Parse(id.Trim()) select x;
+            if (b.Count() > 0)
+            {
+                b.FirstOrDefault().MaterialCode = code.Trim();
+                b.FirstOrDefault().MaterialName = name.Trim();
+                b.FirstOrDefault().Description = des.Trim();
+                b.FirstOrDefault().BranchTypeId = int.Parse(branchtype.Trim());
+                b.FirstOrDefault().ModifiedAt = DateTime.Now;
+                b.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.SubmitChanges();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin nguyên phụ liệu, hãy thử lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu bộ phận, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result insertMaterial(string branchtype,string code, string name, string des)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = new tMaterial();
+            b.MaterialCode = code.Trim();
+            b.MaterialName = name.Trim();
+            b.Description = des.Trim();
+            b.CreateAt = DateTime.Now;
+            b.BranchTypeId = int.Parse(branchtype.Trim());
+            b.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+            b.Status = 1;
+            db.tMaterials.InsertOnSubmit(b);
+            db.SubmitChanges();
+            r._content = "1";
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu nguyên phụ liệu, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result deleteMaterial(string id)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = from x in db.tMaterials where x.Id == int.Parse(id.Trim()) select x;
+            if (b.Count() > 0)
+            {
+                b.FirstOrDefault().Status = 0;
+                b.FirstOrDefault().ModifiedAt = DateTime.Now;
+                b.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.SubmitChanges();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin nguyên phụ liệu, hãy thử lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi xóa nguyên phụ liệu, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static double getNormByType(string productTypeId, string type)
+    {
+        double norm = 0;
+        CFileManagerDataContext db = new CFileManagerDataContext();
+        var n = from x in db.tNorms
+                where x.ProductTypeId == int.Parse(productTypeId.Trim()) && x.Status == 1
+                select new { x.ClothPrimary, x.ClothSub };
+        if (n.Count() > 0)
+        {
+            if (type == "1") norm = n.FirstOrDefault().ClothPrimary.Value;
+            else
+                if (type == "2") norm = n.FirstOrDefault().ClothSub.Value;
+        }
+        return norm;
+    }
+    [WebMethod]
+    public static result updateNorm(string id, string productTypeId, string clothPrimary, string clothSub,string des)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+
+            var check = from x in db.tNorms where x.Id!= int.Parse(id) && x.ProductTypeId == int.Parse(productTypeId.Trim()) select x;
+            if (check.Count() > 0)
+            {
+                r._content = "0";
+                r._mess = "Đã tồn tại định mức này, kiểm tra lại";
+            }
+            else
+            {
+                var b = from x in db.tNorms where x.Id == int.Parse(id.Trim()) select x;
+                if (b.Count() > 0)
+                {
+                    b.FirstOrDefault().ProductTypeId = int.Parse(productTypeId.Trim());
+                    if (clothPrimary.Trim() == "")
+                        b.FirstOrDefault().ClothPrimary = 0;
+                    else
+                        b.FirstOrDefault().ClothPrimary = double.Parse(clothPrimary.Trim());
+
+                    if (clothSub.Trim() == "")
+                        b.FirstOrDefault().ClothSub = 0;
+                    else
+                        b.FirstOrDefault().ClothSub = double.Parse(clothSub.Trim());
+                    b.FirstOrDefault().Description = des.Trim();
+                    b.FirstOrDefault().ModifiedAt = DateTime.Now;
+                    b.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                    db.SubmitChanges();
+                    r._content = "1";
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Không tìm thấy thông tin định mức, hãy thử lại";
+                }
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu định mức, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result insertNorm(string productTypeId, string clothPrimary, string clothSub, string des)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var check = from x in db.tNorms where x.ProductTypeId == int.Parse(productTypeId.Trim()) select x;
+            if (check.Count() > 0)
+            {
+                r._content = "0";
+                r._mess = "Đã tồn tại định mức này, kiểm tra lại";
+            }
+            else
+            {
+                var b = new tNorm();
+                b.ProductTypeId = int.Parse(productTypeId.Trim());
+
+                if (clothPrimary.Trim() == "") clothPrimary = "0";
+                b.ClothPrimary = double.Parse(clothPrimary.Trim());
+
+                if (clothSub.Trim() == "") clothSub = "0";
+                b.ClothSub = double.Parse(clothSub.Trim());
+                b.Description = des.Trim();
+                b.CreatAt = DateTime.Now;
+                b.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                b.Status = 1;
+                db.tNorms.InsertOnSubmit(b);
+                db.SubmitChanges();
+                r._content = "1";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu định mức, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result deleteNorm(string id)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = from x in db.tNorms where x.Id == int.Parse(id.Trim()) select x;
+            if (b.Count() > 0)
+            {
+                b.FirstOrDefault().Status = 0;
+                b.FirstOrDefault().ModifiedAt = DateTime.Now;
+                b.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.SubmitChanges();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin định mức, hãy thử lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi xóa định mức, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static List<formdetail> getDetailForm(string id)
+    {
+        var r = new List<formdetail>();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = from x in db.tFormDetails from y in db.tMaterials
+                    where x.MaterialId==y.Id && x.FormId == int.Parse(id.Trim()) select new { x.Id,x.MaterialId,x.Type,x.NormValue,y.MaterialName, y.MaterialCode};
+            foreach (var item in b.ToList())
+            {
+                var f = new formdetail();
+                f.ID = item.Id.ToString();
+                f.MaterialId = item.MaterialId.ToString();
+                f.MaterialName = item.MaterialCode + " | " + item.MaterialName.ToString();
+                f.TypeName = item.Type.ToString();
+                f.Norm = item.NormValue.ToString();
+                f.OK = "1";
+                r.Add(f);
+            }
+        }
+        catch (Exception ax)
+        {
+            var f = new formdetail();
+            f.OK = "0";
+            f.Mess = "Có lỗi khi lưu mẫu, chi tiết: " + ax.Message;
+            r.Add(f);
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result updateForm(string id, string code, string name, string month, string des, string normid,string data)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+
+            var b = from x in db.tForms where x.Id == int.Parse(id.Trim()) select x;
+            if (b.Count() > 0)
+            {
+                b.FirstOrDefault().Code = code.Trim();
+                b.FirstOrDefault().Name = name.Trim();
+                b.FirstOrDefault().Month = month.Trim();
+                b.FirstOrDefault().Description = des.Trim();
+                b.FirstOrDefault().NormId = int.Parse(normid.Trim());
+                b.FirstOrDefault().ModifiedAt = DateTime.Now;
+                b.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.SubmitChanges();
+                r._content = "1";
+
+                var del = from x in db.tFormDetails where x.FormId == b.FirstOrDefault().Id select x;
+                db.tFormDetails.DeleteAllOnSubmit(del);
+                db.SubmitChanges();
+
+                var tmp = data.Trim().Split('#');
+                for (int k = 0; k < tmp.Length; k++)
+                {
+                    var child = tmp[k].Trim().Split(',');
+
+                    var c = new tFormDetail();
+                    c.FormId = b.FirstOrDefault().Id;
+                    c.MaterialId = int.Parse(child[0]);
+                    c.Type = byte.Parse(child[1]);
+                    c.NormValue = double.Parse(child[2]);
+                    db.tFormDetails.InsertOnSubmit(c);
+                }
+                db.SubmitChanges();
+
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin mẫu, hãy thử lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu mẫu, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result insertForm(string code, string name, string month, string des, string normid, string data)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = new tForm();
+            b.Code = code.Trim();
+            b.Name = name.Trim();
+            b.Month = month.Trim();
+            b.Description = des.Trim();
+            b.NormId = int.Parse(normid.Trim());
+            b.CreateAt = DateTime.Now;
+            b.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+            b.Status = 1;
+            db.tForms.InsertOnSubmit(b);
+            db.SubmitChanges();
+
+            //17,1,1.1#23,2,0.2#31,3,0.3#56,4,5#61,4,2
+            var tmp = data.Trim().Split('#');
+            for (int k = 0; k < tmp.Length; k++)
+            {
+                var child = tmp[k].Trim().Split(',');
+
+                var c = new tFormDetail();
+                c.FormId = b.Id;
+                c.MaterialId =int.Parse(child[0]);
+                c.Type = byte.Parse(child[1]);
+                c.NormValue = double.Parse(child[2]);
+                db.tFormDetails.InsertOnSubmit(c);
+            }
+            db.SubmitChanges();
+           
+            r._content = "1";
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu mẫu, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result deleteForm(string id)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = from x in db.tForms where x.Id == int.Parse(id.Trim()) select x;
+            if (b.Count() > 0)
+            {
+                b.FirstOrDefault().Status = 0;
+                b.FirstOrDefault().ModifiedAt = DateTime.Now;
+                b.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.SubmitChanges();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin mẫu, hãy thử lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi xóa mẫu, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result ApprovedForm(string id)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = from x in db.tForms where x.Id == int.Parse(id.Trim()) select x;
+            if (b.Count() > 0)
+            {
+                b.FirstOrDefault().Status = 2;
+                b.FirstOrDefault().ApproveAt = DateTime.Now;
+                b.FirstOrDefault().ApproveBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.SubmitChanges();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin mẫu, hãy thử lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi duyệt mẫu, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static string saveImageForm()
+    {
+        string msg = "";
+
+        if (!System.IO.Directory.Exists(HttpContext.Current.Server.MapPath("~/form")))
+        {
+            System.IO.Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/form/"));
+        }
+
+        string path = HttpContext.Current.Server.MapPath("~/form/").ToString();
+
+        var Request = HttpContext.Current.Request;
+        if (Request.Files.Count > 0)
+        {
+            var file = Request.Files[0];
+            file.SaveAs(path + file.FileName);
+        }
+
+        return msg;
+    }
+    [WebMethod]
+    public static string PostUserImage(object files)
+    {
+        try
+        {
+            var httpRequest = HttpContext.Current.Request;
+            foreach (string file in httpRequest.Files)
+            {
+                var postedFile = httpRequest.Files[file];
+                if (postedFile != null && postedFile.ContentLength > 0)
+                {
+                    int MaxContentLength = 1024 * 1024 * 1; 
+
+                    IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
+                    var ext = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.'));
+                    var extension = ext.ToLower();
+                    if (!AllowedFileExtensions.Contains(extension))
+                    {
+                        return "Please Upload image of type .jpg,.gif,.png.";
+                    }
+                    else if (postedFile.ContentLength > MaxContentLength)
+                    {
+                        return "BadRequest";
+                    }
+                    else
+                    {
+                        var filePath = HttpContext.Current.Server.MapPath("~/form/" + postedFile.FileName + extension);
+                        postedFile.SaveAs(filePath);
+                    }
+                }
+
+                var message1 = string.Format("Image Updated Successfully.");
+                return "Created";
+            }
+            return "NotFound";
+        }
+        catch (Exception ex)
+        {
+            return ex.Message;
+        }
+    }
+[WebMethod]
     public static result updateSize(string id, string branchTypeId, string code, string name)
     {
         var r = new result();
@@ -2741,6 +3350,25 @@ public partial class Command : System.Web.UI.Page
             li.ProductCode = d.FirstOrDefault().ProductCode;
             li.ProductName = d.FirstOrDefault().ProductName;
             li.Price = d.FirstOrDefault().Price > 999 ? string.Format("{0:0,0}", d.FirstOrDefault().Price) : d.FirstOrDefault().Price.ToString();
+            li.OK = "1";
+        }
+        else li.OK = "0";
+        return li;
+    }
+    [WebMethod]
+    public static addProduct getDetailProductBySearch(string branchTypeId, string Id)
+    {
+        CFileManagerDataContext db = new CFileManagerDataContext();
+        var d = from x in db.tProducts
+                where x.BranchTypeId == int.Parse(branchTypeId.Trim()) && x.Status == 1 && x.Id == Int64.Parse(Id.Trim())
+                select new { x.Id,x.CodeId, x.ProductCode, x.ProductName };
+        var li = new addProduct();
+        if (d.Count() > 0)
+        {
+            li.Id = d.FirstOrDefault().Id.ToString();
+            li.CodeId = d.FirstOrDefault().CodeId;
+            li.ProductCode = d.FirstOrDefault().ProductCode;
+            li.ProductName = d.FirstOrDefault().ProductName;
             li.OK = "1";
         }
         else li.OK = "0";
@@ -4369,6 +4997,45 @@ public partial class Command : System.Web.UI.Page
         {
             get { return ok; }
             set { ok = value; }
+        }
+    }
+    public class formdetail
+    {
+        private string id = "", materialid = "", materialname = "", typename = "", norm = "", ok="", mess="";
+        public string ID
+        {
+            set { id = value; }
+            get { return id; }
+        }
+        public string MaterialId
+        {
+            set { materialid = value; }
+            get { return materialid; }
+        }
+        public string MaterialName
+        {
+            set { materialname = value; }
+            get { return materialname; }
+        }
+        public string TypeName
+        {
+            set { typename = value; }
+            get { return typename; }
+        }
+        public string Norm
+        {
+            set { norm = value; }
+            get { return norm; }
+        }
+        public string OK
+        {
+            set { ok = value; }
+            get { return ok; }
+        }
+        public string Mess
+        {
+            set { mess = value; }
+            get { return mess; }
         }
     }
     public class result

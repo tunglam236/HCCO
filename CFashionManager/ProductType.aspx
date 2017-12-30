@@ -202,13 +202,15 @@
                     </div>
                    
                     <div class="row" style="padding: 5px;">
-                        <div class="col-md-12 btn-group pull-right">
+                        <div class="col-md-12 pull-right">
+                            <span class=" btn-group">
                             <button type="button" class="btn btn-success" onclick="saveChanges();">
                                 Lưu lại</button>
                             <button type="button" id="removeProductType" style="display:none;" class="btn btn-success" onclick="deleteProductType();">
                                 Xóa</button>
                             <button type="button" class="btn btn-success" data-dismiss="modal">
-                                Hủy bỏ</button>
+                                Hủy bỏ</button></span>
+                            &nbsp;<label> <input type="checkbox" id="ckAutoLoad" checked="checked" /> Auto load</label>
                         </div>
                     </div>
                 </div>
@@ -405,6 +407,9 @@
                 var code = $('#txtCode').val();
                 var parent = $('#dlGroup').val();
 
+                var checkbox = $('#ckAutoLoad:checked').val();
+                var ckload = checkbox == 'on' ? true : false;
+
                 if (code != '' && name != '') {
                     $.ajax({
                         type: 'POST',
@@ -415,10 +420,20 @@
                         success: function (data) {
                             if (data.d._content == '1') {
                                 showAlert('Đã thêm nhóm sản phẩm [' + name + ']');
-                                
-                                setTimeout(function () {
-                                    window.location.href = window.location.href;
-                                }, 1000);
+                                if (ckload) {
+                                    setTimeout(function () {
+                                        window.location.href = window.location.href;
+                                    }, 1000);
+                                }
+                                else
+                                {
+                                    $('#txtName').val('');
+                                    $('#txtCode').val('');
+                                    $('#txtCode').focus();
+
+                                    $(".crop-loading").hide();
+                                    $("#addProductType").modal('hide');
+                                }
                             }
                             else
                                 showAlert(data.d._mess);
@@ -448,9 +463,20 @@
                         if (data.d._content == '1') {
 
                             showAlert('Đã cập nhật nhóm sản phẩm [' + name + ']');
-                            setTimeout(function () {
-                                window.location.href = window.location.href;
-                            }, 1000);
+
+                            if (ckload) {
+                                setTimeout(function () {
+                                    window.location.href = window.location.href;
+                                }, 1000);
+                            }
+                            else {
+                                $('#txtName').val('');
+                                $('#txtCode').val('');
+                                $('#txtCode').focus();
+
+                                $(".crop-loading").hide();
+                                $("#addProductType").modal('hide');
+                            }
                         }
                         else
                             showAlert(data.d._mess);

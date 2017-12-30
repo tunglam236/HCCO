@@ -39,8 +39,19 @@ public partial class Product : System.Web.UI.Page
         rdBranchType.DataTextField = "Name";
         rdBranchType.DataValueField = "Id";
         rdBranchType.DataBind();
-        rdBranchType.SelectedValue = Session["cm_branchTypeId"].ToString();
+        if (Request.Cookies["cms_product"] == null || Request.Cookies["cms_product"].Value == "")
+        {
+            rdBranchType.SelectedValue = Session["cm_branchTypeId"].ToString();
 
+            HttpCookie ck = new HttpCookie("cms_product");
+            ck.Value = rdBranchType.SelectedValue;
+            ck.Expires = DateTime.Now.AddHours(16);
+            Response.Cookies.Add(ck);
+            
+        }
+        else
+            rdBranchType.SelectedValue = Request.Cookies["cms_product"].Value.ToString();
+       
         dlBranchTypeUpload.DataSource = data;
         dlBranchTypeUpload.DataTextField = "Name";
         dlBranchTypeUpload.DataValueField = "Id";
@@ -115,7 +126,23 @@ public partial class Product : System.Web.UI.Page
     }
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        //Session["cm_branchTypeId"] = rdBranchType.SelectedValue.Trim();
+        if (Request.Cookies["cms_product"] == null || Request.Cookies["cms_product"].Value == "")
+        {
+            HttpCookie ck = new HttpCookie("cms_product");
+            ck.Value = rdBranchType.SelectedValue;
+            ck.Expires = DateTime.Now.AddHours(16);
+            Response.Cookies.Add(ck);
+        }
+        else
+        {
+            if (Request.Cookies["cms_product"].Value != rdBranchType.SelectedValue)
+            {
+                HttpCookie ck = new HttpCookie("cms_product");
+                ck.Value = rdBranchType.SelectedValue;
+                ck.Expires = DateTime.Now.AddHours(16);
+                Response.Cookies.Add(ck);
+            }
+        }
         lbData.Text = loadProduct(rdBranchType.SelectedValue, rdProductType.SelectedValue);
     }
     public string loadProduct(string branchType,string productType)

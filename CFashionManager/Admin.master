@@ -66,7 +66,7 @@
         </div>
 
         <div class="content-wrapper">
-            <form id="form1" runat="server">
+            <form id="form1" runat="server" enctype="multipart/form-data">
                 <asp:ContentPlaceHolder ID="cph" runat="server">
                 </asp:ContentPlaceHolder>
             </form>
@@ -74,12 +74,13 @@
         <uFooter:uFooter ID="uFooter" runat="server" />
         <div class="control-sidebar-bg">
         </div>
-        <div class="alert alert-success" id="success-alert" style="position: fixed; top: 0px; right: 0px; width: auto; z-index: 999999; height: 50px;">
+        </div>
+        <div class="alert alert-success" id="success-alert" style="position: fixed; top: 0px; right: 0px; width: auto; z-index: 999999; height: 60px;">
             <button type="button" class="close">x</button>
             <b>Thông báo ! </b>
             <div id="lbmess" style="display: inline; padding: 8px;">...</div>
         </div>
-        <div class="alert alert-success" id="divloading" style="position: fixed; top: 0px; right: 0px; width: auto; z-index: 999999; height: 50px;">
+        <div class="alert alert-success" id="divloading" style="position: fixed; top: 0px; right: 0px; width: auto; z-index: 999999; height: 60px;">
             <button type="button" class="close" data-dismiss="alert">
                 x</button>
             <b>Đang tải dữ liệu...</b>

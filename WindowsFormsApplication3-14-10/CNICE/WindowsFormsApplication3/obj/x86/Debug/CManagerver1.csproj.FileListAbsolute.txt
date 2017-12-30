@@ -204,4 +204,3 @@ E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.Properties.Resources.resources
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3\obj\x86\Debug\CManagerver1.csproj.GenerateResource.Cache
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3\obj\x86\Debug\WindowsFormsApplication3.frmTemphu.resources
-E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\CNICE\WindowsFormsApplication3\obj\x86\Debug\CManagerver1.csprojResolveAssemblyReference.cache

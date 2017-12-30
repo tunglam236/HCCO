@@ -1,48 +1,48 @@
 ﻿<%@ Page Title="Báo cáo xuất hàng" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="LastDay.aspx.cs" Inherits="LastDay" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-<style type="text/css">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <style type="text/css">
         .pr {
             padding-right: 0px;
-        }    
+        }
+
         .pl {
             padding-left: 0px;
-        }    
-        td.childrows
-        {
+        }
+
+        td.childrows {
             background: url('/dist/img/details_open.png') no-repeat center center;
             cursor: pointer;
         }
-        tr.shown td.childrows
-        {
+
+        tr.shown td.childrows {
             background: url('/dist/img/details_close.png') no-repeat center center;
         }
-        #tbdetail tr td
-        {
+
+        #tbdetail tr td {
             border-bottom: 1px solid #ccc;
-            line-height:35px;
+            line-height: 35px;
         }
-        label
-        {
+
+        label {
             font-weight: normal;
             cursor: pointer;
             font-size: 13px;
         }
-        .list-group-item
-        {
+
+        .list-group-item {
             padding: 7px 15px;
         }
-        .bg-th
-        {
+
+        .bg-th {
             background-color: #F9F9F9;
         }
-        .detail-rows
-        {
+
+        .detail-rows {
             cursor: pointer;
         }
-        
-        .dropbtn
-        {
+
+        .dropbtn {
             background-color: #4CAF50;
             color: white;
             padding: 16px;
@@ -50,13 +50,12 @@
             border: none;
             cursor: pointer;
         }
-        
-        .dropbtn:hover, .dropbtn:focus
-        {
-            background-color: #3e8e41;
-        }
-        #myInput
-        {
+
+            .dropbtn:hover, .dropbtn:focus {
+                background-color: #3e8e41;
+            }
+
+        #myInput {
             border-box: box-sizing;
             background-image: url('searchicon.png');
             background-position: 14px 12px;
@@ -65,15 +64,13 @@
             padding: 14px 20px 12px 45px;
             border: none;
         }
-        
-        .dropdown
-        {
+
+        .dropdown {
             position: relative;
             display: inline-block;
         }
-        
-        .dropdown-content
-        {
+
+        .dropdown-content {
             display: none;
             position: absolute;
             background-color: #f6f6f6;
@@ -82,64 +79,102 @@
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
         }
-        
-        .dropdown-content a
-        {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-        
-        .dropdown a:hover
-        {
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+        .dropdown a:hover {
             background-color: #ddd;
         }
-        
-        .show
-        {
+
+        .show {
             display: block;
         }
-        .rdList { margin:5px; width:95%;}
-        .rdList tr td { border-bottom:1px solid #ccc; padding:10px 0px;}
-        .detail-rows:hover,#tbdetail tr:hover {background-color: #27ae6078 !important;}
-        .format-input{ width:55px; height:25px; text-align:center;}
-        table#example2 tbody tr.selected { background-color:#27ae6078;}
+
+        .rdList {
+            margin: 5px;
+            width: 95%;
+        }
+
+            .rdList tr td {
+                border-bottom: 1px solid #ccc;
+                padding: 10px 0px;
+            }
+
+        .detail-rows:hover, #tbdetail tr:hover {
+            background-color: #27ae6078 !important;
+        }
+
+        .format-input {
+            width: 55px;
+            height: 25px;
+            text-align: center;
+        }
+
+        table#example2 tbody tr.selected {
+            background-color: #27ae6078;
+        }
     </style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="cph" Runat="Server">
-    <section class="content" style="margin-left:10px">
+<asp:Content ID="Content2" ContentPlaceHolderID="cph" runat="Server">
+    <section class="content" style="margin-left: 10px">
    <div class="row">
-      <div class="col-xs-12 col-md-12">
-          <div class="row">
-              <div class="col-md-3" style="padding-right:0px; padding-left:0px; margin-bottom:10px;">
-                  Chuỗi <br />
-                  <asp:DropDownList ID="dlBranchType" AutoPostBack="true" OnSelectedIndexChanged="dlBranchType_SelectedIndexChanged" runat="server" CssClass="select2 form-control" Style="width:99%">
-                  </asp:DropDownList>
-              </div>
-              <div class="col-md-3" style="padding-right:0px; padding-left:0px;margin-bottom:10px;">
-                  Chi nhánh<br />
-                  <asp:DropDownList ID="dlBranch" runat="server" CssClass="select2 form-control" Style="width:99%">
-                  </asp:DropDownList>
-              </div>
-              <div class="col-md-2" style="padding-right:0px; padding-left:0px;margin-bottom:10px;">
-                  Từ ngày<br /> 
-                  <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control datepicker2" Style="width:99%;"></asp:TextBox>
-               </div>
-               <div class="col-md-2" style="padding-right:0px; padding-left:0px;margin-bottom:10px;">
-                   Đến ngày<br />
-                   <asp:TextBox ID="txtToDate" runat="server" CssClass="form-control datepicker2" Style="width:99%;"></asp:TextBox>
-               </div>
-              <div class="col-md-2" style="padding-right:0px; padding-left:0px;margin-bottom:10px;">
-                   <br />
-                   <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-primary" OnClick="btnSubmit_Click" Text="Xem dữ liệu" />
-               </div>
+      <div class="col-xs-12 col-md-2" style=" padding:10px;">
+      <div class="panel-group">
+        <div class="panel panel-success">
+          <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapse4">Chuỗi cửa hàng</a>
+            </h4>
           </div>
+          <div id="collapse4" class="panel-collapse">
+              <asp:RadioButtonList ID="rdBranchType" AutoPostBack="true" OnSelectedIndexChanged="rdBranchType_SelectedIndexChanged" CssClass="rdList" runat="server" RepeatDirection="Vertical">
+              </asp:RadioButtonList>
+          </div>
+        </div>
       </div>
-       <div class="col-xs-12 col-md-12">
+     <div class="panel-group">
+        <div class="panel panel-success">
+          <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapse3">Chi nhánh</a>
+            </h4>
+          </div>
+          <div id="collapse3" class="panel-collapse">
+              <asp:RadioButtonList ID="rdBranch" CssClass="rdList" runat="server" RepeatDirection="Vertical">
+              </asp:RadioButtonList>
+          </div>
+        </div>
+      </div>
+       <div class="panel-group">
+        <div class="panel panel-success">
+          <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapse1">Thời gian</a>
+            </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse" style="padding:5px;">
+            <ul class="list-group">
+              <li class="list-group-item"><label>Từ ngày</label>
+              <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control datepicker2" Width="99%"></asp:TextBox>
+              </li>
+              <li class="list-group-item"><label>Đến ngày</label>
+                <asp:TextBox ID="txtToDate" runat="server" CssClass="form-control datepicker2" Width="99%"></asp:TextBox>
+              </li>
+            </ul>
+              <asp:Button ID="btnSearch" OnClick="btnSubmit_Click" runat="server" CssClass="btn btn-primary" Width="99%" Text="Xem dữ liệu" />
+          </div>
+        </div>
+      </div>
+      </div>
+       <div class="col-xs-12 col-md-10">
       <section class="">
        <div class="pull-left">
-          <h3 style="margin:5px; font-weight:bold;"><i class="fa fa-bar-chart"></i> Báo cáo xuất hàng</h3>
+          <h3 style="margin:5px; font-weight:bold;"><i class="fa fa-bar-chart"></i> Báo cáo bán hàng</h3>
        </div>
        <div style="text-align:right; padding-bottom:10px;">
           <div class="dropdown">
@@ -162,13 +197,19 @@
                 <li><a href="#" class="small toggle-vis" data-column="15" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Số lượng</label> </a></li>
                 <li><a href="#" class="small toggle-vis" data-column="16" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Đơn giá</label> </a></li>
                 <li><a href="#" class="small toggle-vis" data-column="17" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;% CK</label> </a></li>
-                <li><a href="#" class="small toggle-vis" data-column="18" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Chiết khấu</label> </a></li>
-                <li><a href="#" class="small toggle-vis" data-column="19" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Thành tiền</label> </a></li>
-                <li><a href="#" class="small toggle-vis" data-column="20" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Thanh toán</label> </a></li>
-                <li><a href="#" class="small toggle-vis" data-column="21" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ghi chú</label> </a></li>
-
+                <li><a href="#" class="small toggle-vis" data-column="18" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Chiết khấu SP</label> </a></li>
+                <li><a href="#" class="small toggle-vis" data-column="19" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Thành tiền CK</label> </a></li>
+                <li><a href="#" class="small toggle-vis" data-column="20" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Thành tiền</label> </a></li>
+                <li><a href="#" class="small toggle-vis" data-column="21" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;% CK hóa đơn</label> </a></li>
+                <li><a href="#" class="small toggle-vis" data-column="22" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;CK hóa đơn</label> </a></li>
+                <li><a href="#" class="small toggle-vis" data-column="23" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Tổng hóa đơn</label> </a></li>
+                <li><a href="#" class="small toggle-vis" data-column="24" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;KH thanh toán</label> </a></li>
+                <li><a href="#" class="small toggle-vis" data-column="25" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Trả lại</label> </a></li>
+                <li><a href="#" class="small toggle-vis" data-column="26" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Hình thức</label> </a></li>
+                <li><a href="#" class="small toggle-vis" data-column="27" tabIndex="-1"><label><input type="checkbox" />&nbsp;Ghi chú</label> </a></li>
             </ul>
         </div>
+           <h4><i class="fa fa-money"></i> Tổng doanh thu: <asp:Literal ID="lbTongTien" runat="server" Text="100,000,000 đ"></asp:Literal></h4>
        </div>
       </section>
         <div class="box box-warning">
@@ -210,7 +251,7 @@
                     <th class="bg-th">Tổng hóa đơn</th>
                     <th class="bg-th">KH thanh toán</th>
                     <th class="bg-th">Trả lại</th>
-                    <th class="bg-th">Thanh toán</th>
+                    <th class="bg-th">Hình thức</th>
                     <th class="bg-th">Ghi chú</th>
                     </tr>
                 </thead>
@@ -229,7 +270,7 @@
                     <th class="bg-th">Địa chỉ</th>
                     <th class="bg-th">Điện thoại</th>
                     <th class="bg-th">NV xuất hàng</th>
-                    <th class="bg-th">Mã NV</th>
+                    <th class="bg-th">Mã NVBH</th>
                     <th class="bg-th">Tên nhân viên</th>
                     <th class="bg-th">Mã hàng</th>
                     <th class="bg-th">Tên hàng</th>
@@ -245,7 +286,7 @@
                     <th class="bg-th">Tổng hóa đơn</th>
                     <th class="bg-th">KH thanh toán</th>
                     <th class="bg-th">Trả lại</th>
-                    <th class="bg-th">Thanh toán</th>
+                    <th class="bg-th">Hình thức</th>
                     <th class="bg-th">Ghi chú</th>
                     </tr>
                 </tfoot>
@@ -254,101 +295,10 @@
         </div>
         </div>
       </div>
-      <%-- <div class="col-xs-12 col-md-12">
-            <div class="col-xs-12 col-md-6 pl">
-                <div class="info-box bg-green">
-            <span class="info-box-icon"><i class="fa fa-shopping-cart" style="margin-top:20px;"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Tổng hóa đơn</span>
-              <span class="info-box-number"><asp:Literal ID="lbCode" runat="server" Text="0"></asp:Literal></span>
-
-              <div class="progress">
-                <div class="progress-bar" style="width: 100%"></div>
-              </div>
-                  <span class="progress-description">
-                    Tổng số hóa đơn bán ra
-                  </span>
-            </div>
-          </div>
-          
-            </div>
-           <div class="col-xs-12 col-md-6 pl">
-               <div class="info-box bg-yellow">
-            <span class="info-box-icon"><i class="fa fa-calendar" style="margin-top:20px;"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Tổng sản phẩm</span>
-              <span class="info-box-number"><asp:Literal ID="lbCountProduct" runat="server" Text="0"></asp:Literal></span>
-
-              <div class="progress">
-                <div class="progress-bar" style="width: 100%"></div>
-              </div>
-                  <span class="progress-description">
-                    Tổng số sản phẩm bán ra
-                  </span>
-            </div>
-          </div>
-            </div>
-           <div class="col-xs-12 col-md-6 pl">
-               <div class="info-box bg-red">
-            <span class="info-box-icon"><i class="fa fa-money" style="margin-top:20px;"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Tổng doanh thu</span>
-              <span class="info-box-number"><asp:Literal ID="lbRevenue" runat="server" Text="0"></asp:Literal></span>
-
-              <div class="progress">
-                <div class="progress-bar" style="width: 100%"></div>
-              </div>
-                  <span class="progress-description">
-                    Tổng doanh thu trong ngày
-                  </span>
-            </div>
-          </div>
-            </div>
-           <div class="col-xs-12 col-md-6 pl">
-               <div class="info-box bg-yellow">
-            <span class="info-box-icon"><i class="fa fa-percent" style="margin-top:20px;"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Tổng chiết khấu</span>
-              <span class="info-box-number"><asp:Literal ID="lbDiscount" runat="server" Text="0"></asp:Literal></span>
-
-              <div class="progress">
-                <div class="progress-bar" style="width: 100%"></div>
-              </div>
-                  <span class="progress-description">
-                    Tổng tiền chiết khấu các hóa đơn
-                  </span>
-            </div>
-          </div>
-            </div>
-       </div>
-       <div class="col-xs-12 col-md-12">
-          <div class="row pr">
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Sản phẩm bán nhiều nhất</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body" style="padding-bottom:25px;">
-              <asp:Literal ID="lbProductList" runat="server"></asp:Literal>
-            </div>
-           
-          </div>
-          </div>
-        </div>--%>
    </div>
 </section>
     <script>
-        var options = ["1","2","3", "4", "5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21"];
+        var options = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26"];
 
         $('.ul-column a').on('click', function (event) {
 
@@ -396,7 +346,7 @@
                 "order": [[4, 'desc']],
                 "columnDefs": [
                   {
-                      "targets": [],
+                      "targets": [27],
                       "visible": false,
                       "searchable": false
                   }],
@@ -423,9 +373,9 @@
 			        }],
                 language: {
                     buttons: {
-                        copy: 'Copy danh sách',
-                        print: 'In danh sách',
-                        excel: 'Xuất Excel'
+                        copy: 'Copy',
+                        print: 'Print',
+                        excel: 'Export'
                     }
                 }
             });
@@ -433,7 +383,7 @@
             $('#example2 tbody').on('click', 'tr', function () {
                 $(this).toggleClass('selected');
             });
-           
+
             $('a.toggle-vis').on('click', function (e) {
                 e.preventDefault();
                 var column = table.column($(this).attr('data-column'));

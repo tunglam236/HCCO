@@ -252,9 +252,9 @@
 			        }],
                 language: {
                     buttons: {
-                        copy: 'Copy danh sách',
-                        print: 'In danh sách',
-                        excel: 'Xuất Excel'
+                        copy: 'Copy',
+                        print: 'Print',
+                        excel: 'Export'
                     }
                 }
             });

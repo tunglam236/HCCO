@@ -34,14 +34,44 @@
     <uRow3:Row3 ID="uRow3" runat="server" />
     <ucorporate:Corporate ID="ucorporate" runat="server" />
     <uproducts:Products ID="Products" runat="server" />
-    <div class="banner-static static-bottom-melani1">
-        <div class="image">
-            <a href="#">
-                <img src="/image/catalog/cmsblock/1.png" alt="image">
-                <%--<span class="text"><span class="text1">PHONG CÁCH ĐỘC ĐÁO</span> <span class="text2">Wrap
-                    your lips in luxurious moisture</span> <span class="text3">View details</span>
-                </span>--%>
-            </a>
+    <div class="banner-static static-bottom-melani1" style="padding:10px;">
+         <div class="row">
+            <div class="col-lg-2 col-sm-3 col-xs-12" style="padding:0px; margin-left:15px; margin-right:25px;">
+                <div class="image">
+                    <a href="#">
+                        <img src="image/catalog/frame3/F3 1.jpg" alt="image">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-3 col-xs-12" style="padding:0px;margin-left:15px;margin-right:25px;">
+                <div class="image">
+                    <a href="#">
+                        <img src="image/catalog/frame3/F3 2.jpg" alt="image">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-3 col-xs-12" style="padding:0px;margin-left:15px;margin-right:25px;">
+                <div class="image">
+                    <a href="#">
+                        <img src="image/catalog/frame3/F3 3.jpg" alt="image">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-3 col-xs-12" style="padding:0px;margin-left:15px;margin-right:25px;">
+                <div class="image">
+                    <a href="#">
+                        <img src="image/catalog/frame3/F3 4.jpg" alt="image">
+                    </a>
+                </div>
+            </div>
+              <div class="col-lg-2 col-sm-3 col-xs-12" style="padding:0px;margin-left:15px;margin-right:25px;">
+                <div class="image">
+                    <a href="#">
+                        <img src="image/catalog/frame3/F3 5.jpg" alt="image">
+                    </a>
+                </div>
+            </div>
+             
         </div>
     </div>
     <unews:News ID="uNews" runat="server" />

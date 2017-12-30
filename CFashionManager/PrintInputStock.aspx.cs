@@ -28,7 +28,7 @@ public partial class PrintInputStock : System.Web.UI.Page
             {
                 html += "<tr style='font-size:14px;'>";
                 html += "<td class='border center'>" + i.ToString() + "</td>";
-                html += "<td class='border pl'>"+item.ProductCode+"</td>";
+                html += "<td class='border pl'>" + item.CodeId + " | " + item.ProductCode + "</td>";
                 html += "<td class='border pl'>"+item.ProductName+"</td>";
                 html += "<td class='border center'>Chiếc</td>";
                 html += "<td class='border center'>" + item.Quantity.ToString() + "</td>";

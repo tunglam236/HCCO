@@ -10,7 +10,7 @@
                             <div class="col col-image">
                                 <div class="image">
                                     <a href="#">
-                                        <img src="image/catalog/cmsblock/2.png" alt="image">
+                                        <img src="image/catalog/frame2/Frame-2.png" alt="image">
                                     </a>
                                 </div>
                             </div>
