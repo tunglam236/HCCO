@@ -8,21 +8,22 @@
        <div class="col-xs-12 col-md-12">
       <section class="">
    <div class="pull-left">
-      <h3 style="margin:5px; font-weight:bold;"><i class="fa fa-star"></i> Quản lý mẫu thiết kế</h3>
+      <h3 style="margin:5px; font-weight:bold;"><i class="fa fa-image"></i> Quản lý mẫu thiết kế</h3>
    </div>
    <div style="text-align:right; padding-bottom:10px;">
     <a href="#" onclick="addDept();" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addDept"><i class="glyphicon glyphicon glyphicon-edit"></i> Thêm mẫu thiết kế</a>
       <div class="dropdown">
       <button class="btn btn-sm btn-danger dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-th"></i> Hiển thị</button>
         <ul class="dropdown-menu ul-column" style="margin-left:-65px;">
-            <li><a href="#" class="small toggle-vis" data-column="1" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Loại mẫu</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="2" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mã thiết kế</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="3" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Tên mẫu</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="4" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mẫu tháng</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="5" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mô tả</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="6" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Người thiết kế</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="7" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ngày tạo</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="8" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Trạng thái</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="1" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Trạng thái</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="2" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Người thiết kế</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="3" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Loại mẫu</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="4" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mã thiết kế</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="5" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Tên mẫu</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="6" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mẫu tháng</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="7" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mô tả</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="8" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ngày tạo</label> </a></li>
+            
         </ul>
     </div>
 </section>
@@ -34,14 +35,14 @@
                   <thead>
                      <tr>
                         <th class='bg-th center' width="40px">STT</th>
-                        <th class="bg-th">Loại mẫu</th>
+                        <th class="bg-th">Trạng thái</th>
+                         <th class="bg-th">Người thiết kế</th>
+                          <th class="bg-th">Loại mẫu</th>
                          <th class="bg-th">Mã thiết kế</th>
                         <th class="bg-th">Tên mẫu</th>
                          <th class="bg-th">Mẫu tháng</th>
                          <th class="bg-th">Mô tả</th>
-                        <th class="bg-th">Người thiết kế</th>
                         <th class="bg-th">Ngày tạo</th>
-                        <th class="bg-th">Trạng thái</th>
                      </tr>
                   </thead>
                   <tbody id="rbody">
@@ -50,14 +51,14 @@
                   <tfoot>
                      <tr>
                        <th class='bg-th center' width="40px">STT</th>
-                        <th class="bg-th">Loại mẫu</th>
+                      <th class="bg-th">Trạng thái</th>
+                         <th class="bg-th">Người thiết kế</th>
+                          <th class="bg-th">Loại mẫu</th>
                          <th class="bg-th">Mã thiết kế</th>
                         <th class="bg-th">Tên mẫu</th>
                          <th class="bg-th">Mẫu tháng</th>
                          <th class="bg-th">Mô tả</th>
-                        <th class="bg-th">Người thiết kế</th>
                         <th class="bg-th">Ngày tạo</th>
-                        <th class="bg-th">Trạng thái</th>
                      </tr>
                   </tfoot>
                </table>
@@ -106,7 +107,7 @@
                     <div class=" input-hide" style="font-weight: bold; text-transform: uppercase; font-size: 16px; text-align: center;">
                         Chi tiết nguyên phụ liệu</div>
                     <div class="row input-hide" style="padding: 5px;max-height: 300px;overflow-y: scroll;">
-                         <div class="col-md-6">Chọn nguyên phụ liệu<br /> 
+                         <div class="col-md-5">Chọn nguyên phụ liệu<br /> 
                              <select id="dlMaterial" class="form-control select2" style="width: 100%;">
                              </select>
                          </div>
@@ -119,7 +120,10 @@
                                  <option value="4">Nguyên phụ liệu</option>
                              </select>
                          </div>
-                        <div class="col-md-3" style="margin-bottom:10px;">Định mức<br /> 
+                        <div class="col-md-2" style="margin-bottom:10px;">Đơn vị tính<br /> 
+                            <input type="text" id="txtUnit" class="form-control" style="width: 100%;" />
+                        </div>
+                        <div class="col-md-2" style="margin-bottom:10px;">Định mức<br /> 
                              <div class="input-group">
                               <input type="text" id="txtQuantity" class="numbers form-control" style="width: 100%;" />
                               <span class="input-group-btn">
@@ -141,6 +145,7 @@
                                         Loại
                                     </th>
                                     <th>Định mức</th>
+                                    <th>Đơn vị tính</th>
                                 </tr>
                             </thead>
                             <tbody id="data-detail-soi">
@@ -165,7 +170,7 @@
     </div>
     <input type="hidden" id="hdDeptId" value="" />
     <script>
-        var options = ["1", "2", "3","4"];
+        var options = ["1", "2", "3","4","5","6","7","8"];
 
         $('.ul-column a').on('click', function (event) {
 
@@ -205,6 +210,12 @@
                 "autoWidth": false,
                 "order": [[0, 'asc']],
                 dom: 'Bfrtip',
+                "columnDefs": [
+               {
+                   "targets": [],
+                   "visible": false,
+                   "searchable": false
+               }],
                 buttons: [
                     {
                         extend: 'copyHtml5',
@@ -335,7 +346,7 @@
                         html = '';
                         type_name = data.d[t].TypeName == '0' ? 'Chọn loại' : data.d[t].TypeName == '1' ? 'Vải chính' :
                             data.d[t].TypeName == '2' ? 'Vải lót' : data.d[t].TypeName == '3' ? 'Vải phối' : 'Nguyên phụ liệu';
-                        html += '<tr data-id="' + data.d[t].MaterialId + '" data-type="' + data.d[t].TypeName + '" id="rows' + data.d[t].MaterialId + '"><td><a onclick="removeproduct(' + data.d[t].MaterialId + ');"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td>' + data.d[t].MaterialName + '</td><td>' + type_name + '</td><td><input type="text" class="numbers format-input" ' + (data.d[t].TypeName == '1' || data.d[t].TypeName == '2' ? "disabled" : "") + ' id="quantity' + data.d[t].MaterialId + '" value="' + data.d[t].Norm + '" /></td></tr>';
+                        html += '<tr data-id="' + data.d[t].MaterialId + '" data-type="' + data.d[t].TypeName + '" id="rows' + data.d[t].MaterialId + '"><td><a onclick="removeproduct(' + data.d[t].MaterialId + ');"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td>' + data.d[t].MaterialName + '</td><td>' + type_name + '</td><td><input type="text" class="numbers format-input" ' + (data.d[t].TypeName == '1' || data.d[t].TypeName == '2' ? "disabled" : "") + ' id="quantity' + data.d[t].MaterialId + '" value="' + data.d[t].Norm + '" /></td><td><input type="text" class="format-input" ' + (data.d[t].TypeName == '1' || data.d[t].TypeName == '2' ? "disabled" : "") + ' id="unit' + data.d[t].MaterialId + '" value="' + data.d[t].UnitName + '" /></td></tr>';
                         $('#data-detail-soi').append(html);
                     }
                 }
@@ -360,9 +371,10 @@
                 var id = $(this).attr("data-id");
                 var type = $(this).attr("data-type");
                 var q = $('#quantity' + id).val();
+                var unit = $('#unit' + id).val();
 
                 if (data != "") data += "#";
-                data += id + ',' + type + ',' + q;
+                data += id + ',' + type + ',' + q + ',' + unit;
             });
             
             var id = $('#hdDeptId').val();
@@ -432,9 +444,10 @@
                     var id = $(this).attr("data-id");
                     var type = $(this).attr("data-type");
                     var q = $('#quantity' + id).val();
+                    var unit = $('#unit' + id).val();
 
                     if (data != "") data += "#";
-                    data += id + ',' + type + ',' + q;
+                    data += id + ',' + type + ',' + q + ',' + unit;
                 });
 
                 if (code == '') showAlert('Nhập mã thiết kế');
@@ -528,6 +541,7 @@
             var type_id = $('#dlType').val();
             var type_name = $('#dlType option:selected').text();
             var quan = $('#txtQuantity').val();
+            var unit = $('#txtUnit').val();
             var pro_type = $('#dlProductType').val();
             var ok = true;
 
@@ -555,17 +569,19 @@
                             success: function (data) {
                                 quan = data.d;
                                 var html = "";
-                                html += '<tr data-id="' + id + '" data-type="' + type_id + '" id="rows' + id + '"><td><a onclick="removeproduct(' + id + ');"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td>' + name + '</td><td>' + type_name + '</td><td><input type="text" class="numbers format-input" disabled id="quantity' + id + '" value="' + quan + '" /></td></tr>';
+                                html += '<tr data-id="' + id + '" data-type="' + type_id + '" id="rows' + id + '"><td><a onclick="removeproduct(' + id + ');"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td>' + name + '</td><td>' + type_name + '</td><td><input type="text" class="numbers format-input" disabled id="quantity' + id + '" value="' + quan + '" /></td><td><input type="text" class="format-input" disabled id="unit' + id + '" value="m" /></td></tr>';
                                 $('#data-detail-soi').append(html);
                                 $('#txtQuantity').val('');
+                                $('#txtUnit').val('');
                             }
                         });
                     }
                     else {
                         var html = "";
-                        html += '<tr data-id="' + id + '" data-type="' + type_id + '" id="rows' + id + '"><td><a onclick="removeproduct(' + id + ');"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td>' + name + '</td><td>' + type_name + '</td><td><input type="text" class="numbers format-input" id="quantity' + id + '" value="' + quan + '" /></td></tr>';
+                        html += '<tr data-id="' + id + '" data-type="' + type_id + '" id="rows' + id + '"><td><a onclick="removeproduct(' + id + ');"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td>' + name + '</td><td>' + type_name + '</td><td><input type="text" class="numbers format-input" id="quantity' + id + '" value="' + quan + '" /></td><td><input type="text" class="format-input" id="unit' + id + '" value="' + unit + '" /></td></tr>';
                         $('#data-detail-soi').append(html);
                         $('#txtQuantity').val('');
+                        $('#txtUnit').val('');
                     }
                 }
                 else

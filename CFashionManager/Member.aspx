@@ -203,6 +203,7 @@
          </div>
       </div>
    </div>
+  <img class="crop-loading" src="/dist/img/crop.gif" style="display:none;position:fixed; top:50%; left:50%" />
 </section>
 
     <script>
@@ -269,9 +270,9 @@
 			        }],
                 language: {
                     buttons: {
-                        copy: 'Copy danh sách',
-                        print: 'In danh sách',
-                        excel: 'Xuất Excel'
+                        copy: 'Copy',
+                        print: 'Print',
+                        excel: 'Export'
                     }
                 }
             });
@@ -292,9 +293,51 @@
                 else {
                     var id = row.selector.rows.prevObject.context.id;
                     var html = '';
+                    $('.crop-loading').show();
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Command.aspx/loadHistoryMember',
+                        data: '{"memberId":"' + id + '"}',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            var data_html = '';
+                            for (var i = 0; i < data.d.length; i++) {
+                                data_html += '<tr>';
+                                data_html += '<td>' + (i + 1).toString() + '</td>';
+                                data_html += '<td>' + data.d[i].CreateAt + '</td>';
+                                data_html += '<td>' + data.d[i].StockCode + '</td>';
+                                data_html += '<td>' + data.d[i].CodeId + '</td>';
+                                data_html += '<td>' + data.d[i].ProCode + '</td>';
+                                data_html += '<td>' + data.d[i].ProName + '</td>';
+                                data_html += '<td>' + data.d[i].Quantity + '</td>';
+                                data_html += '<td>' + data.d[i].Price + '</td>';
+                                data_html += '<td>' + data.d[i].Note + '</td>';
+                                data_html += '</tr>';
+
+                            }
+                            html = '<div style="max-height: 300px;overflow-y: auto; background-color:#91f5d4;"><table id="tbdetail" cellpadding="5" cellspacing="5" border="0" style="padding:50px; min-width:915px;width:95%; margin-left:25px;">' +
+                                    '<tr>' +
+                                        '<td class="bold" width="30px">STT</td>' +
+                                        '<td class="bold">Ngày mua hàng</td>' +
+                                        '<td class="bold">Số hóa đơn</td>' +
+                                        '<td class="bold">Mã vạch</td>' +
+                                        '<td class="bold">Mã sản phẩm</td>' +
+                                        '<td class="bold">Tên sản phẩm</td>' +
+                                        '<td class="bold">Số lượng</td>' +
+                                        '<td class="bold">Đơn giá</td>' +
+                                        '<td class="bold">Ghi chú</td>' +
+                                    '</tr>' + data_html +
+                                '</table></div>';
+
+
+                            row.child(html).show();
+                            tr.addClass('shown');
+                            $('.crop-loading').hide();
+                        }
+                    });
                 }
             });
-            $(".select2").select2();
         });
     </script>
    

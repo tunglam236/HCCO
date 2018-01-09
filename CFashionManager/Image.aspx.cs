@@ -58,6 +58,7 @@ public partial class Image : System.Web.UI.Page
     {
 
         lbData.Text = loadImage(rdBranchType.SelectedValue);
+        Session["cm_branchTypeId"] = rdBranchType.SelectedValue;
     }
     protected void btnUpload_Click(object sender, EventArgs e)
     {

@@ -7,3 +7,14 @@ E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\UpdateProgram
 E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\UpdateProgram\obj\Debug\UpdateProgram.pdb
 E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\UpdateProgram\obj\Debug\UpdateProgram.frmUpdate.resources
 E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\UpdateProgram\obj\Debug\UpdateProgram.csprojResolveAssemblyReference.cache
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\UpdateProgram\bin\Debug\UpdateProgram.exe.config
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\UpdateProgram\bin\Debug\UpdateProgram.exe
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\UpdateProgram\bin\Debug\UpdateProgram.pdb
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\UpdateProgram\bin\Debug\DevComponents.DotNetBar2.dll
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\UpdateProgram\bin\Debug\DevComponents.DotNetBar2.xml
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\UpdateProgram\obj\Debug\UpdateProgram.csprojResolveAssemblyReference.cache
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\UpdateProgram\obj\Debug\UpdateProgram.frmUpdate.resources
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\UpdateProgram\obj\Debug\UpdateProgram.Properties.Resources.resources
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\UpdateProgram\obj\Debug\UpdateProgram.csproj.GenerateResource.Cache
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\UpdateProgram\obj\Debug\UpdateProgram.exe
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\UpdateProgram\obj\Debug\UpdateProgram.pdb

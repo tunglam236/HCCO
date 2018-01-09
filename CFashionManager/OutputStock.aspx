@@ -284,7 +284,7 @@
                             Mã vạch sản phẩm<br />
                             <input type="text" id="productCode" class="proCode form-control" style="width: 100%;" />
                         </div>--%>
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             Tìm kiếm sản phẩm<br />
                             <select id="dlProduct" class="form-control select2" style="width: 100%;">
                             </select>
@@ -293,27 +293,21 @@
                             Số lượng<br />
                             <input type="text" id="quantity" class="proCode numbers form-control" style="width: 100%;" />
                         </div>
-                        <%--<div class="col-md-2">
+                        <div class="col-md-2">
                             <br />
-                            <a href="#" data-toggle="modal" data-target="#inputQuick" class="" style="color:white;">Nhập nhanh</a>
-                        </div>--%>
+                            <a href="#" data-toggle="modal" data-target="#inputQuick" class="btn btn-sm btn-primary">Nhập nhanh</a>
+                        </div>
                     </div>
                     <div class="row" style="padding: 5px;max-height: 200px;overflow-y: scroll;">
                         <table id="tbdetail" cellpadding="5" cellspacing="5" border="0" width="98%" style="min-width: 500px;
                             margin-left: 15px;">
                             <thead>
                                 <tr>
-                                    <th>
+                                    <th style="width:30px">
                                         Xóa
                                     </th>
                                     <th>
-                                        Mã vạch
-                                    </th>
-                                    <th>
-                                        Mã sản phẩm
-                                    </th>
-                                    <th>
-                                        Tên sản phẩm
+                                        Mã vạch | Tên sản phẩm
                                     </th>
                                     <th>
                                         Số lượng
@@ -352,18 +346,16 @@
                 <div class="modal-body">
                     <i>Copy dữ liệu từ file Excel tương ứng với các cột bên dưới và dán vào đây</i>
                     <div class="row" style="padding: 5px;">
-                        <table cellpadding="5" cellspacing="5" border="0" width="80%" margin-left: 15px;">
+                        <table cellpadding="5" cellspacing="5" border="0" width="100%" margin-left: 15px;">
                             <tr>
                                 <th>
-                                    Mã vạch
+                                    Mã vạch | Số lượng
                                 </th>
-                                 <th>
-                                    Mã sản phẩm  -  Tên sản phẩm  -  Số lượng
-                                </th>
+                                 
                             </tr>
                             <tr>
-                                <td colspan="2">
-                                    <textarea id="txtquick" rows="5" cols="90"></textarea>
+                                <td>
+                                    <textarea id="txtquick" rows="5" style="width:100%;"></textarea>
                                 </td>
 
                             </tr>
@@ -379,7 +371,7 @@
             </div>
         </div>
     </div>
-    <img class="crop-loading" src="dist/img/crop.gif" style="display:none;position:fixed; top:50%; left:50%" />
+    <img class="crop-loading" src="/dist/img/crop.gif" style="display:none;position:fixed; top:50%; left:50%" />
     <script>
         var options = ["1", "2", "5", "6", "7", "8","11"];
 
@@ -550,9 +542,7 @@
                                             "<td>" +
                                                 "<a onclick='removeproduct(" + data.d.Id + ",\"" + data.d.ProductName + "\");'><i class='fa fa-trash-o' aria-hidden='true'></i></a>" +
                                             "</td>" +
-                                            "<td>" + data.d.CodeId + "</td>" +
-                                            "<td>" + data.d.ProductCode + "</td>" +
-                                            "<td>" + data.d.ProductName + "</td>" +
+                                            "<td>" + data.d.CodeId + "| " + data.d.ProductName + "</td>" +
                                             "<td><input type='text' class='format-input' id='quantity" + data.d.Id + "' value='" + quantity + "' /></td>" +
                                         '</tr>';
 
@@ -617,33 +607,53 @@
             }
         }
         function getQuick() {
-            $('#data-detail tr').remove();
-            var q = $('#txtquick').val();
-            var line = q.split('\n');
-            for (var t = 0; t < line.length; t++) {
-                if (line[t] != '') {
-                    var sp = line[t].split('	');
-                    var html = "";
-                    html += "<tr class='output-detail-rows' id='rows" + sp[0].substring(2, sp[0].length) + "' data-code='" + sp[0].substring(2, sp[0].length) + "'>" +
-                                "<td>" +
-                                    "<a onclick='removeproduct(" + sp[0].substring(2, sp[0].length) + ",\"" + sp[2] + "\");'><i class='fa fa-trash-o' aria-hidden='true'></i></a>" +
-                                "</td>" +
-                                "<td>" + sp[0] + "</td>" +
-                                "<td>" + sp[1] + "</td>" +
-                                "<td>" + sp[2] + "</td>" +
-                                "<td><input type='text' class='format-input numbers' id='quantity" + sp[0].substring(2, sp[0].length) + "' value='" + sp[3] + "' /></td>" +
-                            '</tr>';
-                    $('#data-detail').append(html);
+            var branchTypeId = $('#dlBranchType').val();
+            if (branchTypeId == '')
+                showAlert('Chọn chuỗi');
+            else {
+                $('#data-detail tr').remove();
+                var q = $('#txtquick').val();
+                var line = q.split('\n');
+                var data = '';
+                for (var t = 0; t < line.length; t++) {
+                    if (line[t] != '') {
+                        var sp = line[t].split('	');
+                        if (data != '') data += '@';
+                        data += sp[0] + '#' + sp[1].toString().trim();
+                    }
                 }
+
+                var html = '';
+                $.ajax({
+                    type: 'POST',
+                    url: '/Command.aspx/getIdProductByCodeId',
+                    data: '{"branchTypeId":"' + branchTypeId + '","codeId":"' + data + '"}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        for (var k = 0; k < data.d.length; k++) {
+                            html = '';
+                            html += "<tr class='output-detail-rows' id='rows" + data.d[k]._id + "' data-code='" + data.d[k]._id + "'>" +
+                                   "<td>" +
+                                       "<a onclick='removeproduct(" + data.d[k]._id + ",\"" + data.d[k]._mess + "\");'><i class='fa fa-trash-o' aria-hidden='true'></i></a>" +
+                                   "</td>" +
+                                   "<td>" + data.d[k]._content + "</td>" +
+                                   "<td><input type='text' class='format-input numbers' id='quantity" + data.d[k]._id + "' value='" + data.d[k]._mess + "' /></td>" +
+                               '</tr>';
+                            $('#data-detail').append(html);
+                        }
+
+                    }
+                });
+
+                $('#quantity').val('1');
+                $('#inputQuick').modal('hide');
             }
-            //$('#productCode').val('');
-            //$('#productCode').focus();
-            $('#quantity').val('1');
-            $('#inputQuick').modal('hide');
         }
     </script>
     <script>
         function changeType(id) {
+            $('#data-detail tr').remove();
             loadBranchbyType(id);
         }
 
@@ -680,8 +690,6 @@
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
                     success: function (data) {
-
-
                         for (var i = 0; i < data.d.length; i++) {
                             var opt = document.createElement('option');
                             opt.value = data.d[i]._content;

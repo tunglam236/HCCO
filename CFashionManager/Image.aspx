@@ -135,7 +135,7 @@
    </div>
    <div style="text-align:right; padding-bottom:10px;">
        <div class="dropdown">
-      <button class="btn btn-sm btn-danger dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-th"></i> Hiển thị</button>
+           <button class="btn btn-sm btn-danger dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-th"></i> Hiển thị</button>
         <ul class="dropdown-menu ul-column" style="margin-left:-65px;">
             <li><a href="#" class="small toggle-vis" data-column="1" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mã vạch</label> </a></li>
             <li><a href="#" class="small toggle-vis" data-column="2" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mã nhóm</label> </a></li>
@@ -207,7 +207,7 @@
                    
                     <div class="row" style="padding: 5px;">
                         <div class="col-md-12 btn-group pull-right">
-                            <asp:Button ID="btnUpload" runat="server" Text="Lưu hình ảnh" CssClass="btn btn-success" OnClick="btnUpload_Click" />
+                            <asp:Button ID="btnUpload" runat="server" Text="Lưu hình ảnh" CssClass="btn btn-success" OnClientClick="getFilter();" OnClick="btnUpload_Click" />
                             <button type="button" class="btn btn-success" data-dismiss="modal">
                                 Đóng</button>
                         </div>
@@ -244,6 +244,7 @@
         </div>
     </div>
     <asp:HiddenField ID="hdProductId" runat="server" Value="" />
+    
     <script>
         var options = ["1", "2", "3", "4","5"];
 
@@ -265,6 +266,7 @@
             $(event.target).blur();
             return false;
         });
+
     </script>
     <script>
         $(window).load(function () {
@@ -278,6 +280,12 @@
                 "autoWidth": false,
                 "order": [[1, 'asc']]
             });
+            
+            var searchObject = localStorage.getItem('searchImageObject');
+            var branchTypeObject = localStorage.getItem('branchTypeObject');
+            var branchType = $('input[name="ctl00$cph$rdBranchType"]:checked').val();
+            if (searchObject && branchTypeObject == branchType)
+                table.search(searchObject).draw();
 
             $('a.toggle-vis').on('click', function (e) {
                 e.preventDefault();
@@ -357,8 +365,8 @@
                     }
 
                     if (ind < 7) {
-                        html += '<td><a href="#" data-toggle="modal" data-target="#showModalAddImage" onclick="return addImage(\'' + id + '\')" class="btn btn-xs btn-success">Thêm ảnh mới</a>';
-                        html += '</br><a style="margin-top:10px;" href="#" data-toggle="modal" data-target="#showDetailProduct" onclick="return showArticle(\'' + id + '\')" class="btn btn-xs btn-success">Bài viết sản phẩm</a></td>';
+                        html += '<td>';//<a href="#" data-toggle="modal" data-target="#showModalAddImage" onclick="return addImage(\'' + id + '\')" class="btn btn-xs btn-success">Thêm ảnh mới</a></br>';
+                        html += '<a style="margin-top:10px;" href="#" data-toggle="modal" data-target="#showDetailProduct" onclick="return showArticle(\'' + id + '\')" class="btn btn-xs btn-success">Bài viết sản phẩm</a></td>';
                         for (var k = ind; k < 6; k++) {
                             html += '<td></td>';
                         }
@@ -373,8 +381,14 @@
 
         });
     </script>
-   <script type="text/javascript">
-       function removeImage(type,id,image) {
+    <script type="text/javascript">
+        function getFilter() {
+            var p = $('#example2_filter input').val();
+            var branchType = $('input[name="ctl00$cph$rdBranchType"]:checked').val();
+            localStorage.setItem('branchTypeObject', branchType);
+            localStorage.setItem('searchImageObject', p);
+        }
+       function removeImage(type, id, image) {
            if (confirm("Bạn chắc chắn muốn xóa ảnh này ?") == true) {
                $.ajax({
                    type: 'POST',
@@ -419,11 +433,12 @@
            $('#showDetailProduct').modal({ show: false });
            return false;
        }
-       
        function saveChanges() {
 
            return false;
        }
+       
    </script>
+
 </asp:Content>
 

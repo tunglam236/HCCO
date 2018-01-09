@@ -279,10 +279,12 @@
                     </div>
                     <div class="row" style="padding: 5px;">
                         <div class="col-md-12 btn-group pull-right">
+                            
                             <button type="button" class="btn btn-success" onclick="saveAddChanges();">
                                 Lưu lại</button>
                             <button type="button" class="btn btn-success" data-dismiss="modal">
                                 Đóng</button>
+                                
                         </div>
                     </div>
                 </div>
@@ -314,6 +316,7 @@
                     </div>
                     <div class="row" style="padding: 5px;">
                         <div class="col-md-12 btn-group pull-right">
+                            
                             <button type="button" class="btn btn-success" onclick="saveUpdateChanges();">
                                 Lưu lại</button>
                             <button type="button" class="btn btn-success" data-dismiss="modal">
@@ -415,6 +418,8 @@
                 }
                 
             });
+
+           
             $('a.toggle-vis').on('click', function (e) {
                 e.preventDefault();
                 var column = table.column($(this).attr('data-column'));
@@ -471,6 +476,7 @@
         });
     </script>
     <script>
+       
         function addPrice_modal(x) {
             $("#addPrice").modal({ show: false });
             $('#hdProductId').val(x);
@@ -510,6 +516,7 @@
             var todate = $('#txtAddToDate').val();
             var proId = $('#hdProductId').val();
 
+            
             if (price == '' || fromdate == '')
                 showAlert('Nhập đơn giá và ngày bắt đầu');
             else {
@@ -528,6 +535,8 @@
 
                             showAlert('Thêm giá bán mới thành công');
                             $('#addPrice').modal('hide');
+
+
                         }
                         else
                             showAlert('Chưa thêm được giá bán, lỗi chi tiết: ' + data.d._mess);
@@ -540,7 +549,8 @@
             var fromdate = $('#txtUpdateFromDate').val();
             var todate = $('#txtUpdateToDate').val();
             var Id = $('#hdIdPrice').val();
-
+            
+            
             if (price == '' || fromdate == '')
                 showAlert('Nhập đơn giá và ngày bắt đầu');
             else {

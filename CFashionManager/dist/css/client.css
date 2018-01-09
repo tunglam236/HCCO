@@ -101,3 +101,32 @@
             }
         }
         .form-control[disabled] { background-color:white !important;}
+          @-webkit-keyframes glowing {
+          0% { background-color: #19a956; -webkit-box-shadow: 0 0 3px #19a956; }
+          50% { background-color: #39e280; -webkit-box-shadow: 0 0 10px #39e280; }
+          100% { background-color: #3bab6a; -webkit-box-shadow: 0 0 3px #3bab6a; }
+        }
+ 
+        @-moz-keyframes glowing {
+          0% { background-color: #19a956; -moz-box-shadow: 0 0 3px #19a956; }
+          50% { background-color: #39e280; -moz-box-shadow: 0 0 10px #39e280; }
+          100% { background-color: #3bab6a; -moz-box-shadow: 0 0 3px #3bab6a; }
+        }
+ 
+        @-o-keyframes glowing {
+          0% { background-color: #19a956; box-shadow: 0 0 3px #19a956; }
+          50% { background-color: #39e280; box-shadow: 0 0 10px #39e280; }
+          100% { background-color: #3bab6a; box-shadow: 0 0 3px #3bab6a; }
+        }
+ 
+        @keyframes glowing {
+          0% { background-color: #19a956; box-shadow: 0 0 3px #19a956; }
+          50% { background-color: #39e280; box-shadow: 0 0 10px #39e280; }
+          100% { background-color: #3bab6a; box-shadow: 0 0 3px #3bab6a; }
+        }
+        .blink {
+          -webkit-animation: glowing 1500ms infinite;
+          -moz-animation: glowing 1500ms infinite;
+          -o-animation: glowing 1500ms infinite;
+          animation: glowing 1500ms infinite;
+        }

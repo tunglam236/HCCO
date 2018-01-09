@@ -469,6 +469,12 @@
                 }
             });
 
+            var searchObject = localStorage.getItem('searchProductObject');
+            var branchTypeObject = localStorage.getItem('branchTypeObject');
+            var branchType = $('input[name="ctl00$cph$rdBranchType"]:checked').val();
+            if (searchObject && branchTypeObject == branchType)
+                table.search(searchObject).draw();
+
             $('a.toggle-vis').on('click', function (e) {
                 e.preventDefault();
                 var column = table.column($(this).attr('data-column'));
@@ -490,6 +496,12 @@
         });
     </script>
     <script type="text/javascript">
+        function getFilter() {
+            var p = $('#example2_filter input').val();
+            var branchType = $('input[name="ctl00$cph$rdBranchType"]:checked').val();
+            localStorage.setItem('branchTypeObject', branchType);
+            localStorage.setItem('searchProductObject', p);
+        }
         function showModalUpdate(id) {
             $('#hdId').val(id);
             $('#lb').text('CẬP NHẬT SẢN PHẨM');
@@ -781,7 +793,8 @@
                 var capacity = $('#txtCapacity').val();
                 var national = $('#dlNational').val();
                 var nationalname = $('#dlNational option:selected').text();
-
+                if (national != '')
+                    nationalname = nationalname.substring(5, nationalname.length);
                 var expiry = $('#txtExpiryDate').val();
                 var catalog = $('#txtCatalog').val();
 
@@ -807,7 +820,9 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data.d._content == '1') {
-                            showAlert('Đã cập nhật sản phẩm '+proName);
+                            showAlert('Đã cập nhật sản phẩm ' + proName);
+
+                            getFilter();
                             if (ckload) {
                                 setTimeout(function () {
                                     window.location.href = window.location.href;

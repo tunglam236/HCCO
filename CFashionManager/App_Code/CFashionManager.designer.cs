@@ -21,7 +21,7 @@ using System.Reflection;
 
 
 
-[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="CMS")]
+[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="CMS0")]
 public partial class CFileManagerDataContext : System.Data.Linq.DataContext
 {
 	
@@ -149,18 +149,33 @@ public partial class CFileManagerDataContext : System.Data.Linq.DataContext
   partial void InserttNorm(tNorm instance);
   partial void UpdatetNorm(tNorm instance);
   partial void DeletetNorm(tNorm instance);
-  partial void InserttFormDetail(tFormDetail instance);
-  partial void UpdatetFormDetail(tFormDetail instance);
-  partial void DeletetFormDetail(tFormDetail instance);
   partial void InserttMaterial(tMaterial instance);
   partial void UpdatetMaterial(tMaterial instance);
   partial void DeletetMaterial(tMaterial instance);
-  partial void InserttImportMaterial(tImportMaterial instance);
-  partial void UpdatetImportMaterial(tImportMaterial instance);
-  partial void DeletetImportMaterial(tImportMaterial instance);
   partial void InserttImportMaterialDetail(tImportMaterialDetail instance);
   partial void UpdatetImportMaterialDetail(tImportMaterialDetail instance);
   partial void DeletetImportMaterialDetail(tImportMaterialDetail instance);
+  partial void InserttImportMaterial(tImportMaterial instance);
+  partial void UpdatetImportMaterial(tImportMaterial instance);
+  partial void DeletetImportMaterial(tImportMaterial instance);
+  partial void InserttFormDetail(tFormDetail instance);
+  partial void UpdatetFormDetail(tFormDetail instance);
+  partial void DeletetFormDetail(tFormDetail instance);
+  partial void InserttApprove(tApprove instance);
+  partial void UpdatetApprove(tApprove instance);
+  partial void DeletetApprove(tApprove instance);
+  partial void InserttMessage(tMessage instance);
+  partial void UpdatetMessage(tMessage instance);
+  partial void DeletetMessage(tMessage instance);
+  partial void InserttConfigApprove(tConfigApprove instance);
+  partial void UpdatetConfigApprove(tConfigApprove instance);
+  partial void DeletetConfigApprove(tConfigApprove instance);
+  partial void InserttExportMaterial(tExportMaterial instance);
+  partial void UpdatetExportMaterial(tExportMaterial instance);
+  partial void DeletetExportMaterial(tExportMaterial instance);
+  partial void InserttExportMaterialDetail(tExportMaterialDetail instance);
+  partial void UpdatetExportMaterialDetail(tExportMaterialDetail instance);
+  partial void DeletetExportMaterialDetail(tExportMaterialDetail instance);
   #endregion
 	
 	public CFileManagerDataContext() : 
@@ -513,19 +528,19 @@ public partial class CFileManagerDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<tFormDetail> tFormDetails
-	{
-		get
-		{
-			return this.GetTable<tFormDetail>();
-		}
-	}
-	
 	public System.Data.Linq.Table<tMaterial> tMaterials
 	{
 		get
 		{
 			return this.GetTable<tMaterial>();
+		}
+	}
+	
+	public System.Data.Linq.Table<tImportMaterialDetail> tImportMaterialDetails
+	{
+		get
+		{
+			return this.GetTable<tImportMaterialDetail>();
 		}
 	}
 	
@@ -537,11 +552,51 @@ public partial class CFileManagerDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<tImportMaterialDetail> tImportMaterialDetails
+	public System.Data.Linq.Table<tFormDetail> tFormDetails
 	{
 		get
 		{
-			return this.GetTable<tImportMaterialDetail>();
+			return this.GetTable<tFormDetail>();
+		}
+	}
+	
+	public System.Data.Linq.Table<tApprove> tApproves
+	{
+		get
+		{
+			return this.GetTable<tApprove>();
+		}
+	}
+	
+	public System.Data.Linq.Table<tMessage> tMessages
+	{
+		get
+		{
+			return this.GetTable<tMessage>();
+		}
+	}
+	
+	public System.Data.Linq.Table<tConfigApprove> tConfigApproves
+	{
+		get
+		{
+			return this.GetTable<tConfigApprove>();
+		}
+	}
+	
+	public System.Data.Linq.Table<tExportMaterial> tExportMaterials
+	{
+		get
+		{
+			return this.GetTable<tExportMaterial>();
+		}
+	}
+	
+	public System.Data.Linq.Table<tExportMaterialDetail> tExportMaterialDetails
+	{
+		get
+		{
+			return this.GetTable<tExportMaterialDetail>();
 		}
 	}
 	
@@ -965,6 +1020,41 @@ public partial class CFileManagerDataContext : System.Data.Linq.DataContext
 		return ((ISingleResult<sp_web_loadProductResult>)(result.ReturnValue));
 	}
 	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_OutputStock_detail")]
+	public ISingleResult<sp_web_OutputStock_detailResult> sp_web_OutputStock_detail([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string stockoutputId)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), stockoutputId);
+		return ((ISingleResult<sp_web_OutputStock_detailResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_loadHistoryMember")]
+	public ISingleResult<sp_web_loadHistoryMemberResult> sp_web_loadHistoryMember([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string memberId)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), memberId);
+		return ((ISingleResult<sp_web_loadHistoryMemberResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_loadImportMaterialDetail")]
+	public ISingleResult<sp_web_loadImportMaterialDetailResult> sp_web_loadImportMaterialDetail([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="VarChar(10)")] string id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id);
+		return ((ISingleResult<sp_web_loadImportMaterialDetailResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_loadImportMaterial")]
+	public ISingleResult<sp_web_loadImportMaterialResult> sp_web_loadImportMaterial([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string branchTypeId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string branchId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string status)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), branchTypeId, branchId, status);
+		return ((ISingleResult<sp_web_loadImportMaterialResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_loadFormApproved")]
+	public ISingleResult<sp_web_loadFormApprovedResult> sp_web_loadFormApproved([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> status, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> user)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), status, user);
+		return ((ISingleResult<sp_web_loadFormApprovedResult>)(result.ReturnValue));
+	}
+	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_loadForm")]
 	public ISingleResult<sp_web_loadFormResult> sp_web_loadForm()
 	{
@@ -972,18 +1062,11 @@ public partial class CFileManagerDataContext : System.Data.Linq.DataContext
 		return ((ISingleResult<sp_web_loadFormResult>)(result.ReturnValue));
 	}
 	
-	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_loadFormApproved")]
-	public ISingleResult<sp_web_loadFormApprovedResult> sp_web_loadFormApproved([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="TinyInt")] System.Nullable<byte> status, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> user)
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_loadImportMaterialApproved")]
+	public ISingleResult<sp_web_loadImportMaterialApprovedResult> sp_web_loadImportMaterialApproved([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string branchTypeId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string branchId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string status)
 	{
-		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), status, user);
-		return ((ISingleResult<sp_web_loadFormApprovedResult>)(result.ReturnValue));
-	}
-	
-	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_OutputStock_detail")]
-	public ISingleResult<sp_web_OutputStock_detailResult> sp_web_OutputStock_detail([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string stockoutputId)
-	{
-		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), stockoutputId);
-		return ((ISingleResult<sp_web_OutputStock_detailResult>)(result.ReturnValue));
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), branchTypeId, branchId, status);
+		return ((ISingleResult<sp_web_loadImportMaterialApprovedResult>)(result.ReturnValue));
 	}
 }
 
@@ -15103,10 +15186,6 @@ public partial class tForm : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private System.Nullable<System.DateTime> _ModifiedAt;
 	
-	private System.Nullable<System.DateTime> _ApproveAt;
-	
-	private System.Nullable<int> _ApproveBy;
-	
 	private EntitySet<tFormDetail> _tFormDetails;
 	
 	private EntityRef<tNorm> _tNorm;
@@ -15139,10 +15218,6 @@ public partial class tForm : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnModifiedByChanged();
     partial void OnModifiedAtChanging(System.Nullable<System.DateTime> value);
     partial void OnModifiedAtChanged();
-    partial void OnApproveAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnApproveAtChanged();
-    partial void OnApproveByChanging(System.Nullable<int> value);
-    partial void OnApproveByChanged();
     #endregion
 	
 	public tForm()
@@ -15392,46 +15467,6 @@ public partial class tForm : INotifyPropertyChanging, INotifyPropertyChanged
 				this._ModifiedAt = value;
 				this.SendPropertyChanged("ModifiedAt");
 				this.OnModifiedAtChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApproveAt", DbType="DateTime")]
-	public System.Nullable<System.DateTime> ApproveAt
-	{
-		get
-		{
-			return this._ApproveAt;
-		}
-		set
-		{
-			if ((this._ApproveAt != value))
-			{
-				this.OnApproveAtChanging(value);
-				this.SendPropertyChanging();
-				this._ApproveAt = value;
-				this.SendPropertyChanged("ApproveAt");
-				this.OnApproveAtChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApproveBy", DbType="Int")]
-	public System.Nullable<int> ApproveBy
-	{
-		get
-		{
-			return this._ApproveBy;
-		}
-		set
-		{
-			if ((this._ApproveBy != value))
-			{
-				this.OnApproveByChanging(value);
-				this.SendPropertyChanging();
-				this._ApproveBy = value;
-				this.SendPropertyChanged("ApproveBy");
-				this.OnApproveByChanged();
 			}
 		}
 	}
@@ -15822,246 +15857,6 @@ public partial class tNorm : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 }
 
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tFormDetail")]
-public partial class tFormDetail : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private System.Nullable<int> _FormId;
-	
-	private System.Nullable<int> _MaterialId;
-	
-	private System.Nullable<byte> _Type;
-	
-	private System.Nullable<double> _NormValue;
-	
-	private EntityRef<tForm> _tForm;
-	
-	private EntityRef<tMaterial> _tMaterial;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnFormIdChanging(System.Nullable<int> value);
-    partial void OnFormIdChanged();
-    partial void OnMaterialIdChanging(System.Nullable<int> value);
-    partial void OnMaterialIdChanged();
-    partial void OnTypeChanging(System.Nullable<byte> value);
-    partial void OnTypeChanged();
-    partial void OnNormValueChanging(System.Nullable<double> value);
-    partial void OnNormValueChanged();
-    #endregion
-	
-	public tFormDetail()
-	{
-		this._tForm = default(EntityRef<tForm>);
-		this._tMaterial = default(EntityRef<tMaterial>);
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FormId", DbType="Int")]
-	public System.Nullable<int> FormId
-	{
-		get
-		{
-			return this._FormId;
-		}
-		set
-		{
-			if ((this._FormId != value))
-			{
-				if (this._tForm.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnFormIdChanging(value);
-				this.SendPropertyChanging();
-				this._FormId = value;
-				this.SendPropertyChanged("FormId");
-				this.OnFormIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaterialId", DbType="Int")]
-	public System.Nullable<int> MaterialId
-	{
-		get
-		{
-			return this._MaterialId;
-		}
-		set
-		{
-			if ((this._MaterialId != value))
-			{
-				if (this._tMaterial.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnMaterialIdChanging(value);
-				this.SendPropertyChanging();
-				this._MaterialId = value;
-				this.SendPropertyChanged("MaterialId");
-				this.OnMaterialIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="TinyInt")]
-	public System.Nullable<byte> Type
-	{
-		get
-		{
-			return this._Type;
-		}
-		set
-		{
-			if ((this._Type != value))
-			{
-				this.OnTypeChanging(value);
-				this.SendPropertyChanging();
-				this._Type = value;
-				this.SendPropertyChanged("Type");
-				this.OnTypeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NormValue", DbType="Float")]
-	public System.Nullable<double> NormValue
-	{
-		get
-		{
-			return this._NormValue;
-		}
-		set
-		{
-			if ((this._NormValue != value))
-			{
-				this.OnNormValueChanging(value);
-				this.SendPropertyChanging();
-				this._NormValue = value;
-				this.SendPropertyChanged("NormValue");
-				this.OnNormValueChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tForm_tFormDetail", Storage="_tForm", ThisKey="FormId", OtherKey="Id", IsForeignKey=true)]
-	public tForm tForm
-	{
-		get
-		{
-			return this._tForm.Entity;
-		}
-		set
-		{
-			tForm previousValue = this._tForm.Entity;
-			if (((previousValue != value) 
-						|| (this._tForm.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._tForm.Entity = null;
-					previousValue.tFormDetails.Remove(this);
-				}
-				this._tForm.Entity = value;
-				if ((value != null))
-				{
-					value.tFormDetails.Add(this);
-					this._FormId = value.Id;
-				}
-				else
-				{
-					this._FormId = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("tForm");
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tMaterial_tFormDetail", Storage="_tMaterial", ThisKey="MaterialId", OtherKey="Id", IsForeignKey=true)]
-	public tMaterial tMaterial
-	{
-		get
-		{
-			return this._tMaterial.Entity;
-		}
-		set
-		{
-			tMaterial previousValue = this._tMaterial.Entity;
-			if (((previousValue != value) 
-						|| (this._tMaterial.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._tMaterial.Entity = null;
-					previousValue.tFormDetails.Remove(this);
-				}
-				this._tMaterial.Entity = value;
-				if ((value != null))
-				{
-					value.tFormDetails.Add(this);
-					this._MaterialId = value.Id;
-				}
-				else
-				{
-					this._MaterialId = default(Nullable<int>);
-				}
-				this.SendPropertyChanged("tMaterial");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tMaterial")]
 public partial class tMaterial : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -16089,6 +15884,8 @@ public partial class tMaterial : INotifyPropertyChanging, INotifyPropertyChanged
 	private System.Nullable<System.DateTime> _ModifiedAt;
 	
 	private EntitySet<tFormDetail> _tFormDetails;
+	
+	private EntitySet<tExportMaterialDetail> _tExportMaterialDetails;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -16119,6 +15916,7 @@ public partial class tMaterial : INotifyPropertyChanging, INotifyPropertyChanged
 	public tMaterial()
 	{
 		this._tFormDetails = new EntitySet<tFormDetail>(new Action<tFormDetail>(this.attach_tFormDetails), new Action<tFormDetail>(this.detach_tFormDetails));
+		this._tExportMaterialDetails = new EntitySet<tExportMaterialDetail>(new Action<tExportMaterialDetail>(this.attach_tExportMaterialDetails), new Action<tExportMaterialDetail>(this.detach_tExportMaterialDetails));
 		OnCreated();
 	}
 	
@@ -16335,6 +16133,19 @@ public partial class tMaterial : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tMaterial_tExportMaterialDetail", Storage="_tExportMaterialDetails", ThisKey="Id", OtherKey="MaterialId")]
+	public EntitySet<tExportMaterialDetail> tExportMaterialDetails
+	{
+		get
+		{
+			return this._tExportMaterialDetails;
+		}
+		set
+		{
+			this._tExportMaterialDetails.Assign(value);
+		}
+	}
+	
 	public event PropertyChangingEventHandler PropertyChanging;
 	
 	public event PropertyChangedEventHandler PropertyChanged;
@@ -16366,335 +16177,17 @@ public partial class tMaterial : INotifyPropertyChanging, INotifyPropertyChanged
 		this.SendPropertyChanging();
 		entity.tMaterial = null;
 	}
-}
-
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tImportMaterial")]
-public partial class tImportMaterial : INotifyPropertyChanging, INotifyPropertyChanged
-{
 	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private string _ImportCode;
-	
-	private string _Description;
-	
-	private System.Nullable<System.DateTime> _DateReceiver;
-	
-	private System.Nullable<byte> _Status;
-	
-	private System.Nullable<System.DateTime> _CreateAt;
-	
-	private System.Nullable<int> _CreateBy;
-	
-	private System.Nullable<int> _ModifiedBy;
-	
-	private System.Nullable<System.DateTime> _ModifiedAt;
-	
-	private System.Nullable<System.DateTime> _ApproveAt;
-	
-	private System.Nullable<int> _ApproveBy;
-	
-	private EntitySet<tImportMaterialDetail> _tImportMaterialDetails;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnImportCodeChanging(string value);
-    partial void OnImportCodeChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnDateReceiverChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateReceiverChanged();
-    partial void OnStatusChanging(System.Nullable<byte> value);
-    partial void OnStatusChanged();
-    partial void OnCreateAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreateAtChanged();
-    partial void OnCreateByChanging(System.Nullable<int> value);
-    partial void OnCreateByChanged();
-    partial void OnModifiedByChanging(System.Nullable<int> value);
-    partial void OnModifiedByChanged();
-    partial void OnModifiedAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnModifiedAtChanged();
-    partial void OnApproveAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnApproveAtChanged();
-    partial void OnApproveByChanging(System.Nullable<int> value);
-    partial void OnApproveByChanged();
-    #endregion
-	
-	public tImportMaterial()
-	{
-		this._tImportMaterialDetails = new EntitySet<tImportMaterialDetail>(new Action<tImportMaterialDetail>(this.attach_tImportMaterialDetails), new Action<tImportMaterialDetail>(this.detach_tImportMaterialDetails));
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImportCode", DbType="VarChar(50)")]
-	public string ImportCode
-	{
-		get
-		{
-			return this._ImportCode;
-		}
-		set
-		{
-			if ((this._ImportCode != value))
-			{
-				this.OnImportCodeChanging(value);
-				this.SendPropertyChanging();
-				this._ImportCode = value;
-				this.SendPropertyChanged("ImportCode");
-				this.OnImportCodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(512)")]
-	public string Description
-	{
-		get
-		{
-			return this._Description;
-		}
-		set
-		{
-			if ((this._Description != value))
-			{
-				this.OnDescriptionChanging(value);
-				this.SendPropertyChanging();
-				this._Description = value;
-				this.SendPropertyChanged("Description");
-				this.OnDescriptionChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateReceiver", DbType="DateTime")]
-	public System.Nullable<System.DateTime> DateReceiver
-	{
-		get
-		{
-			return this._DateReceiver;
-		}
-		set
-		{
-			if ((this._DateReceiver != value))
-			{
-				this.OnDateReceiverChanging(value);
-				this.SendPropertyChanging();
-				this._DateReceiver = value;
-				this.SendPropertyChanged("DateReceiver");
-				this.OnDateReceiverChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="TinyInt")]
-	public System.Nullable<byte> Status
-	{
-		get
-		{
-			return this._Status;
-		}
-		set
-		{
-			if ((this._Status != value))
-			{
-				this.OnStatusChanging(value);
-				this.SendPropertyChanging();
-				this._Status = value;
-				this.SendPropertyChanged("Status");
-				this.OnStatusChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateAt", DbType="DateTime")]
-	public System.Nullable<System.DateTime> CreateAt
-	{
-		get
-		{
-			return this._CreateAt;
-		}
-		set
-		{
-			if ((this._CreateAt != value))
-			{
-				this.OnCreateAtChanging(value);
-				this.SendPropertyChanging();
-				this._CreateAt = value;
-				this.SendPropertyChanged("CreateAt");
-				this.OnCreateAtChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateBy", DbType="Int")]
-	public System.Nullable<int> CreateBy
-	{
-		get
-		{
-			return this._CreateBy;
-		}
-		set
-		{
-			if ((this._CreateBy != value))
-			{
-				this.OnCreateByChanging(value);
-				this.SendPropertyChanging();
-				this._CreateBy = value;
-				this.SendPropertyChanged("CreateBy");
-				this.OnCreateByChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedBy", DbType="Int")]
-	public System.Nullable<int> ModifiedBy
-	{
-		get
-		{
-			return this._ModifiedBy;
-		}
-		set
-		{
-			if ((this._ModifiedBy != value))
-			{
-				this.OnModifiedByChanging(value);
-				this.SendPropertyChanging();
-				this._ModifiedBy = value;
-				this.SendPropertyChanged("ModifiedBy");
-				this.OnModifiedByChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedAt", DbType="DateTime")]
-	public System.Nullable<System.DateTime> ModifiedAt
-	{
-		get
-		{
-			return this._ModifiedAt;
-		}
-		set
-		{
-			if ((this._ModifiedAt != value))
-			{
-				this.OnModifiedAtChanging(value);
-				this.SendPropertyChanging();
-				this._ModifiedAt = value;
-				this.SendPropertyChanged("ModifiedAt");
-				this.OnModifiedAtChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApproveAt", DbType="DateTime")]
-	public System.Nullable<System.DateTime> ApproveAt
-	{
-		get
-		{
-			return this._ApproveAt;
-		}
-		set
-		{
-			if ((this._ApproveAt != value))
-			{
-				this.OnApproveAtChanging(value);
-				this.SendPropertyChanging();
-				this._ApproveAt = value;
-				this.SendPropertyChanged("ApproveAt");
-				this.OnApproveAtChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApproveBy", DbType="Int")]
-	public System.Nullable<int> ApproveBy
-	{
-		get
-		{
-			return this._ApproveBy;
-		}
-		set
-		{
-			if ((this._ApproveBy != value))
-			{
-				this.OnApproveByChanging(value);
-				this.SendPropertyChanging();
-				this._ApproveBy = value;
-				this.SendPropertyChanged("ApproveBy");
-				this.OnApproveByChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tImportMaterial_tImportMaterialDetail", Storage="_tImportMaterialDetails", ThisKey="Id", OtherKey="ImportMaterialId")]
-	public EntitySet<tImportMaterialDetail> tImportMaterialDetails
-	{
-		get
-		{
-			return this._tImportMaterialDetails;
-		}
-		set
-		{
-			this._tImportMaterialDetails.Assign(value);
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_tImportMaterialDetails(tImportMaterialDetail entity)
+	private void attach_tExportMaterialDetails(tExportMaterialDetail entity)
 	{
 		this.SendPropertyChanging();
-		entity.tImportMaterial = this;
+		entity.tMaterial = this;
 	}
 	
-	private void detach_tImportMaterialDetails(tImportMaterialDetail entity)
+	private void detach_tExportMaterialDetails(tExportMaterialDetail entity)
 	{
 		this.SendPropertyChanging();
-		entity.tImportMaterial = null;
+		entity.tMaterial = null;
 	}
 }
 
@@ -16710,7 +16203,7 @@ public partial class tImportMaterialDetail : INotifyPropertyChanging, INotifyPro
 	
 	private System.Nullable<int> _FormId;
 	
-	private string _MaterialId;
+	private System.Nullable<int> _MaterialId;
 	
 	private System.Nullable<int> _SupplierId;
 	
@@ -16736,7 +16229,7 @@ public partial class tImportMaterialDetail : INotifyPropertyChanging, INotifyPro
     partial void OnImportMaterialIdChanged();
     partial void OnFormIdChanging(System.Nullable<int> value);
     partial void OnFormIdChanged();
-    partial void OnMaterialIdChanging(string value);
+    partial void OnMaterialIdChanging(System.Nullable<int> value);
     partial void OnMaterialIdChanged();
     partial void OnSupplierIdChanging(System.Nullable<int> value);
     partial void OnSupplierIdChanged();
@@ -16822,8 +16315,8 @@ public partial class tImportMaterialDetail : INotifyPropertyChanging, INotifyPro
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaterialId", DbType="NChar(10)")]
-	public string MaterialId
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaterialId", DbType="Int")]
+	public System.Nullable<int> MaterialId
 	{
 		get
 		{
@@ -16992,6 +16485,1860 @@ public partial class tImportMaterialDetail : INotifyPropertyChanging, INotifyPro
 					this._ImportMaterialId = default(Nullable<int>);
 				}
 				this.SendPropertyChanged("tImportMaterial");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tImportMaterial")]
+public partial class tImportMaterial : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _Id;
+	
+	private System.Nullable<int> _BranchTypeId;
+	
+	private System.Nullable<int> _BranchId;
+	
+	private string _ImportCode;
+	
+	private string _Description;
+	
+	private System.Nullable<System.DateTime> _DateReceiver;
+	
+	private System.Nullable<byte> _Status;
+	
+	private System.Nullable<System.DateTime> _CreateAt;
+	
+	private System.Nullable<int> _CreateBy;
+	
+	private System.Nullable<int> _ModifiedBy;
+	
+	private System.Nullable<System.DateTime> _ModifiedAt;
+	
+	private EntitySet<tImportMaterialDetail> _tImportMaterialDetails;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnBranchTypeIdChanging(System.Nullable<int> value);
+    partial void OnBranchTypeIdChanged();
+    partial void OnBranchIdChanging(System.Nullable<int> value);
+    partial void OnBranchIdChanged();
+    partial void OnImportCodeChanging(string value);
+    partial void OnImportCodeChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnDateReceiverChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateReceiverChanged();
+    partial void OnStatusChanging(System.Nullable<byte> value);
+    partial void OnStatusChanged();
+    partial void OnCreateAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreateAtChanged();
+    partial void OnCreateByChanging(System.Nullable<int> value);
+    partial void OnCreateByChanged();
+    partial void OnModifiedByChanging(System.Nullable<int> value);
+    partial void OnModifiedByChanged();
+    partial void OnModifiedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnModifiedAtChanged();
+    #endregion
+	
+	public tImportMaterial()
+	{
+		this._tImportMaterialDetails = new EntitySet<tImportMaterialDetail>(new Action<tImportMaterialDetail>(this.attach_tImportMaterialDetails), new Action<tImportMaterialDetail>(this.detach_tImportMaterialDetails));
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this.OnIdChanging(value);
+				this.SendPropertyChanging();
+				this._Id = value;
+				this.SendPropertyChanged("Id");
+				this.OnIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BranchTypeId", DbType="Int")]
+	public System.Nullable<int> BranchTypeId
+	{
+		get
+		{
+			return this._BranchTypeId;
+		}
+		set
+		{
+			if ((this._BranchTypeId != value))
+			{
+				this.OnBranchTypeIdChanging(value);
+				this.SendPropertyChanging();
+				this._BranchTypeId = value;
+				this.SendPropertyChanged("BranchTypeId");
+				this.OnBranchTypeIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BranchId", DbType="Int")]
+	public System.Nullable<int> BranchId
+	{
+		get
+		{
+			return this._BranchId;
+		}
+		set
+		{
+			if ((this._BranchId != value))
+			{
+				this.OnBranchIdChanging(value);
+				this.SendPropertyChanging();
+				this._BranchId = value;
+				this.SendPropertyChanged("BranchId");
+				this.OnBranchIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImportCode", DbType="VarChar(50)")]
+	public string ImportCode
+	{
+		get
+		{
+			return this._ImportCode;
+		}
+		set
+		{
+			if ((this._ImportCode != value))
+			{
+				this.OnImportCodeChanging(value);
+				this.SendPropertyChanging();
+				this._ImportCode = value;
+				this.SendPropertyChanged("ImportCode");
+				this.OnImportCodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(512)")]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this.OnDescriptionChanging(value);
+				this.SendPropertyChanging();
+				this._Description = value;
+				this.SendPropertyChanged("Description");
+				this.OnDescriptionChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateReceiver", DbType="DateTime")]
+	public System.Nullable<System.DateTime> DateReceiver
+	{
+		get
+		{
+			return this._DateReceiver;
+		}
+		set
+		{
+			if ((this._DateReceiver != value))
+			{
+				this.OnDateReceiverChanging(value);
+				this.SendPropertyChanging();
+				this._DateReceiver = value;
+				this.SendPropertyChanged("DateReceiver");
+				this.OnDateReceiverChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="TinyInt")]
+	public System.Nullable<byte> Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this.OnStatusChanging(value);
+				this.SendPropertyChanging();
+				this._Status = value;
+				this.SendPropertyChanged("Status");
+				this.OnStatusChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateAt", DbType="DateTime")]
+	public System.Nullable<System.DateTime> CreateAt
+	{
+		get
+		{
+			return this._CreateAt;
+		}
+		set
+		{
+			if ((this._CreateAt != value))
+			{
+				this.OnCreateAtChanging(value);
+				this.SendPropertyChanging();
+				this._CreateAt = value;
+				this.SendPropertyChanged("CreateAt");
+				this.OnCreateAtChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateBy", DbType="Int")]
+	public System.Nullable<int> CreateBy
+	{
+		get
+		{
+			return this._CreateBy;
+		}
+		set
+		{
+			if ((this._CreateBy != value))
+			{
+				this.OnCreateByChanging(value);
+				this.SendPropertyChanging();
+				this._CreateBy = value;
+				this.SendPropertyChanged("CreateBy");
+				this.OnCreateByChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedBy", DbType="Int")]
+	public System.Nullable<int> ModifiedBy
+	{
+		get
+		{
+			return this._ModifiedBy;
+		}
+		set
+		{
+			if ((this._ModifiedBy != value))
+			{
+				this.OnModifiedByChanging(value);
+				this.SendPropertyChanging();
+				this._ModifiedBy = value;
+				this.SendPropertyChanged("ModifiedBy");
+				this.OnModifiedByChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedAt", DbType="DateTime")]
+	public System.Nullable<System.DateTime> ModifiedAt
+	{
+		get
+		{
+			return this._ModifiedAt;
+		}
+		set
+		{
+			if ((this._ModifiedAt != value))
+			{
+				this.OnModifiedAtChanging(value);
+				this.SendPropertyChanging();
+				this._ModifiedAt = value;
+				this.SendPropertyChanged("ModifiedAt");
+				this.OnModifiedAtChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tImportMaterial_tImportMaterialDetail", Storage="_tImportMaterialDetails", ThisKey="Id", OtherKey="ImportMaterialId")]
+	public EntitySet<tImportMaterialDetail> tImportMaterialDetails
+	{
+		get
+		{
+			return this._tImportMaterialDetails;
+		}
+		set
+		{
+			this._tImportMaterialDetails.Assign(value);
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_tImportMaterialDetails(tImportMaterialDetail entity)
+	{
+		this.SendPropertyChanging();
+		entity.tImportMaterial = this;
+	}
+	
+	private void detach_tImportMaterialDetails(tImportMaterialDetail entity)
+	{
+		this.SendPropertyChanging();
+		entity.tImportMaterial = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tFormDetail")]
+public partial class tFormDetail : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _Id;
+	
+	private System.Nullable<int> _FormId;
+	
+	private System.Nullable<int> _MaterialId;
+	
+	private System.Nullable<byte> _Type;
+	
+	private System.Nullable<double> _NormValue;
+	
+	private string _UnitName;
+	
+	private EntityRef<tForm> _tForm;
+	
+	private EntityRef<tMaterial> _tMaterial;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnFormIdChanging(System.Nullable<int> value);
+    partial void OnFormIdChanged();
+    partial void OnMaterialIdChanging(System.Nullable<int> value);
+    partial void OnMaterialIdChanged();
+    partial void OnTypeChanging(System.Nullable<byte> value);
+    partial void OnTypeChanged();
+    partial void OnNormValueChanging(System.Nullable<double> value);
+    partial void OnNormValueChanged();
+    partial void OnUnitNameChanging(string value);
+    partial void OnUnitNameChanged();
+    #endregion
+	
+	public tFormDetail()
+	{
+		this._tForm = default(EntityRef<tForm>);
+		this._tMaterial = default(EntityRef<tMaterial>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this.OnIdChanging(value);
+				this.SendPropertyChanging();
+				this._Id = value;
+				this.SendPropertyChanged("Id");
+				this.OnIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FormId", DbType="Int")]
+	public System.Nullable<int> FormId
+	{
+		get
+		{
+			return this._FormId;
+		}
+		set
+		{
+			if ((this._FormId != value))
+			{
+				if (this._tForm.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnFormIdChanging(value);
+				this.SendPropertyChanging();
+				this._FormId = value;
+				this.SendPropertyChanged("FormId");
+				this.OnFormIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaterialId", DbType="Int")]
+	public System.Nullable<int> MaterialId
+	{
+		get
+		{
+			return this._MaterialId;
+		}
+		set
+		{
+			if ((this._MaterialId != value))
+			{
+				if (this._tMaterial.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnMaterialIdChanging(value);
+				this.SendPropertyChanging();
+				this._MaterialId = value;
+				this.SendPropertyChanged("MaterialId");
+				this.OnMaterialIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="TinyInt")]
+	public System.Nullable<byte> Type
+	{
+		get
+		{
+			return this._Type;
+		}
+		set
+		{
+			if ((this._Type != value))
+			{
+				this.OnTypeChanging(value);
+				this.SendPropertyChanging();
+				this._Type = value;
+				this.SendPropertyChanged("Type");
+				this.OnTypeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NormValue", DbType="Float")]
+	public System.Nullable<double> NormValue
+	{
+		get
+		{
+			return this._NormValue;
+		}
+		set
+		{
+			if ((this._NormValue != value))
+			{
+				this.OnNormValueChanging(value);
+				this.SendPropertyChanging();
+				this._NormValue = value;
+				this.SendPropertyChanged("NormValue");
+				this.OnNormValueChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitName", DbType="NVarChar(50)")]
+	public string UnitName
+	{
+		get
+		{
+			return this._UnitName;
+		}
+		set
+		{
+			if ((this._UnitName != value))
+			{
+				this.OnUnitNameChanging(value);
+				this.SendPropertyChanging();
+				this._UnitName = value;
+				this.SendPropertyChanged("UnitName");
+				this.OnUnitNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tForm_tFormDetail", Storage="_tForm", ThisKey="FormId", OtherKey="Id", IsForeignKey=true)]
+	public tForm tForm
+	{
+		get
+		{
+			return this._tForm.Entity;
+		}
+		set
+		{
+			tForm previousValue = this._tForm.Entity;
+			if (((previousValue != value) 
+						|| (this._tForm.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._tForm.Entity = null;
+					previousValue.tFormDetails.Remove(this);
+				}
+				this._tForm.Entity = value;
+				if ((value != null))
+				{
+					value.tFormDetails.Add(this);
+					this._FormId = value.Id;
+				}
+				else
+				{
+					this._FormId = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("tForm");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tMaterial_tFormDetail", Storage="_tMaterial", ThisKey="MaterialId", OtherKey="Id", IsForeignKey=true)]
+	public tMaterial tMaterial
+	{
+		get
+		{
+			return this._tMaterial.Entity;
+		}
+		set
+		{
+			tMaterial previousValue = this._tMaterial.Entity;
+			if (((previousValue != value) 
+						|| (this._tMaterial.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._tMaterial.Entity = null;
+					previousValue.tFormDetails.Remove(this);
+				}
+				this._tMaterial.Entity = value;
+				if ((value != null))
+				{
+					value.tFormDetails.Add(this);
+					this._MaterialId = value.Id;
+				}
+				else
+				{
+					this._MaterialId = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("tMaterial");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tApprove")]
+public partial class tApprove : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _Id;
+	
+	private string _tTable;
+	
+	private System.Nullable<int> _tTableId;
+	
+	private System.Nullable<int> _ApprovedBy;
+	
+	private System.Nullable<System.DateTime> _ApprovedAt;
+	
+	private string _Content;
+	
+	private System.Nullable<byte> _Level;
+	
+	private System.Nullable<bool> _Approved;
+	
+	private System.Nullable<byte> _Status;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OntTableChanging(string value);
+    partial void OntTableChanged();
+    partial void OntTableIdChanging(System.Nullable<int> value);
+    partial void OntTableIdChanged();
+    partial void OnApprovedByChanging(System.Nullable<int> value);
+    partial void OnApprovedByChanged();
+    partial void OnApprovedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnApprovedAtChanged();
+    partial void OnContentChanging(string value);
+    partial void OnContentChanged();
+    partial void OnLevelChanging(System.Nullable<byte> value);
+    partial void OnLevelChanged();
+    partial void OnApprovedChanging(System.Nullable<bool> value);
+    partial void OnApprovedChanged();
+    partial void OnStatusChanging(System.Nullable<byte> value);
+    partial void OnStatusChanged();
+    #endregion
+	
+	public tApprove()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this.OnIdChanging(value);
+				this.SendPropertyChanging();
+				this._Id = value;
+				this.SendPropertyChanged("Id");
+				this.OnIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tTable", DbType="VarChar(50)")]
+	public string tTable
+	{
+		get
+		{
+			return this._tTable;
+		}
+		set
+		{
+			if ((this._tTable != value))
+			{
+				this.OntTableChanging(value);
+				this.SendPropertyChanging();
+				this._tTable = value;
+				this.SendPropertyChanged("tTable");
+				this.OntTableChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tTableId", DbType="Int")]
+	public System.Nullable<int> tTableId
+	{
+		get
+		{
+			return this._tTableId;
+		}
+		set
+		{
+			if ((this._tTableId != value))
+			{
+				this.OntTableIdChanging(value);
+				this.SendPropertyChanging();
+				this._tTableId = value;
+				this.SendPropertyChanged("tTableId");
+				this.OntTableIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovedBy", DbType="Int")]
+	public System.Nullable<int> ApprovedBy
+	{
+		get
+		{
+			return this._ApprovedBy;
+		}
+		set
+		{
+			if ((this._ApprovedBy != value))
+			{
+				this.OnApprovedByChanging(value);
+				this.SendPropertyChanging();
+				this._ApprovedBy = value;
+				this.SendPropertyChanged("ApprovedBy");
+				this.OnApprovedByChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovedAt", DbType="DateTime")]
+	public System.Nullable<System.DateTime> ApprovedAt
+	{
+		get
+		{
+			return this._ApprovedAt;
+		}
+		set
+		{
+			if ((this._ApprovedAt != value))
+			{
+				this.OnApprovedAtChanging(value);
+				this.SendPropertyChanging();
+				this._ApprovedAt = value;
+				this.SendPropertyChanged("ApprovedAt");
+				this.OnApprovedAtChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Content", DbType="NVarChar(512)")]
+	public string Content
+	{
+		get
+		{
+			return this._Content;
+		}
+		set
+		{
+			if ((this._Content != value))
+			{
+				this.OnContentChanging(value);
+				this.SendPropertyChanging();
+				this._Content = value;
+				this.SendPropertyChanged("Content");
+				this.OnContentChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Level]", Storage="_Level", DbType="TinyInt")]
+	public System.Nullable<byte> Level
+	{
+		get
+		{
+			return this._Level;
+		}
+		set
+		{
+			if ((this._Level != value))
+			{
+				this.OnLevelChanging(value);
+				this.SendPropertyChanging();
+				this._Level = value;
+				this.SendPropertyChanged("Level");
+				this.OnLevelChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Approved", DbType="Bit")]
+	public System.Nullable<bool> Approved
+	{
+		get
+		{
+			return this._Approved;
+		}
+		set
+		{
+			if ((this._Approved != value))
+			{
+				this.OnApprovedChanging(value);
+				this.SendPropertyChanging();
+				this._Approved = value;
+				this.SendPropertyChanged("Approved");
+				this.OnApprovedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="TinyInt")]
+	public System.Nullable<byte> Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this.OnStatusChanging(value);
+				this.SendPropertyChanging();
+				this._Status = value;
+				this.SendPropertyChanged("Status");
+				this.OnStatusChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tMessage")]
+public partial class tMessage : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _Id;
+	
+	private System.Nullable<int> _BranchTypeId;
+	
+	private System.Nullable<System.DateTime> _CreateAt;
+	
+	private System.Nullable<int> _GroupId;
+	
+	private System.Nullable<int> _DeptId;
+	
+	private System.Nullable<int> _UsertId;
+	
+	private string _Message;
+	
+	private System.Nullable<bool> _isRead;
+	
+	private string _Path;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnBranchTypeIdChanging(System.Nullable<int> value);
+    partial void OnBranchTypeIdChanged();
+    partial void OnCreateAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreateAtChanged();
+    partial void OnGroupIdChanging(System.Nullable<int> value);
+    partial void OnGroupIdChanged();
+    partial void OnDeptIdChanging(System.Nullable<int> value);
+    partial void OnDeptIdChanged();
+    partial void OnUsertIdChanging(System.Nullable<int> value);
+    partial void OnUsertIdChanged();
+    partial void OnMessageChanging(string value);
+    partial void OnMessageChanged();
+    partial void OnisReadChanging(System.Nullable<bool> value);
+    partial void OnisReadChanged();
+    partial void OnPathChanging(string value);
+    partial void OnPathChanged();
+    #endregion
+	
+	public tMessage()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this.OnIdChanging(value);
+				this.SendPropertyChanging();
+				this._Id = value;
+				this.SendPropertyChanged("Id");
+				this.OnIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BranchTypeId", DbType="Int")]
+	public System.Nullable<int> BranchTypeId
+	{
+		get
+		{
+			return this._BranchTypeId;
+		}
+		set
+		{
+			if ((this._BranchTypeId != value))
+			{
+				this.OnBranchTypeIdChanging(value);
+				this.SendPropertyChanging();
+				this._BranchTypeId = value;
+				this.SendPropertyChanged("BranchTypeId");
+				this.OnBranchTypeIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateAt", DbType="DateTime")]
+	public System.Nullable<System.DateTime> CreateAt
+	{
+		get
+		{
+			return this._CreateAt;
+		}
+		set
+		{
+			if ((this._CreateAt != value))
+			{
+				this.OnCreateAtChanging(value);
+				this.SendPropertyChanging();
+				this._CreateAt = value;
+				this.SendPropertyChanged("CreateAt");
+				this.OnCreateAtChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GroupId", DbType="Int")]
+	public System.Nullable<int> GroupId
+	{
+		get
+		{
+			return this._GroupId;
+		}
+		set
+		{
+			if ((this._GroupId != value))
+			{
+				this.OnGroupIdChanging(value);
+				this.SendPropertyChanging();
+				this._GroupId = value;
+				this.SendPropertyChanged("GroupId");
+				this.OnGroupIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeptId", DbType="Int")]
+	public System.Nullable<int> DeptId
+	{
+		get
+		{
+			return this._DeptId;
+		}
+		set
+		{
+			if ((this._DeptId != value))
+			{
+				this.OnDeptIdChanging(value);
+				this.SendPropertyChanging();
+				this._DeptId = value;
+				this.SendPropertyChanged("DeptId");
+				this.OnDeptIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsertId", DbType="Int")]
+	public System.Nullable<int> UsertId
+	{
+		get
+		{
+			return this._UsertId;
+		}
+		set
+		{
+			if ((this._UsertId != value))
+			{
+				this.OnUsertIdChanging(value);
+				this.SendPropertyChanging();
+				this._UsertId = value;
+				this.SendPropertyChanged("UsertId");
+				this.OnUsertIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="NVarChar(512)")]
+	public string Message
+	{
+		get
+		{
+			return this._Message;
+		}
+		set
+		{
+			if ((this._Message != value))
+			{
+				this.OnMessageChanging(value);
+				this.SendPropertyChanging();
+				this._Message = value;
+				this.SendPropertyChanged("Message");
+				this.OnMessageChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isRead", DbType="Bit")]
+	public System.Nullable<bool> isRead
+	{
+		get
+		{
+			return this._isRead;
+		}
+		set
+		{
+			if ((this._isRead != value))
+			{
+				this.OnisReadChanging(value);
+				this.SendPropertyChanging();
+				this._isRead = value;
+				this.SendPropertyChanged("isRead");
+				this.OnisReadChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Path", DbType="NVarChar(64)")]
+	public string Path
+	{
+		get
+		{
+			return this._Path;
+		}
+		set
+		{
+			if ((this._Path != value))
+			{
+				this.OnPathChanging(value);
+				this.SendPropertyChanging();
+				this._Path = value;
+				this.SendPropertyChanged("Path");
+				this.OnPathChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tConfigApprove")]
+public partial class tConfigApprove : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _Id;
+	
+	private string _tTable;
+	
+	private string _tTableName;
+	
+	private System.Nullable<int> _AproveBy;
+	
+	private System.Nullable<byte> _Level;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OntTableChanging(string value);
+    partial void OntTableChanged();
+    partial void OntTableNameChanging(string value);
+    partial void OntTableNameChanged();
+    partial void OnAproveByChanging(System.Nullable<int> value);
+    partial void OnAproveByChanged();
+    partial void OnLevelChanging(System.Nullable<byte> value);
+    partial void OnLevelChanged();
+    #endregion
+	
+	public tConfigApprove()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this.OnIdChanging(value);
+				this.SendPropertyChanging();
+				this._Id = value;
+				this.SendPropertyChanged("Id");
+				this.OnIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tTable", DbType="VarChar(50)")]
+	public string tTable
+	{
+		get
+		{
+			return this._tTable;
+		}
+		set
+		{
+			if ((this._tTable != value))
+			{
+				this.OntTableChanging(value);
+				this.SendPropertyChanging();
+				this._tTable = value;
+				this.SendPropertyChanged("tTable");
+				this.OntTableChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tTableName", DbType="NVarChar(50)")]
+	public string tTableName
+	{
+		get
+		{
+			return this._tTableName;
+		}
+		set
+		{
+			if ((this._tTableName != value))
+			{
+				this.OntTableNameChanging(value);
+				this.SendPropertyChanging();
+				this._tTableName = value;
+				this.SendPropertyChanged("tTableName");
+				this.OntTableNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AproveBy", DbType="Int")]
+	public System.Nullable<int> AproveBy
+	{
+		get
+		{
+			return this._AproveBy;
+		}
+		set
+		{
+			if ((this._AproveBy != value))
+			{
+				this.OnAproveByChanging(value);
+				this.SendPropertyChanging();
+				this._AproveBy = value;
+				this.SendPropertyChanged("AproveBy");
+				this.OnAproveByChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Level]", Storage="_Level", DbType="TinyInt")]
+	public System.Nullable<byte> Level
+	{
+		get
+		{
+			return this._Level;
+		}
+		set
+		{
+			if ((this._Level != value))
+			{
+				this.OnLevelChanging(value);
+				this.SendPropertyChanging();
+				this._Level = value;
+				this.SendPropertyChanged("Level");
+				this.OnLevelChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tExportMaterial")]
+public partial class tExportMaterial : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _Id;
+	
+	private System.Nullable<int> _BranchTypeId;
+	
+	private System.Nullable<int> _BranchId;
+	
+	private string _ExportCode;
+	
+	private string _Description;
+	
+	private System.Nullable<byte> _Status;
+	
+	private System.Nullable<System.DateTime> _CreateAt;
+	
+	private System.Nullable<int> _CreateBy;
+	
+	private System.Nullable<int> _ModifiedBy;
+	
+	private System.Nullable<System.DateTime> _ModifiedAt;
+	
+	private EntitySet<tExportMaterialDetail> _tExportMaterialDetails;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnBranchTypeIdChanging(System.Nullable<int> value);
+    partial void OnBranchTypeIdChanged();
+    partial void OnBranchIdChanging(System.Nullable<int> value);
+    partial void OnBranchIdChanged();
+    partial void OnExportCodeChanging(string value);
+    partial void OnExportCodeChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnStatusChanging(System.Nullable<byte> value);
+    partial void OnStatusChanged();
+    partial void OnCreateAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreateAtChanged();
+    partial void OnCreateByChanging(System.Nullable<int> value);
+    partial void OnCreateByChanged();
+    partial void OnModifiedByChanging(System.Nullable<int> value);
+    partial void OnModifiedByChanged();
+    partial void OnModifiedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnModifiedAtChanged();
+    #endregion
+	
+	public tExportMaterial()
+	{
+		this._tExportMaterialDetails = new EntitySet<tExportMaterialDetail>(new Action<tExportMaterialDetail>(this.attach_tExportMaterialDetails), new Action<tExportMaterialDetail>(this.detach_tExportMaterialDetails));
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this.OnIdChanging(value);
+				this.SendPropertyChanging();
+				this._Id = value;
+				this.SendPropertyChanged("Id");
+				this.OnIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BranchTypeId", DbType="Int")]
+	public System.Nullable<int> BranchTypeId
+	{
+		get
+		{
+			return this._BranchTypeId;
+		}
+		set
+		{
+			if ((this._BranchTypeId != value))
+			{
+				this.OnBranchTypeIdChanging(value);
+				this.SendPropertyChanging();
+				this._BranchTypeId = value;
+				this.SendPropertyChanged("BranchTypeId");
+				this.OnBranchTypeIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BranchId", DbType="Int")]
+	public System.Nullable<int> BranchId
+	{
+		get
+		{
+			return this._BranchId;
+		}
+		set
+		{
+			if ((this._BranchId != value))
+			{
+				this.OnBranchIdChanging(value);
+				this.SendPropertyChanging();
+				this._BranchId = value;
+				this.SendPropertyChanged("BranchId");
+				this.OnBranchIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExportCode", DbType="VarChar(50)")]
+	public string ExportCode
+	{
+		get
+		{
+			return this._ExportCode;
+		}
+		set
+		{
+			if ((this._ExportCode != value))
+			{
+				this.OnExportCodeChanging(value);
+				this.SendPropertyChanging();
+				this._ExportCode = value;
+				this.SendPropertyChanged("ExportCode");
+				this.OnExportCodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(512)")]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this.OnDescriptionChanging(value);
+				this.SendPropertyChanging();
+				this._Description = value;
+				this.SendPropertyChanged("Description");
+				this.OnDescriptionChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="TinyInt")]
+	public System.Nullable<byte> Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this.OnStatusChanging(value);
+				this.SendPropertyChanging();
+				this._Status = value;
+				this.SendPropertyChanged("Status");
+				this.OnStatusChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateAt", DbType="DateTime")]
+	public System.Nullable<System.DateTime> CreateAt
+	{
+		get
+		{
+			return this._CreateAt;
+		}
+		set
+		{
+			if ((this._CreateAt != value))
+			{
+				this.OnCreateAtChanging(value);
+				this.SendPropertyChanging();
+				this._CreateAt = value;
+				this.SendPropertyChanged("CreateAt");
+				this.OnCreateAtChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateBy", DbType="Int")]
+	public System.Nullable<int> CreateBy
+	{
+		get
+		{
+			return this._CreateBy;
+		}
+		set
+		{
+			if ((this._CreateBy != value))
+			{
+				this.OnCreateByChanging(value);
+				this.SendPropertyChanging();
+				this._CreateBy = value;
+				this.SendPropertyChanged("CreateBy");
+				this.OnCreateByChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedBy", DbType="Int")]
+	public System.Nullable<int> ModifiedBy
+	{
+		get
+		{
+			return this._ModifiedBy;
+		}
+		set
+		{
+			if ((this._ModifiedBy != value))
+			{
+				this.OnModifiedByChanging(value);
+				this.SendPropertyChanging();
+				this._ModifiedBy = value;
+				this.SendPropertyChanged("ModifiedBy");
+				this.OnModifiedByChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedAt", DbType="DateTime")]
+	public System.Nullable<System.DateTime> ModifiedAt
+	{
+		get
+		{
+			return this._ModifiedAt;
+		}
+		set
+		{
+			if ((this._ModifiedAt != value))
+			{
+				this.OnModifiedAtChanging(value);
+				this.SendPropertyChanging();
+				this._ModifiedAt = value;
+				this.SendPropertyChanged("ModifiedAt");
+				this.OnModifiedAtChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tExportMaterial_tExportMaterialDetail", Storage="_tExportMaterialDetails", ThisKey="Id", OtherKey="ExportMaterialid")]
+	public EntitySet<tExportMaterialDetail> tExportMaterialDetails
+	{
+		get
+		{
+			return this._tExportMaterialDetails;
+		}
+		set
+		{
+			this._tExportMaterialDetails.Assign(value);
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+	
+	private void attach_tExportMaterialDetails(tExportMaterialDetail entity)
+	{
+		this.SendPropertyChanging();
+		entity.tExportMaterial = this;
+	}
+	
+	private void detach_tExportMaterialDetails(tExportMaterialDetail entity)
+	{
+		this.SendPropertyChanging();
+		entity.tExportMaterial = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tExportMaterialDetail")]
+public partial class tExportMaterialDetail : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _Id;
+	
+	private System.Nullable<int> _ExportMaterialid;
+	
+	private System.Nullable<int> _FormId;
+	
+	private System.Nullable<int> _MaterialId;
+	
+	private System.Nullable<double> _Quantity;
+	
+	private string _UnitName;
+	
+	private string _Note;
+	
+	private EntityRef<tExportMaterial> _tExportMaterial;
+	
+	private EntityRef<tMaterial> _tMaterial;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnExportMaterialidChanging(System.Nullable<int> value);
+    partial void OnExportMaterialidChanged();
+    partial void OnFormIdChanging(System.Nullable<int> value);
+    partial void OnFormIdChanged();
+    partial void OnMaterialIdChanging(System.Nullable<int> value);
+    partial void OnMaterialIdChanged();
+    partial void OnQuantityChanging(System.Nullable<double> value);
+    partial void OnQuantityChanged();
+    partial void OnUnitNameChanging(string value);
+    partial void OnUnitNameChanged();
+    partial void OnNoteChanging(string value);
+    partial void OnNoteChanged();
+    #endregion
+	
+	public tExportMaterialDetail()
+	{
+		this._tExportMaterial = default(EntityRef<tExportMaterial>);
+		this._tMaterial = default(EntityRef<tMaterial>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this.OnIdChanging(value);
+				this.SendPropertyChanging();
+				this._Id = value;
+				this.SendPropertyChanged("Id");
+				this.OnIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExportMaterialid", DbType="Int")]
+	public System.Nullable<int> ExportMaterialid
+	{
+		get
+		{
+			return this._ExportMaterialid;
+		}
+		set
+		{
+			if ((this._ExportMaterialid != value))
+			{
+				if (this._tExportMaterial.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnExportMaterialidChanging(value);
+				this.SendPropertyChanging();
+				this._ExportMaterialid = value;
+				this.SendPropertyChanged("ExportMaterialid");
+				this.OnExportMaterialidChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FormId", DbType="Int")]
+	public System.Nullable<int> FormId
+	{
+		get
+		{
+			return this._FormId;
+		}
+		set
+		{
+			if ((this._FormId != value))
+			{
+				this.OnFormIdChanging(value);
+				this.SendPropertyChanging();
+				this._FormId = value;
+				this.SendPropertyChanged("FormId");
+				this.OnFormIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaterialId", DbType="Int")]
+	public System.Nullable<int> MaterialId
+	{
+		get
+		{
+			return this._MaterialId;
+		}
+		set
+		{
+			if ((this._MaterialId != value))
+			{
+				if (this._tMaterial.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnMaterialIdChanging(value);
+				this.SendPropertyChanging();
+				this._MaterialId = value;
+				this.SendPropertyChanged("MaterialId");
+				this.OnMaterialIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Float")]
+	public System.Nullable<double> Quantity
+	{
+		get
+		{
+			return this._Quantity;
+		}
+		set
+		{
+			if ((this._Quantity != value))
+			{
+				this.OnQuantityChanging(value);
+				this.SendPropertyChanging();
+				this._Quantity = value;
+				this.SendPropertyChanged("Quantity");
+				this.OnQuantityChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitName", DbType="NVarChar(50)")]
+	public string UnitName
+	{
+		get
+		{
+			return this._UnitName;
+		}
+		set
+		{
+			if ((this._UnitName != value))
+			{
+				this.OnUnitNameChanging(value);
+				this.SendPropertyChanging();
+				this._UnitName = value;
+				this.SendPropertyChanged("UnitName");
+				this.OnUnitNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note", DbType="NVarChar(512)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this.OnNoteChanging(value);
+				this.SendPropertyChanging();
+				this._Note = value;
+				this.SendPropertyChanged("Note");
+				this.OnNoteChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tExportMaterial_tExportMaterialDetail", Storage="_tExportMaterial", ThisKey="ExportMaterialid", OtherKey="Id", IsForeignKey=true)]
+	public tExportMaterial tExportMaterial
+	{
+		get
+		{
+			return this._tExportMaterial.Entity;
+		}
+		set
+		{
+			tExportMaterial previousValue = this._tExportMaterial.Entity;
+			if (((previousValue != value) 
+						|| (this._tExportMaterial.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._tExportMaterial.Entity = null;
+					previousValue.tExportMaterialDetails.Remove(this);
+				}
+				this._tExportMaterial.Entity = value;
+				if ((value != null))
+				{
+					value.tExportMaterialDetails.Add(this);
+					this._ExportMaterialid = value.Id;
+				}
+				else
+				{
+					this._ExportMaterialid = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("tExportMaterial");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tMaterial_tExportMaterialDetail", Storage="_tMaterial", ThisKey="MaterialId", OtherKey="Id", IsForeignKey=true)]
+	public tMaterial tMaterial
+	{
+		get
+		{
+			return this._tMaterial.Entity;
+		}
+		set
+		{
+			tMaterial previousValue = this._tMaterial.Entity;
+			if (((previousValue != value) 
+						|| (this._tMaterial.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._tMaterial.Entity = null;
+					previousValue.tExportMaterialDetails.Remove(this);
+				}
+				this._tMaterial.Entity = value;
+				if ((value != null))
+				{
+					value.tExportMaterialDetails.Add(this);
+					this._MaterialId = value.Id;
+				}
+				else
+				{
+					this._MaterialId = default(Nullable<int>);
+				}
+				this.SendPropertyChanged("tMaterial");
 			}
 		}
 	}
@@ -26893,6 +28240,1018 @@ public partial class sp_web_loadProductResult
 	}
 }
 
+public partial class sp_web_OutputStock_detailResult
+{
+	
+	private string _ProductCode;
+	
+	private string _CodeId;
+	
+	private string _ProductName;
+	
+	private int _Quantity;
+	
+	private System.Nullable<double> _Price;
+	
+	private double _Discount;
+	
+	private double _DiscountPercent;
+	
+	private string _Note;
+	
+	public sp_web_OutputStock_detailResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductCode", DbType="NVarChar(50)")]
+	public string ProductCode
+	{
+		get
+		{
+			return this._ProductCode;
+		}
+		set
+		{
+			if ((this._ProductCode != value))
+			{
+				this._ProductCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodeId", DbType="NVarChar(50)")]
+	public string CodeId
+	{
+		get
+		{
+			return this._CodeId;
+		}
+		set
+		{
+			if ((this._CodeId != value))
+			{
+				this._CodeId = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
+	public string ProductName
+	{
+		get
+		{
+			return this._ProductName;
+		}
+		set
+		{
+			if ((this._ProductName != value))
+			{
+				this._ProductName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int NOT NULL")]
+	public int Quantity
+	{
+		get
+		{
+			return this._Quantity;
+		}
+		set
+		{
+			if ((this._Quantity != value))
+			{
+				this._Quantity = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
+	public System.Nullable<double> Price
+	{
+		get
+		{
+			return this._Price;
+		}
+		set
+		{
+			if ((this._Price != value))
+			{
+				this._Price = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Discount", DbType="Float NOT NULL")]
+	public double Discount
+	{
+		get
+		{
+			return this._Discount;
+		}
+		set
+		{
+			if ((this._Discount != value))
+			{
+				this._Discount = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiscountPercent", DbType="Float NOT NULL")]
+	public double DiscountPercent
+	{
+		get
+		{
+			return this._DiscountPercent;
+		}
+		set
+		{
+			if ((this._DiscountPercent != value))
+			{
+				this._DiscountPercent = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note", DbType="NVarChar(50)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this._Note = value;
+			}
+		}
+	}
+}
+
+public partial class sp_web_loadHistoryMemberResult
+{
+	
+	private string _CreateAt;
+	
+	private string _StockCode;
+	
+	private string _CodeId;
+	
+	private string _ProductCode;
+	
+	private string _ProductName;
+	
+	private System.Nullable<int> _Quantity;
+	
+	private System.Nullable<double> _Price;
+	
+	private string _Note;
+	
+	public sp_web_loadHistoryMemberResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateAt", DbType="VarChar(21)")]
+	public string CreateAt
+	{
+		get
+		{
+			return this._CreateAt;
+		}
+		set
+		{
+			if ((this._CreateAt != value))
+			{
+				this._CreateAt = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StockCode", DbType="NVarChar(32)")]
+	public string StockCode
+	{
+		get
+		{
+			return this._StockCode;
+		}
+		set
+		{
+			if ((this._StockCode != value))
+			{
+				this._StockCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodeId", DbType="VarChar(20)")]
+	public string CodeId
+	{
+		get
+		{
+			return this._CodeId;
+		}
+		set
+		{
+			if ((this._CodeId != value))
+			{
+				this._CodeId = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductCode", DbType="NVarChar(50)")]
+	public string ProductCode
+	{
+		get
+		{
+			return this._ProductCode;
+		}
+		set
+		{
+			if ((this._ProductCode != value))
+			{
+				this._ProductCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
+	public string ProductName
+	{
+		get
+		{
+			return this._ProductName;
+		}
+		set
+		{
+			if ((this._ProductName != value))
+			{
+				this._ProductName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int")]
+	public System.Nullable<int> Quantity
+	{
+		get
+		{
+			return this._Quantity;
+		}
+		set
+		{
+			if ((this._Quantity != value))
+			{
+				this._Quantity = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
+	public System.Nullable<double> Price
+	{
+		get
+		{
+			return this._Price;
+		}
+		set
+		{
+			if ((this._Price != value))
+			{
+				this._Price = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note", DbType="NVarChar(1024)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this._Note = value;
+			}
+		}
+	}
+}
+
+public partial class sp_web_loadImportMaterialDetailResult
+{
+	
+	private int _Id;
+	
+	private System.Nullable<int> _MaterialId;
+	
+	private System.Nullable<int> _SupplierId;
+	
+	private System.Nullable<double> _Quantity;
+	
+	private System.Nullable<double> _QuantityOffer;
+	
+	private string _UnitName;
+	
+	private System.Nullable<double> _Price;
+	
+	private string _Note;
+	
+	private string _MaterialName;
+	
+	private string _MaterialCode;
+	
+	private string _SupplierName;
+	
+	public sp_web_loadImportMaterialDetailResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+	public int Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this._Id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaterialId", DbType="Int")]
+	public System.Nullable<int> MaterialId
+	{
+		get
+		{
+			return this._MaterialId;
+		}
+		set
+		{
+			if ((this._MaterialId != value))
+			{
+				this._MaterialId = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SupplierId", DbType="Int")]
+	public System.Nullable<int> SupplierId
+	{
+		get
+		{
+			return this._SupplierId;
+		}
+		set
+		{
+			if ((this._SupplierId != value))
+			{
+				this._SupplierId = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Float")]
+	public System.Nullable<double> Quantity
+	{
+		get
+		{
+			return this._Quantity;
+		}
+		set
+		{
+			if ((this._Quantity != value))
+			{
+				this._Quantity = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuantityOffer", DbType="Float")]
+	public System.Nullable<double> QuantityOffer
+	{
+		get
+		{
+			return this._QuantityOffer;
+		}
+		set
+		{
+			if ((this._QuantityOffer != value))
+			{
+				this._QuantityOffer = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitName", DbType="NVarChar(50)")]
+	public string UnitName
+	{
+		get
+		{
+			return this._UnitName;
+		}
+		set
+		{
+			if ((this._UnitName != value))
+			{
+				this._UnitName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
+	public System.Nullable<double> Price
+	{
+		get
+		{
+			return this._Price;
+		}
+		set
+		{
+			if ((this._Price != value))
+			{
+				this._Price = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note", DbType="NVarChar(512)")]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this._Note = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaterialName", DbType="NVarChar(50)")]
+	public string MaterialName
+	{
+		get
+		{
+			return this._MaterialName;
+		}
+		set
+		{
+			if ((this._MaterialName != value))
+			{
+				this._MaterialName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaterialCode", DbType="NVarChar(20)")]
+	public string MaterialCode
+	{
+		get
+		{
+			return this._MaterialCode;
+		}
+		set
+		{
+			if ((this._MaterialCode != value))
+			{
+				this._MaterialCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SupplierName", DbType="NVarChar(64)")]
+	public string SupplierName
+	{
+		get
+		{
+			return this._SupplierName;
+		}
+		set
+		{
+			if ((this._SupplierName != value))
+			{
+				this._SupplierName = value;
+			}
+		}
+	}
+}
+
+public partial class sp_web_loadImportMaterialResult
+{
+	
+	private int _Id;
+	
+	private System.Nullable<int> _BranchTypeId;
+	
+	private System.Nullable<int> _BranchId;
+	
+	private string _BranchName;
+	
+	private string _ImportCode;
+	
+	private string _Description;
+	
+	private string _CreateAt;
+	
+	private string _DateReceiver;
+	
+	private string _FullName;
+	
+	private System.Nullable<byte> _StatusId;
+	
+	private System.Nullable<int> _CreateBy;
+	
+	private string _Status;
+	
+	public sp_web_loadImportMaterialResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+	public int Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this._Id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BranchTypeId", DbType="Int")]
+	public System.Nullable<int> BranchTypeId
+	{
+		get
+		{
+			return this._BranchTypeId;
+		}
+		set
+		{
+			if ((this._BranchTypeId != value))
+			{
+				this._BranchTypeId = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BranchId", DbType="Int")]
+	public System.Nullable<int> BranchId
+	{
+		get
+		{
+			return this._BranchId;
+		}
+		set
+		{
+			if ((this._BranchId != value))
+			{
+				this._BranchId = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BranchName", DbType="NVarChar(64)")]
+	public string BranchName
+	{
+		get
+		{
+			return this._BranchName;
+		}
+		set
+		{
+			if ((this._BranchName != value))
+			{
+				this._BranchName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImportCode", DbType="VarChar(50)")]
+	public string ImportCode
+	{
+		get
+		{
+			return this._ImportCode;
+		}
+		set
+		{
+			if ((this._ImportCode != value))
+			{
+				this._ImportCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(512)")]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this._Description = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateAt", DbType="VarChar(21)")]
+	public string CreateAt
+	{
+		get
+		{
+			return this._CreateAt;
+		}
+		set
+		{
+			if ((this._CreateAt != value))
+			{
+				this._CreateAt = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateReceiver", DbType="VarChar(21)")]
+	public string DateReceiver
+	{
+		get
+		{
+			return this._DateReceiver;
+		}
+		set
+		{
+			if ((this._DateReceiver != value))
+			{
+				this._DateReceiver = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="NVarChar(50)")]
+	public string FullName
+	{
+		get
+		{
+			return this._FullName;
+		}
+		set
+		{
+			if ((this._FullName != value))
+			{
+				this._FullName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusId", DbType="TinyInt")]
+	public System.Nullable<byte> StatusId
+	{
+		get
+		{
+			return this._StatusId;
+		}
+		set
+		{
+			if ((this._StatusId != value))
+			{
+				this._StatusId = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateBy", DbType="Int")]
+	public System.Nullable<int> CreateBy
+	{
+		get
+		{
+			return this._CreateBy;
+		}
+		set
+		{
+			if ((this._CreateBy != value))
+			{
+				this._CreateBy = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="NVarChar(9) NOT NULL", CanBeNull=false)]
+	public string Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this._Status = value;
+			}
+		}
+	}
+}
+
+public partial class sp_web_loadFormApprovedResult
+{
+	
+	private int _FormId;
+	
+	private System.Nullable<int> _ProductTypeId;
+	
+	private string _ProductTypeName;
+	
+	private string _Code;
+	
+	private string _Name;
+	
+	private string _Month;
+	
+	private string _Description;
+	
+	private System.Nullable<System.DateTime> _CreateAt;
+	
+	private string _ApprovedAt;
+	
+	private string _FullName;
+	
+	private System.Nullable<int> _CreateBy;
+	
+	private System.Nullable<byte> _StatusId;
+	
+	private string _ApproName;
+	
+	private string _Level;
+	
+	private string _Status;
+	
+	public sp_web_loadFormApprovedResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FormId", DbType="Int NOT NULL")]
+	public int FormId
+	{
+		get
+		{
+			return this._FormId;
+		}
+		set
+		{
+			if ((this._FormId != value))
+			{
+				this._FormId = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeId", DbType="Int")]
+	public System.Nullable<int> ProductTypeId
+	{
+		get
+		{
+			return this._ProductTypeId;
+		}
+		set
+		{
+			if ((this._ProductTypeId != value))
+			{
+				this._ProductTypeId = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeName", DbType="NVarChar(128)")]
+	public string ProductTypeName
+	{
+		get
+		{
+			return this._ProductTypeName;
+		}
+		set
+		{
+			if ((this._ProductTypeName != value))
+			{
+				this._ProductTypeName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="NVarChar(20)")]
+	public string Code
+	{
+		get
+		{
+			return this._Code;
+		}
+		set
+		{
+			if ((this._Code != value))
+			{
+				this._Code = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+	public string Name
+	{
+		get
+		{
+			return this._Name;
+		}
+		set
+		{
+			if ((this._Name != value))
+			{
+				this._Name = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Month", DbType="VarChar(20)")]
+	public string Month
+	{
+		get
+		{
+			return this._Month;
+		}
+		set
+		{
+			if ((this._Month != value))
+			{
+				this._Month = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(512)")]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this._Description = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateAt", DbType="DateTime")]
+	public System.Nullable<System.DateTime> CreateAt
+	{
+		get
+		{
+			return this._CreateAt;
+		}
+		set
+		{
+			if ((this._CreateAt != value))
+			{
+				this._CreateAt = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovedAt", DbType="VarChar(21)")]
+	public string ApprovedAt
+	{
+		get
+		{
+			return this._ApprovedAt;
+		}
+		set
+		{
+			if ((this._ApprovedAt != value))
+			{
+				this._ApprovedAt = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="NVarChar(128)")]
+	public string FullName
+	{
+		get
+		{
+			return this._FullName;
+		}
+		set
+		{
+			if ((this._FullName != value))
+			{
+				this._FullName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateBy", DbType="Int")]
+	public System.Nullable<int> CreateBy
+	{
+		get
+		{
+			return this._CreateBy;
+		}
+		set
+		{
+			if ((this._CreateBy != value))
+			{
+				this._CreateBy = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusId", DbType="TinyInt")]
+	public System.Nullable<byte> StatusId
+	{
+		get
+		{
+			return this._StatusId;
+		}
+		set
+		{
+			if ((this._StatusId != value))
+			{
+				this._StatusId = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApproName", DbType="NVarChar(128)")]
+	public string ApproName
+	{
+		get
+		{
+			return this._ApproName;
+		}
+		set
+		{
+			if ((this._ApproName != value))
+			{
+				this._ApproName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Level]", Storage="_Level", DbType="NVarChar(14)")]
+	public string Level
+	{
+		get
+		{
+			return this._Level;
+		}
+		set
+		{
+			if ((this._Level != value))
+			{
+				this._Level = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="NVarChar(11) NOT NULL", CanBeNull=false)]
+	public string Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this._Status = value;
+			}
+		}
+	}
+}
+
 public partial class sp_web_loadFormResult
 {
 	
@@ -27100,7 +29459,7 @@ public partial class sp_web_loadFormResult
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="NVarChar(18) NOT NULL", CanBeNull=false)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="NVarChar(20) NOT NULL", CanBeNull=false)]
 	public string Status
 	{
 		get
@@ -27117,127 +29476,117 @@ public partial class sp_web_loadFormResult
 	}
 }
 
-public partial class sp_web_loadFormApprovedResult
+public partial class sp_web_loadImportMaterialApprovedResult
 {
 	
-	private int _FormId;
+	private int _Id;
 	
-	private System.Nullable<int> _ProductTypeId;
+	private System.Nullable<int> _BranchTypeId;
 	
-	private string _ProductTypeName;
+	private System.Nullable<int> _BranchId;
 	
-	private string _Code;
+	private string _BranchName;
 	
-	private string _Name;
-	
-	private string _Month;
+	private string _ImportCode;
 	
 	private string _Description;
 	
-	private System.Nullable<System.DateTime> _CreateAt;
+	private string _CreateAt;
+	
+	private string _DateReceiver;
 	
 	private string _FullName;
+	
+	private System.Nullable<byte> _StatusId;
 	
 	private System.Nullable<int> _CreateBy;
 	
 	private string _Status;
 	
-	public sp_web_loadFormApprovedResult()
+	private string _ApproName;
+	
+	private string _Level;
+	
+	public sp_web_loadImportMaterialApprovedResult()
 	{
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FormId", DbType="Int NOT NULL")]
-	public int FormId
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+	public int Id
 	{
 		get
 		{
-			return this._FormId;
+			return this._Id;
 		}
 		set
 		{
-			if ((this._FormId != value))
+			if ((this._Id != value))
 			{
-				this._FormId = value;
+				this._Id = value;
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeId", DbType="Int")]
-	public System.Nullable<int> ProductTypeId
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BranchTypeId", DbType="Int")]
+	public System.Nullable<int> BranchTypeId
 	{
 		get
 		{
-			return this._ProductTypeId;
+			return this._BranchTypeId;
 		}
 		set
 		{
-			if ((this._ProductTypeId != value))
+			if ((this._BranchTypeId != value))
 			{
-				this._ProductTypeId = value;
+				this._BranchTypeId = value;
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeName", DbType="NVarChar(128)")]
-	public string ProductTypeName
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BranchId", DbType="Int")]
+	public System.Nullable<int> BranchId
 	{
 		get
 		{
-			return this._ProductTypeName;
+			return this._BranchId;
 		}
 		set
 		{
-			if ((this._ProductTypeName != value))
+			if ((this._BranchId != value))
 			{
-				this._ProductTypeName = value;
+				this._BranchId = value;
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="NVarChar(20)")]
-	public string Code
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BranchName", DbType="NVarChar(64)")]
+	public string BranchName
 	{
 		get
 		{
-			return this._Code;
+			return this._BranchName;
 		}
 		set
 		{
-			if ((this._Code != value))
+			if ((this._BranchName != value))
 			{
-				this._Code = value;
+				this._BranchName = value;
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
-	public string Name
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImportCode", DbType="VarChar(50)")]
+	public string ImportCode
 	{
 		get
 		{
-			return this._Name;
+			return this._ImportCode;
 		}
 		set
 		{
-			if ((this._Name != value))
+			if ((this._ImportCode != value))
 			{
-				this._Name = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Month", DbType="VarChar(20)")]
-	public string Month
-	{
-		get
-		{
-			return this._Month;
-		}
-		set
-		{
-			if ((this._Month != value))
-			{
-				this._Month = value;
+				this._ImportCode = value;
 			}
 		}
 	}
@@ -27258,8 +29607,8 @@ public partial class sp_web_loadFormApprovedResult
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateAt", DbType="DateTime")]
-	public System.Nullable<System.DateTime> CreateAt
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateAt", DbType="VarChar(21)")]
+	public string CreateAt
 	{
 		get
 		{
@@ -27270,6 +29619,22 @@ public partial class sp_web_loadFormApprovedResult
 			if ((this._CreateAt != value))
 			{
 				this._CreateAt = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateReceiver", DbType="VarChar(21)")]
+	public string DateReceiver
+	{
+		get
+		{
+			return this._DateReceiver;
+		}
+		set
+		{
+			if ((this._DateReceiver != value))
+			{
+				this._DateReceiver = value;
 			}
 		}
 	}
@@ -27290,6 +29655,22 @@ public partial class sp_web_loadFormApprovedResult
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusId", DbType="TinyInt")]
+	public System.Nullable<byte> StatusId
+	{
+		get
+		{
+			return this._StatusId;
+		}
+		set
+		{
+			if ((this._StatusId != value))
+			{
+				this._StatusId = value;
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateBy", DbType="Int")]
 	public System.Nullable<int> CreateBy
 	{
@@ -27306,7 +29687,7 @@ public partial class sp_web_loadFormApprovedResult
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="NVarChar(13) NOT NULL", CanBeNull=false)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="NVarChar(11) NOT NULL", CanBeNull=false)]
 	public string Status
 	{
 		get
@@ -27321,155 +29702,35 @@ public partial class sp_web_loadFormApprovedResult
 			}
 		}
 	}
-}
-
-public partial class sp_web_OutputStock_detailResult
-{
 	
-	private string _ProductCode;
-	
-	private string _CodeId;
-	
-	private string _ProductName;
-	
-	private int _Quantity;
-	
-	private System.Nullable<double> _Price;
-	
-	private double _Discount;
-	
-	private double _DiscountPercent;
-	
-	private string _Note;
-	
-	public sp_web_OutputStock_detailResult()
-	{
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductCode", DbType="NVarChar(50)")]
-	public string ProductCode
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApproName", DbType="NVarChar(128)")]
+	public string ApproName
 	{
 		get
 		{
-			return this._ProductCode;
+			return this._ApproName;
 		}
 		set
 		{
-			if ((this._ProductCode != value))
+			if ((this._ApproName != value))
 			{
-				this._ProductCode = value;
+				this._ApproName = value;
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodeId", DbType="NVarChar(50)")]
-	public string CodeId
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Level]", Storage="_Level", DbType="NVarChar(14)")]
+	public string Level
 	{
 		get
 		{
-			return this._CodeId;
+			return this._Level;
 		}
 		set
 		{
-			if ((this._CodeId != value))
+			if ((this._Level != value))
 			{
-				this._CodeId = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
-	public string ProductName
-	{
-		get
-		{
-			return this._ProductName;
-		}
-		set
-		{
-			if ((this._ProductName != value))
-			{
-				this._ProductName = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int NOT NULL")]
-	public int Quantity
-	{
-		get
-		{
-			return this._Quantity;
-		}
-		set
-		{
-			if ((this._Quantity != value))
-			{
-				this._Quantity = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
-	public System.Nullable<double> Price
-	{
-		get
-		{
-			return this._Price;
-		}
-		set
-		{
-			if ((this._Price != value))
-			{
-				this._Price = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Discount", DbType="Float NOT NULL")]
-	public double Discount
-	{
-		get
-		{
-			return this._Discount;
-		}
-		set
-		{
-			if ((this._Discount != value))
-			{
-				this._Discount = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiscountPercent", DbType="Float NOT NULL")]
-	public double DiscountPercent
-	{
-		get
-		{
-			return this._DiscountPercent;
-		}
-		set
-		{
-			if ((this._DiscountPercent != value))
-			{
-				this._DiscountPercent = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note", DbType="NVarChar(50)")]
-	public string Note
-	{
-		get
-		{
-			return this._Note;
-		}
-		set
-		{
-			if ((this._Note != value))
-			{
-				this._Note = value;
+				this._Level = value;
 			}
 		}
 	}

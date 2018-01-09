@@ -70,6 +70,301 @@ public partial class Command : System.Web.UI.Page
         }
         return r;
     }
+    
+    [WebMethod]
+    public static result insertOfferMaterial(string branchTypeId, string branchId, string note, string data)
+    {
+        var r = new result();
+        try
+        {
+            var db = new CFileManagerDataContext();
+            var b = new tImportMaterial();
+            b.BranchTypeId = int.Parse(branchTypeId.Trim());
+            b.BranchId = int.Parse(branchId.Trim());
+            b.ImportCode = "PDX" + DateTime.Now.ToString("ddMMyyHHmmss");
+            b.Description = note.Trim();
+            b.CreateAt = DateTime.Now;
+            b.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+            b.Status = 1;
+            db.tImportMaterials.InsertOnSubmit(b);
+            db.SubmitChanges();
+
+            var tmp = data.Trim().Split('#');
+            for (int k = 0; k < tmp.Length; k++)
+            {
+                var d = tmp[k].Split('|');
+                var p = new tImportMaterialDetail();
+                p.ImportMaterialId = b.Id;
+                p.MaterialId = int.Parse(d[0]);
+                p.SupplierId = int.Parse(d[1]);
+                p.QuantityOffer = int.Parse(d[2]);
+                p.Quantity = int.Parse(d[3]);
+                p.Price = double.Parse(d[4]);
+                p.UnitName = d[5];
+                p.Note = d[6];
+                db.tImportMaterialDetails.InsertOnSubmit(p);
+            }
+            db.SubmitChanges();
+
+            //insert approve
+            var appro = from n in db.tConfigApproves
+                        where n.tTable == "tImportMaterial"
+                        orderby n.Level
+                        select new { n.Id, n.AproveBy, n.Level };
+            var st = 0;
+            foreach (var item in appro.ToList())
+            {
+                var a = new tApprove();
+                a.tTable = "tImportMaterial";
+                a.tTableId = b.Id;
+                a.ApprovedBy = item.AproveBy;
+                a.Level = item.Level;
+                a.Approved = false;
+                if (st == 0)
+                {
+                    a.Status = 1;
+                    var mess = new tMessage();
+                    mess.BranchTypeId = 2;
+                    mess.CreateAt = DateTime.Now;
+                    mess.Message = "Bạn có phiếu đề xuất nhập nguyên phụ liệu mới cần duyệt";
+                    mess.UsertId = item.AproveBy;
+                    mess.isRead = false;
+                    mess.Path = "/appinput";
+                    db.tMessages.InsertOnSubmit(mess);
+
+                }
+                else a.Status = 0;
+                db.tApproves.InsertOnSubmit(a);
+
+                st++;
+            }
+            db.SubmitChanges();
+
+            r._content = "1";
+
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu phiếu đề xuất, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result updateOfferMaterial(string Id, string branchTypeId, string branchId, string note, string data)
+    {
+        var r = new result();
+        try
+        {
+            var db = new CFileManagerDataContext();
+            var b = from x in db.tImportMaterials where x.Id == int.Parse(Id.Trim()) && x.Status==1 select x;
+            if (b.Count() > 0)
+            {
+                b.FirstOrDefault().BranchTypeId = int.Parse(branchTypeId.Trim());
+                b.FirstOrDefault().BranchId = int.Parse(branchId.Trim());
+                b.FirstOrDefault().Description = note.Trim();
+                b.FirstOrDefault().ModifiedAt = DateTime.Now;
+                b.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.SubmitChanges();
+            }
+
+            var del = from n in db.tImportMaterialDetails where n.ImportMaterialId == int.Parse(Id.Trim()) select n;
+            db.tImportMaterialDetails.DeleteAllOnSubmit(del);
+
+            var tmp = data.Trim().Split('#');
+            for (int k = 0; k < tmp.Length; k++)
+            {
+                var d = tmp[k].Split('|');
+                var p = new tImportMaterialDetail();
+                p.ImportMaterialId = int.Parse(Id.Trim());
+                p.MaterialId = int.Parse(d[0]);
+                p.SupplierId = int.Parse(d[1]);
+                p.QuantityOffer = int.Parse(d[2]);
+                p.Quantity = int.Parse(d[3]);
+                p.Price = double.Parse(d[4]);
+                p.UnitName = d[5];
+                p.Note = d[6];
+                db.tImportMaterialDetails.InsertOnSubmit(p);
+            }
+            db.SubmitChanges();
+            r._content = "1";
+
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi cập nhật phiếu đề xuất, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result deleteOfferMaterial(string Id)
+    {
+        var r = new result();
+        try
+        {
+            var db = new CFileManagerDataContext();
+            var b = from x in db.tImportMaterials where x.Id == int.Parse(Id.Trim()) && x.Status==1 select x;
+            if (b.Count() > 0)
+            {
+                b.FirstOrDefault().Status = 0;
+                b.FirstOrDefault().ModifiedAt = DateTime.Now;
+                b.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.SubmitChanges();
+            }
+            
+            db.SubmitChanges();
+            r._content = "1";
+
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi xóa phiếu đề xuất, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result approvedOfferMaterial(string Id,string status,string content)
+    {
+        var r = new result();
+        try
+        {
+            var db = new CFileManagerDataContext();
+            var b = from x in db.tImportMaterials where x.Id == int.Parse(Id.Trim()) && x.Status == 1 select x;
+            if (b.Count() > 0)
+            {
+                //update bang duyet
+                var app = from x in db.tApproves
+                          where x.tTable == "tImportMaterial" && x.tTableId==int.Parse(Id.Trim()) 
+                          && x.ApprovedBy == int.Parse(HttpContext.Current.Session["cm_userId"].ToString())
+                          && x.Approved==false
+                          select x;
+                if (app.Count() > 0)
+                {
+                    var app_next = app.FirstOrDefault().Level + 1;
+
+                    app.FirstOrDefault().Status = byte.Parse(status.Trim());
+                    app.FirstOrDefault().ApprovedAt = DateTime.Now;
+                    app.FirstOrDefault().Approved = true;
+                    app.FirstOrDefault().Content = content.Trim();
+                    db.SubmitChanges();
+
+                    
+                    //update nguoi duyet tiep theo
+                    var appNext = from m in db.tApproves
+                                  where m.tTable == "tImportMaterial" && m.tTableId == int.Parse(Id.Trim()) && m.Level == app_next
+                                  select m;
+                    if (appNext.Count() > 0)
+                    {
+                        if (status.Trim() == "3")
+                        {
+                            appNext.FirstOrDefault().ApprovedAt = DateTime.Now;
+                            appNext.FirstOrDefault().Approved = true;
+                            appNext.FirstOrDefault().Content = "Tự hủy";
+                            appNext.FirstOrDefault().Status = 4;//tu huy
+
+                            b.FirstOrDefault().Status = byte.Parse(status.Trim());
+
+                            //thong bao huy toi nguoi de xuat
+                            var mess = new tMessage();
+                            mess.BranchTypeId = b.FirstOrDefault().BranchTypeId;
+                            mess.CreateAt = DateTime.Now;
+                            mess.Message = "Phiếu đề xuất nhập nguyên phụ liệu số " + b.FirstOrDefault().ImportCode + " của bạn KHÔNG được duyệt";
+                            mess.UsertId = b.FirstOrDefault().CreateBy;
+                            mess.isRead = false;
+                            mess.Path = "/offerinput";
+                            db.tMessages.InsertOnSubmit(mess);
+                        }
+                        else
+                        {
+                            appNext.FirstOrDefault().Status = 1;
+
+                            var mess = new tMessage();
+                            mess.BranchTypeId = 2;
+                            mess.CreateAt = DateTime.Now;
+                            mess.Message = "Bạn có phiếu đề xuất nhập nguyên phụ liệu mới cần duyệt";
+                            mess.UsertId = appNext.FirstOrDefault().ApprovedBy;
+                            mess.isRead = false;
+                            mess.Path = "/appinput";
+                            db.tMessages.InsertOnSubmit(mess);
+                        }
+                        db.SubmitChanges();
+
+                    }
+                    else
+                    {
+                        //neu ko co nguoi duyet tiep theo thi cap nhat da duyet het
+                        b.FirstOrDefault().Status = byte.Parse(status.Trim());
+
+                        //thong bao huy toi nguoi de xuat
+                        var mess = new tMessage();
+                        mess.BranchTypeId = b.FirstOrDefault().BranchTypeId;
+                        mess.CreateAt = DateTime.Now;
+                        mess.Message = "Phiếu đề xuất nhập nguyên phụ liệu số " + b.FirstOrDefault().ImportCode + " của bạn " + (status.Trim() == "2" ? "đã ĐƯỢC" : "KHÔNG được") + " duyệt";
+                        mess.UsertId = b.FirstOrDefault().CreateBy;
+                        mess.isRead = false;
+                        mess.Path = "/offerinput";
+                        db.tMessages.InsertOnSubmit(mess);
+
+                        db.SubmitChanges();
+                    }
+                    r._content = "1";
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Bạn không có quyền duyệt module này";
+                }
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy phiếu đề xuất, hãy thử lại";
+            }
+
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi duyệt phiếu đề xuất, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static List<MaterialDetail> OfferMaterialDetail(string Id)
+    {
+        var r = new List<MaterialDetail>();
+        try
+        {
+            var db = new CFileManagerDataContext();
+            var d = db.sp_web_loadImportMaterialDetail(Id.Trim());
+            foreach (var item in d.ToList())
+            {
+                var n = new MaterialDetail();
+                n.ID = item.Id.ToString();
+                n.MaterialId = item.MaterialId.ToString();
+                n.MaterialCode = item.MaterialCode;
+                n.MaterialName = item.MaterialName;
+                n.SupplierId = item.SupplierId.ToString();
+                n.SupplierName = item.SupplierName;
+                n.Quantity = item.Quantity.ToString();
+                n.QuantityOffer = item.QuantityOffer.ToString();
+                n.UnitName = item.UnitName;
+                n.Price = item.Price == 0 ? "0" : string.Format("{0:0,0}", item.Price.Value);
+                n.Note = item.Note;
+                r.Add(n);
+            }
+
+        }
+        catch (Exception ax)
+        {
+            var n = new MaterialDetail();
+            n.Mess = "Có lỗi khi lấy thông tin phiếu đề xuất, chi tiết: " + ax.Message;
+            r.Add(n);
+        }
+        return r;
+    }
     [WebMethod]
     public static result updateFeed(string id, string content)
     {
@@ -282,6 +577,34 @@ public partial class Command : System.Web.UI.Page
             t._id = "0";
             t._content = ax.Message;
             r.Add(t);
+        }
+        return r;
+    }
+    [WebMethod]
+    public static List<historymember> loadHistoryMember(string memberId)
+    {
+        var r = new List<historymember>();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = db.sp_web_loadHistoryMember(memberId.Trim());
+            foreach (var item in b.ToList())
+            {
+                var t = new historymember();
+                t.CreateAt = item.CreateAt;
+                t.StockCode = item.StockCode;
+                t.CodeId = item.CodeId;
+                t.ProCode = item.ProductCode;
+                t.ProName = item.ProductName;
+                t.Quantity = item.Quantity.ToString();
+                t.Price = item.Price.Value == 0 ? "0" : string.Format("{0:0,0}", item.Price);
+                t.Note = item.Note;
+                r.Add(t);
+            }
+        }
+        catch
+        {
+            
         }
         return r;
     }
@@ -1050,6 +1373,88 @@ public partial class Command : System.Web.UI.Page
         }
         return r;
     }
+
+    [WebMethod]
+    public static result updateApprove(string id, string code,string name, string user, string level)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+
+            var b = from x in db.tConfigApproves where x.Id == int.Parse(id.Trim()) select x;
+            if (b.Count() > 0)
+            {
+                b.FirstOrDefault().tTable = code.Trim();
+                b.FirstOrDefault().tTableName = name.Trim();
+                b.FirstOrDefault().AproveBy = int.Parse(user.Trim());
+                b.FirstOrDefault().Level = byte.Parse(level.Trim());
+                db.SubmitChanges();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin module, hãy thử lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu module duyệt, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result insertApprove(string code,string name, string user, string level)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = new tConfigApprove();
+            b.tTable = code.Trim();
+            b.tTableName = name.Trim();
+            b.AproveBy = int.Parse(user.Trim());
+            b.Level = byte.Parse(level.Trim());
+            db.tConfigApproves.InsertOnSubmit(b);
+            db.SubmitChanges();
+            r._content = "1";
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu module duyệt, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result deleteApprove(string id)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = from x in db.tConfigApproves where x.Id == int.Parse(id.Trim()) select x;
+            if (b.Count() > 0)
+            {
+                db.tConfigApproves.DeleteAllOnSubmit(b);
+                db.SubmitChanges();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin module duyệt, hãy thử lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi xóa module duyệt, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
     [WebMethod]
     public static result updateUnit(string id, string branchTypeId, string code, string name)
     {
@@ -1536,8 +1941,10 @@ public partial class Command : System.Web.UI.Page
         try
         {
             CFileManagerDataContext db = new CFileManagerDataContext();
-            var b = from x in db.tFormDetails from y in db.tMaterials
-                    where x.MaterialId==y.Id && x.FormId == int.Parse(id.Trim()) select new { x.Id,x.MaterialId,x.Type,x.NormValue,y.MaterialName, y.MaterialCode};
+            var b = from x in db.tFormDetails
+                    from y in db.tMaterials
+                    where x.MaterialId == y.Id && x.FormId == int.Parse(id.Trim())
+                    select new { x.Id, x.MaterialId, x.Type, x.NormValue, y.MaterialName, y.MaterialCode, x.UnitName };
             foreach (var item in b.ToList())
             {
                 var f = new formdetail();
@@ -1546,6 +1953,7 @@ public partial class Command : System.Web.UI.Page
                 f.MaterialName = item.MaterialCode + " | " + item.MaterialName.ToString();
                 f.TypeName = item.Type.ToString();
                 f.Norm = item.NormValue.ToString();
+                f.UnitName = item.UnitName;
                 f.OK = "1";
                 r.Add(f);
             }
@@ -1594,6 +2002,7 @@ public partial class Command : System.Web.UI.Page
                     c.MaterialId = int.Parse(child[0]);
                     c.Type = byte.Parse(child[1]);
                     c.NormValue = double.Parse(child[2]);
+                    c.UnitName = child[3];
                     db.tFormDetails.InsertOnSubmit(c);
                 }
                 db.SubmitChanges();
@@ -1631,7 +2040,6 @@ public partial class Command : System.Web.UI.Page
             db.tForms.InsertOnSubmit(b);
             db.SubmitChanges();
 
-            //17,1,1.1#23,2,0.2#31,3,0.3#56,4,5#61,4,2
             var tmp = data.Trim().Split('#');
             for (int k = 0; k < tmp.Length; k++)
             {
@@ -1642,10 +2050,41 @@ public partial class Command : System.Web.UI.Page
                 c.MaterialId =int.Parse(child[0]);
                 c.Type = byte.Parse(child[1]);
                 c.NormValue = double.Parse(child[2]);
+                c.UnitName = child[3];
                 db.tFormDetails.InsertOnSubmit(c);
             }
             db.SubmitChanges();
-           
+
+            var appro = from n in db.tConfigApproves where n.tTable == "tForm"
+                        orderby n.Level select new { n.Id, n.AproveBy, n.Level };
+            var st = 0;
+            foreach (var item in appro.ToList())
+            {
+                var a = new tApprove();
+                a.tTable = "tForm";
+                a.tTableId = b.Id;
+                a.ApprovedBy = item.AproveBy;
+                a.Level = item.Level;
+                a.Approved = false;
+                if (st == 0)
+                {
+                    a.Status = 1;
+                    var mess = new tMessage();
+                    mess.BranchTypeId = 2;
+                    mess.CreateAt = DateTime.Now;
+                    mess.Message = "Bạn có mẫu hình ảnh mới cần duyệt";
+                    mess.UsertId = item.AproveBy;
+                    mess.isRead = false;
+                    mess.Path = "/appform";
+                    db.tMessages.InsertOnSubmit(mess);
+
+                }
+                else a.Status = 0;
+                db.tApproves.InsertOnSubmit(a);
+
+                st++;
+            }
+            db.SubmitChanges();
             r._content = "1";
         }
         catch (Exception ax)
@@ -1685,7 +2124,7 @@ public partial class Command : System.Web.UI.Page
         return r;
     }
     [WebMethod]
-    public static result ApprovedForm(string id)
+    public static result ApprovedForm(string id, string status,string content)
     {
         var r = new result();
         try
@@ -1694,11 +2133,90 @@ public partial class Command : System.Web.UI.Page
             var b = from x in db.tForms where x.Id == int.Parse(id.Trim()) select x;
             if (b.Count() > 0)
             {
-                b.FirstOrDefault().Status = 2;
-                b.FirstOrDefault().ApproveAt = DateTime.Now;
-                b.FirstOrDefault().ApproveBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-                db.SubmitChanges();
-                r._content = "1";
+               
+                //update bang duyet
+                var app = from x in db.tApproves where x.tTable== "tForm" && x.tTableId==int.Parse(id.Trim()) 
+                          && x.ApprovedBy== int.Parse(HttpContext.Current.Session["cm_userId"].ToString())
+                          && x.Approved == false
+                          select x;
+                if (app.Count() > 0)
+                {
+                    var app_next = app.FirstOrDefault().Level + 1;
+
+                    app.FirstOrDefault().Status = byte.Parse(status.Trim());
+                    app.FirstOrDefault().ApprovedAt = DateTime.Now;
+                    app.FirstOrDefault().Approved = true;
+                    app.FirstOrDefault().Content = content.Trim();
+                    db.SubmitChanges();
+
+                    
+                    //update nguoi duyet tiep theo
+                    var appNext = from m in db.tApproves
+                                  where m.tTable == "tForm" && m.tTableId==int.Parse(id.Trim()) 
+                                  && m.Level == app_next
+                                  select m;
+                    if (appNext.Count() > 0)
+                    {
+                        if (status.Trim() == "3")
+                        {
+                            appNext.FirstOrDefault().ApprovedAt = DateTime.Now;
+                            appNext.FirstOrDefault().Approved = true;
+                            appNext.FirstOrDefault().Content = "Tự hủy";
+                            appNext.FirstOrDefault().Status = 4;//tu huy
+
+                            b.FirstOrDefault().Status = byte.Parse(status.Trim());
+
+                            //thong bao huy toi thiet ke
+                            var mess = new tMessage();
+                            mess.BranchTypeId = 2;
+                            mess.CreateAt = DateTime.Now;
+                            mess.Message = "Mẫu hình ảnh mã " + b.FirstOrDefault().Name + " - " + b.FirstOrDefault().Code + " của bạn KHÔNG được duyệt";
+                            mess.UsertId = b.FirstOrDefault().CreateBy;
+                            mess.isRead = false;
+                            mess.Path = "/form";
+                            db.tMessages.InsertOnSubmit(mess);
+                        }
+                        else
+                        {
+                            appNext.FirstOrDefault().Status = 1;//cho duyet
+
+                            var mess = new tMessage();
+                            mess.BranchTypeId = 2;
+                            mess.CreateAt = DateTime.Now;
+                            mess.Message = "Bạn có mẫu hình ảnh mới cần duyệt";
+                            mess.UsertId = appNext.FirstOrDefault().ApprovedBy;
+                            mess.isRead = false;
+                            mess.Path = "/appform";
+                            db.tMessages.InsertOnSubmit(mess);
+                        }
+                        
+                        db.SubmitChanges();
+
+                    }
+                    else
+                    {
+                        //neu ko co nguoi duyet tiep theo thi ket thuc nguoi duyet
+                        b.FirstOrDefault().Status = byte.Parse(status.Trim());
+
+                        //thong bao duyet toi thiet ke
+                        var mess = new tMessage();
+                        mess.BranchTypeId = 2;
+                        mess.CreateAt = DateTime.Now;
+                        mess.Message = "Mẫu hình ảnh mã " + b.FirstOrDefault().Name + " - " + b.FirstOrDefault().Code + " của bạn " + (status.Trim() == "2" ? "đã ĐƯỢC" : "KHÔNG được") + " duyệt";
+                        mess.UsertId = b.FirstOrDefault().CreateBy;
+                        mess.isRead = false;
+                        mess.Path = "/form";
+                        db.tMessages.InsertOnSubmit(mess);
+
+                        db.SubmitChanges();
+                    }
+                    r._content = "1";
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Bạn không có quyền duyệt module này";
+                }
             }
             else
             {
@@ -3098,7 +3616,8 @@ public partial class Command : System.Web.UI.Page
                 p.CountryId = int.Parse(national.Trim());
                 p.CountryName = nationalname.Trim();
             }
-
+            p.Image = "";
+            p.ImageZoom = "";
             p.CreateAt = DateTime.Now;
             p.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
             db.tProducts.InsertOnSubmit(p);
@@ -3261,6 +3780,31 @@ public partial class Command : System.Web.UI.Page
             l._content = item.Id.ToString();
             li.Add(l);
         }
+        return li;
+    }
+    [WebMethod]
+    public static List<result> getIdProductByCodeId(string branchTypeId,string codeId)
+    {
+        var li = new List<result>();
+
+        CFileManagerDataContext db = new CFileManagerDataContext();
+
+        var c = codeId.Trim().Split('@');
+        for (int k = 0; k < c.Length; k++)
+        {
+            var d = from x in db.tProducts
+                    where x.Status == 1 && x.BranchTypeId==int.Parse(branchTypeId.Trim()) && x.CodeId == c[k].Split('#')[0].Trim()
+                    select new { x.Id, x.CodeId, x.ProductCode, x.ProductName };
+            foreach (var item in d.ToList())
+            {
+                var l = new result();
+                l._id = item.Id.ToString();
+                l._content = item.CodeId + " | " + item.ProductName;
+                l._mess = c[k].Split('#')[1];
+                li.Add(l);
+            }
+        }
+        
         return li;
     }
 
@@ -4072,6 +4616,7 @@ public partial class Command : System.Web.UI.Page
             HttpContext.Current.Session["cm_branchTypeId"] = u.FirstOrDefault().BranchTypeId.ToString();
             HttpContext.Current.Session["cm_branchTypeName"] = u.FirstOrDefault().Code.ToString();
             HttpContext.Current.Session["cm_userId"]  = u.FirstOrDefault().Id.ToString();
+            HttpContext.Current.Session["cm_username"] = u.FirstOrDefault().Username.ToString();
             HttpContext.Current.Session["cm_fullname"] = u.FirstOrDefault().FullName.ToString();
             HttpContext.Current.Session["cm_groupId"] = u.FirstOrDefault().GroupUserId.ToString();
             l.Ok = true;
@@ -5001,7 +5546,7 @@ public partial class Command : System.Web.UI.Page
     }
     public class formdetail
     {
-        private string id = "", materialid = "", materialname = "", typename = "", norm = "", ok="", mess="";
+        private string id = "", materialid = "", materialname = "", typename = "", norm = "", unit = "", ok = "", mess = "";
         public string ID
         {
             set { id = value; }
@@ -5027,10 +5572,123 @@ public partial class Command : System.Web.UI.Page
             set { norm = value; }
             get { return norm; }
         }
+        public string UnitName
+        {
+            set { unit = value; }
+            get { return unit; }
+        }
         public string OK
         {
             set { ok = value; }
             get { return ok; }
+        }
+        public string Mess
+        {
+            set { mess = value; }
+            get { return mess; }
+        }
+    }
+    public class historymember
+    {
+        private string createat = "", stockcode = "", codeid = "", procode = "", proname = "", quantity = "", price = "", note = "";
+        public string CreateAt
+        {
+            set { createat = value; }
+            get { return createat; }
+        }
+        public string StockCode
+        {
+            set { stockcode = value; }
+            get { return stockcode; }
+        }
+        public string CodeId
+        {
+            set { codeid = value; }
+            get { return codeid; }
+        }
+        public string ProCode
+        {
+            set { procode = value; }
+            get { return procode; }
+        }
+        public string ProName
+        {
+            set { proname = value; }
+            get { return proname; }
+        }
+        public string Quantity
+        {
+            set { quantity = value; }
+            get { return quantity; }
+        }
+        public string Price
+        {
+            set { price = value; }
+            get { return price; }
+        }
+        public string Note
+        {
+            set { note = value; }
+            get { return note; }
+        }
+    }
+    public class MaterialDetail
+    {
+        private string id = "", materialid = "", materialcode = "", materialname = "", supid = "", quantity = "", quantityoffer = "", unit = "", price = "", note = "", supname = "", mess="";
+        public string ID
+        {
+            set { id = value; }
+            get { return id; }
+        }
+        public string MaterialId
+        {
+            set { materialid = value; }
+            get { return materialid; }
+        }
+        public string MaterialCode
+        {
+            set { materialcode = value; }
+            get { return materialcode; }
+        }
+        public string MaterialName
+        {
+            set { materialname = value; }
+            get { return materialname; }
+        }
+        public string SupplierId
+        {
+            set { supid = value; }
+            get { return supid; }
+        }
+        public string SupplierName
+        {
+            set { supname = value; }
+            get { return supname; }
+        }
+        public string Quantity
+        {
+            set { quantity = value; }
+            get { return quantity; }
+        }
+        public string QuantityOffer
+        {
+            set { quantityoffer = value; }
+            get { return quantityoffer; }
+        }
+        public string UnitName
+        {
+            set { unit = value; }
+            get { return unit; }
+        }
+        public string Price
+        {
+            set { price = value; }
+            get { return price; }
+        }
+        public string Note
+        {
+            set { note = value; }
+            get { return note; }
         }
         public string Mess
         {

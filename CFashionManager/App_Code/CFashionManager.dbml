@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CMS" Class="CFileManagerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=CMS;Persist Security Info=True;User ID=it_hcc" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="CFashionManagerConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CMS0" Class="CFileManagerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=CMS0;Persist Security Info=True;User ID=it_hcc" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="CFashionManagerConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.tSupplier" Member="tSuppliers">
     <Type Name="tSupplier">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -670,8 +670,6 @@
       <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ApproveAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ApproveBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="tForm_tFormDetail" Member="tFormDetails" ThisKey="Id" OtherKey="FormId" Type="tFormDetail" />
       <Association Name="tNorm_tForm" Member="tNorm" ThisKey="NormId" OtherKey="Id" Type="tNorm" IsForeignKey="true" />
     </Type>
@@ -691,17 +689,6 @@
       <Association Name="tNorm_tForm" Member="tForms" ThisKey="Id" OtherKey="NormId" Type="tForm" />
     </Type>
   </Table>
-  <Table Name="dbo.tFormDetail" Member="tFormDetails">
-    <Type Name="tFormDetail">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FormId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="MaterialId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Type" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Column Name="NormValue" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Association Name="tForm_tFormDetail" Member="tForm" ThisKey="FormId" OtherKey="Id" Type="tForm" IsForeignKey="true" />
-      <Association Name="tMaterial_tFormDetail" Member="tMaterial" ThisKey="MaterialId" OtherKey="Id" Type="tMaterial" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.tMaterial" Member="tMaterials">
     <Type Name="tMaterial">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -715,11 +702,29 @@
       <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="tMaterial_tFormDetail" Member="tFormDetails" ThisKey="Id" OtherKey="MaterialId" Type="tFormDetail" />
+      <Association Name="tMaterial_tExportMaterialDetail" Member="tExportMaterialDetails" ThisKey="Id" OtherKey="MaterialId" Type="tExportMaterialDetail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tImportMaterialDetail" Member="tImportMaterialDetails">
+    <Type Name="tImportMaterialDetail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ImportMaterialId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FormId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaterialId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="QuantityOffer" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="UnitName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Association Name="tImportMaterial_tImportMaterialDetail" Member="tImportMaterial" ThisKey="ImportMaterialId" OtherKey="Id" Type="tImportMaterial" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.tImportMaterial" Member="tImportMaterials">
     <Type Name="tImportMaterial">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ImportCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
       <Column Name="DateReceiver" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -728,24 +733,82 @@
       <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ApproveAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ApproveBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="tImportMaterial_tImportMaterialDetail" Member="tImportMaterialDetails" ThisKey="Id" OtherKey="ImportMaterialId" Type="tImportMaterialDetail" />
     </Type>
   </Table>
-  <Table Name="dbo.tImportMaterialDetail" Member="tImportMaterialDetails">
-    <Type Name="tImportMaterialDetail">
+  <Table Name="dbo.tFormDetail" Member="tFormDetails">
+    <Type Name="tFormDetail">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ImportMaterialId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="FormId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="MaterialId" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Quantity" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="QuantityOffer" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="MaterialId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="NormValue" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="UnitName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="tForm_tFormDetail" Member="tForm" ThisKey="FormId" OtherKey="Id" Type="tForm" IsForeignKey="true" />
+      <Association Name="tMaterial_tFormDetail" Member="tMaterial" ThisKey="MaterialId" OtherKey="Id" Type="tMaterial" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tApprove" Member="tApproves">
+    <Type Name="tApprove">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tTable" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="tTableId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApprovedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApprovedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="[Level]" Member="Level" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Approved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tMessage" Member="tMessages">
+    <Type Name="tMessage">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="GroupId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DeptId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UsertId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="isRead" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Path" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tConfigApprove" Member="tConfigApproves">
+    <Type Name="tConfigApprove">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tTable" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="tTableName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AproveBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Level]" Member="Level" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tExportMaterial" Member="tExportMaterials">
+    <Type Name="tExportMaterial">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExportCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifiedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="tExportMaterial_tExportMaterialDetail" Member="tExportMaterialDetails" ThisKey="Id" OtherKey="ExportMaterialid" Type="tExportMaterialDetail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tExportMaterialDetail" Member="tExportMaterialDetails">
+    <Type Name="tExportMaterialDetail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ExportMaterialid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FormId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaterialId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="UnitName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
-      <Association Name="tImportMaterial_tImportMaterialDetail" Member="tImportMaterial" ThisKey="ImportMaterialId" OtherKey="Id" Type="tImportMaterial" IsForeignKey="true" />
+      <Association Name="tExportMaterial_tExportMaterialDetail" Member="tExportMaterial" ThisKey="ExportMaterialid" OtherKey="Id" Type="tExportMaterial" IsForeignKey="true" />
+      <Association Name="tMaterial_tExportMaterialDetail" Member="tMaterial" ThisKey="MaterialId" OtherKey="Id" Type="tMaterial" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.sp_Account_Load" Method="sp_Account_Load">
@@ -1665,6 +1728,88 @@
       <Column Name="CountryName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.sp_web_OutputStock_detail" Method="sp_web_OutputStock_detail">
+    <Parameter Name="stockoutputId" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_OutputStock_detailResult">
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CodeId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="DiscountPercent" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadHistoryMember" Method="sp_web_loadHistoryMember">
+    <Parameter Name="memberId" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadHistoryMemberResult">
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(21)" CanBeNull="true" />
+      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadImportMaterialDetail" Method="sp_web_loadImportMaterialDetail">
+    <Parameter Name="Id" Parameter="id" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadImportMaterialDetailResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaterialId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="QuantityOffer" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="UnitName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="MaterialName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MaterialCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="SupplierName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadImportMaterial" Method="sp_web_loadImportMaterial">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branchId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="status" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadImportMaterialResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="ImportCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(21)" CanBeNull="true" />
+      <Column Name="DateReceiver" Type="System.String" DbType="VarChar(21)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StatusId" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(9) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadFormApproved" Method="sp_web_loadFormApproved">
+    <Parameter Name="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="user" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_web_loadFormApprovedResult">
+      <Column Name="FormId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductTypeName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Month" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedAt" Type="System.String" DbType="VarChar(21)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StatusId" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="ApproName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="[Level]" Member="Level" Type="System.String" DbType="NVarChar(14)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(11) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.sp_web_loadForm" Method="sp_web_loadForm">
     <ElementType Name="sp_web_loadFormResult">
       <Column Name="FormId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -1678,37 +1823,28 @@
       <Column Name="FullName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="StatusId" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Column Name="Status" Type="System.String" DbType="NVarChar(18) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
-  <Function Name="dbo.sp_web_loadFormApproved" Method="sp_web_loadFormApproved">
-    <Parameter Name="status" Type="System.Byte" DbType="TinyInt" />
-    <Parameter Name="user" Type="System.Int32" DbType="Int" />
-    <ElementType Name="sp_web_loadFormApprovedResult">
-      <Column Name="FormId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ProductTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ProductTypeName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Code" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Month" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+  <Function Name="dbo.sp_web_loadImportMaterialApproved" Method="sp_web_loadImportMaterialApproved">
+    <Parameter Name="branchTypeId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="branchId" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="status" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadImportMaterialApprovedResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="ImportCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
-      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(21)" CanBeNull="true" />
+      <Column Name="DateReceiver" Type="System.String" DbType="VarChar(21)" CanBeNull="true" />
       <Column Name="FullName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StatusId" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Status" Type="System.String" DbType="NVarChar(13) NOT NULL" CanBeNull="false" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.sp_web_OutputStock_detail" Method="sp_web_OutputStock_detail">
-    <Parameter Name="stockoutputId" Type="System.String" DbType="VarChar(10)" />
-    <ElementType Name="sp_web_OutputStock_detailResult">
-      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="CodeId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Discount" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="DiscountPercent" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(11) NOT NULL" CanBeNull="false" />
+      <Column Name="ApproName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="[Level]" Member="Level" Type="System.String" DbType="NVarChar(14)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

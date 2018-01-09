@@ -291,7 +291,8 @@ namespace WindowsFormsApplication3
                                 var codeId = db.sp_StockOutput_GetCodeId().FirstOrDefault().CodeId.Value;
 
                                 var p = new tStockOutput();
-                                p.StockCode = "HDBH" + DateTime.Now.ToString("ddMMyy") + (codeId + 1).ToString("D3");
+                                var code2 = "HDBH" + DateTime.Now.ToString("ddMMyy") + (codeId + 1).ToString("D3");
+                                p.StockCode = code2;
                                 p.BranchTypeId = WindowsFormsApplication3.Form1.branch_type_id;
                                 p.BranchId = WindowsFormsApplication3.Form1.branch_id;
                                 p.OutputType = 1;//xuat ban
@@ -469,7 +470,7 @@ namespace WindowsFormsApplication3
                                     }
                                 }
                                 db.SubmitChanges();
-                                var code2 = txtStockCode.Text.Trim();
+                                
                                 dtTemp.Rows.Clear();
                                 resetControl();
                                 MessageBox.Show("Lưu thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);

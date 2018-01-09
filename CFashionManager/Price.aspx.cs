@@ -54,6 +54,7 @@ public partial class Price : System.Web.UI.Page
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         lbData.Text = loadProduct(rdBranchType.SelectedValue,rdProductType.SelectedValue, txtCodeId.Text.Trim());
+        Session["cm_branchTypeId"] = rdBranchType.SelectedValue;
     }
     public string loadProduct(string branchType,string productType, string codeId)
     {

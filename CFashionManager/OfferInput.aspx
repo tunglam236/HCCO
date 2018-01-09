@@ -6,27 +6,64 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cph" Runat="Server">
     <section class="content">
    <div class="row">
-       <div class="col-xs-12 col-md-12">
+       <div class="col-xs-12 col-md-2" style=" padding:10px;">
+       <div class="panel-group">
+        <div class="panel panel-success">
+          <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
+            <h4 class="panel-title">Chuỗi cửa hàng</h4>
+          </div>
+          <div class="panel-collapse">
+              <asp:RadioButtonList ID="rdBranchType" AutoPostBack="true" OnSelectedIndexChanged="rdBranchType_SelectedIndexChanged" CssClass="rdList" runat="server" RepeatDirection="Vertical">
+              </asp:RadioButtonList>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-group">
+        <div class="panel panel-success">
+          <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
+            <h4 class="panel-title">Chi nhánh</h4>
+          </div>
+          <div class="panel-collapse">
+              <asp:RadioButtonList ID="rdBranch" CssClass="rdList" runat="server" RepeatDirection="Vertical">
+              </asp:RadioButtonList>
+          </div>
+        </div>
+      </div>
+           <div class="panel-group">
+        <div class="panel panel-success">
+          <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
+            <h4 class="panel-title">Trạng thái</h4>
+          </div>
+          <div class="panel-collapse" style="padding:5px;">
+              <asp:RadioButtonList ID="rdStatus" CssClass="rdList" runat="server" RepeatDirection="Vertical">
+                  <asp:ListItem Text="Tất cả" Value="" Selected="True"></asp:ListItem>
+                  <asp:ListItem Text="Chờ duyệt" Value="1"></asp:ListItem>
+                  <asp:ListItem Text="Đã duyệt" Value="2"></asp:ListItem>
+                  <asp:ListItem Text="Không duyệt" Value="3"></asp:ListItem>
+              </asp:RadioButtonList>
+              <asp:Button ID="Button1" OnClick="btnSearch_Click" runat="server" CssClass="btn btn-primary" Width="99%" Text="Xem dữ liệu" />
+          </div>
+        </div>
+      </div>
+      </div>
+       <div class="col-xs-12 col-md-10">
       <section class="">
    <div class="pull-left">
-      <h3 style="margin:5px; font-weight:bold;"><i class="fa fa-sign-out"></i> Đề xuất nguyên phụ liệu</h3>
+      <h3 style="margin:5px; font-weight:bold;"><i class="fa fa-sign-out"></i> Đề xuất nhập nguyên phụ liệu</h3>
    </div>
    <div style="text-align:right; padding-bottom:10px;">
     <a href="#" onclick="addDept();" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addDept"><i class="glyphicon glyphicon glyphicon-edit"></i> Tạo đề xuất</a>
       <div class="dropdown">
       <button class="btn btn-sm btn-danger dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-th"></i> Hiển thị</button>
         <ul class="dropdown-menu ul-column" style="margin-left:-65px;">
-            <li><a href="#" class="small toggle-vis" data-column="1" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Số đề xuất</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="1" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Chi nhánh</label> </a></li>
             <li><a href="#" class="small toggle-vis" data-column="2" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ngày đề xuất</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="3" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Người đề xuất</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="4" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Nguyên phụ liệu</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="5" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Số lượng đề xuất</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="6" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Số lượng nhập</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="7" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Đơn vị tính</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="8" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Nhà cung cấp</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="9" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Đơn giá nhập</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="10" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ghi chú</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="11" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Trạng thái</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="3" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Số đề xuất</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="4" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Nội dung đề xuất</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="5" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Người đề xuất</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="6" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ngày nhận hàng</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="7" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Trạng thái</label> </a></li>
         </ul>
     </div>
 </section>
@@ -34,20 +71,16 @@
             <div class="box-header" style="text-align:right;">
             </div>
             <div class="box-body" style="max-width:100%; overflow-x:auto;">
-                <table id="example2" class="table hover cell-border" style="min-width:1300px; font-size:12px;">
+                <table id="example2" class="table hover cell-border" style="min-width:1070px; font-size:12px;">
                   <thead>
                      <tr>
                         <th class='bg-th center' width="40px">STT</th>
+                        <th class="bg-th">Chi nhánh</th>
+                        <th class="bg-th">Ngày đề xuất</th>
                         <th class="bg-th">Số đề xuất</th>
-                         <th class="bg-th">Ngày đề xuất</th>
+                        <th class="bg-th">Nội dung đề xuất</th>
                         <th class="bg-th">Người đề xuất</th>
-                         <th class="bg-th">Nguyên phụ liệu</th>
-                         <th class="bg-th">SL đề xuất</th>
-                        <th class="bg-th">SL nhập</th>
-                        <th class="bg-th">ĐVT</th>
-                         <th class="bg-th">Nhà cung cấp</th>
-                         <th class="bg-th">Đơn giá nhập</th>
-                         <th class="bg-th">Ghi chú</th>
+                        <th class="bg-th">Ngày nhận hàng</th>
                         <th class="bg-th">Trạng thái</th>
                      </tr>
                   </thead>
@@ -57,16 +90,12 @@
                   <tfoot>
                      <tr>
                       <th class='bg-th center' width="40px">STT</th>
+                       <th class="bg-th">Chi nhánh</th>
+                        <th class="bg-th">Ngày đề xuất</th>
                         <th class="bg-th">Số đề xuất</th>
-                         <th class="bg-th">Ngày đề xuất</th>
+                        <th class="bg-th">Nội dung đề xuất</th>
                         <th class="bg-th">Người đề xuất</th>
-                         <th class="bg-th">Nguyên phụ liệu</th>
-                         <th class="bg-th">SL đề xuất</th>
-                        <th class="bg-th">SL nhập</th>
-                        <th class="bg-th">ĐVT</th>
-                         <th class="bg-th">Nhà cung cấp</th>
-                         <th class="bg-th">Đơn giá nhập</th>
-                         <th class="bg-th">Ghi chú</th>
+                        <th class="bg-th">Ngày nhận hàng</th>
                         <th class="bg-th">Trạng thái</th>
                      </tr>
                   </tfoot>
@@ -88,6 +117,18 @@
                     </h4>
                 </div>
                 <div class="modal-body">
+                    <div class="row" style="padding: 5px;">
+                        <div class="col-md-6">
+                            Chọn chuỗi<br />
+                            <select id="dlBranchType" class="form-control select2" onchange="changeType($(this).val())" style="width: 100%;">
+                             </select>
+                        </div>
+                        <div class="col-md-6">
+                            Chọn chi nhánh<br />
+                            <select id="dlBranch" class="form-control select2" style="width: 100%;">
+                            </select>
+                        </div>
+                    </div>
                     <div class="row" style="padding: 5px;">
                         <div class="col-md-12">
                             Nội dung đề xuất<br />
@@ -162,7 +203,7 @@
     </div>
     <input type="hidden" id="hdDeptId" value="" />
     <script>
-        var options = ["1", "2", "3","4"];
+        var options = ["1", "2", "3","4","5","6","7"];
 
         $('.ul-column a').on('click', function (event) {
 
@@ -250,18 +291,59 @@
         });
     </script>
     <script type="text/javascript">
-         $(document).ready(function () {
-            $('#dlMaterial').find('option').remove().end();
-            var c1 = document.getElementById('dlMaterial');
-            var op = document.createElement('option');
-            op.value = '';
-            op.innerHTML = 'Chọn nguyên phụ liệu';
-            c1.appendChild(op);
+        $(document).ready(function () {
 
             $.ajax({
                 type: 'POST',
-                url: '/Command.aspx/loadMaterial',
-                data: '{"branchtype":"2"}',
+                url: '/Command.aspx/getBranchType',
+                data: '',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    var c1 = document.getElementById('dlBranchType');
+                    var opt_ = document.createElement('option');
+                    opt_.value = '';
+                    opt_.innerHTML = 'Chọn chuỗi';
+                    c1.appendChild(opt_);
+
+                    for (var i = 0; i < data.d.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = data.d[i]._content;
+                        opt.innerHTML = data.d[i]._mess;
+                        c1.appendChild(opt);
+                    }
+                    loadBranchbyType($('#dlBranchType').val());
+                    loadSupplierbyType($('#dlBranchType').val());
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        function update_modal(id, branchtype, branch, note, status) {
+            $("#addDept").modal({ show: false });
+            $('#hdDeptId').val(id);
+            $('#txtDescription').val(note);
+            $('#dlBranchType').val(branchtype);
+            $('#select2-dlBranchType-container').text($('#dlBranchType option:selected').text());
+            
+            $('#dlBranch').find('option').remove().end();
+            var c1 = document.getElementById('dlBranch');
+            var opt_ = document.createElement('option');
+            opt_.value = '';
+            opt_.innerHTML = 'Chọn chi nhánh';
+            c1.appendChild(opt_);
+
+            $('#dlMaterial').find('option').remove().end();
+            var c2 = document.getElementById('dlMaterial');
+            var opt2_ = document.createElement('option');
+            opt2_.value = '';
+            opt2_.innerHTML = 'Chọn sản phẩm';
+            c2.appendChild(opt2_);
+
+            $.ajax({
+                type: 'POST',
+                url: '/Command.aspx/getBranchByType',
+                data: '{"typeId":"' + branchtype + '"}',
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (data) {
@@ -271,20 +353,15 @@
                         opt.innerHTML = data.d[i]._mess;
                         c1.appendChild(opt);
                     }
+                    $('#dlBranch').val(branch);
+                    $('#select2-dlBranch-container').text($('#dlBranch option:selected').text());
                 }
             });
 
-            $('#dlSupplier').find('option').remove().end();
-            var c2 = document.getElementById('dlSupplier');
-            var opt_ = document.createElement('option');
-            opt_.value = '';
-            opt_.innerHTML = 'Chọn nhà cung cấp';
-            c2.appendChild(opt_);
-
             $.ajax({
                 type: 'POST',
-                url: '/Command.aspx/getSupplierByType',
-                data: '{"typeId":"2"}',
+                url: '/Command.aspx/loadMaterial',
+                data: '{"branchtype":"' + branchtype + '"}',
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (data) {
@@ -296,44 +373,44 @@
                     }
                 }
             });
-        });
-    </script>
-    <script type="text/javascript">
-        function update_modal(id, type, code, name,month, des,edit) {
-            $("#addDept").modal({ show: false });
-            $('#hdDeptId').val(id);
-            $('#txtCode').val(code);
-            $('#txtName').val(name);
-            $('#txtMonth').val(month);
-            $('#dlProductType').val(type);
-            $('#select2-dlProductType-container').text($('#dlProductType option:selected').text());
-            $('#txtDescription').val(des);
-            if (edit==1) {
-                $('#removeDept').show();
-                $('#saveDept').show();
-            }
-            else {
-                $('#removeDept').hide();
-                $('#saveDept').hide();
-            }
-            document.getElementById('lb').innerText = 'CẬP NHẬT MẪU THIẾT KẾ';
+            loadSupplierbyType(branchtype);
+
+            document.getElementById('lb').innerText = 'CẬP NHẬT PHIẾU ĐỀ XUẤT';
 
             $.ajax({
                 type: 'POST',
-                url: '/Command.aspx/getDetailForm',
-                data: '{"id":"' + id + '"}',
+                url: '/Command.aspx/OfferMaterialDetail',
+                data: '{"Id":"' + id + '"}',
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (data) {
                     $("#data-detail-soi tr").remove();
-                    var type_name = '';
                     var html = "";
                     for (var t = 0; t < data.d.length; t++) {
                         html = '';
-                        type_name = data.d[t].TypeName == '0' ? 'Chọn loại' : data.d[t].TypeName == '1' ? 'Vải chính' :
-                            data.d[t].TypeName == '2' ? 'Vải lót' : data.d[t].TypeName == '3' ? 'Vải phối' : 'Nguyên phụ liệu';
-                        html += '<tr data-id="' + data.d[t].MaterialId + '" data-type="' + data.d[t].TypeName + '" id="rows' + data.d[t].MaterialId + '"><td><a onclick="removeproduct(' + data.d[t].MaterialId + ');"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td>' + data.d[t].MaterialName + '</td><td>' + type_name + '</td><td><input type="text" class="numbers format-input" ' + (data.d[t].TypeName == '1' || data.d[t].TypeName == '2' ? "disabled" : "") + ' id="quantity' + data.d[t].MaterialId + '" value="' + data.d[t].Norm + '" /></td></tr>';
+                        html += '<tr data-id="' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" data-mat="' + data.d[t].MaterialId + '" data-sup="' + data.d[t].SupplierId + '" id="rows' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '">';
+                        if (status == 1) {
+                            html += '<td><a onclick="removeproduct(' + data.d[t].MaterialId + '' + data.d[t].SupplierId + ');"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>';
+                            $('#removeDept').show();
+                            $('#saveDept').show();
+                            $('#addItem').show();
+                        }
+                        else {
+                            html += '<td></td>';
+                            $('#removeDept').hide();
+                            $('#saveDept').hide();
+                            $('#addItem').hide();
+                        }
+                        html += '<td>' + data.d[t].MaterialCode + ' | ' + data.d[t].MaterialName + '</td>';
+                        html += '<td>' + data.d[t].SupplierName + '</td>';
+                        html += '<td><input type="text" class="numbers format-input" id="quantityOffer' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].QuantityOffer + '" /></td>';
+                        html += '<td><input type="text" class="numbers format-input" id="quantity' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].Quantity + '" /></td>';
+                        html += '<td><input type="text" class="numbers format-input" id="unit' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].UnitName + '" /></td>';
+                        html += '<td><input type="text" class="numbers format-input" id="price' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].Price + '" /></td>';
+                        html += '<td><input type="text" class="format-input-text" id="note' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].Note + '" /></td>';
+                        html += '</tr>';
                         $('#data-detail-soi').append(html);
+
                     }
                 }
             });
@@ -341,20 +418,31 @@
         function addDept() {
             $("#addDept").modal({ show: false });
             $('#hdDeptId').val('');
-            $('#txtCode').val('');
-            $('#txtName').val('');
-            $('#txtMonth').val('');
-            $('#txtQuantity').val('');
             $('#txtDescription').val('');
+            $('#txtQuantityOffer').val('');
+            $('#txtQuantity').val('');
+            $('#txtUnit').val('');
+            $('#txtPrice').val('');
+            $('#txtNote').val('');
+
             $('#removeDept').hide();
-            $("#data-detail-soi tr").remove();
+            $('#addItem').show();
             $('#saveDept').show();
+            $("#data-detail-soi tr").remove();
+            
             document.getElementById('lb').innerText = 'THÊM ĐỀ XUẤT NHẬP';
         }
         function saveChanges() {
             var des = $('#txtDescription').val();
+            var branchTypeId = $('#dlBranchType').val();
+            var branchId = $('#dlBranch').val();
 
-            if (des == '') showAlert('Nhập nội dung đề xuất');
+            var checkbox = $('#ckAutoLoad:checked').val();
+            var ckload = checkbox == 'on' ? true : false;
+            
+            if (branchTypeId == '') showAlert('Chọn chuỗi');
+            else if (branchId == '') showAlert('Chọn chi nhánh');
+            else if (des == '') showAlert('Nhập nội dung đề xuất');
             else {
                 var data = "";
                 $("#data-detail-soi tr").each(function () {
@@ -372,12 +460,12 @@
                 });
                 if (data != '') {
                     var id = $('#hdDeptId').val();
-
+                    
                     if (id == '') {
                         $.ajax({
                             type: 'POST',
-                            url: '/Command.aspx/OfferMaterial',
-                            data: '{"note":"' + des + '","data":"' + data + '"}',
+                            url: '/Command.aspx/insertOfferMaterial',
+                            data: '{"branchTypeId":"' + branchTypeId + '","branchId":"' + branchId + '","note":"' + des + '","data":"' + data + '"}',
                             contentType: 'application/json; charset=utf-8',
                             dataType: 'json',
                             success: function (data) {
@@ -388,10 +476,10 @@
                                             window.location.href = window.location.href;
                                         }, 1000);
                                     }
-                                    else
-                                    {
+                                    else {
                                         $('#txtDescription').val('');
                                         $("#data-detail-soi tr").remove();
+                                        $("#addDept").modal('hide');
                                     }
                                 }
                                 else
@@ -410,79 +498,86 @@
             return false;
         }
         function updateChanges() {
-            if (confirm("Bạn chắc chắn muốn cập nhật mẫu " + $('#txtName').val() + " ?") == true) {
+            if (confirm("Bạn chắc chắn muốn cập nhật phiếu đề xuất ?") == true) {
                 var id = $('#hdDeptId').val();
-                var code = $('#txtCode').val();
-                var name = $('#txtName').val();
-                var month = $('#txtMonth').val();
                 var des = $('#txtDescription').val();
-                var pro_type = $('#dlProductType').val();
+                var branchTypeId = $('#dlBranchType').val();
+                var branchId = $('#dlBranch').val();
 
                 var checkbox = $('#ckAutoLoad:checked').val();
                 var ckload = checkbox == 'on' ? true : false;
 
-                var data = "";
-                $("#data-detail-soi tr").each(function () {
-                    var id = $(this).attr("data-id");
-                    var type = $(this).attr("data-type");
-                    var q = $('#quantity' + id).val();
-
-                    if (data != "") data += "#";
-                    data += id + ',' + type + ',' + q;
-                });
-
-                if (code == '') showAlert('Nhập mã thiết kế');
-                else if (name == '') showAlert('Nhập tên mẫu');
-                else if (pro_type == '') showAlert('Chọn loại mẫu');
-                else if (data == '') showAlert('Chưa có dữ liệu nào');
+                if (branchTypeId == '') showAlert('Chọn chuỗi');
+                else if (branchId == '') showAlert('Chọn chi nhánh');
+                else if (des == '') showAlert('Nhập nội dung đề xuất');
                 else {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Command.aspx/updateForm',
-                        data: '{"id":"' + id + '","code":"' + code + '","name":"' + name + '","month":"' + month + '","des":"' + des + '","normid":"' + pro_type + '","data":"' + data + '"}',
-                        contentType: 'application/json; charset=utf-8',
-                        dataType: 'json',
-                        success: function (data) {
-                            if (data.d._content == '1') {
-                                showAlert('Đã cập nhật mẫu [' + name + ']');
-                                if (ckload) {
-                                    setTimeout(function () {
-                                        window.location.href = window.location.href;
-                                    }, 1000);
-                                }
-                                else {
-                                    $('#txtCode').val('');
-                                    $('#txtName').val('');
-                                    $('#txtMonth').val('');
-                                    $('#txtDescription').val('');
-                                    $('#txtCode').focus();
-                                    $(".crop-loading").hide();
-                                    $("#addDept").modal('hide');
-                                }
-                            }
-                            else
-                                showAlert(data.d._mess);
-                        }
+                    var data = "";
+                    $("#data-detail-soi tr").each(function () {
+                        var id = $(this).attr("data-id");
+                        var mat_id = $(this).attr("data-mat");
+                        var sup_id = $(this).attr("data-sup");
+
+                        var quantityOffer = $('#quantityOffer' + id).val();
+                        var quantity = $('#quantity' + id).val();
+                        var unit = $('#unit' + id).val();
+                        var price = $('#price' + id).val().replace(/,/g, '');
+                        var note = $('#note' + id).val();
+                        if (data != '') data += '#';
+                        data += mat_id + '|' + sup_id + '|' + quantityOffer + '|' + quantity + '|' + price + '|' + unit + '|' + note
                     });
+                    if (data != '') {
+                        var id = $('#hdDeptId').val();
+
+                        if (id == '') {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/Command.aspx/updateOfferMaterial',
+                                data: '{"Id":"'+id+'","branchTypeId":"' + branchTypeId + '","branchId":"' + branchId + '","note":"' + des + '","data":"' + data + '"}',
+                                contentType: 'application/json; charset=utf-8',
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.d._content == '1') {
+                                        showAlert('Đã cập nhật phiếu đề xuất');
+                                        if (ckload) {
+                                            setTimeout(function () {
+                                                window.location.href = window.location.href;
+                                            }, 1000);
+                                        }
+                                        else {
+                                            $('#txtDescription').val('');
+                                            $("#data-detail-soi tr").remove();
+                                            $("#addDept").modal('hide');
+                                        }
+                                    }
+                                    else
+                                        showAlert(data.d._mess);
+                                }
+                            });
+                        }
+                        else
+                            showAlert('Chưa tìm thấy bản ghi cần cập nhật');
+                    }
+                    else
+                        showAlert('Chưa có dữ liệu nào để lưu');
                 }
+                
             }
         }
         function deleteDept() {
             var id = $('#hdDeptId').val();
-            var name = $('#txtName').val();
-            if (confirm("Bạn chắc chắn muốn xóa mẫu [" + name + "] ?") == true) {
+            if (confirm("Bạn chắc chắn muốn xóa phiếu đề xuất ?") == true) {
                 if (id != '') {
                     $.ajax({
                         type: 'POST',
-                        url: '/Command.aspx/deleteForm',
-                        data: '{"id":"' + id + '"}',
+                        url: '/Command.aspx/deleteOfferMaterial',
+                        data: '{"Id":"' + id + '"}',
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
                         success: function (data) {
                             if (data.d._content == '1') {
                                 $('#hdDeptId').val('');
                                 $('#delete' + id).remove();
-                                showAlert('Đã xóa mẫu [' + name + ']');
+                                showAlert('Đã xóa phiếu đề xuất');
                                 $("#addDept").modal('hide');
                             }
                             else
@@ -490,57 +585,7 @@
                         }
                     });
                 }
-                else showAlert('Chọn mẫu muốn xóa');
-            }
-        }
-        function selectMaterial() {
-            var id = $('#dlMaterial').val();
-            var name = $('#dlMaterial option:selected').text();
-            var type_id = $('#dlType').val();
-            var type_name = $('#dlType option:selected').text();
-            var quan = $('#txtQuantity').val();
-            var pro_type = $('#dlProductType').val();
-            var ok = true;
-
-            if (id == '') showAlert('Chọn nguyên phụ liệu');
-            else if (type_id == 0)
-                showAlert('Chọn loại nguyên phụ liệu');
-            else if ((type_id == 1 || type_id == 2) && pro_type == '')
-                showAlert('Chọn loại mẫu');
-            else if (type_id != 1 && type_id!=2 && quan == '')
-                showAlert('Nhập định mức');
-            else {
-                $("#data-detail-soi tr").each(function () {
-                    var _id = $(this).attr("data-id");
-                    if (_id == id) ok = false;
-                });
-
-                if (ok) {
-                    if (type_id == 1 || type_id == 2) {
-                        $.ajax({
-                            type: 'POST',
-                            url: '/Command.aspx/getNormByType',
-                            data: '{"productTypeId":"' + pro_type + '","type":"' + type_id + '"}',
-                            contentType: 'application/json; charset=utf-8',
-                            dataType: 'json',
-                            success: function (data) {
-                                quan = data.d;
-                                var html = "";
-                                html += '<tr data-id="' + id + '" data-type="' + type_id + '" id="rows' + id + '"><td><a onclick="removeproduct(' + id + ');"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td>' + name + '</td><td>' + type_name + '</td><td><input type="text" class="numbers format-input" disabled id="quantity' + id + '" value="' + quan + '" /></td></tr>';
-                                $('#data-detail-soi').append(html);
-                                $('#txtQuantity').val('');
-                            }
-                        });
-                    }
-                    else {
-                        var html = "";
-                        html += '<tr data-id="' + id + '" data-type="' + type_id + '" id="rows' + id + '"><td><a onclick="removeproduct(' + id + ');"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td><td>' + name + '</td><td>' + type_name + '</td><td><input type="text" class="numbers format-input" id="quantity' + id + '" value="' + quan + '" /></td></tr>';
-                        $('#data-detail-soi').append(html);
-                        $('#txtQuantity').val('');
-                    }
-                }
-                else
-                    showAlert('Đã tồn tại nguyên phụ liệu ' + name);
+                else showAlert('Chọn phiếu đề xuất muốn xóa');
             }
         }
         function removeproduct(index) {
@@ -550,21 +595,6 @@
                 showAlert('Đã xóa nguyên phụ liệu ');
             }
             return false;
-        }
-        function changeType() {
-            var t = $('#dlType').val();
-            if (t == 1 || t == 2) {
-                $("#txtQuantity").prop('disabled', true);
-                $('#txtQuantity').val('');
-            }
-            else {
-                $("#txtQuantity").prop('disabled', false);
-                $('#txtQuantity').val('');
-                $('#txtQuantity').focus();
-            }
-        }
-        function changeProductType() {
-            $("#data-detail-soi tr").remove();
         }
         function addMaterial() {
             var materialId = $('#dlMaterial').val();
@@ -605,11 +635,104 @@
                     html += '<td><input type="text" class="format-input-text" id="note' + materialId + '' + supplierId + '" value="' + note + '" /></td>';
                     html += '</tr>';
                     $('#data-detail-soi').append(html);
+
+                    $('#txtQuantityOffer').val('');
+                    $('#txtQuantity').val('');
+                    $('#txtUnit').val('');
+                    $('#txtPrice').val('');
+                    $('#txtNote').val('');
+
                 }
                 else
                     showAlert('Đã tồn tại nguyên liệu [' + mat_name + '] và nhà cung cấp [' + sup_name + ']');
             }
             return false;
+        }
+    </script>
+    <script>
+        function changeType(id) {
+            $('.process-loading').show();
+            $('#data-detail tr').remove();
+            loadBranchbyType(id);
+
+            loadSupplierbyType(id);
+            $('.process-loading').hide();
+        }
+        function loadBranchbyType(id) {
+            $('#dlBranch').find('option').remove().end();
+            var c1 = document.getElementById('dlBranch');
+            var opt_ = document.createElement('option');
+            opt_.value = '';
+            opt_.innerHTML = 'Chọn chi nhánh';
+            c1.appendChild(opt_);
+
+            $('#dlMaterial').find('option').remove().end();
+            var c2 = document.getElementById('dlMaterial');
+            var opt2_ = document.createElement('option');
+            opt2_.value = '';
+            opt2_.innerHTML = 'Chọn sản phẩm';
+            c2.appendChild(opt2_);
+
+            if (id != '') {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Command.aspx/getBranchByType',
+                    data: '{"typeId":"' + id + '"}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        for (var i = 0; i < data.d.length; i++) {
+                            var opt = document.createElement('option');
+                            opt.value = data.d[i]._content;
+                            opt.innerHTML = data.d[i]._mess;
+                            c1.appendChild(opt);
+                        }
+                    }
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Command.aspx/loadMaterial',
+                    data: '{"branchtype":"' + id + '"}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        for (var i = 0; i < data.d.length; i++) {
+                            var opt = document.createElement('option');
+                            opt.value = data.d[i]._content;
+                            opt.innerHTML = data.d[i]._mess;
+                            c2.appendChild(opt);
+                        }
+                    }
+                });
+            }
+        }
+        function loadSupplierbyType(id) {
+            $('#dlSupplier').find('option').remove().end();
+            var c1 = document.getElementById('dlSupplier');
+            var opt_ = document.createElement('option');
+            opt_.value = '';
+            opt_.innerHTML = 'Chọn nhà cung cấp';
+            c1.appendChild(opt_);
+
+            if (id != '') {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Command.aspx/getSupplierByType',
+                    data: '{"typeId":"' + id + '"}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        
+                        for (var i = 0; i < data.d.length; i++) {
+                            var opt = document.createElement('option');
+                            opt.value = data.d[i]._content;
+                            opt.innerHTML = data.d[i]._mess;
+                            c1.appendChild(opt);
+                        }
+                    }
+                });
+            }
         }
     </script>
 </asp:Content>
