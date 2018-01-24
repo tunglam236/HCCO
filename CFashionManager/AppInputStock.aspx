@@ -1,16 +1,16 @@
 ﻿<%@ Page Title="Duyệt đề xuất nhập" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="AppInputStock.aspx.cs" Inherits="AppInputStock" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-<link href="dist/css/client.css" rel="stylesheet" />
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <link href="/dist/css/client.css" rel="stylesheet" />
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="cph" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="cph" runat="Server">
     <section class="content">
    <div class="row">
        <div class="col-xs-12 col-md-2" style=" padding:10px;">
        <div class="panel-group">
         <div class="panel panel-success">
           <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
-            <h4 class="panel-title">Chuỗi cửa hàng</h4>
+            <h4 class="panel-title"><i class="fa fa-crosshairs"></i> Chuỗi cửa hàng</h4>
           </div>
           <div class="panel-collapse">
               <asp:RadioButtonList ID="rdBranchType" AutoPostBack="true" OnSelectedIndexChanged="rdBranchType_SelectedIndexChanged" CssClass="rdList" runat="server" RepeatDirection="Vertical">
@@ -22,7 +22,7 @@
       <div class="panel-group">
         <div class="panel panel-success">
           <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
-            <h4 class="panel-title">Chi nhánh</h4>
+            <h4 class="panel-title"><i class="fa fa-sitemap"></i> Chi nhánh</h4>
           </div>
           <div class="panel-collapse">
               <asp:RadioButtonList ID="rdBranch" CssClass="rdList" runat="server" RepeatDirection="Vertical">
@@ -33,7 +33,7 @@
            <div class="panel-group">
         <div class="panel panel-success">
           <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
-            <h4 class="panel-title">Trạng thái</h4>
+            <h4 class="panel-title"><i class="fa fa-flash"></i> Trạng thái</h4>
           </div>
           <div class="panel-collapse" style="padding:5px;">
               <asp:RadioButtonList ID="rdStatus" CssClass="rdList" runat="server" RepeatDirection="Vertical">
@@ -56,15 +56,16 @@
       <div class="dropdown">
       <button class="btn btn-sm btn-danger dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-th"></i> Hiển thị</button>
         <ul class="dropdown-menu ul-column" style="margin-left:-65px;">
-            <li><a href="#" class="small toggle-vis" data-column="1" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Chi nhánh</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="2" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ngày đề xuất</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="3" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Số đề xuất</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="4" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Nội dung đề xuất</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="5" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Người đề xuất</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="6" tabIndex="-1"><label><input type="checkbox" />&nbsp;Ngày nhận hàng</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="7" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Trạng thái</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="8" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Người duyệt</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="9" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Cấp duyệt</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="1" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Trạng thái</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="2" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Người duyệt</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="3" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ngày duyệt</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="4" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Chi nhánh</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="5" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ngày đề xuất</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="6" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Số đề xuất</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="7" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Nội dung đề xuất</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="8" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Người đề xuất</label> </a></li>
+            
+            
         </ul>
     </div>
        </div>
@@ -77,15 +78,14 @@
                   <thead>
                      <tr>
                         <th class='bg-th center' width="40px">STT</th>
-                        <th class="bg-th">Chi nhánh</th>
+                        <th class="bg-th">Trạng thái</th>
+                         <th class="bg-th">Người duyệt</th>
+                        <th class="bg-th">Ngày duyệt</th>
+                         <th class="bg-th">Chi nhánh</th>
                         <th class="bg-th">Ngày đề xuất</th>
                         <th class="bg-th">Số đề xuất</th>
                         <th class="bg-th">Nội dung đề xuất</th>
                         <th class="bg-th">Người đề xuất</th>
-                        <th class="bg-th">Ngày nhận hàng</th>
-                        <th class="bg-th">Trạng thái</th>
-                         <th class="bg-th">Người duyệt</th>
-                         <th class="bg-th">Cấp duyệt</th>
                      </tr>
                   </thead>
                   <tbody id="rbody">
@@ -94,15 +94,15 @@
                   <tfoot>
                      <tr>
                       <th class='bg-th center' width="40px">STT</th>
-                       <th class="bg-th">Chi nhánh</th>
+                       <th class="bg-th">Trạng thái</th>
+                        <th class="bg-th">Người duyệt</th>
+                        <th class="bg-th">Ngày duyệt</th>
+                         <th class="bg-th">Chi nhánh</th>
                         <th class="bg-th">Ngày đề xuất</th>
                         <th class="bg-th">Số đề xuất</th>
                         <th class="bg-th">Nội dung đề xuất</th>
                         <th class="bg-th">Người đề xuất</th>
-                        <th class="bg-th">Ngày nhận hàng</th>
-                        <th class="bg-th">Trạng thái</th>
-                        <th class="bg-th">Người duyệt</th>
-                        <th class="bg-th">Cấp duyệt</th>
+                        
                      </tr>
                   </tfoot>
                </table>
@@ -111,7 +111,7 @@
       </div>
    </div>
 </section>
-<div class="modal fade" id="addDept" role="dialog">
+    <div class="modal fade" id="addDept" role="dialog">
         <div class="modal-dialog  modal-lg">
             <div class="modal-content" style="font-size: 12px;">
                 <div class="modal-header">
@@ -144,15 +144,15 @@
                         </div>
                     </div>
                     <div class="row" style="font-weight: bold; text-transform: uppercase; font-size: 16px; text-align: center;">
-                        Chi tiết đề xuất</div>
-                        <div class="row" style="padding: 5px; max-height:250px; overflow-y:auto;max-width:100%; overflow-x:auto;">
-                         <table id="tbdetail-soi" cellpadding="5" cellspacing="5" border="0" style="min-width: 850px; margin-left: 15px;">
+                        Chi tiết đề xuất
+                    </div>
+                    <div class="row" style="padding: 5px; max-height: 250px; overflow-y: auto; max-width: 100%; overflow-x: auto;">
+                        <table id="tbdetail-soi" cellpadding="5" cellspacing="5" border="0" style="min-width: 850px; margin-left: 15px;">
                             <thead>
                                 <tr>
                                     <th>Nguyên phụ liệu</th>
                                     <th>Nhà cung cấp</th>
-                                    <th>SL đề xuất</th>
-                                    <th>SL nhập</th>
+                                    <th>Số lượng</th>
                                     <th>ĐVT</th>
                                     <th>Đơn giá</th>
                                     <th>Ghi chú</th>
@@ -161,18 +161,18 @@
                             <tbody id="data-detail-soi">
                             </tbody>
                         </table>
-                        </div>
+                    </div>
                     <div class="row" style="padding: 5px;">
-                        <div class="btn-group col-md-4">
+                         <div class="input-group col-md-12">
+                          <span class="input-group-btn">
                             <button type="button" title="Duyệt đề xuất này" class="approved btn btn-primary" onclick="Approved(2);">
                                 Duyệt</button>
                             <button type="button" title="Không duyệt đề xuất này" class="approved btn btn-danger" onclick="Approved(3);">
                                 Không duyệt</button>
-                            <button type="button" class="btn btn-success" data-dismiss="modal">
+                              <button type="button" class="btn btn-success" data-dismiss="modal">
                                 Đóng lại</button>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="text" id="txtContent" class="form-control" placeholder="Nhập nội dung phê duyệt (nếu có)" maxlength="512" style="width: 100%;" />
+                          </span>
+                          <input type="text" id="txtContent" class="form-control" placeholder="Nhập nội dung (nếu có)" maxlength="512" />
                         </div>
                     </div>
                 </div>
@@ -181,7 +181,7 @@
     </div>
     <input type="hidden" id="hdDeptId" value="" />
     <script>
-        var options = ["1", "2", "3","4","5","6","7","8","9"];
+        var options = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
         $('.ul-column a').on('click', function (event) {
 
@@ -223,7 +223,7 @@
                 dom: 'Bfrtip',
                 "columnDefs": [
                   {
-                      "targets": [6],
+                      "targets": [],
                       "visible": false,
                       "searchable": false
                   }],
@@ -251,9 +251,9 @@
 			        }],
                 language: {
                     buttons: {
-                        copy: 'Copy danh sách',
-                        print: 'In danh sách',
-                        excel: 'Xuất Excel'
+                        copy: 'Copy',
+                        print: 'Print',
+                        excel: 'Export'
                     }
                 }
             });
@@ -275,7 +275,7 @@
         });
     </script>
     <script type="text/javascript">
-        function update_modal(id, branch, note, createby, creatat,status) {
+        function update_modal(id, branch, note, createby, creatat, status) {
             $("#addDept").modal({ show: false });
             $('#hdDeptId').val(id);
             $('#txtDescription').val(note);
@@ -308,7 +308,7 @@
                         html += '<td>' + data.d[t].MaterialCode + ' | ' + data.d[t].MaterialName + '</td>';
                         html += '<td>' + data.d[t].SupplierName + '</td>';
                         html += '<td>' + data.d[t].QuantityOffer + '</td>';
-                        html += '<td>' + data.d[t].Quantity + '</td>';
+                        //html += '<td>' + data.d[t].Quantity + '</td>';
                         html += '<td>' + data.d[t].UnitName + '</td>';
                         html += '<td>' + data.d[t].Price + '</td>';
                         html += '<td>' + data.d[t].Note + '</td>';
@@ -319,7 +319,7 @@
                 }
             });
         }
-        function Approved(status,content) {
+        function Approved(status, content) {
             var id = $('#hdDeptId').val();
             var content = $('#txtContent').val();
             var mess = '';
@@ -335,11 +335,11 @@
                     success: function (data) {
                         if (data.d._content == '1') {
                             if (status == 2) {
-                                $('#lbstatus'+id).text('Đã duyệt');
+                                $('#lbstatus' + id).text('Đã duyệt');
                                 showAlert('Đã duyệt phiếu đề xuất');
                             }
                             else {
-                                $('#lbstatus'+id).text('Không duyệt');
+                                $('#lbstatus' + id).text('Không duyệt');
                                 showAlert('Đã hủy duyệt phiếu đề xuất');
                             }
                             setTimeout(function () {

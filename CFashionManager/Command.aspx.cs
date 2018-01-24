@@ -70,7 +70,361 @@ public partial class Command : System.Web.UI.Page
         }
         return r;
     }
-    
+    [WebMethod]
+    public static result insertOfferOutputMaterial(string branchTypeId, string branchId,string formId, string note, string data)
+    {
+        var r = new result();
+        try
+        {
+            var db = new CFileManagerDataContext();
+            var b = new tExportMaterial();
+            b.BranchTypeId = int.Parse(branchTypeId.Trim());
+            b.BranchId = int.Parse(branchId.Trim());
+
+            string code = "XKNPL" + DateTime.Now.ToString("ddMMyyHHmmss");
+            b.ExportCode = code;
+            b.Description = note.Trim();
+            b.FormId = int.Parse(formId.Trim());
+            b.CreateAt = DateTime.Now;
+            b.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+            b.Status = 1;
+            db.tExportMaterials.InsertOnSubmit(b);
+            db.SubmitChanges();
+
+            var createBy = 0;string fCode = "", fName = "";
+            var tmp = data.Trim().Split('#');
+            for (int k = 0; k < tmp.Length; k++)
+            {
+                var d = tmp[k].Split('|');
+                var p = new tExportMaterialDetail();
+                p.ExportMaterialid = b.Id;
+                p.FormId = int.Parse(formId.Trim());
+                p.MaterialId = int.Parse(d[0]);
+
+                if (createBy == 0) createBy = int.Parse(d[1]);
+                if(fCode=="") fCode = d[2];
+                if (fName == "") fName = d[3];
+
+                p.Quantity = double.Parse(d[4]);
+                p.UnitName = d[5];
+                p.Note = d[6];
+                db.tExportMaterialDetails.InsertOnSubmit(p);
+            }
+            db.SubmitChanges();
+
+            //update trang thai Form sang may mau
+            var mm = from k in db.tForms
+                     where k.Id == int.Parse(formId.Trim()) && k.Status > 1 && k.ApprovedStatus==2
+                     select k;
+            if (mm.Count() > 0)
+            {
+                mm.FirstOrDefault().Status = 4;//Cho may mau
+
+                //thong bao dc cap NPL
+                var mess = new tMessage();
+                mess.BranchTypeId = int.Parse(branchTypeId.Trim());
+                mess.CreateAt = DateTime.Now;
+                mess.Message = "Mẫu thiết kế " + fName + " - " + fCode + " của bạn đã được cấp nguyên phụ liệu";
+                mess.UsertId = createBy;
+                mess.isRead = false;
+                mess.Path = "/form";
+                db.tMessages.InsertOnSubmit(mess);
+
+
+                //thong bao toi BP may mau khi co mau moi
+                var app_mm = from m in db.tConfigApproves
+                         where m.tTable == "tForm" && m.Level == 3
+                         select new { m.GroupApproveBy, m.AproveBy };
+                if (app_mm.Count() > 0)
+                {
+                    //insert vao bang cho may mau
+                    var sw = new tSewing();
+                    sw.FormId = int.Parse(formId.Trim());
+                    sw.Status = 1;//chua nhan mau
+                    sw.CreateAt = DateTime.Now;
+                    db.tSewings.InsertOnSubmit(sw);
+                    
+                    if (app_mm.FirstOrDefault().AproveBy != null)
+                    {
+                        //gui toi may mau
+                        //insert bang duyet
+                        var app_pro = new tApprove();
+                        app_pro.tTable = "tSewing";
+                        app_pro.tTableId = int.Parse(formId.Trim());
+                        app_pro.ApproveBy = app_mm.FirstOrDefault().AproveBy;
+                        app_pro.ApproveStatus = 1;//cho may mau;
+                        app_pro.Level = 1;
+                        db.tApproves.InsertOnSubmit(app_pro);
+
+                        mess = new tMessage();
+                        mess.BranchTypeId = int.Parse(branchTypeId.Trim());
+                        mess.CreateAt = DateTime.Now;
+                        mess.Message = "Mẫu thiết kế " + fName + " - " + fCode + " vừa được cấp nguyên phụ liệu, hãy chọn may mẫu";
+                        mess.UsertId = app_mm.FirstOrDefault().AproveBy;
+                        mess.isRead = false;
+                        mess.Path = "/sewing";
+                        db.tMessages.InsertOnSubmit(mess);
+                    }
+                    else
+                    {
+                        //gui toi nhom
+                        var gr = from g in db.tAccounts
+                                 where g.Status == 1 && g.GroupUserId == app_mm.FirstOrDefault().GroupApproveBy.Value
+                                 select g;
+                        foreach (var xm in gr.ToList())
+                        {
+                            mess = new tMessage();
+                            mess.BranchTypeId = int.Parse(branchTypeId.Trim());
+                            mess.CreateAt = DateTime.Now;
+                            mess.Message = "Mẫu thiết kế " + fName + " - " + fCode + " vừa được cấp nguyên phụ liệu, hãy chọn may mẫu";
+                            mess.UsertId = xm.Id;
+                            mess.isRead = false;
+                            mess.Path = "/sewing";
+                            db.tMessages.InsertOnSubmit(mess);
+
+                            var app_pro = new tApprove();
+                            app_pro.tTable = "tSewing";
+                            app_pro.tTableId = int.Parse(formId.Trim());
+                            app_pro.ApproveBy = xm.Id;
+                            app_pro.ApproveStatus = 1;//cho may mau;
+                            app_pro.Level = 1;
+                            db.tApproves.InsertOnSubmit(app_pro);
+                        }
+                    }
+                }
+                r._content = "1";
+                db.SubmitChanges();
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Mẫu thiết kế không ở trạng thái chờ cấp nguyên phụ liệu, hãy kiểm tra lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu phiếu đề xuất, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static List<manufacturedetail> getManufactureDetail(string id)
+    {
+        var r = new List<manufacturedetail>();
+        try
+        {
+            var db = new CFileManagerDataContext();
+
+            var b = db.sp_web_loadManufactureDetail(id.Trim());
+            foreach (var item in b.ToList())
+            {
+                var t = new manufacturedetail();
+                t.ColorId = item.ColorId.ToString();
+                t.ColorName = item.ColorName;
+                t.SizeS = item.SizeS.ToString();
+                t.SizeM = item.SizeM.ToString();
+                t.SizeL = item.SizeL.ToString();
+                t.SizeXL = item.SizeXL.ToString();
+                t.SizeXXL = item.SizeXXL.ToString();
+                t.Note = item.Note;
+                r.Add(t);
+            }
+        }
+        catch
+        {
+
+        }
+        return r;
+    }
+    [WebMethod]
+    public static List<manufacturedetail> getManufactureDetailByForm(string idForm)
+    {
+        var r = new List<manufacturedetail>();
+        try
+        {
+            var db = new CFileManagerDataContext();
+
+            //var f = from x in db.tFormDetails where x.FormId == int.Parse(idForm.Trim()) select new { x.Type };
+            var b = db.sp_web_loadManufactureDetailByForm(idForm.Trim());
+            foreach (var item in b.ToList())
+            {
+                var t = new manufacturedetail();
+                t.ColorId = item.ColorId.ToString();
+                t.ColorName = item.ColorName;
+                t.SizeS = item.SizeS.ToString();
+                t.SizeM = item.SizeM.ToString();
+                t.SizeL = item.SizeL.ToString();
+                t.SizeXL = item.SizeXL.ToString();
+                t.SizeXXL = item.SizeXXL.ToString();
+                t.Note = item.Note;
+                r.Add(t);
+            }
+        }
+        catch
+        {
+
+        }
+        return r;
+    }
+
+    [WebMethod]
+    public static result updateManufacture(string id, string date_create, string date_expect, string note, string form, string supplier, string data)
+    {
+        var r = new result();
+        try
+        {
+            var db = new CFileManagerDataContext();
+            var cls = new clsProcess();
+
+            var user_id = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+            var user_name = HttpContext.Current.Session["cm_fullname"].ToString();
+
+            var b = from x in db.tManufactures where x.Status != 0 && x.Id == int.Parse(id.Trim()) select x;
+            if (b.Count() > 0)
+            {
+                var check = from role in db.tApproves
+                            where role.tTable == "tManufacture" && role.tTableId == int.Parse(form.Trim())
+                            && role.ApproveStatus == 1 && role.ApproveBy == user_id
+                            select role;
+                if (check.Count() > 0)
+                {
+                    check.FirstOrDefault().ApproveAt = DateTime.Now;
+                    check.FirstOrDefault().ApproveStatus = 2;//da nhap
+
+                    b.FirstOrDefault().DateCreate = DateTime.Parse(cls.returnDatetime(date_create.Trim()));
+                    b.FirstOrDefault().CreateBy = user_id;
+                    b.FirstOrDefault().SupplierId = int.Parse(supplier.Trim());
+                    b.FirstOrDefault().DateExpect = DateTime.Parse(cls.returnDatetime(date_expect.Trim()));
+                    b.FirstOrDefault().Note = note.Trim();
+                    b.FirstOrDefault().Status = 2;//da nhap lenh
+                    db.SubmitChanges();
+
+                    var del_manu = from m in db.tManufactureDetails where m.ManufactureId == int.Parse(id.Trim()) select m;
+                    db.tManufactureDetails.DeleteAllOnSubmit(del_manu);
+                    db.SubmitChanges();
+
+                    var tmp = data.Trim().Split('#');
+                    for (int k = 0; k < tmp.Length; k++)
+                    {
+                        var d = tmp[k].Split('|');
+                        var p = new tManufactureDetail();
+                        p.ManufactureId = int.Parse(id.Trim());
+                        p.ColorId = int.Parse(d[0]);
+                        p.SizeS = byte.Parse(d[1]);
+                        p.SizeM = byte.Parse(d[2]);
+                        p.SizeL = byte.Parse(d[3]);
+                        p.SizeXL = byte.Parse(d[4]);
+                        p.SizeXXL = byte.Parse(d[5]);
+                        p.Note = d[6];
+                        db.tManufactureDetails.InsertOnSubmit(p);
+                    }
+
+                    //update form
+                    var _f = from k in db.tForms where k.Id == int.Parse(form.Trim()) select k;
+                    _f.FirstOrDefault().Status = 9;//cho di so do nhay size
+
+                    //tbao thiet ke da lam lenh sx
+                    var mess = new tMessage();
+                    mess.BranchTypeId = 2;
+                    mess.CreateAt = DateTime.Now;
+                    mess.Message = "Mẫu " + _f.FirstOrDefault().Name + " - " + _f.FirstOrDefault().Code + " vừa được [" + user_name + "] làm lệnh sản xuất";
+                    mess.UsertId = _f.FirstOrDefault().CreateBy.Value;
+                    mess.isRead = false;
+                    mess.Path = "/form";
+                    db.tMessages.InsertOnSubmit(mess);
+
+                    //xoa nhung khac nhap lenh sx nay di
+                    var del_app = from x in db.tApproves
+                                  where x.tTable == "tManufacture" && x.tTableId == int.Parse(id.Trim())
+                                  && x.ApproveBy != user_id
+                                  && x.ApproveStatus == 1
+                                  select x;
+                    db.tApproves.DeleteAllOnSubmit(del_app);
+
+                    db.SubmitChanges();
+                    r._content = "1";
+
+                    //tbao cho nguoi buoc tiep theo
+                    //insert approve
+                    var appro = from n in db.tConfigApproves
+                                where n.tTable == "tForm" && n.Level == 7
+                                select new { n.AproveBy, n.GroupApproveBy, n.Level };
+                    if (appro.Count() > 0)
+                    {
+                        var f = from x in db.tForms where x.Id == int.Parse(form.Trim()) select x;
+
+                        if (appro.FirstOrDefault().AproveBy != null)
+                        {
+                            //tbao toi nguoi di so do nhay size
+                            mess = new tMessage();
+                            mess.BranchTypeId = 2;
+                            mess.CreateAt = DateTime.Now;
+                            mess.Message = "Đã có lệnh sản xuất mẫu " + f.FirstOrDefault().Name + " - " + f.FirstOrDefault().Code + " mới, cần đi sơ đồ nhảy size";
+                            mess.UsertId = appro.FirstOrDefault().AproveBy;
+                            mess.isRead = false;
+                            mess.Path = "/maps";
+                            db.tMessages.InsertOnSubmit(mess);
+
+                            //insert bang duyet
+                            var ai = new tApprove();
+                            ai.tTable = "tMaps";
+                            ai.tTableId = int.Parse(id.Trim());
+                            ai.ApproveBy = appro.FirstOrDefault().AproveBy;
+                            ai.ApproveStatus = 1;//cho duyet
+                            ai.Level = 1;
+                            db.tApproves.InsertOnSubmit(ai);
+                        }
+                        else
+                        {
+                            //thong bao toi group
+                            var g = from gr in db.tAccounts
+                                    where gr.Status == 1 && gr.GroupUserId == appro.FirstOrDefault().GroupApproveBy.Value
+                                    select new { gr.Id };
+                            foreach (var item in g.ToList())
+                            {
+                                //tbao toi nhom di so do nhay size
+                                mess = new tMessage();
+                                mess.BranchTypeId = 2;
+                                mess.CreateAt = DateTime.Now;
+                                mess.Message = "Đã có lệnh sản xuất mẫu " + f.FirstOrDefault().Name + " - " + f.FirstOrDefault().Code + " mới, cần đi sơ đồ nhảy size";
+                                mess.UsertId = item.Id;
+                                mess.isRead = false;
+                                mess.Path = "/maps";
+                                db.tMessages.InsertOnSubmit(mess);
+
+                                //insert bang duyet
+                                var ai = new tApprove();
+                                ai.tTable = "tMaps";
+                                ai.tTableId = int.Parse(id.Trim());
+                                ai.ApproveBy = item.Id;
+                                ai.ApproveStatus = 1;//cho duyet
+                                ai.Level = 1;
+                                db.tApproves.InsertOnSubmit(ai);
+                            }
+                        }
+                        db.SubmitChanges();
+                    }
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Bạn không có quyền nhập lệnh sản xuất, hoặc lệnh đã được nhập, hãy thử lại";
+                }
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy lệnh sản xuất, hãy thử lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu lệnh sản xuất, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
     [WebMethod]
     public static result insertOfferMaterial(string branchTypeId, string branchId, string note, string data)
     {
@@ -81,7 +435,9 @@ public partial class Command : System.Web.UI.Page
             var b = new tImportMaterial();
             b.BranchTypeId = int.Parse(branchTypeId.Trim());
             b.BranchId = int.Parse(branchId.Trim());
-            b.ImportCode = "PDX" + DateTime.Now.ToString("ddMMyyHHmmss");
+
+            string code = "PDXNPL" + DateTime.Now.ToString("ddMMyyHHmmss");
+            b.ImportCode = code;
             b.Description = note.Trim();
             b.CreateAt = DateTime.Now;
             b.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
@@ -97,56 +453,76 @@ public partial class Command : System.Web.UI.Page
                 p.ImportMaterialId = b.Id;
                 p.MaterialId = int.Parse(d[0]);
                 p.SupplierId = int.Parse(d[1]);
-                p.QuantityOffer = int.Parse(d[2]);
-                p.Quantity = int.Parse(d[3]);
+                p.QuantityOffer = double.Parse(d[2]);
+                p.Quantity = double.Parse(d[3]);
                 p.Price = double.Parse(d[4]);
                 p.UnitName = d[5];
                 p.Note = d[6];
                 db.tImportMaterialDetails.InsertOnSubmit(p);
             }
             db.SubmitChanges();
+            r._content = "1";
 
             //insert approve
             var appro = from n in db.tConfigApproves
-                        where n.tTable == "tImportMaterial"
-                        orderby n.Level
-                        select new { n.Id, n.AproveBy, n.Level };
-            var st = 0;
-            foreach (var item in appro.ToList())
+                        where n.tTable == "tImportMaterial" && n.Level == 1
+                        select new { n.Id, n.AproveBy, n.GroupApproveBy, n.Level };
+            if (appro.Count() > 0)
             {
-                var a = new tApprove();
-                a.tTable = "tImportMaterial";
-                a.tTableId = b.Id;
-                a.ApprovedBy = item.AproveBy;
-                a.Level = item.Level;
-                a.Approved = false;
-                if (st == 0)
+                if (appro.FirstOrDefault().AproveBy != null)
                 {
-                    a.Status = 1;
                     var mess = new tMessage();
                     mess.BranchTypeId = 2;
                     mess.CreateAt = DateTime.Now;
-                    mess.Message = "Bạn có phiếu đề xuất nhập nguyên phụ liệu mới cần duyệt";
-                    mess.UsertId = item.AproveBy;
+                    mess.Message = "Bạn có phiếu đề xuất nhập nguyên phụ liệu số " + code + " cần duyệt";
+                    mess.UsertId = appro.FirstOrDefault().AproveBy;
                     mess.isRead = false;
                     mess.Path = "/appinput";
                     db.tMessages.InsertOnSubmit(mess);
 
+                    //insert bang duyet
+                    var ai = new tApprove();
+                    ai.tTable = "tImportMaterial";
+                    ai.tTableId = b.Id;
+                    ai.ApproveBy = appro.FirstOrDefault().AproveBy;
+                    ai.ApproveStatus = 1;//cho duyet
+                    ai.Level = 1;
+                    db.tApproves.InsertOnSubmit(ai);
                 }
-                else a.Status = 0;
-                db.tApproves.InsertOnSubmit(a);
+                else
+                {
+                    //thong bao toi group
+                    var g = from gr in db.tAccounts
+                            where gr.Status==1 && gr.GroupUserId == appro.FirstOrDefault().GroupApproveBy.Value
+                            select new { gr.Id };
+                    foreach (var item in g.ToList())
+                    {
+                        var mess = new tMessage();
+                        mess.BranchTypeId = 2;
+                        mess.CreateAt = DateTime.Now;
+                        mess.Message = "Bạn có phiếu đề xuất nhập nguyên phụ liệu số " + code + " cần duyệt";
+                        mess.UsertId = item.Id;
+                        mess.isRead = false;
+                        mess.Path = "/appinput";
+                        db.tMessages.InsertOnSubmit(mess);
 
-                st++;
+                        //insert bang duyet
+                        var ai = new tApprove();
+                        ai.tTable = "tImportMaterial";
+                        ai.tTableId = b.Id;
+                        ai.ApproveBy = item.Id;
+                        ai.ApproveStatus = 1;//cho duyet
+                        ai.Level = 1;
+                        db.tApproves.InsertOnSubmit(ai);
+                    }
+                }
+                db.SubmitChanges();
             }
-            db.SubmitChanges();
-
-            r._content = "1";
-
         }
         catch (Exception ax)
         {
             r._content = "0";
-            r._mess = "Có lỗi khi lưu phiếu đề xuất, chi tiết: " + ax.Message;
+            r._mess = "Có lỗi khi lưu phiếu đề xuất nguyên phụ liệu, chi tiết: " + ax.Message;
         }
         return r;
     }
@@ -157,7 +533,7 @@ public partial class Command : System.Web.UI.Page
         try
         {
             var db = new CFileManagerDataContext();
-            var b = from x in db.tImportMaterials where x.Id == int.Parse(Id.Trim()) && x.Status==1 select x;
+            var b = from x in db.tImportMaterials where x.Id == int.Parse(Id.Trim()) && x.Status == 1 select x;
             if (b.Count() > 0)
             {
                 b.FirstOrDefault().BranchTypeId = int.Parse(branchTypeId.Trim());
@@ -166,29 +542,33 @@ public partial class Command : System.Web.UI.Page
                 b.FirstOrDefault().ModifiedAt = DateTime.Now;
                 b.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
                 db.SubmitChanges();
+
+                var del = from n in db.tImportMaterialDetails where n.ImportMaterialId == int.Parse(Id.Trim()) select n;
+                db.tImportMaterialDetails.DeleteAllOnSubmit(del);
+
+                var tmp = data.Trim().Split('#');
+                for (int k = 0; k < tmp.Length; k++)
+                {
+                    var d = tmp[k].Split('|');
+                    var p = new tImportMaterialDetail();
+                    p.ImportMaterialId = int.Parse(Id.Trim());
+                    p.MaterialId = int.Parse(d[0]);
+                    p.SupplierId = int.Parse(d[1]);
+                    p.QuantityOffer = double.Parse(d[2]);
+                    p.Quantity = double.Parse(d[3]);
+                    p.Price = double.Parse(d[4]);
+                    p.UnitName = d[5];
+                    p.Note = d[6];
+                    db.tImportMaterialDetails.InsertOnSubmit(p);
+                }
+                db.SubmitChanges();
+                r._content = "1";
             }
-
-            var del = from n in db.tImportMaterialDetails where n.ImportMaterialId == int.Parse(Id.Trim()) select n;
-            db.tImportMaterialDetails.DeleteAllOnSubmit(del);
-
-            var tmp = data.Trim().Split('#');
-            for (int k = 0; k < tmp.Length; k++)
+            else
             {
-                var d = tmp[k].Split('|');
-                var p = new tImportMaterialDetail();
-                p.ImportMaterialId = int.Parse(Id.Trim());
-                p.MaterialId = int.Parse(d[0]);
-                p.SupplierId = int.Parse(d[1]);
-                p.QuantityOffer = int.Parse(d[2]);
-                p.Quantity = int.Parse(d[3]);
-                p.Price = double.Parse(d[4]);
-                p.UnitName = d[5];
-                p.Note = d[6];
-                db.tImportMaterialDetails.InsertOnSubmit(p);
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin phiếu, hãy thử lại";
             }
-            db.SubmitChanges();
-            r._content = "1";
-
         }
         catch (Exception ax)
         {
@@ -230,79 +610,147 @@ public partial class Command : System.Web.UI.Page
         var r = new result();
         try
         {
+            var user_name = HttpContext.Current.Session["cm_fullname"].ToString();
             var db = new CFileManagerDataContext();
             var b = from x in db.tImportMaterials where x.Id == int.Parse(Id.Trim()) && x.Status == 1 select x;
             if (b.Count() > 0)
             {
+                var us_b = b.FirstOrDefault().CreateBy;
+                var us_branch = b.FirstOrDefault().BranchTypeId;
+
                 //update bang duyet
                 var app = from x in db.tApproves
-                          where x.tTable == "tImportMaterial" && x.tTableId==int.Parse(Id.Trim()) 
-                          && x.ApprovedBy == int.Parse(HttpContext.Current.Session["cm_userId"].ToString())
-                          && x.Approved==false
+                          where x.tTable == "tImportMaterial" && x.tTableId == int.Parse(Id.Trim())
+                          && x.ApproveBy == int.Parse(HttpContext.Current.Session["cm_userId"].ToString())
+                          && x.ApproveStatus == 1
                           select x;
                 if (app.Count() > 0)
                 {
                     var app_next = app.FirstOrDefault().Level + 1;
+                    var us_app = app.FirstOrDefault().ApproveBy;
 
-                    app.FirstOrDefault().Status = byte.Parse(status.Trim());
-                    app.FirstOrDefault().ApprovedAt = DateTime.Now;
-                    app.FirstOrDefault().Approved = true;
-                    app.FirstOrDefault().Content = content.Trim();
+                    //update bang duyet
+                    app.FirstOrDefault().ApproveStatus = byte.Parse(status.Trim());
+                    app.FirstOrDefault().ApproveAt = DateTime.Now;
+                    app.FirstOrDefault().ApproveContent = content.Trim();
+
+
+                    //xoa nhung khac duyet Id nay di
+                    var del_app = from x in db.tApproves
+                              where x.tTable == "tImportMaterial" && x.tTableId == int.Parse(Id.Trim())
+                              && x.ApproveBy != int.Parse(HttpContext.Current.Session["cm_userId"].ToString())
+                              && x.ApproveStatus == 1
+                              select x;
+                    db.tApproves.DeleteAllOnSubmit(del_app);
+
                     db.SubmitChanges();
 
-                    
+                    var mess = new tMessage();
                     //update nguoi duyet tiep theo
-                    var appNext = from m in db.tApproves
-                                  where m.tTable == "tImportMaterial" && m.tTableId == int.Parse(Id.Trim()) && m.Level == app_next
-                                  select m;
+                    var appNext = from m in db.tConfigApproves
+                                  where m.tTable == "tImportMaterial" && m.Level == app_next
+                                  select new { m.GroupApproveBy, m.AproveBy };
                     if (appNext.Count() > 0)
                     {
+                        
                         if (status.Trim() == "3")
                         {
-                            appNext.FirstOrDefault().ApprovedAt = DateTime.Now;
-                            appNext.FirstOrDefault().Approved = true;
-                            appNext.FirstOrDefault().Content = "Tự hủy";
-                            appNext.FirstOrDefault().Status = 4;//tu huy
-
                             b.FirstOrDefault().Status = byte.Parse(status.Trim());
 
                             //thong bao huy toi nguoi de xuat
-                            var mess = new tMessage();
-                            mess.BranchTypeId = b.FirstOrDefault().BranchTypeId;
+                            mess = new tMessage();
+                            mess.BranchTypeId = us_branch;
                             mess.CreateAt = DateTime.Now;
-                            mess.Message = "Phiếu đề xuất nhập nguyên phụ liệu số " + b.FirstOrDefault().ImportCode + " của bạn KHÔNG được duyệt";
-                            mess.UsertId = b.FirstOrDefault().CreateBy;
+                            mess.Message = "["+user_name + "] KHÔNG duyệt phiếu đề xuất nhập nguyên phụ liệu số " + b.FirstOrDefault().ImportCode + " của bạn";
+                            mess.UsertId = us_b;
+                            mess.ApprovedByName = user_name;
+                            mess.ApprovedBy= appNext.FirstOrDefault().AproveBy;
                             mess.isRead = false;
                             mess.Path = "/offerinput";
                             db.tMessages.InsertOnSubmit(mess);
                         }
                         else
                         {
-                            appNext.FirstOrDefault().Status = 1;
-
-                            var mess = new tMessage();
-                            mess.BranchTypeId = 2;
+                            //neu duyet
+                            //thong bao duyet toi nguoi de xuat
+                            mess = new tMessage();
+                            mess.BranchTypeId = us_branch;
                             mess.CreateAt = DateTime.Now;
-                            mess.Message = "Bạn có phiếu đề xuất nhập nguyên phụ liệu mới cần duyệt";
-                            mess.UsertId = appNext.FirstOrDefault().ApprovedBy;
+                            mess.Message = "["+user_name + (status.Trim() == "2" ? "] vừa DUYỆT" : "] KHÔNG duyệt") + " phiếu đề xuất nhập nguyên phụ liệu số " + b.FirstOrDefault().ImportCode + " của bạn";
+                            mess.UsertId = us_b;
+                            mess.ApprovedByName = user_name;
+                            mess.ApprovedBy = us_app;
                             mess.isRead = false;
-                            mess.Path = "/appinput";
+                            mess.Path = "/offerinput";
                             db.tMessages.InsertOnSubmit(mess);
+
+                            //neu co ng duyet tiep theo
+                            //neu 1 nguoi duyet
+                            if (appNext.FirstOrDefault().AproveBy != null)
+                            {
+                                //insert du lieu duyet
+                                var appN = new tApprove();
+                                appN.tTable = "tImportMaterial";
+                                appN.tTableId = int.Parse(Id.Trim());
+                                appN.Level = byte.Parse(app_next.ToString());
+                                appN.ApproveBy = appNext.FirstOrDefault().AproveBy;
+                                appN.ApproveStatus = 1;//cho duyet
+                                db.tApproves.InsertOnSubmit(appN);
+
+                                //thong bao toi nguoi duyet tiep theo
+                                mess = new tMessage();
+                                mess.BranchTypeId = 2;
+                                mess.CreateAt = DateTime.Now;
+                                mess.Message = "Bạn có phiếu đề xuất nhập nguyên phụ liệu số " + b.FirstOrDefault().ImportCode + " cần duyệt";
+                                mess.UsertId = appNext.FirstOrDefault().AproveBy;
+                                mess.isRead = false;
+                                mess.Path = "/appinput";
+                                db.tMessages.InsertOnSubmit(mess);
+                            }
+                            else
+                            {
+                                //thong bao toi group duyet
+                                var g = from gr in db.tAccounts
+                                        where gr.Status == 1 && gr.GroupUserId == appNext.FirstOrDefault().GroupApproveBy.Value
+                                        select new { gr.Id };
+                                foreach (var item in g.ToList())
+                                {
+                                    //insert du lieu duyet
+                                    var appN = new tApprove();
+                                    appN.tTable = "tImportMaterial";
+                                    appN.tTableId = int.Parse(Id.Trim());
+                                    appN.Level = byte.Parse(app_next.ToString());
+                                    appN.ApproveBy = item.Id;
+                                    appN.ApproveStatus = 1;//cho duyet
+                                    db.tApproves.InsertOnSubmit(appN);
+
+                                    //thong bao toi nguoi duyet tiep theo
+                                    mess = new tMessage();
+                                    mess.BranchTypeId = 2;
+                                    mess.CreateAt = DateTime.Now;
+                                    mess.Message = "Bạn có phiếu đề xuất nhập nguyên phụ liệu số " + b.FirstOrDefault().ImportCode + " cần duyệt";
+                                    mess.UsertId = item.Id;
+                                    mess.isRead = false;
+                                    mess.Path = "/appinput";
+                                    db.tMessages.InsertOnSubmit(mess);
+                                }
+                            }
                         }
                         db.SubmitChanges();
-
                     }
                     else
                     {
                         //neu ko co nguoi duyet tiep theo thi cap nhat da duyet het
                         b.FirstOrDefault().Status = byte.Parse(status.Trim());
 
-                        //thong bao huy toi nguoi de xuat
-                        var mess = new tMessage();
-                        mess.BranchTypeId = b.FirstOrDefault().BranchTypeId;
+                        //thong bao duyet toi nguoi de xuat
+                        mess = new tMessage();
+                        mess.BranchTypeId = us_branch;
                         mess.CreateAt = DateTime.Now;
-                        mess.Message = "Phiếu đề xuất nhập nguyên phụ liệu số " + b.FirstOrDefault().ImportCode + " của bạn " + (status.Trim() == "2" ? "đã ĐƯỢC" : "KHÔNG được") + " duyệt";
-                        mess.UsertId = b.FirstOrDefault().CreateBy;
+                        mess.Message = "["+user_name + (status.Trim() == "2" ? "] đã DUYỆT" : "] KHÔNG duyệt") + " phiếu đề xuất nhập nguyên phụ liệu số " + b.FirstOrDefault().ImportCode + " của bạn";
+                        mess.UsertId = us_b;
+                        mess.ApprovedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                        mess.ApprovedByName = user_name;
                         mess.isRead = false;
                         mess.Path = "/offerinput";
                         db.tMessages.InsertOnSubmit(mess);
@@ -314,7 +762,7 @@ public partial class Command : System.Web.UI.Page
                 else
                 {
                     r._content = "0";
-                    r._mess = "Bạn không có quyền duyệt module này";
+                    r._mess = "Bạn không có quyền duyệt phiếu này hoặc phiếu đã được duyệt, kiểm tra lại";
                 }
             }
             else
@@ -540,6 +988,103 @@ public partial class Command : System.Web.UI.Page
                 var t = new result();
                 t._content = item.CodeId + " | " + item.ProductTypeCode + " | " + item.ProductName;
                 t._id = item.Id.ToString();
+                r.Add(t);
+            }
+        }
+        catch (Exception ax)
+        {
+            var t = new result();
+            t._id = "0";
+            t._content = ax.Message;
+            r.Add(t);
+        }
+        return r;
+    }
+    [WebMethod]
+    public static List<result> loadFormByBranchType(string branchtype)
+    {
+        var r = new List<result>();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            //da duyet mau, mau ok, da nhap dinh muc
+            var b = from x in db.tForms
+                    from y in db.tAccounts
+                    where x.CreateBy == y.Id && x.Status > 1 && x.ApprovedStatus == 2 && x.InputNorm.Value == true
+                    select new { x.Id, FormCode = x.Name + " | " + x.Code, FullName = y.FullName };
+            foreach (var item in b.ToList())
+            {
+                var t = new result();
+                t._content = item.Id.ToString();
+                t._mess = item.FormCode + " - " + item.FullName;
+                t._id = "1";
+                r.Add(t);
+            }
+        }
+        catch (Exception ax)
+        {
+            var t = new result();
+            t._id = "0";
+            t._content = ax.Message;
+            r.Add(t);
+        }
+        return r;
+    }
+    [WebMethod]
+    public static List<normForm> loadNormByFormId(string idForm)
+    {
+        var r = new List<normForm>();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            //da duyet mau, mau ok, da nhap dinh muc
+            var b = from x in db.tForms
+                    from y in db.tFormDetails
+                    from z in db.tMaterials
+                    where x.Id == y.FormId && y.MaterialId == z.Id && x.Status >1 && x.ApprovedStatus == 2 && x.InputNorm.Value == true
+                    && x.Id == int.Parse(idForm.Trim())
+                    select new { x.Id, y.MaterialId, y.NormValue, y.UnitName, y.Type, z.MaterialName, z.MaterialCode, x.CreateBy, x.Code, x.Name };
+            foreach (var item in b.ToList())
+            {
+                var t = new normForm();
+                t.Id = item.Id.ToString();
+                t.MaterialId = item.MaterialId.ToString();
+                t.MaterialName = item.MaterialCode + " - " + item.MaterialName;
+                t.Unit = item.UnitName;
+                t.FormCode = item.Code;
+                t.FormName = item.Name;
+                t.CreateBy = item.CreateBy.ToString();
+                t.NormValue = item.NormValue.ToString();
+                t.Note = item.Type.Value == 1 ? "Vải chính" : item.Type.Value == 2 ? "Vải lót" : item.Type.Value == 3 ? "Vải phối" : "Nguyên phụ liệu";
+                t.OK = "1";
+                r.Add(t);
+            }
+        }
+        catch (Exception ax)
+        {
+            var t = new normForm();
+            t.OK = "0";
+            t.Mess = ax.Message;
+            r.Add(t);
+        }
+        return r;
+    }
+    [WebMethod]
+    public static List<result> loadColor(string branchtype)
+    {
+        var r = new List<result>();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = from x in db.tColors
+                    where x.Status != 0 && x.BranchTypeId == int.Parse(branchtype.Trim())
+                    select new { x.Id, Name = x.ColorCode + " | " + x.ColorName };
+            foreach (var item in b.ToList())
+            {
+                var t = new result();
+                t._content = item.Id.ToString();
+                t._mess = item.Name;
+                t._id = "1";
                 r.Add(t);
             }
         }
@@ -1375,27 +1920,49 @@ public partial class Command : System.Web.UI.Page
     }
 
     [WebMethod]
-    public static result updateApprove(string id, string code,string name, string user, string level)
+    public static result updateApprove(string id, string code,string name,string group, string user, string level,string levelname)
     {
         var r = new result();
         try
         {
             CFileManagerDataContext db = new CFileManagerDataContext();
 
-            var b = from x in db.tConfigApproves where x.Id == int.Parse(id.Trim()) select x;
-            if (b.Count() > 0)
+            var check = from x in db.tConfigApproves
+                        where x.Id != int.Parse(id.Trim()) && 
+                        x.tTable == code.Trim() && x.Level == byte.Parse(level.Trim())
+                        select x;
+            if (check.Count() > 0)
             {
-                b.FirstOrDefault().tTable = code.Trim();
-                b.FirstOrDefault().tTableName = name.Trim();
-                b.FirstOrDefault().AproveBy = int.Parse(user.Trim());
-                b.FirstOrDefault().Level = byte.Parse(level.Trim());
-                db.SubmitChanges();
-                r._content = "1";
+                r._content = "0";
+                r._mess = "Đã tồn tại cấp duyệt, kiểm tra lại";
             }
             else
             {
-                r._content = "0";
-                r._mess = "Không tìm thấy thông tin module, hãy thử lại";
+                var b = from x in db.tConfigApproves where x.Id == int.Parse(id.Trim()) select x;
+                if (b.Count() > 0)
+                {
+                    b.FirstOrDefault().tTable = code.Trim();
+                    b.FirstOrDefault().tTableName = name.Trim();
+
+                    if (user.Trim() != "")
+                        b.FirstOrDefault().AproveBy = int.Parse(user.Trim());
+                    else
+                        b.FirstOrDefault().AproveBy = null;
+                    if (group.Trim() != "")
+                        b.FirstOrDefault().GroupApproveBy = int.Parse(group.Trim());
+                    else
+                        b.FirstOrDefault().GroupApproveBy = null;
+
+                    b.FirstOrDefault().Level = byte.Parse(level.Trim());
+                    b.FirstOrDefault().LevelName = levelname.Trim();
+                    db.SubmitChanges();
+                    r._content = "1";
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Không tìm thấy thông tin module, hãy thử lại";
+                }
             }
         }
         catch (Exception ax)
@@ -1406,20 +1973,39 @@ public partial class Command : System.Web.UI.Page
         return r;
     }
     [WebMethod]
-    public static result insertApprove(string code,string name, string user, string level)
+    public static result insertApprove(string code,string name,string group, string user, string level,string levelname)
     {
         var r = new result();
         try
         {
             CFileManagerDataContext db = new CFileManagerDataContext();
-            var b = new tConfigApprove();
-            b.tTable = code.Trim();
-            b.tTableName = name.Trim();
-            b.AproveBy = int.Parse(user.Trim());
-            b.Level = byte.Parse(level.Trim());
-            db.tConfigApproves.InsertOnSubmit(b);
-            db.SubmitChanges();
-            r._content = "1";
+            var check = from x in db.tConfigApproves
+                        where x.tTable == code.Trim() && x.Level == byte.Parse(level.Trim())
+                        select x;
+            if (check.Count() > 0)
+            {
+                r._content = "0";
+                r._mess = "Đã tồn tại cấp duyệt, kiểm tra lại";
+            }
+            else
+            {
+                var b = new tConfigApprove();
+                b.tTable = code.Trim();
+                b.tTableName = name.Trim();
+
+                if (group.Trim()!="")
+                    b.GroupApproveBy = int.Parse(group.Trim());
+
+                if(user.Trim()!="")
+                    b.AproveBy = int.Parse(user.Trim());
+
+                b.Level = byte.Parse(level.Trim());
+                b.LevelName = levelname.Trim();
+                db.tConfigApproves.InsertOnSubmit(b);
+
+                db.SubmitChanges();
+                r._content = "1";
+            }
         }
         catch (Exception ax)
         {
@@ -1944,7 +2530,7 @@ public partial class Command : System.Web.UI.Page
             var b = from x in db.tFormDetails
                     from y in db.tMaterials
                     where x.MaterialId == y.Id && x.FormId == int.Parse(id.Trim())
-                    select new { x.Id, x.MaterialId, x.Type, x.NormValue, y.MaterialName, y.MaterialCode, x.UnitName };
+                    select new { x.Id, x.MaterialId, x.Type, y.MaterialName, y.MaterialCode, x.NormValue, x.UnitName };
             foreach (var item in b.ToList())
             {
                 var f = new formdetail();
@@ -1953,7 +2539,7 @@ public partial class Command : System.Web.UI.Page
                 f.MaterialName = item.MaterialCode + " | " + item.MaterialName.ToString();
                 f.TypeName = item.Type.ToString();
                 f.Norm = item.NormValue.ToString();
-                f.UnitName = item.UnitName;
+                f.UnitName = item.UnitName == null ? "" : item.UnitName;
                 f.OK = "1";
                 r.Add(f);
             }
@@ -1968,7 +2554,94 @@ public partial class Command : System.Web.UI.Page
         return r;
     }
     [WebMethod]
-    public static result updateForm(string id, string code, string name, string month, string des, string normid,string data)
+    public static result updateFormNorm(string id,string data,string content)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+
+            var user_id= int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+
+            var b = from x in db.tForms where x.Id == int.Parse(id.Trim()) && x.InputNorm == false select x;
+            if (b.Count() > 0)
+            {
+                var get_app = from n in db.tApproves
+                              where n.tTable == "tCut" && n.tTableId == int.Parse(id.Trim()) && n.Level == 2
+                              && n.ApproveBy == user_id
+                              && n.ApproveStatus == 1
+                              select n;
+                if (get_app.Count() > 0)
+                {
+                    get_app.FirstOrDefault().ApproveAt = DateTime.Now;
+                    get_app.FirstOrDefault().ApproveStatus = 2;
+                    get_app.FirstOrDefault().ApproveContent = content.Trim();
+
+                    var del = from x in db.tFormDetails where x.FormId == b.FirstOrDefault().Id select x;
+                    db.tFormDetails.DeleteAllOnSubmit(del);
+
+                    //update dinh muc
+                    var tmp = data.Trim().Split('#');
+                    for (int k = 0; k < tmp.Length; k++)
+                    {
+                        var child = tmp[k].Trim().Split(',');
+
+                        var c = new tFormDetail();
+                        c.FormId = b.FirstOrDefault().Id;
+                        c.MaterialId = int.Parse(child[0]);
+                        c.Type = byte.Parse(child[1]);
+                        c.NormValue = double.Parse(child[2]);
+                        c.UnitName = child[3];
+                        db.tFormDetails.InsertOnSubmit(c);
+                    }
+
+                    b.FirstOrDefault().Status = 3;//cho nhan nguyen phu lieu
+                    b.FirstOrDefault().InputNorm = true;//da nhap dinh muc
+
+                    //thong bao can nhap NPL toi thiet ke
+                    var mess = new tMessage();
+                    mess.BranchTypeId = 2;
+                    mess.CreateAt = DateTime.Now;
+                    mess.Message = "Mẫu " + b.FirstOrDefault().Name + " - " + b.FirstOrDefault().Code + " đã hoàn thành cắt rập, hãy làm đề xuất nguyên phụ liệu";
+                    mess.UsertId = b.FirstOrDefault().CreateBy;
+                    mess.isRead = false;
+                    mess.Path = "/form";
+                    db.tMessages.InsertOnSubmit(mess);
+
+                    //del nhung nguoi duyet con lai
+                    var del_app = from n in db.tApproves
+                                  where n.tTable == "tCut" && n.tTableId == int.Parse(id.Trim()) && n.Level == 2
+                                  && n.ApproveBy != int.Parse(HttpContext.Current.Session["cm_userId"].ToString())
+                                  && n.ApproveStatus == 1
+                                  select n;
+                    db.tApproves.DeleteAllOnSubmit(del_app);
+
+                    db.SubmitChanges();
+
+                    r._content = "1";
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Bạn không có quyền nhập định mức này hoặc định mức đã được nhập, hãy kiểm tra lại !";
+                }
+             
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin mẫu hoặc mẫu đã được nhập định mức, hãy thử lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu định mức, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result updateForm(string id, string code, string name, string month,string color, string des, string normid,string data)
     {
         var r = new result();
         try
@@ -1982,7 +2655,8 @@ public partial class Command : System.Web.UI.Page
                 b.FirstOrDefault().Name = name.Trim();
                 b.FirstOrDefault().Month = month.Trim();
                 b.FirstOrDefault().Description = des.Trim();
-                b.FirstOrDefault().NormId = int.Parse(normid.Trim());
+                b.FirstOrDefault().ColorName = color.Trim();
+                b.FirstOrDefault().ProductTypeId = int.Parse(normid.Trim());
                 b.FirstOrDefault().ModifiedAt = DateTime.Now;
                 b.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
                 db.SubmitChanges();
@@ -2001,8 +2675,6 @@ public partial class Command : System.Web.UI.Page
                     c.FormId = b.FirstOrDefault().Id;
                     c.MaterialId = int.Parse(child[0]);
                     c.Type = byte.Parse(child[1]);
-                    c.NormValue = double.Parse(child[2]);
-                    c.UnitName = child[3];
                     db.tFormDetails.InsertOnSubmit(c);
                 }
                 db.SubmitChanges();
@@ -2022,7 +2694,7 @@ public partial class Command : System.Web.UI.Page
         return r;
     }
     [WebMethod]
-    public static result insertForm(string code, string name, string month, string des, string normid, string data)
+    public static result insertForm(string code, string name, string month,string color, string des, string normid, string data)
     {
         var r = new result();
         try
@@ -2032,11 +2704,14 @@ public partial class Command : System.Web.UI.Page
             b.Code = code.Trim();
             b.Name = name.Trim();
             b.Month = month.Trim();
+            b.ColorName = color.Trim();
             b.Description = des.Trim();
-            b.NormId = int.Parse(normid.Trim());
+            b.ProductTypeId = int.Parse(normid.Trim());
+            b.InputNorm = false;//chua nhap dinh muc
             b.CreateAt = DateTime.Now;
             b.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-            b.Status = 1;
+            b.Status = 1;//cho duyet
+            b.ApprovedStatus = 1;//cho duyet
             db.tForms.InsertOnSubmit(b);
             db.SubmitChanges();
 
@@ -2049,42 +2724,68 @@ public partial class Command : System.Web.UI.Page
                 c.FormId = b.Id;
                 c.MaterialId =int.Parse(child[0]);
                 c.Type = byte.Parse(child[1]);
-                c.NormValue = double.Parse(child[2]);
-                c.UnitName = child[3];
                 db.tFormDetails.InsertOnSubmit(c);
             }
+
             db.SubmitChanges();
 
-            var appro = from n in db.tConfigApproves where n.tTable == "tForm"
-                        orderby n.Level select new { n.Id, n.AproveBy, n.Level };
-            var st = 0;
-            foreach (var item in appro.ToList())
+            //check nguoi duyet
+            var appro = from n in db.tConfigApproves
+                        where n.tTable == "tForm" && n.Level == 1
+                        select new { n.Id, n.AproveBy, n.GroupApproveBy, n.Level };
+            if (appro.Count() > 0)
             {
-                var a = new tApprove();
-                a.tTable = "tForm";
-                a.tTableId = b.Id;
-                a.ApprovedBy = item.AproveBy;
-                a.Level = item.Level;
-                a.Approved = false;
-                if (st == 0)
+                if (appro.FirstOrDefault().AproveBy != null)
                 {
-                    a.Status = 1;
+                    //tbao toi nguoi duyet
                     var mess = new tMessage();
                     mess.BranchTypeId = 2;
                     mess.CreateAt = DateTime.Now;
-                    mess.Message = "Bạn có mẫu hình ảnh mới cần duyệt";
-                    mess.UsertId = item.AproveBy;
+                    mess.Message = "Bạn có mẫu hình ảnh " + b.Name + " - " + b.Code + " mới cần duyệt";
+                    mess.UsertId = appro.FirstOrDefault().AproveBy;
                     mess.isRead = false;
                     mess.Path = "/appform";
                     db.tMessages.InsertOnSubmit(mess);
 
+                    //insert du lieu duyet
+                    var app = new tApprove();
+                    app.tTable = "tForm";
+                    app.tTableId = b.Id;
+                    app.ApproveBy = appro.FirstOrDefault().AproveBy;
+                    app.ApproveStatus = 1;//cho duyet
+                    app.Level = 1;
+                    db.tApproves.InsertOnSubmit(app);
                 }
-                else a.Status = 0;
-                db.tApproves.InsertOnSubmit(a);
+                else
+                {
+                    //tbao toi nhom nguoi duyet
+                    var g = from gr in db.tAccounts
+                            where gr.Status == 1 && gr.GroupUserId == appro.FirstOrDefault().GroupApproveBy.Value
+                            select new { gr.Id };
+                    foreach (var item in g.ToList())
+                    {
+                        var mess = new tMessage();
+                        mess.BranchTypeId = 2;
+                        mess.CreateAt = DateTime.Now;
+                        mess.Message = "Bạn có mẫu hình ảnh " + b.Name + " - " + b.Code + " mới cần duyệt";
+                        mess.UsertId = item.Id;
+                        mess.isRead = false;
+                        mess.Path = "/appform";
+                        db.tMessages.InsertOnSubmit(mess);
 
-                st++;
+                        //insert du lieu duyet
+                        var app = new tApprove();
+                        app.tTable = "tForm";
+                        app.tTableId = b.Id;
+                        app.ApproveBy = item.Id;
+                        app.ApproveStatus = 1;//cho duyet
+                        app.Level = 1;
+                        db.tApproves.InsertOnSubmit(app);
+                    }
+                }
+                db.SubmitChanges();
             }
-            db.SubmitChanges();
+            
             r._content = "1";
         }
         catch (Exception ax)
@@ -2124,104 +2825,957 @@ public partial class Command : System.Web.UI.Page
         return r;
     }
     [WebMethod]
-    public static result ApprovedForm(string id, string status,string content)
+    public static result markReadAllMess()
     {
         var r = new result();
         try
         {
             CFileManagerDataContext db = new CFileManagerDataContext();
-            var b = from x in db.tForms where x.Id == int.Parse(id.Trim()) select x;
+
+            var b = from x in db.tMessages where x.isRead == false && x.UsertId == int.Parse(HttpContext.Current.Session["cm_userId"].ToString()) select x;
             if (b.Count() > 0)
             {
-               
-                //update bang duyet
-                var app = from x in db.tApproves where x.tTable== "tForm" && x.tTableId==int.Parse(id.Trim()) 
-                          && x.ApprovedBy== int.Parse(HttpContext.Current.Session["cm_userId"].ToString())
-                          && x.Approved == false
-                          select x;
-                if (app.Count() > 0)
+                foreach (var item in b.ToList())
                 {
-                    var app_next = app.FirstOrDefault().Level + 1;
+                    item.isRead = true;
+                }
+                db.SubmitChanges();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông báo nào";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi đánh dấu thông báo, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result markReadMess(string data)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
 
-                    app.FirstOrDefault().Status = byte.Parse(status.Trim());
-                    app.FirstOrDefault().ApprovedAt = DateTime.Now;
-                    app.FirstOrDefault().Approved = true;
-                    app.FirstOrDefault().Content = content.Trim();
-                    db.SubmitChanges();
+            var b = from x in db.tMessages where x.isRead == false && x.UsertId == int.Parse(HttpContext.Current.Session["cm_userId"].ToString()) select x;
+            if (b.Count() > 0)
+            {
+                foreach (var item in b.ToList())
+                {
+                    item.isRead = true;
+                }
+                db.SubmitChanges();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông báo, hãy thử lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi đánh dấu thông báo, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result updateFormSewing(string id, string content)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var user_id = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+            var user_name = HttpContext.Current.Session["cm_fullname"].ToString();
 
-                    
-                    //update nguoi duyet tiep theo
-                    var appNext = from m in db.tApproves
-                                  where m.tTable == "tForm" && m.tTableId==int.Parse(id.Trim()) 
-                                  && m.Level == app_next
-                                  select m;
-                    if (appNext.Count() > 0)
+            var check = from c in db.tApproves
+                        where c.tTable == "tSewing" && c.tTableId == int.Parse(id.Trim()) && 
+                        c.ApproveStatus == 1 && c.ApproveBy == user_id
+                        select c;
+            if (check.Count() > 0)
+            {
+                //neu van chua hoan thanh het mau thi k dc chon mau tiep theo
+                var check_not = from not in db.tSewings where not.UserCut == user_id && (not.Status == 2 || not.Status == 4) select not;
+                if (check_not.Count() == 0)
+                {
+                    var form = from n in db.tForms where n.Id == int.Parse(id.Trim()) select n;
+                    var b = from x in db.tSewings where x.FormId == int.Parse(id.Trim()) && x.UserCut == null select x;
+                    if (b.Count() > 0)
                     {
-                        if (status.Trim() == "3")
-                        {
-                            appNext.FirstOrDefault().ApprovedAt = DateTime.Now;
-                            appNext.FirstOrDefault().Approved = true;
-                            appNext.FirstOrDefault().Content = "Tự hủy";
-                            appNext.FirstOrDefault().Status = 4;//tu huy
+                        check.FirstOrDefault().ApproveAt = DateTime.Now;//ngay nhan
+                        check.FirstOrDefault().ApproveStatus = 2;//da nhan
+                        check.FirstOrDefault().ApproveContent = content.Trim();//noi dung nhan
 
-                            b.FirstOrDefault().Status = byte.Parse(status.Trim());
+                        b.FirstOrDefault().Status = 2;//bat dau cat
+                        b.FirstOrDefault().DateCut = DateTime.Now;//ngay bat dau cat
+                        b.FirstOrDefault().UserCut = user_id;//nguoi cat
+                        b.FirstOrDefault().Note = content.Trim();//ghi chu cat
 
-                            //thong bao huy toi thiet ke
-                            var mess = new tMessage();
-                            mess.BranchTypeId = 2;
-                            mess.CreateAt = DateTime.Now;
-                            mess.Message = "Mẫu hình ảnh mã " + b.FirstOrDefault().Name + " - " + b.FirstOrDefault().Code + " của bạn KHÔNG được duyệt";
-                            mess.UsertId = b.FirstOrDefault().CreateBy;
-                            mess.isRead = false;
-                            mess.Path = "/form";
-                            db.tMessages.InsertOnSubmit(mess);
-                        }
-                        else
-                        {
-                            appNext.FirstOrDefault().Status = 1;//cho duyet
+                        //xoa nhung may mau khac di
+                        var del_app = from c in db.tApproves
+                                      where c.tTable == "tSewing" && c.tTableId == int.Parse(id.Trim()) &&
+                                      c.ApproveStatus == 1 && c.ApproveBy != int.Parse(HttpContext.Current.Session["cm_userId"].ToString())
+                                      select c;
+                        db.tApproves.DeleteAllOnSubmit(del_app);
 
-                            var mess = new tMessage();
-                            mess.BranchTypeId = 2;
-                            mess.CreateAt = DateTime.Now;
-                            mess.Message = "Bạn có mẫu hình ảnh mới cần duyệt";
-                            mess.UsertId = appNext.FirstOrDefault().ApprovedBy;
-                            mess.isRead = false;
-                            mess.Path = "/appform";
-                            db.tMessages.InsertOnSubmit(mess);
-                        }
-                        
-                        db.SubmitChanges();
-
-                    }
-                    else
-                    {
-                        //neu ko co nguoi duyet tiep theo thi ket thuc nguoi duyet
-                        b.FirstOrDefault().Status = byte.Parse(status.Trim());
-
-                        //thong bao duyet toi thiet ke
+                        //thong bao may mau toi thiet ke
                         var mess = new tMessage();
                         mess.BranchTypeId = 2;
                         mess.CreateAt = DateTime.Now;
-                        mess.Message = "Mẫu hình ảnh mã " + b.FirstOrDefault().Name + " - " + b.FirstOrDefault().Code + " của bạn " + (status.Trim() == "2" ? "đã ĐƯỢC" : "KHÔNG được") + " duyệt";
-                        mess.UsertId = b.FirstOrDefault().CreateBy;
-                        mess.isRead = false;
+                        mess.Message = "Mẫu " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " ĐANG bắt đầu được [" + user_name + "] may mẫu";
+                        mess.UsertId = form.FirstOrDefault().CreateBy;
+                        mess.isRead = false; 
                         mess.Path = "/form";
                         db.tMessages.InsertOnSubmit(mess);
 
+                        form.FirstOrDefault().Status = 5;//chuyen sang dang may mau
+
                         db.SubmitChanges();
+                        r._content = "1";
                     }
-                    r._content = "1";
+                    else
+                    {
+                        r._content = "0";
+                        r._mess = "Mẫu đã có người nhận may mẫu, hãy kiểm tra lại";
+                    }
                 }
                 else
                 {
                     r._content = "0";
-                    r._mess = "Bạn không có quyền duyệt module này";
+                    r._mess = "Bạn có mẫu chưa hoàn thành may mẫu nên không thể nhận thêm mẫu, hãy kiểm tra lại";
                 }
             }
             else
             {
                 r._content = "0";
-                r._mess = "Không tìm thấy thông tin mẫu, hãy thử lại";
+                r._mess = "Bạn không có quyền nhận may mẫu này hoặc mẫu đã nhận may, hãy kiểm tra lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi nhận mẫu, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result completeFormSewing(string id,string content)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var user_name = HttpContext.Current.Session["cm_fullname"].ToString();
+            var user_id = HttpContext.Current.Session["cm_userId"].ToString();
+
+            var form = from n in db.tForms
+                       where n.Id == int.Parse(id.Trim())
+                       select n;
+
+            var b = from x in db.tSewings
+                    where x.FormId == int.Parse(id.Trim()) && x.UserCut == int.Parse(user_id)
+                    && x.DateComplete == null && (x.Status == 2 || x.Status==4)//dang cho hoac sua lai mau
+                    select x;
+            if (b.Count() > 0)
+            {
+                b.FirstOrDefault().Status = 3;//hoan thanh mau
+                b.FirstOrDefault().DateComplete = DateTime.Now;//ngay hoan thanh mau
+                b.FirstOrDefault().Note = content.Trim();///ghi chu hoan thanh
+
+                form.FirstOrDefault().Status = 6;//cho KCS kiem mau
+
+                var mess = new tMessage();
+                //neu da tung KCS roi
+                var check = from c in db.tKCSMaus
+                            where c.FormId == int.Parse(id.Trim()) && c.KCSId != null
+                            select c;
+                if (check.Count() > 0)//neu la mau sua lai
+                {
+                    ////insert du lieu kcs
+                    //var kcs = new tKCSMau();
+                    //kcs.FormId = int.Parse(id.Trim());
+                    //kcs.Status = 1;//chua kiem
+                    //kcs.ApprovedStatus = 4;//chua kiem//2-dat//3-ko dat//4-sua lai mau
+                    //kcs.CreateAt = DateTime.Now;
+                    //kcs.KCSId = check.FirstOrDefault().KCSId.Value;//kcs mau truoc do
+                    //kcs.SewingId = check.FirstOrDefault().SewingId.Value;//may mau truoc do
+                    //db.tKCSMaus.InsertOnSubmit(kcs);
+
+                    ////insert du lieu duyet
+                    //var app = new tApprove();
+                    //app.tTable = "tKCS";
+                    //app.tTableId = int.Parse(id.Trim());
+                    //app.ApproveBy = check.FirstOrDefault().KCSId.Value;
+                    //app.ApproveStatus = 1;//chua kiem
+                    //app.Level = 1;
+                    //db.tApproves.InsertOnSubmit(app);
+
+                    //tbao toi kcs truoc do
+                    mess = new tMessage();
+                    mess.BranchTypeId = 2;
+                    mess.CreateAt = DateTime.Now;
+                    mess.Message = "Mẫu " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa được [" + user_name + "] hoàn thành may mẫu, hãy kiểm KCS";
+                    mess.UsertId = check.FirstOrDefault().KCSId.Value;
+                    mess.isRead = false;
+                    mess.Path = "/kcs";
+                    db.tMessages.InsertOnSubmit(mess);
+
+                    //tbao toi thiet ke
+                    mess = new tMessage();
+                    mess.BranchTypeId = 2;
+                    mess.CreateAt = DateTime.Now;
+                    mess.Message = "Mẫu " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa được [" + user_name + "] hoàn thành SỬA mẫu";
+                    mess.UsertId = form.FirstOrDefault().CreateBy.Value;
+                    mess.isRead = false;
+                    mess.Path = "/form";
+                    db.tMessages.InsertOnSubmit(mess);
+                }
+                else
+                {
+                    //thong bao toi thiet ke hoan thanh may mau
+                    mess = new tMessage();
+                    mess.BranchTypeId = 2;
+                    mess.CreateAt = DateTime.Now;
+                    mess.Message = "Mẫu " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " đã được [" + user_name + "] HOÀN THÀNH may mẫu";
+                    mess.UsertId = form.FirstOrDefault().CreateBy;
+                    mess.isRead = false;
+                    mess.Path = "/form";
+                    db.tMessages.InsertOnSubmit(mess);
+
+
+                    //neu chua co trong kcs thi insert du lieu kcs
+                    var _kcs = new tKCSMau();
+                    _kcs.FormId = int.Parse(id.Trim());
+                    _kcs.Status = 1;//chua kiem//2-da kiem
+                    _kcs.ApprovedStatus = 1;//chua kiem//2-dat//3-ko dat//4-sua lai mau
+                    _kcs.CreateAt = DateTime.Now;
+                    _kcs.EditLevel = 0;
+                    _kcs.SewingId = b.FirstOrDefault().UserCut.Value;
+                    db.tKCSMaus.InsertOnSubmit(_kcs);
+
+                    //thong bao toi KCS
+                    var kcs = from k in db.tConfigApproves
+                              where k.tTable == "tForm" && k.Level == 4
+                              select new { k.AproveBy, k.GroupApproveBy };
+                    if (kcs.Count() > 0)
+                    {
+                        if (kcs.FirstOrDefault().AproveBy != null)
+                        {
+                            //tbao toi kcs
+                            mess = new tMessage();
+                            mess.BranchTypeId = 2;
+                            mess.CreateAt = DateTime.Now;
+                            mess.Message = "Mẫu " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa hoàn thành may mẫu, hãy kiểm tra KCS";
+                            mess.UsertId = kcs.FirstOrDefault().AproveBy.Value;
+                            mess.isRead = false;
+                            mess.Path = "/kcs";
+                            db.tMessages.InsertOnSubmit(mess);
+
+
+                            //insert du lieu duyet
+                            var app = new tApprove();
+                            app.tTable = "tKCS";
+                            app.tTableId = int.Parse(id.Trim());
+                            app.ApproveBy = kcs.FirstOrDefault().AproveBy.Value;
+                            app.ApproveStatus = 1;//chua kiem
+                            app.Level = 1;
+                            db.tApproves.InsertOnSubmit(app);
+                        }
+                        else
+                        {
+                            var gr = from a in db.tAccounts
+                                     where a.GroupUserId == kcs.FirstOrDefault().GroupApproveBy.Value && a.Status == 1
+                                     select new { a.Id };
+                            foreach (var item in gr.ToList())
+                            {
+                                //tbao toi kcs
+                                mess = new tMessage();
+                                mess.BranchTypeId = 2;
+                                mess.CreateAt = DateTime.Now;
+                                mess.Message = "Mẫu " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa hoàn thành may mẫu, hãy kiểm tra KCS";
+                                mess.UsertId = item.Id;
+                                mess.isRead = false;
+                                mess.Path = "/kcs";
+                                db.tMessages.InsertOnSubmit(mess);
+
+
+                                var app = new tApprove();
+                                app.tTable = "tKCS";
+                                app.tTableId = int.Parse(id.Trim());
+                                app.ApproveBy = item.Id;
+                                app.ApproveStatus = 1;//chua kiem
+                                app.Level = 1;
+                                db.tApproves.InsertOnSubmit(app);
+                            }
+                        }
+                    }
+                }
+                db.SubmitChanges();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Bạn không có quyền hoàn thành mẫu này, hãy kiểm tra lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi nhận hoàn thành mẫu, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result updateFormLive(string formId, string status, string content)
+    {
+        var r = new result();
+        try
+        {
+            var user_name = HttpContext.Current.Session["cm_fullname"].ToString();
+            var user_id = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+
+            CFileManagerDataContext db = new CFileManagerDataContext();
+
+            var b = from x in db.tFormLives
+                    where x.FormId == int.Parse(formId.Trim()) && x.Status == 1 && (x.ApprovedStatus == 1 || x.ApprovedStatus == 4)
+                    select x;
+            if (b.Count() > 0)
+            {
+                var get_app = from n in db.tApproves
+                              where n.tTable == "tFormLive" && n.tTableId == int.Parse(formId.Trim())
+                              && n.ApproveBy == user_id && n.ApproveStatus == 1
+                              select n;
+                if (get_app.Count() > 0)
+                {
+                    var form = from k in db.tForms where k.Id == int.Parse(formId.Trim()) select k;
+
+                    var code_form = form.FirstOrDefault().Code;
+                    var name_form = form.FirstOrDefault().Name;
+                    var createby_form = form.FirstOrDefault().CreateBy;
+
+                    b.FirstOrDefault().ApprovedBy = user_id;
+                    b.FirstOrDefault().ApprovedStatus = byte.Parse(status.Trim());//trang thai kiem: 2-duyet, 4-sua lai
+                    b.FirstOrDefault().ApprovedContent = content.Trim();
+
+                    //del nguoi duyet con lai
+                    var del_app = from n in db.tApproves
+                                  where n.tTable == "tFormLive" && n.tTableId == int.Parse(formId.Trim())
+                                  && n.ApproveBy != user_id && n.ApproveStatus == 1
+                                  select n;
+                    db.tApproves.DeleteAllOnSubmit(del_app);
+
+                    if (status.Trim() == "2")//neu mau song ok
+                    {
+                        get_app.FirstOrDefault().ApproveAt = DateTime.Now;
+                        get_app.FirstOrDefault().ApproveStatus = 2;//da duyet
+                        get_app.FirstOrDefault().ApproveContent = content.Trim();
+
+                        b.FirstOrDefault().Note = content.Trim();
+                        b.FirstOrDefault().Status = 2;//da duyet mau, neu sua lai thi giu nguuyen status=1
+                        b.FirstOrDefault().ApprovedAt = DateTime.Now;
+                        form.FirstOrDefault().Status = 8;//cho di lenh sx
+
+                        //thong bao da kiem toi thiet ke
+                        var mess = new tMessage();
+                        mess.BranchTypeId = 2;
+                        mess.CreateAt = DateTime.Now;
+                        mess.Message = user_name + " vừa DUYỆT mẫu sống " + name_form + " - " + code_form + " của bạn";
+                        mess.UsertId = createby_form;
+                        mess.ApprovedByName = user_name;//ten ng gui
+                        mess.ApprovedBy = user_id;//ng gui
+                        mess.isRead = false;
+                        mess.Path = "/form";
+                        db.tMessages.InsertOnSubmit(mess);
+
+                        //insert lenh san xuat
+                        var manu = new tManufacture();
+                        manu.CreateAt = DateTime.Now;
+                        manu.FormId = int.Parse(formId.Trim());
+                        manu.Status = 1;//
+                        db.tManufactures.InsertOnSubmit(manu);
+
+                        //thong bao toi nguoi lam lenh san xuat
+                        var appro = from n in db.tConfigApproves
+                                    where n.tTable == "tForm" && n.Level == 6
+                                    select new { n.GroupApproveBy, n.AproveBy, n.Level };
+                        if (appro.Count() > 0)
+                        {
+                            if (appro.FirstOrDefault().AproveBy != null)
+                            {
+                                var tApp = new tApprove();
+                                tApp.tTable = "tManufacture";
+                                tApp.tTableId = int.Parse(formId.Trim());
+                                tApp.ApproveBy = appro.FirstOrDefault().AproveBy;//ng nhan thong bao
+                                tApp.ApproveStatus = 1;//cho nhap
+                                tApp.Level = 1;
+                                db.tApproves.InsertOnSubmit(tApp);
+
+                                mess = new tMessage();
+                                mess.BranchTypeId = 2;
+                                mess.CreateAt = DateTime.Now;
+                                mess.Message = "Bạn có mẫu thiết kế " + name_form + " - " + code_form + " mới cần làm lệnh sản xuất";
+                                mess.UsertId = appro.FirstOrDefault().AproveBy;//ng nhan thong bao
+                                mess.isRead = false;
+                                mess.Path = "/manufacture";
+                                db.tMessages.InsertOnSubmit(mess);
+                            }
+                            else
+                            {
+                                var tApp = new tApprove();
+
+                                var gr = from g in db.tAccounts
+                                         where g.GroupUserId == appro.FirstOrDefault().GroupApproveBy.Value
+                                         select new { g.Id };
+                                foreach (var item in gr.ToList())
+                                {
+                                    tApp.tTable = "tManufacture";
+                                    tApp.tTableId = int.Parse(formId.Trim());
+                                    tApp.ApproveBy = item.Id;
+                                    tApp.ApproveStatus = 1;//cho nhap
+                                    tApp.Level = 1;
+                                    db.tApproves.InsertOnSubmit(tApp);
+
+                                    mess = new tMessage();
+                                    mess.BranchTypeId = 2;
+                                    mess.CreateAt = DateTime.Now;
+                                    mess.Message = "Bạn có mẫu thiết kế " + name_form + " - " + code_form + " mới cần làm lệnh sản xuất";
+                                    mess.UsertId = item.Id;//ng nhan thong bao
+                                    mess.isRead = false;
+                                    mess.Path = "/manufacture";
+                                    db.tMessages.InsertOnSubmit(mess);
+                                }
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //update formlive
+                        b.FirstOrDefault().EditLevel = byte.Parse((b.FirstOrDefault().EditLevel.Value + 1).ToString());
+                        b.FirstOrDefault().EditContent = b.FirstOrDefault().EditContent + "#" + content.Trim();
+
+                        //update form
+                        form.FirstOrDefault().Status = 5;//may mau sua lai mau song
+
+                        //insert vao bang may mau
+                        var se = new tSewing();
+                        se.FormId = int.Parse(formId.Trim());
+                        se.UserCut = b.FirstOrDefault().SewingId.Value;//ng nhan
+                        se.Status = 4;//sua lai mau
+                        se.CreateAt = DateTime.Now;
+                        se.DateCut = DateTime.Now;
+                        se.Note = content.Trim();
+                        db.tSewings.InsertOnSubmit(se);
+
+                        //update kcs
+                        var kcs = from k in db.tKCSMaus where k.FormId == int.Parse(formId.Trim()) select k;
+                        kcs.FirstOrDefault().ApprovedStatus = 4;//cho kiem lai
+                        kcs.FirstOrDefault().Status = 1;//cho duyet lai
+                        kcs.FirstOrDefault().CompleteDate = null;//chua kiem
+
+                        //insert duyet
+                        var ap = new tApprove();
+                        ap.tTable = "tKCS";
+                        ap.tTableId = int.Parse(formId.Trim());
+                        ap.ApproveStatus = 1;
+                        ap.Level = 1;
+                        ap.ApproveBy = kcs.FirstOrDefault().KCSId.Value;
+                        db.tApproves.InsertOnSubmit(ap);
+
+                        //neu sua lai mau, gui thong bao cho may mau truoc
+                        var mess = new tMessage();
+                        mess.BranchTypeId = 2;
+                        mess.CreateAt = DateTime.Now;
+                        mess.Message = user_name + " vừa yêu cầu sửa lại mẫu " + name_form + " - " + code_form + ": " + content.Trim();
+                        mess.UsertId = b.FirstOrDefault().SewingId.Value;//ng nhan
+                        mess.ApprovedByName = user_name;//ten ng gui
+                        mess.ApprovedBy = user_id;//ng gui thong bao
+                        mess.isRead = false;
+                        mess.Path = "/sewing";
+                        db.tMessages.InsertOnSubmit(mess);
+
+                        //gui tbao cho thiet ke
+                        mess = new tMessage();
+                        mess.BranchTypeId = 2;
+                        mess.CreateAt = DateTime.Now;
+                        mess.Message = user_name + " vừa yêu cầu sửa lại mẫu " + name_form + " - " + code_form + ": " + content.Trim();
+                        mess.UsertId = form.FirstOrDefault().CreateBy.Value;
+                        mess.ApprovedByName = user_name;//ten ng gui
+                        mess.ApprovedBy = user_id;//ng gui thong bao
+                        mess.isRead = false;
+                        mess.Path = "/form";
+                        db.tMessages.InsertOnSubmit(mess);
+                    }
+                    db.SubmitChanges();
+                    r._content = "1";
+
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Bạn không có quyền duyệt mẫu sống hoặc mẫu đã được duyệt, hãy kiểm tra lại !";
+                }
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin mẫu hoặc đã được duyệt, hãy kiểm tra lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi duyệt mẫu, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result updateKCS(string formId, string status, string content)
+    {
+        var r = new result();
+        try
+        {
+            var user_name = HttpContext.Current.Session["cm_fullname"].ToString();
+            var user_id = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+
+            CFileManagerDataContext db = new CFileManagerDataContext();
+
+            var b = from x in db.tKCSMaus where x.FormId == int.Parse(formId.Trim()) 
+                    && x.Status == 1 && (x.ApprovedStatus==1 || x.ApprovedStatus==4)//cho kiem hoac cho sua lai
+                    select x;
+            if (b.Count() > 0)
+            {
+                var get_app = from n in db.tApproves
+                              where n.tTable == "tKCS" && n.tTableId == int.Parse(formId.Trim())
+                              && n.ApproveBy == user_id && n.ApproveStatus == 1
+                              select n;
+                if (get_app.Count() > 0)
+                {
+                    var form = from k in db.tForms where k.Id == int.Parse(formId.Trim()) select k;
+
+                    var code_form = form.FirstOrDefault().Code;
+                    var name_form = form.FirstOrDefault().Name;
+                    var createby_form = form.FirstOrDefault().CreateBy;
+
+                    b.FirstOrDefault().KCSId = user_id;
+                    b.FirstOrDefault().ApprovedStatus = byte.Parse(status.Trim());//trang thai kiem: 2-duyet, 4-sua lai
+                    b.FirstOrDefault().ApproveNote = content.Trim();
+
+                    var mess = new tMessage();
+
+                    //del nguoi duyet con lai
+                    var del_app = from n in db.tApproves
+                                  where n.tTable == "tKCS" && n.tTableId == int.Parse(formId.Trim())
+                                  && n.ApproveBy != user_id && n.ApproveStatus == 1
+                                  select n;
+                    db.tApproves.DeleteAllOnSubmit(del_app);
+
+                    if (status.Trim() == "2")//neu kcs ok
+                    {
+                        get_app.FirstOrDefault().ApproveAt = DateTime.Now;
+                        get_app.FirstOrDefault().ApproveStatus = 2;//da duyet
+                        get_app.FirstOrDefault().ApproveContent = content.Trim();
+
+                        b.FirstOrDefault().Note = content.Trim();
+                        b.FirstOrDefault().Status = 2;//da kiem kcs, neu sua lai thi giu nguuyen status=1
+                        b.FirstOrDefault().CompleteDate = DateTime.Now;
+                        form.FirstOrDefault().Status = 7;//cho duyet mau song
+
+                      
+                        //tbao toi may mau, kcs ok
+                        mess = new tMessage();
+                        mess.BranchTypeId = 2;
+                        mess.CreateAt = DateTime.Now;
+                        mess.Message = "KCS [" + user_name + "] vừa kiểm DUYỆT mẫu " + name_form + " - " + code_form + " của bạn";
+                        mess.UsertId = b.FirstOrDefault().SewingId.Value;
+                        mess.ApprovedByName = user_name;//ten ng gui
+                        mess.ApprovedBy = user_id;//ng gui
+                        mess.isRead = false;
+                        mess.Path = "/sewing";
+                        db.tMessages.InsertOnSubmit(mess);
+
+                        //neu co sua lai mau
+                        var check = from k in db.tFormLives
+                                    where k.FormId == int.Parse(formId.Trim()) && k.ApprovedBy!=null
+                                    select k;
+                        if (check.Count() > 0)//neu da co trong duyet mau song
+                        {
+                            ////insert du lieu duyet mau song
+                            //var formlive = new tFormLive();
+                            //formlive.FormId = int.Parse(formId.Trim());
+                            //formlive.ApprovedStatus = 4;//cho duyet lai mau song
+                            //formlive.CreateAt = DateTime.Now;
+                            //formlive.Status = 1;//cho duyet
+                            //formlive.EditLevel = 0;
+                            //formlive.SewingId = b.FirstOrDefault().SewingId.Value;//may mau
+                            //db.tFormLives.InsertOnSubmit(formlive);
+
+                            ////insert du lieu duyet
+                            //var tApp = new tApprove();
+                            //tApp.tTable = "tFormLive";
+                            //tApp.tTableId = int.Parse(formId.Trim());
+                            //tApp.ApproveBy = check.FirstOrDefault().ApprovedBy.Value;
+                            //tApp.ApproveStatus = 1;//cho duyet;
+                            //tApp.Level = 1;
+                            //db.tApproves.InsertOnSubmit(tApp);
+
+                            //tbao den nguoi duyet mau song trc do
+                            mess = new tMessage();
+                            mess.BranchTypeId = 2;
+                            mess.CreateAt = DateTime.Now;
+                            mess.Message = "Bạn có mẫu thiết kế " + name_form + " - " + code_form + " mới cần duyệt mẫu sống";
+                            mess.UsertId = check.FirstOrDefault().ApprovedBy.Value;
+                            mess.isRead = false;
+                            mess.Path = "/liveform";
+                            db.tMessages.InsertOnSubmit(mess);
+
+                            //tbao den thiet ke
+                            mess = new tMessage();
+                            mess.BranchTypeId = 2;
+                            mess.CreateAt = DateTime.Now;
+                            mess.Message = "Mẫu thiết kế " + name_form + " - " + code_form + " vừa được KCS [" + user_name + "] kiểm DUYỆT";
+                            mess.UsertId = form.FirstOrDefault().CreateBy.Value;
+                            mess.isRead = false;
+                            mess.Path = "/liveform";
+                            db.tMessages.InsertOnSubmit(mess);
+                        }
+                        else
+                        {
+                            //thong bao da kiem toi thiet ke
+                            mess = new tMessage();
+                            mess.BranchTypeId = 2;
+                            mess.CreateAt = DateTime.Now;
+                            mess.Message = "KCS [" + user_name + "] vừa kiểm DUYỆT mẫu " + name_form + " - " + code_form + " của bạn";
+                            mess.UsertId = createby_form;
+                            mess.ApprovedByName = user_name;//ten ng gui
+                            mess.ApprovedBy = user_id;//ng gui
+                            mess.isRead = false;
+                            mess.Path = "/form";
+                            db.tMessages.InsertOnSubmit(mess);
+
+                            //thong bao toi nguoi duyet tiep theo(duyet mau song)
+                            var appro = from n in db.tConfigApproves
+                                        where n.tTable == "tForm" && n.Level == 5
+                                        select new { n.GroupApproveBy, n.AproveBy, n.Level };
+                            if (appro.Count() > 0)
+                            {
+                                if (appro.FirstOrDefault().AproveBy != null)
+                                {
+                                    //insert form live
+                                    var formlive = new tFormLive();
+                                    formlive.FormId = int.Parse(formId.Trim());
+                                    formlive.ApprovedStatus = 1;//cho duyet mau song
+                                    formlive.CreateAt = DateTime.Now;
+                                    formlive.Status = 1;//chua duyet
+                                    formlive.EditLevel = 0;
+                                    formlive.SewingId = b.FirstOrDefault().SewingId.Value;//may mau
+                                    db.tFormLives.InsertOnSubmit(formlive);
+
+                                    //insert du lieu duyet
+                                    var tApp = new tApprove();
+                                    tApp.tTable = "tFormLive";
+                                    tApp.tTableId = int.Parse(formId.Trim());
+                                    tApp.ApproveBy = appro.FirstOrDefault().AproveBy.Value;
+                                    tApp.ApproveStatus = 1;//cho duyet;
+                                    tApp.Level = 1;
+                                    db.tApproves.InsertOnSubmit(tApp);
+
+                                    //tbao cho nguoi duyet mau song
+                                    mess = new tMessage();
+                                    mess.BranchTypeId = 2;
+                                    mess.CreateAt = DateTime.Now;
+                                    mess.Message = "Bạn có mẫu thiết kế " + name_form + " - " + code_form + " mới cần duyệt mẫu sống";
+                                    mess.UsertId = appro.FirstOrDefault().AproveBy;//ng nhan thong bao
+                                    mess.isRead = false;
+                                    mess.Path = "/liveform";
+                                    db.tMessages.InsertOnSubmit(mess);
+                                }
+                                else
+                                {
+                                    var tApp = new tApprove();
+
+                                    var gr = from g in db.tAccounts
+                                             where g.GroupUserId == appro.FirstOrDefault().GroupApproveBy.Value
+                                             select new { g.Id };
+                                    foreach (var item in gr.ToList())
+                                    {
+
+                                        //insert form live
+                                        var formlive = new tFormLive();
+                                        formlive.FormId = int.Parse(formId.Trim());
+                                        formlive.ApprovedStatus = 1;//cho duyet mau song
+                                        formlive.CreateAt = DateTime.Now;
+                                        formlive.Status = 1;//chua duyet
+                                        formlive.EditLevel = 0;
+                                        formlive.SewingId = b.FirstOrDefault().SewingId.Value;//may mau
+                                        db.tFormLives.InsertOnSubmit(formlive);
+
+                                        //insert bang duyet
+                                        tApp = new tApprove();
+                                        tApp.tTable = "tFormLive";
+                                        tApp.tTableId = int.Parse(formId.Trim());
+                                        tApp.ApproveBy = appro.FirstOrDefault().AproveBy.Value;
+                                        tApp.ApproveStatus = 1;//cho duyet;
+                                        tApp.Level = 1;
+                                        db.tApproves.InsertOnSubmit(tApp);
+
+                                        //tbao cho ng duyet mau song
+                                        mess = new tMessage();
+                                        mess.BranchTypeId = 2;
+                                        mess.CreateAt = DateTime.Now;
+                                        mess.Message = "Bạn có mẫu thiết kế " + name_form + " - " + code_form + " mới cần duyệt mẫu sống";
+                                        mess.UsertId = item.Id;//ng nhan thong bao
+                                        mess.isRead = false;
+                                        mess.Path = "/liveform";
+                                        db.tMessages.InsertOnSubmit(mess);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //update kcs
+                        b.FirstOrDefault().EditLevel = byte.Parse((b.FirstOrDefault().EditLevel.Value + 1).ToString());
+                        b.FirstOrDefault().EditContent = b.FirstOrDefault().EditContent + "#" + content.Trim();
+
+                        //gui lai cho may mau
+                        var mm = new tSewing();
+                        mm.FormId = int.Parse(formId.Trim());
+                        mm.UserCut = b.FirstOrDefault().SewingId.Value;//ng cat truoc
+                        mm.DateCut = DateTime.Now;
+                        mm.Status = 4;//dang sua lai mau
+                        mm.CreateAt = DateTime.Now;
+                        db.tSewings.InsertOnSubmit(mm);
+
+                        //insert du lieu duyet
+                        var d = new tApprove();
+                        d.tTable = "tSewing";
+                        d.tTableId = int.Parse(formId.Trim());
+                        d.ApproveBy = b.FirstOrDefault().SewingId.Value;//ng cat
+                        d.ApproveStatus = 1;//chua duyet
+                        d.Level = 1;//
+                        db.tApproves.InsertOnSubmit(d);
+
+                        //update form
+                        form.FirstOrDefault().Status = 4;//cho may mau lai
+
+                        //neu sua lai mau, gui thong bao cho may mau truoc
+                        mess = new tMessage();
+                        mess.BranchTypeId = 2;
+                        mess.CreateAt = DateTime.Now;
+                        mess.Message = "KCS [" + user_name + "] vừa yêu cầu sửa lại mẫu hình ảnh " + name_form + " - " + code_form + ": " + content.Trim();
+                        mess.UsertId = b.FirstOrDefault().SewingId.Value;//ng nhan
+                        mess.ApprovedByName = user_name;//ten ng gui
+                        mess.ApprovedBy = user_id;//ng gui thong bao
+                        mess.isRead = false;
+                        mess.Path = "/form";
+                        db.tMessages.InsertOnSubmit(mess);
+                        
+                        // gui thong bao cho thiet ke
+                        mess = new tMessage();
+                        mess.BranchTypeId = 2;
+                        mess.CreateAt = DateTime.Now;
+                        mess.Message = "KCS [" + user_name + "] vừa yêu cầu sửa lại mẫu hình ảnh " + name_form + " - " + code_form + ": " + content.Trim();
+                        mess.UsertId = form.FirstOrDefault().CreateBy.Value;
+                        mess.ApprovedByName = user_name;//ten ng gui
+                        mess.ApprovedBy = user_id;//ng gui thong bao
+                        mess.isRead = false;
+                        mess.Path = "/form";
+                        db.tMessages.InsertOnSubmit(mess);
+                    }
+                    db.SubmitChanges();
+                    r._content = "1";
+
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Bạn không có quyền kiểm duyệt KCS mẫu hoặc mẫu đã được duyệt, hãy kiểm tra lại !";
+                }
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin mẫu hoặc đã được kiểm, hãy kiểm tra lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi duyệt mẫu, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result ApprovedForm(string id, string status,string content)
+    {
+        var r = new result();
+        try
+        {
+            var user_name = HttpContext.Current.Session["cm_fullname"].ToString();
+            var user_id = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var b = from x in db.tForms where x.Id == int.Parse(id.Trim()) && x.Status == 1 select x;
+            if (b.Count() > 0)
+            {
+                //kiem tra quyen duyet
+                var get_app = from n in db.tApproves
+                              where n.tTable == "tForm" && n.tTableId == int.Parse(id.Trim())
+                              && n.ApproveBy == user_id && n.ApproveStatus == 1
+                              select n;
+                if (get_app.Count() > 0)
+                {
+                    var b_code = b.FirstOrDefault().Code;
+                    var b_name = b.FirstOrDefault().Name;
+                    var level = get_app.FirstOrDefault().Level + 1;
+
+                    //xoa nhung khac duyet Id nay di
+                    var del_app = from x in db.tApproves
+                                  where x.tTable == "tForm" && x.tTableId == int.Parse(id.Trim())
+                                  && x.ApproveBy != int.Parse(HttpContext.Current.Session["cm_userId"].ToString())
+                                  && x.ApproveStatus == 1
+                                  select x;
+                    db.tApproves.DeleteAllOnSubmit(del_app);
+                    //db.SubmitChanges();
+
+                    b.FirstOrDefault().ApprovedStatus = 2;//da duyet
+                    b.FirstOrDefault().ApprovedAt = DateTime.Now;
+                    b.FirstOrDefault().ApprovedBy = user_id;
+                    b.FirstOrDefault().ApprovedNote = content.Trim();
+
+                    if (status.Trim() == "2")//neu duyet thi sang buoc tiep theo
+                    {
+                        //bang duyet
+                        get_app.FirstOrDefault().ApproveStatus= byte.Parse(status.Trim());//trang thai duyet
+                        get_app.FirstOrDefault().ApproveContent = content.Trim();
+                        get_app.FirstOrDefault().ApproveAt = DateTime.Now;
+
+                        //thong bao da duyet toi thiet ke
+                        var mess = new tMessage();
+                        mess.BranchTypeId = 2;
+                        mess.CreateAt = DateTime.Now;
+                        mess.Message = "["+user_name + "] vừa DUYỆT mẫu hình ảnh " + b.FirstOrDefault().Name + " - " + b.FirstOrDefault().Code + " của bạn";
+                        mess.UsertId = b.FirstOrDefault().CreateBy;
+                        mess.ApprovedByName = user_name;
+                        mess.ApprovedBy = user_id;
+                        mess.isRead = false;
+                        mess.Path = "/form";
+                        db.tMessages.InsertOnSubmit(mess);
+
+                        //thong bao toi nguoi duyet tiep theo
+                        var appro = from n in db.tConfigApproves
+                                    where n.tTable == "tForm" && n.Level == level
+                                    select new { n.Id, n.GroupApproveBy, n.AproveBy, n.Level };
+                        if (appro.Count() > 0)
+                        {
+                            b.FirstOrDefault().Status = 2;//chuyen sang cho cat rap
+
+                            if (appro.FirstOrDefault().AproveBy != null)
+                            {
+                                //gui toi ng cat rap
+                                mess = new tMessage();
+                                mess.BranchTypeId = 2;
+                                mess.CreateAt = DateTime.Now;
+                                mess.Message = "Bạn có mẫu thiết kế " + b_name + " - " + b_code + " mới cần cắt rập";
+                                mess.UsertId = appro.FirstOrDefault().AproveBy;
+                                mess.isRead = false;
+                                mess.Path = "/fnorm";
+                                db.tMessages.InsertOnSubmit(mess);
+
+                                var app = new tApprove();
+                                app.tTable = "tCut";//cat rap
+                                app.tTableId = int.Parse(id.Trim());
+                                app.ApproveBy = appro.FirstOrDefault().AproveBy;
+                                app.ApproveStatus = 1;//cho duyet;
+                                app.Level = byte.Parse(level.ToString());
+                                db.tApproves.InsertOnSubmit(app);
+                            }
+                            else
+                            {
+                                //gui den nhom
+                                var g = from gr in db.tAccounts
+                                        where gr.Status == 1 && gr.GroupUserId == appro.FirstOrDefault().GroupApproveBy.Value
+                                        select gr;
+                                foreach (var item in g.ToList())
+                                {
+                                    mess = new tMessage();
+                                    mess.BranchTypeId = 2;
+                                    mess.CreateAt = DateTime.Now;
+                                    mess.Message = "Bạn có mẫu thiết kế " + b_name + " - " + b_code + " mới cần cắt rập";
+                                    mess.UsertId = item.Id;
+                                    mess.isRead = false;
+                                    mess.Path = "/fnorm";
+                                    db.tMessages.InsertOnSubmit(mess);
+
+                                    var app = new tApprove();
+                                    app.tTable = "tCut";//cat rap
+                                    app.tTableId = int.Parse(id.Trim());
+                                    app.ApproveBy = item.Id;
+                                    app.ApproveStatus = 1;//cho duyet;
+                                    app.Level = byte.Parse(level.ToString());
+                                    db.tApproves.InsertOnSubmit(app);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            //neu k co ng duyet tiep theo thi ket thuc trang thai duyet ok
+                            //b.FirstOrDefault().Status = 2;//9: hoan thien
+                            
+                            //thong bao duyet toi thiet ke
+                            mess = new tMessage();
+                            mess.BranchTypeId = 2;
+                            mess.CreateAt = DateTime.Now;
+                            mess.Message = "[" + user_name + (status.Trim() == "2" ? "] vừa DUYỆT" : "] KHÔNG duyệt") + " mẫu hình ảnh " + b.FirstOrDefault().Name + " - " + b.FirstOrDefault().Code + " của bạn";
+                            mess.UsertId = b.FirstOrDefault().CreateBy;
+                            mess.ApprovedByName = user_name;
+                            mess.ApprovedBy = user_id;
+                            mess.isRead = false;
+                            mess.Path = "/form";
+                            db.tMessages.InsertOnSubmit(mess);
+                        }
+                    }
+                    else
+                    {
+                        //neu ko duyet
+                        b.FirstOrDefault().Status= byte.Parse(status.Trim());//trang thai duyet
+                        
+                        //thong bao ko duyet toi thiet ke
+                        var mess = new tMessage();
+                        mess.BranchTypeId = 2;
+                        mess.CreateAt = DateTime.Now;
+                        mess.Message = "[" + user_name + "] KHÔNG duyệt mẫu hình ảnh " + b.FirstOrDefault().Name + " - " + b.FirstOrDefault().Code + " của bạn";
+                        mess.UsertId = b.FirstOrDefault().CreateBy;
+                        mess.ApprovedByName = user_name;
+                        mess.ApprovedBy = user_id;
+                        mess.isRead = false;
+                        mess.Path = "/form";
+                        db.tMessages.InsertOnSubmit(mess);
+                    }
+                    db.SubmitChanges();
+                    r._content = "1";
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Bạn không có quyền duyệt mẫu hình ảnh này hoặc mẫu đã được duyệt, kiểm tra lại !";
+                }
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin mẫu hoặc đã được duyệt, hãy thử lại";
             }
         }
         catch (Exception ax)
@@ -5189,11 +6743,12 @@ public partial class Command : System.Web.UI.Page
         var r = new List<result>();
 
         CFileManagerDataContext db = new CFileManagerDataContext();
-        var g = from x in db.tGroupUsers where x.Status == 1 select new { x.Id, x.GroupName };
+        var g = from x in db.tGroupUsers where x.Status == 1 select new { x.Id, x.GroupCode, x.GroupName };
         foreach (var item in g.ToList())
         {
             var gr = new result();
             gr._id = item.Id.ToString();
+            gr._mess = item.GroupCode;
             gr._content = item.GroupName;
             r.Add(gr);
         }
@@ -5292,18 +6847,16 @@ public partial class Command : System.Web.UI.Page
         return r;
     }
     [WebMethod]
-    public static List<result> loadUserByBranchType(string branchType)
+    public static List<result> loadUserByBranchType(string branchType, string group)
     {
         var r = new List<result>();
         CFileManagerDataContext db = new CFileManagerDataContext();
-        var l = from x in db.tAccounts
-                where x.Status == 1 && x.BranchTypeId == int.Parse(branchType.Trim())
-                select new { x.Id, Name = x.Username + " | " + x.FullName };
+        var l = db.sp_web_loadUserByBranchTypeGroup(branchType.Trim(), group.Trim());
         foreach (var item in l.ToList())
         {
             var n = new result();
             n._id = item.Id.ToString();
-            n._content = item.Name;
+            n._content = item.Username + " | " + item.FullName;
             r.Add(n);
         }
 
@@ -5713,6 +7266,124 @@ public partial class Command : System.Web.UI.Page
         {
             set { mess = value; }
             get { return mess; }
+        }
+    }
+    public class manufacturedetail
+    {
+        private string id = "", content = "", mess = "", colorid = "", colorname = "", sizeS = "", sizeM = "", sizeL = "", sizeXL = "", sizeXXL = "", note = "";
+        public string _id
+        {
+            set { id = value; }
+            get { return id; }
+        }
+        public string _content
+        {
+            set { content = value; }
+            get { return content; }
+        }
+        public string _mess
+        {
+            set { mess = value; }
+            get { return mess; }
+        }
+        public string ColorId
+        {
+            set { colorid = value; }
+            get { return colorid; }
+        }
+        public string ColorName
+        {
+            set { colorname = value; }
+            get { return colorname; }
+        }
+        public string SizeS
+        {
+            set { sizeS = value; }
+            get { return sizeS; }
+        }
+        public string SizeM
+        {
+            set { sizeM = value; }
+            get { return sizeM; }
+        }
+        public string SizeL
+        {
+            set { sizeL = value; }
+            get { return sizeL; }
+        }
+        public string SizeXL
+        {
+            set { sizeXL = value; }
+            get { return sizeXL; }
+        }
+        public string SizeXXL
+        {
+            set { sizeXXL = value; }
+            get { return sizeXXL; }
+        }
+        public string Note
+        {
+            set { note = value; }
+            get { return note; }
+        }
+    }
+    public class normForm
+    {
+        private string id = "", createby = "", code = "", name = "", materialId = "", materialName = "", normvalue = "", unit = "", note = "", mess = "", ok = "";
+        public string Id
+        {
+            set { id = value; }
+            get { return id; }
+        }
+        public string MaterialId
+        {
+            set { materialId = value; }
+            get { return materialId; }
+        }
+        public string MaterialName
+        {
+            set { materialName = value; }
+            get { return materialName; }
+        }
+        public string NormValue
+        {
+            set { normvalue = value; }
+            get { return normvalue; }
+        }
+        public string Unit
+        {
+            set { unit = value; }
+            get { return unit; }
+        }
+        public string Note
+        {
+            set { note = value; }
+            get { return note; }
+        }
+        public string Mess
+        {
+            set { mess = value; }
+            get { return mess; }
+        }
+        public string OK
+        {
+            set { ok = value; }
+            get { return ok; }
+        }
+        public string CreateBy
+        {
+            set { createby = value; }
+            get { return createby; }
+        }
+        public string FormCode
+        {
+            set { code = value; }
+            get { return code; }
+        }
+        public string FormName
+        {
+            set { name = value; }
+            get { return name; }
         }
     }
     public class feedback

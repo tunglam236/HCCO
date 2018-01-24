@@ -19,8 +19,9 @@ public partial class OfferOutput : System.Web.UI.Page
             else
             {
                 loadBranchType();
+                loadStatus();
                 loadBranch(rdBranchType.SelectedValue);
-                lbData.Text = loadForm(rdBranchType.SelectedValue, rdBranch.SelectedValue, rdStatus.SelectedValue);
+                lbData.Text = loadForm(rdBranchType.SelectedValue, rdBranch.SelectedValue, rdUser.SelectedValue);
             }
         }
     }
@@ -46,7 +47,19 @@ public partial class OfferOutput : System.Web.UI.Page
         rdBranch.Items.Insert(0, new ListItem("Tất cả", ""));
         rdBranch.SelectedValue = "";
     }
-
+    void loadStatus()
+    {
+        rdUser.DataSource = from x in db.tGroupUsers
+                            from y in db.tAccounts
+                            where x.Id == y.GroupUserId && y.Status != 0
+                            && x.GroupCode == "DESIGN"
+                            select new { y.Id, y.FullName };
+        rdUser.DataTextField = "FullName";
+        rdUser.DataValueField = "Id";
+        rdUser.DataBind();
+        rdUser.Items.Insert(0, new ListItem("Tất cả", ""));
+        rdUser.SelectedIndex = 0;
+    }
     protected void rdBranchType_SelectedIndexChanged(object sender, EventArgs e)
     {
         loadBranch(rdBranchType.SelectedValue);
@@ -54,32 +67,25 @@ public partial class OfferOutput : System.Web.UI.Page
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        lbData.Text = loadForm(rdBranchType.SelectedValue, rdBranch.SelectedValue, rdStatus.SelectedValue);
+        lbData.Text = loadForm(rdBranchType.SelectedValue, rdBranch.SelectedValue, rdUser.SelectedValue);
     }
     public string loadForm(string branchTypeId, string branchId, string status)
     {
         string result = ""; int i = 1;
-        string label = "";
-        var m = db.sp_web_loadImportMaterial(branchTypeId.Trim(), branchId.Trim(), status.Trim());
+        var m = db.sp_web_loadExportMaterial(branchTypeId.Trim(), branchId.Trim(), status.Trim());
         var userId = Session["cm_userId"].ToString();
+
         foreach (var item in m.ToList())
         {
-            result += "<tr data-toggle='modal' data-target='#addDept' class='detail-rows' onclick ='update_modal(\"" + item.Id.ToString() + "\",\"" + item.BranchTypeId.ToString() + "\",\"" + item.BranchId + "\",\"" + item.Description + "\",\"" + (item.CreateBy.ToString() == userId && item.StatusId == 1 ? 1 : 0) + "\");' id ='delete" + item.Id.ToString() + "' title='Click để xem chi tiết'>";
+            result += "<tr data-toggle='modal' data-target='#addDept' class='detail-rows' onclick ='update_modal(\"" + item.Id.ToString() + "\",\"" + item.BranchTypeId.ToString() + "\",\"" + item.BranchId + "\",\"" + item.FormId.ToString() + "\",\"" + item.Description + "\");' id ='delete" + item.Id.ToString() + "' title='Click để xem chi tiết'>";
             result += "<td class='center'>" + i.ToString() + "</td>";
             result += "<td>" + item.BranchName + "</td>";
             result += "<td>" + item.CreateAt + "</td>";
-            result += "<td>" + item.ImportCode + "</td>";
-            result += "<td>" + item.Description + "</td>";
             result += "<td>" + item.FullName + "</td>";
-            result += "<td>" + item.DateReceiver + "</td>";
-
-            if (item.StatusId.Value == 1)
-                label = "label-warning";
-            else if (item.StatusId.Value == 2)
-                label = "label-primary";
-            else label = "label-danger";
-
-            result += "<td><span class='label " + label + "'>" + item.Status + "</span></td>";
+            result += "<td>" + item.ExportCode + "</td>";
+            result += "<td>" + item.DesignName + "</td>";
+            result += "<td>" + item.Name + " - " + item.Code + "</td>";
+            result += "<td>" + item.Description + "</td>";
             result += "</tr>";
             i++;
         }

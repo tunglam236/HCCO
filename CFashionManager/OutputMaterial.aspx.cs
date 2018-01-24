@@ -5,14 +5,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class AppInputStock : System.Web.UI.Page
+public partial class OutputMaterial : System.Web.UI.Page
 {
     CFileManagerDataContext db = new CFileManagerDataContext();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            if (string.IsNullOrEmpty(Convert.ToString(Session["cm_branchTypeId"])) || string.IsNullOrEmpty(Convert.ToString(Session["cm_userId"])))
+            if (string.IsNullOrEmpty(Convert.ToString(Session["cm_branchTypeId"])))
             {
                 Response.Redirect("/login");
             }
@@ -60,31 +60,26 @@ public partial class AppInputStock : System.Web.UI.Page
     {
         string result = ""; int i = 1;
         string label = "";
-        var user = Session["cm_userId"].ToString();
-        //var color = new string[] { "label label-default", "label label-primary", "label label-success", "label label-danger" };
-        var m = db.sp_web_loadImportMaterialApproved(branchTypeId.Trim(), branchId.Trim(), status.Trim(), user);
+        var m = db.sp_web_loadImportMaterial(branchTypeId.Trim(), branchId.Trim(), status.Trim());
+        var userId = Session["cm_userId"].ToString();
         foreach (var item in m.ToList())
         {
-            result += "<tr data-toggle='modal' data-target='#addDept' class='detail-rows' onclick ='update_modal(\"" + item.Id.ToString() + "\",\"" + item.BranchName + "\",\"" + item.Description + "\",\"" + item.FullName + "\",\"" + item.CreateAt + "\"," + item.StatusId + ");' id ='delete" + item.Id.ToString() + "' title='Click để xem chi tiết'>";
+            result += "<tr data-toggle='modal' data-target='#addDept' class='detail-rows' onclick ='update_modal(\"" + item.Id.ToString() + "\",\"" + item.BranchTypeId.ToString() + "\",\"" + item.BranchId + "\",\"" + item.Description + "\",\"" + (item.CreateBy.ToString() == userId && item.StatusId == 1 ? 1 : 0) + "\");' id ='delete" + item.Id.ToString() + "' title='Click để xem chi tiết'>";
             result += "<td class='center'>" + i.ToString() + "</td>";
-
-            if (item.StatusId.Value == 1)
-                label = "blink label label-warning";
-            else if (item.StatusId.Value == 2)
-                label = "label label-primary";
-            else if (item.StatusId.Value == 3 || item.StatusId.Value==4)
-                label = "label label-danger";
-            else if (item.StatusId.Value == 0)
-                label = "label label-success";
-
-            result += "<td><span class='" + label + "' id='lbstatus" + item.Id.ToString() + "'>" + item.Status + "</span></td>";
-            result += "<td>" + item.ApproName + "</td>";
-            result += "<td>" + item.ApprovedAt + "</td>";
             result += "<td>" + item.BranchName + "</td>";
             result += "<td>" + item.CreateAt + "</td>";
             result += "<td>" + item.ImportCode + "</td>";
             result += "<td>" + item.Description + "</td>";
             result += "<td>" + item.FullName + "</td>";
+            result += "<td>" + item.DateReceiver + "</td>";
+
+            if (item.StatusId.Value == 1)
+                label = "label-warning";
+            else if (item.StatusId.Value == 2)
+                label = "label-primary";
+            else label = "label-danger";
+
+            result += "<td><span class='label " + label + "'>" + item.Status + "</span></td>";
             result += "</tr>";
             i++;
         }

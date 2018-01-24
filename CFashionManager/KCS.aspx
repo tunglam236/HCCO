@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Duyệt mẫu hình ảnh" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="AppForm.aspx.cs" Inherits="AppForm" %>
+﻿<%@ Page Title="Kiểm KCS mẫu" Language="C#" MasterPageFile="~/Admin.master" AutoEventWireup="true" CodeFile="KCS.aspx.cs" Inherits="KCS" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 <link href="dist/css/client.css" rel="stylesheet" />
@@ -6,7 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cph" Runat="Server">
     <section class="content">
    <div class="row">
-        <div class="col-xs-12 col-md-2" style="padding:10px;">
+        <div class="col-xs-12 col-md-2" style=" padding:10px;">
       <div class="panel-group">
         <div class="panel panel-success">
           <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
@@ -15,9 +15,10 @@
           <div class="panel-collapse">
               <asp:RadioButtonList ID="rdStatus" CssClass="rdList" runat="server" RepeatDirection="Vertical">
                   <asp:ListItem Text="Tất cả" Value="0" Selected="True"></asp:ListItem>
-                  <asp:ListItem Text="Chờ duyệt" Value="1"></asp:ListItem>
-                  <asp:ListItem Text="Đã duyệt" Value="2"></asp:ListItem>
-                  <asp:ListItem Text="Không duyệt" Value="3"></asp:ListItem>
+                  <asp:ListItem Text="Chưa kiểm" Value="1"></asp:ListItem>
+                  <asp:ListItem Text="Kiểm đạt" Value="2"></asp:ListItem>
+                  <asp:ListItem Text="Không đạt" Value="3"></asp:ListItem>
+                  <asp:ListItem Text="Chờ sửa lại" Value="4"></asp:ListItem>
               </asp:RadioButtonList>
           </div>
         </div>
@@ -25,7 +26,7 @@
       <div class="panel-group">
         <div class="panel panel-success">
           <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
-            <h4 class="panel-title"><i class="fa fa-user"></i> Thiết kế</h4>
+            <h4 class="panel-title"><i class="fa fa-user"></i> KCS</h4>
           </div>
           <div class="panel-collapse" style="padding:5px;">
               <asp:RadioButtonList ID="rdUser" CssClass="rdList" runat="server" RepeatDirection="Vertical">
@@ -38,45 +39,48 @@
        <div class="col-xs-12 col-md-10">
       <section class="">
    <div class="pull-left">
-             <h3 style="margin:5px; font-weight:bold;"><i class="fa fa-legal"></i> Duyệt mẫu thiết kế</h3>
+      <h3 style="margin:5px; font-weight:bold;"><i class="fa fa-gears"></i> Kiểm KCS mẫu</h3>
    </div>
    <div style="text-align:right; padding-bottom:10px;">
       <div class="dropdown">
-            <button class="btn btn-sm btn-danger dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-th"></i> Hiển thị</button>
-       <ul class="dropdown-menu ul-column" style="margin-left:-65px;">
+      <button class="btn btn-sm btn-danger dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-th"></i> Hiển thị</button>
+        <ul class="dropdown-menu ul-column" style="margin-left:-65px;">
             <li><a href="#" class="small toggle-vis" data-column="1" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Trạng thái</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="2" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Người thiết kế</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="3" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Loại mẫu</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="4" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mã thiết kế</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="5" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Tên mẫu</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="6" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mẫu tháng</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="7" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mô tả</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="8" tabIndex="-1"><label><input type="checkbox" />&nbsp;Ngày tạo</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="9" tabIndex="-1"><label><input type="checkbox" />&nbsp;Người duyệt</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="10" tabIndex="-1"><label><input type="checkbox" />&nbsp;Ngày duyệt</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="11" tabIndex="-1"><label><input type="checkbox" />&nbsp;Nội dung duyệt</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="2" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Người kiểm</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="3" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ngày kiểm</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="4" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;May mẫu</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="5" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Người thiết kế</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="6" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mã thiết kế</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="7" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Tên mẫu</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="8" tabIndex="-1"><label><input type="checkbox" />&nbsp;Mẫu tháng</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="9" tabIndex="-1"><label><input type="checkbox" />&nbsp;Màu sắc</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="10" tabIndex="-1"><label><input type="checkbox" />&nbsp;Mô tả</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="11" tabIndex="-1"><label><input type="checkbox" />&nbsp;Ngày hoàn thiện mẫu</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="12" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ghi chú</label> </a></li>
+            
         </ul>
-    </div></div>
+    </div>
 </section>
          <div class="box box-warning">
             <div class="box-header" style="text-align:right;">
             </div>
             <div class="box-body" style="max-width:100%; overflow-x:auto;">
                 <table id="example2" class="table hover cell-border" style="min-width:1050px; font-size:12px;">
-                   <thead>
-                      <tr>
+                  <thead>
+                     <tr>
                         <th class='bg-th center' width="40px">STT</th>
-                       <th class="bg-th">Trạng thái</th>
+                        <th class="bg-th">Trạng thái</th>
+                         <th class="bg-th">Người kiểm</th>
+                         <th class="bg-th">Ngày kiểm</th>
+                         <th class="bg-th">May mẫu</th>
                          <th class="bg-th">Người thiết kế</th>
-                          <th class="bg-th">Loại mẫu</th>
                          <th class="bg-th">Mã thiết kế</th>
                         <th class="bg-th">Tên mẫu</th>
                          <th class="bg-th">Mẫu tháng</th>
+                         <th class="bg-th">Màu sắc</th>
                          <th class="bg-th">Mô tả</th>
-                        <th class="bg-th">Ngày tạo</th>
-                         <th class="bg-th">Người duyệt</th>
-                         <th class="bg-th">Ngày duyệt</th>
-                         <th class="bg-th">Nội dung duyệt</th>
+                        <th class="bg-th">Ngày hoàn thiện mẫu</th>
+                         <th class="bg-th">Ghi chú</th>
                      </tr>
                   </thead>
                   <tbody id="rbody">
@@ -85,17 +89,18 @@
                   <tfoot>
                      <tr>
                        <th class='bg-th center' width="40px">STT</th>
-                        <th class="bg-th">Trạng thái</th>
+                         <th class="bg-th">Trạng thái</th>
+                         <th class="bg-th">Người kiểm</th>
+                         <th class="bg-th">Ngày kiểm</th>
+                         <th class="bg-th">May mẫu</th>
                          <th class="bg-th">Người thiết kế</th>
-                          <th class="bg-th">Loại mẫu</th>
                          <th class="bg-th">Mã thiết kế</th>
                         <th class="bg-th">Tên mẫu</th>
                          <th class="bg-th">Mẫu tháng</th>
+                         <th class="bg-th">Màu sắc</th>
                          <th class="bg-th">Mô tả</th>
-                        <th class="bg-th">Ngày tạo</th>
-                         <th class="bg-th">Người duyệt</th>
-                         <th class="bg-th">Ngày duyệt</th>
-                         <th class="bg-th">Nội dung duyệt</th>
+                        <th class="bg-th">Ngày hoàn thiện mẫu</th>
+                         <th class="bg-th">Ghi chú</th>
                      </tr>
                   </tfoot>
                </table>
@@ -104,15 +109,15 @@
       </div>
    </div>
 </section>
-<div class="modal fade" id="addDept" role="dialog">
+ <div class="modal fade" id="addDept" role="dialog">
         <div class="modal-dialog  modal-lg">
             <div class="modal-content" style="font-size: 12px;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">
                         &times;</button>
                     <h4 class="modal-title center">
-                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                        <span id="lb">DUYỆT MẪU THIẾT KẾ</span>
+                        <i class="fa fa-object-ungroup" aria-hidden="true"></i>
+                        <span id="lb">KIỂM KCS MẪU</span>
                     </h4>
                 </div>
                 <div class="modal-body">
@@ -127,23 +132,19 @@
                                     Người thiết kế<br />
                                     <input type="text" id="txtFullName" disabled class="form-control" style="width: 100%;" />
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     Tên mẫu<br />
                                     <input type="text" id="txtName" disabled class="form-control" style="width: 100%;" />
                                 </div>
-                                <div class="col-md-6">
-                                    Màu sắc<br />
-                                    <input type="text" id="txtColor" disabled class="form-control" style="width: 100%;" />
-                                </div>
                             </div>
                             <div class="row" style="padding: 5px;">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     Mẫu tháng<br />
                                     <input type="text" id="txtMonth" disabled class="form-control" style="width: 100%;" />
                                 </div>
-                                <div class="col-md-12">
-                                    Loại mẫu<br />
-                                    <input type="text" id="txtProductTypeName" disabled class="form-control" style="width: 100%;" />
+                                 <div class="col-md-6">
+                                    Màu sắc<br />
+                                    <input type="text" id="txtColor" disabled class="form-control" style="width: 100%;" />
                                 </div>
                             </div>
                             <div class="row" style="padding: 5px;">
@@ -162,28 +163,27 @@
                         Chi tiết nguyên phụ liệu
                     </div>
                     <div class="row input-hide" style="padding: 5px; max-height: 350px; overflow-y: scroll;">
-                        <table id="tbdetail-soi" cellpadding="5" cellspacing="5" border="0" width="98%" style="min-width: 97%; margin-left: 15px;">
+                        <table id="tbdetail-soi" cellpadding="5" cellspacing="5" border="0" width="98%" style="min-width: 450px; margin-left: 15px;">
                             <thead>
                                 <tr>
                                     <th>Nguyên phụ liệu</th>
                                     <th>Loại</th>
+                                    <th>Định mức</th>
+                                    <th>Đơn vị tính</th>
                                 </tr>
                             </thead>
                             <tbody id="data-detail-soi">
                             </tbody>
                         </table>
                     </div>
-                   <div class="row" style="padding: 5px;">
+                    <div class="row" style="padding: 5px;">
                          <div class="input-group col-md-12">
                           <span class="input-group-btn">
-                            <button type="button" title="Duyệt đề xuất này" class="approved btn btn-primary" onclick="Approved(2);">
-                                Duyệt</button>
-                            <button type="button" title="Không duyệt đề xuất này" class="approved btn btn-danger" onclick="Approved(3);">
-                                Không duyệt</button>
-                              <button type="button" class="btn btn-success" data-dismiss="modal">
-                                Đóng lại</button>
+                            <button type="button" class="approved btn btn-primary" onclick="approved(2);">Mẫu đạt</button>
+                            <button type="button" class="edit btn btn-success" onclick="approved(4);">Yêu cầu sửa lại</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Đóng lại</button>
                           </span>
-                          <input type="text" id="txtContent" class="form-control" placeholder="Nhập nội dung (nếu có)" maxlength="512" />
+                          <input type="text" id="txtContent" class="edit form-control" placeholder="Nhập nội dung (nếu có)" maxlength="512" />
                         </div>
                     </div>
                 </div>
@@ -192,7 +192,8 @@
     </div>
     <input type="hidden" id="hdDeptId" value="" />
     <script>
-        var options = ["1", "2", "3", "4", "5", "6", "7"];
+        var options = ["1", "2", "3", "4", "5", "6", "7", "12"];
+
         $('.ul-column a').on('click', function (event) {
 
             var $target = $(event.currentTarget),
@@ -214,6 +215,13 @@
     </script>
     <script>
         $(window).load(function () {
+            $(".numbers").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    if (e.which == 46) return true;
+                    else return false;
+                }
+            });
+
             var table = $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": true,
@@ -230,7 +238,7 @@
                    "visible": false,
                    "searchable": false
                }],
-               buttons: [
+                buttons: [
                     {
                         extend: 'copyHtml5',
                         text: 'Copy',
@@ -278,31 +286,31 @@
         });
     </script>
     <script type="text/javascript">
-        function update_modal(id, type, code, name, month,color, des, fullname,status) {
+        function update_modal(formId, code, name, month,color, des, fullname, complete,edit) {
             $("#addDept").modal({ show: false });
-            $('#hdDeptId').val(id);
+            $('#hdDeptId').val(formId);
             $('#txtCode').val(code);
+            $('#txtContent').val('');
             $('#txtColor').val(color);
             $('#txtName').val(name);
             $('#txtFullName').val(fullname);
             $('#txtMonth').val(month);
-            $('#txtProductTypeName').val(type);
             $('#txtDescription').val(des);
-            document.getElementById('lb').innerText = 'DUYỆT MẪU THIẾT KẾ';
+            document.getElementById('lb').innerText = 'KIỂM KCS MẪU';
 
-            if (status == '1') {
+            if (complete == 1 || edit==1) {
                 $('.approved').show();
-                $('#txtContent').show();
+                $('.edit').show();
             }
             else {
                 $('.approved').hide();
-                $('#txtContent').hide();
+                $('.edit').hide();
             }
 
             $.ajax({
                 type: 'POST',
                 url: '/Command.aspx/getDetailForm',
-                data: '{"id":"' + id + '"}',
+                data: '{"id":"' + formId + '"}',
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (data) {
@@ -313,44 +321,69 @@
                         html = '';
                         type_name = data.d[t].TypeName == '0' ? 'Chọn loại' : data.d[t].TypeName == '1' ? 'Vải chính' :
                             data.d[t].TypeName == '2' ? 'Vải lót' : data.d[t].TypeName == '3' ? 'Vải phối' : 'Nguyên phụ liệu';
-                        html += '<tr data-id="' + data.d[t].MaterialId + '" data-type="' + data.d[t].TypeName + '" id="rows' + data.d[t].MaterialId + '"><td>' + data.d[t].MaterialName + '</td><td>' + type_name + '</td></tr>';
+
+                        html += '<tr><td>' + data.d[t].MaterialName + '</td><td>' + type_name + '</td>';
+                        html += '<td>' + data.d[t].Norm + '</td><td>' + data.d[t].UnitName + '</td></tr>';
                         $('#data-detail-soi').append(html);
                     }
                 }
             });
         }
-        function Approved(status) {
+        function approved(status) {
+            var code = $('#txtCode').val();
+            var name = $('#txtName').val();
+            var content = $('#txtContent').val();
             var mess = '';
-            if (status == 2)
-                mess = 'Bạn chắc chắn muốn duyệt mẫu ' + $('#txtName').val() + '.' + $('#txtCode').val() + ' ?';
+            if (status == '2')
+                mess = 'Bạn chắc chắc mẫu ' + name +' - '+ code + ' này ĐẠT ?';
             else
-                mess = 'Bạn chắc chắn muốn hủy mẫu ' + $('#txtName').val() + '.' + $('#txtCode').val() + ' ?';
+                mess = 'Bạn chắc chắn yêu cầu mẫu ' + name +' - '+ code + ' SỬA LẠI mẫu ?';
 
             if (confirm(mess) == true) {
                 var id = $('#hdDeptId').val();
-                var content = $('#txtContent').val();
+
+                if (status == '4' && content == '')//neu yeu cau sua lai mau thi nhap noi dung sua lai
+                    showAlert('Nhập nội dung yêu cầu sửa lại mẫu');
+                else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Command.aspx/updateKCS',
+                        data: '{"formId":"' + id + '","status":"' + status + '","content":"' + content + '"}',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.d._content == '1') {
+
+                                if (status == '2')
+                                    showAlert('Đã hoàn thành mẫu [' + name + ' - ' + code + ']');
+                                else
+                                    showAlert('Đã yêu cầu sửa lại mẫu [' + name + ' - ' + code + ']');
+
+                                setTimeout(function () {
+                                    window.location.href = window.location.href;
+                                }, 1000);
+                            }
+                            else
+                                showAlert(data.d._mess);
+                        }
+                    });
+                }
+            }
+        }
+        function complete() {
+            var code = $('#txtCode').val();
+            var content = $('#txtContent').val();
+            if (confirm("Bạn chắc chắn đã hoàn thành mẫu " + code + " này ?") == true) {
+                var id = $('#hdDeptId').val();
                 $.ajax({
                     type: 'POST',
-                    url: '/Command.aspx/ApprovedForm',
-                    data: '{"id":"' + id + '","status":"' + status + '","content":"' + content + '"}',
+                    url: '/Command.aspx/completeFormSewing',
+                    data: '{"id":"' + id + '","content":"' + content + '"}',
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
                     success: function (data) {
                         if (data.d._content == '1') {
-                            if (status == 2)
-                                showAlert('Đã duyệt mẫu [' + $('#txtName').val() + '.' + $('#txtCode').val() + ']');
-                            else
-                                showAlert('Đã hủy mẫu [' + $('#txtName').val() + '.' + $('#txtCode').val() + ']');
-                           
-                            $('#txtCode').val('');
-                            $('#txtName').val('');
-                            $('#txtMonth').val('');
-                            $('#txtContent').val('');
-                            $('#txtDescription').val('');
-                            $('#txtCode').focus();
-                            $('#delete' + id).remove();
-                            $(".crop-loading").hide();
-                            $("#addDept").modal('hide');
+                            showAlert('Đã cập nhật hoàn thành mẫu [' + code + ']');
 
                             setTimeout(function () {
                                 window.location.href = window.location.href;
@@ -364,3 +397,5 @@
         }
     </script>
 </asp:Content>
+
+

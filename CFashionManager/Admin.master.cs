@@ -9,7 +9,7 @@ public partial class cnine_MasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (string.IsNullOrEmpty(Convert.ToString(Session["cm_branchTypeId"])))
+        if (string.IsNullOrEmpty(Convert.ToString(Session["cm_branchTypeId"])) || string.IsNullOrEmpty(Convert.ToString(Session["cm_userId"])))
         {
             Response.Redirect("/login");
         }

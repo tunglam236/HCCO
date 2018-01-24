@@ -6,9 +6,6 @@
     table#example2 tbody tr {
         cursor:pointer;
     }
-    table#example2 tbody tr.selected {
-            background-color: #27ae6078;
-        }
 </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph" Runat="Server">
@@ -26,9 +23,10 @@
         <ul class="dropdown-menu ul-column" style="margin-left:-65px;">
             <li><a href="#" class="small toggle-vis" data-column="1" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Code</label> </a></li>
             <li><a href="#" class="small toggle-vis" data-column="2" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Module</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="3" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Người duyệt</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="4" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Cấp duyệt</label> </a></li>
-            
+            <li><a href="#" class="small toggle-vis" data-column="3" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Nhóm duyệt</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="4" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Người duyệt</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="5" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Cấp duyệt</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="7" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Tên duyệt</label> </a></li>
         </ul>
     </div>
 </section>
@@ -42,9 +40,11 @@
                         <th class='bg-th center' width="40px">STT</th>
                         <th class="bg-th">Code</th>
                          <th class="bg-th">Module</th>
+                         <th class="bg-th">Nhóm duyệt</th>
                          <th class="bg-th">Người duyệt</th>
                          <th class="bg-th">Cấp duyệt</th>
                          <th></th>
+                         <th class="bg-th">Tên duyệt</th>
                      </tr>
                   </thead>
                   <tbody id="rbody">
@@ -55,9 +55,11 @@
                        <th class='bg-th center' width="40px">STT</th>
                          <th class="bg-th">Code</th>
                           <th class="bg-th">Module</th>
+                        <th class="bg-th">Nhóm duyệt</th>
                          <th class="bg-th">Người duyệt</th>
                           <th class="bg-th">Cấp duyệt</th>
                          <th></th>
+                         <th class="bg-th">Tên duyệt</th>
                      </tr>
                   </tfoot>
                </table>
@@ -79,20 +81,30 @@
                 </div>
                 <div class="modal-body">
                     <div class="row" style="padding: 5px;">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             Mã module<br />
                             <input type="text" id="txtCode" class="form-control" style="width: 100%;" />
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             Tên module<br />
                             <input type="text" id="txtName" class="form-control" style="width: 100%;" />
                         </div>
-                         <div class="col-md-3">Người duyệt<br />
+                        <div class="col-md-4">Cấp duyệt<br />
+                             <input type="text" id="txtLevel" class="numbers form-control" style="width: 100%;" />
+                        </div>
+                         
+                    </div>
+                     <div class="row" style="padding: 5px;">
+                        <div class="col-md-4">Nhóm duyệt<br />
+                            <select id="dlGroup" class="form-control select2" onchange="changeGroup($(this).val())" style="width: 100%;">
+                            </select>
+                        </div>
+                         <div class="col-md-4">Người duyệt<br />
                             <select id="dlUser" class="form-control select2" style="width: 100%;">
                             </select>
                         </div>
-                        <div class="col-md-3">Cấp duyệt<br />
-                             <input type="text" id="txtLevel" class="numbers form-control" style="width: 100%;" />
+                          <div class="col-md-4">Tên duyệt<br />
+                             <input type="text" id="txtLevelName" class="form-control" style="width: 100%;" />
                         </div>
                     </div>
                     <div class="row" style="padding: 5px;">
@@ -113,7 +125,7 @@
     </div>
     <input type="hidden" id="hdDeptId" value="" />
     <script>
-        var options = ["1", "2", "3"];
+        var options = ["1","2","3","4","5","6","7","8"];
         $('.ul-column a').on('click', function (event) {
             var $target = $(event.currentTarget),
             val = $target.attr('data-column'),
@@ -217,10 +229,35 @@
              op.innerHTML = 'Chọn người duyệt';
              c2.appendChild(op);
 
+             $('#dlGroup').find('option').remove().end();
+             var c3 = document.getElementById('dlGroup');
+             op = document.createElement('option');
+             op.value = '';
+             op.innerHTML = 'Chọn nhóm duyệt';
+             c3.appendChild(op);
+
+             $.ajax({
+                 type: 'POST',
+                 url: '/Command.aspx/getGroupUser',
+                 //data: '{"branchType":"2"}',
+                 contentType: 'application/json; charset=utf-8',
+                 dataType: 'json',
+                 success: function (data) {
+                     for (var i = 0; i < data.d.length; i++) {
+                         var opt = document.createElement('option');
+                         opt.value = data.d[i]._id;
+                         opt.innerHTML = data.d[i]._mess + " | " + data.d[i]._content;
+                         c3.appendChild(opt);
+                     }
+                 }
+             });
+
+            var group = $('#dlGroup').val();
+
             $.ajax({
                 type: 'POST',
                 url: '/Command.aspx/loadUserByBranchType',
-                data: '{"branchType":"2"}',
+                data: '{"branchType":"2","group":"' + group + '"}',
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (data) {
@@ -232,20 +269,47 @@
                     }
                 }
             });
+
+           
         });
     </script>
     <script type="text/javascript">
-        function addLevel() {
-            showAlert('add');
-        }
-        function update_modal(id, code,name, user,level) {
+        function update_modal(id, code,name,group, user,level, levelname) {
             $("#addDept").modal({ show: false });
             $('#hdDeptId').val(id);
             $('#txtCode').val(code);
             $('#txtName').val(name);
             $('#txtLevel').val(level);
-            $('#dlUser').val(user);
-            $('#select2-dlUser-container').text($('#dlUser option:selected').text());
+            $('#txtLevelName').val(levelname);
+
+            $('#dlGroup').val(group);
+            $('#select2-dlGroup-container').text($('#dlGroup option:selected').text());
+
+            $('#dlUser').find('option').remove().end();
+            var c2 = document.getElementById('dlUser');
+            var op = document.createElement('option');
+            op.value = '';
+            op.innerHTML = 'Chọn người duyệt';
+            c2.appendChild(op);
+
+            $.ajax({
+                type: 'POST',
+                url: '/Command.aspx/loadUserByBranchType',
+                data: '{"branchType":"2","group":"' + group + '"}',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    for (var i = 0; i < data.d.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = data.d[i]._id;
+                        opt.innerHTML = data.d[i]._content;
+                        c2.appendChild(opt);
+                    }
+                    $('#dlUser').val(user);
+                    $('#select2-dlUser-container').text($('#dlUser option:selected').text());
+
+                }
+            });
 
             $('#removeDept').show();
             $('#saveDept').show();
@@ -258,6 +322,7 @@
             $('#txtCode').val(code);
             $('#txtName').val(name);
             $('#txtLevel').val('');
+            $('#txtLevelName').val('');
             $('#txtLevel').focus();
             $('#hdDeptId').val('');
             $('#removeDept').hide();
@@ -271,7 +336,8 @@
             $('#txtCode').val('');
             $('#txtName').val('');
             $('#txtLevel').val('');
-            
+            $('#txtLevelName').val('');
+
             $('#saveDept').show();
             $('#removeDept').hide();
             document.getElementById('lb').innerText = 'THÊM MODULE';
@@ -282,19 +348,21 @@
                 var code = $('#txtCode').val();
                 var name = $('#txtName').val();
                 var level = $('#txtLevel').val();
+                var levelname = $('#txtLevelName').val();
                 var user = $('#dlUser').val();
-                
+                var group = $('#dlGroup').val();
+
                 var checkbox = $('#ckAutoLoad:checked').val();
                 var ckload = checkbox == 'on' ? true : false;
 
                 if (code == '' || name=='') showAlert('Nhập mã và tên module');
                 else if (level == '') showAlert('Nhập cấp duyệt');
-                else if (user == '') showAlert('Chọn người duyệt');
+                else if (user == '' && group=='') showAlert('Chọn nhóm hoặc người duyệt');
                 else {
                     $.ajax({
                         type: 'POST',
                         url: '/Command.aspx/insertApprove',
-                        data: '{"code":"' + code + '","name":"'+name+'","user":"' + user + '","level":"' + level + '"}',
+                        data: '{"code":"' + code + '","name":"' + name + '","group":"' + group + '","user":"' + user + '","level":"' + level + '","levelname":"' + levelname + '"}',
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
                         success: function (data) {
@@ -309,6 +377,7 @@
                                     $('#txtCode').val('');
                                     $('#txtName').val('');
                                     $('#txtLevel').val('');
+                                    $('#txtLevelName').val('');
                                     $('#txtCode').focus();
                                     $(".crop-loading").hide();
                                     $("#addDept").modal('hide');
@@ -330,19 +399,21 @@
                 var code = $('#txtCode').val();
                 var name = $('#txtName').val();
                 var level = $('#txtLevel').val();
+                var levelname = $('#txtLevelName').val();
                 var user = $('#dlUser').val();
+                var group = $('#dlGroup').val();
 
                 var checkbox = $('#ckAutoLoad:checked').val();
                 var ckload = checkbox == 'on' ? true : false;
 
                 if (code == '' || name=='') showAlert('Nhập mã và tên module');
                 else if (level == '') showAlert('Nhập cấp duyệt');
-                else if (user == '') showAlert('Chọn người duyệt');
+                else if (user == '' && group=='') showAlert('Chọn nhóm hoặc người duyệt');
                 else {
                     $.ajax({
                         type: 'POST',
                         url: '/Command.aspx/updateApprove',
-                        data: '{"id":"' + id + '","code":"' + code + '","name":"' + name + '","user":"' + user + '","level":"' + level + '"}',
+                        data: '{"id":"' + id + '","code":"' + code + '","name":"' + name + '","group":"' + group + '","user":"' + user + '","level":"' + level + '","levelname":"' + levelname + '"}',
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
                         success: function (data) {
@@ -357,6 +428,7 @@
                                     $('#txtCode').val('');
                                     $('#txtName').val('');
                                     $('#txtLevel').val('');
+                                    $('#txtLevelName').val('');
                                     $('#txtCode').focus();
                                     $(".crop-loading").hide();
                                     $("#addDept").modal('hide');
@@ -395,6 +467,30 @@
                 }
                 else showAlert('Chọn module muốn xóa');
             }
+        }
+        function changeGroup(idGroup) {
+            $('#dlUser').find('option').remove().end();
+            var c2 = document.getElementById('dlUser');
+            var op = document.createElement('option');
+            op.value = '';
+            op.innerHTML = 'Chọn người duyệt';
+            c2.appendChild(op);
+
+            $.ajax({
+                type: 'POST',
+                url: '/Command.aspx/loadUserByBranchType',
+                data: '{"branchType":"2","group":"' + idGroup + '"}',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    for (var i = 0; i < data.d.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = data.d[i]._id;
+                        opt.innerHTML = data.d[i]._content;
+                        c2.appendChild(opt);
+                    }
+                }
+            });
         }
     </script>
 </asp:Content>

@@ -93,8 +93,10 @@
         .rdList { margin:5px; width:95%;}
         .rdList tr td { border-bottom:1px solid #ccc; padding:10px 0px;}
         .detail-rows:hover,#tbdetail tr:hover {background-color: whitesmoke !important;}
-        .format-input{ width:55px; height:25px; text-align:center; margin:0px; padding:0px;}
+        .format-input{ width:60px; height:25px; text-align:center; margin:0px; padding:0px;}
         .format-input-text{ height:25px;margin:0px; padding:0px; width:100%;}
+         table#example2 tbody tr.selected { background-color:#27ae6078;}
+
         @media screen and (max-width: 767px) {
             div.dataTables_wrapper > div.row > div, div.dataTables_length, div.dataTables_filter, div.dataTables_info, div.dataTables_paginate {
                 text-align: left !important;
@@ -130,3 +132,6 @@
           -o-animation: glowing 1500ms infinite;
           animation: glowing 1500ms infinite;
         }
+    .label-6 {background-color: chartreuse !important;}
+    .label-7 {background-color: #8e8d6c !important;}
+    .label-8 {background-color: burlywood !important;}

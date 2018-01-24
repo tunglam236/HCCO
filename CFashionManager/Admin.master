@@ -60,7 +60,6 @@
                 <a href="#menu-mobile" data-toggle="collapse" style="font-size: 18px; color: White;">MENU</a>
             </div>
             <div id="menu-mobile" class="collapse">
-                
                 <asp:Literal ID="mbMenu" runat="server"></asp:Literal>
             </div>
         </div>

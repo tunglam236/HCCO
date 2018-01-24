@@ -66,20 +66,22 @@ public partial class OfferInput : System.Web.UI.Page
         {
             result += "<tr data-toggle='modal' data-target='#addDept' class='detail-rows' onclick ='update_modal(\"" + item.Id.ToString() + "\",\"" + item.BranchTypeId.ToString() + "\",\"" + item.BranchId + "\",\"" + item.Description + "\",\"" + (item.CreateBy.ToString() == userId && item.StatusId==1 ? 1 : 0) + "\");' id ='delete" + item.Id.ToString() + "' title='Click để xem chi tiết'>";
             result += "<td class='center'>" + i.ToString() + "</td>";
+
+            if (item.StatusId.Value == 1)
+                label = "blink label label-warning";
+            else if (item.StatusId.Value == 2)
+                label = "label label-primary";
+            else if (item.StatusId.Value == 3)
+                label = "label label-danger";
+
+            result += "<td><span class='" + label + "'>" + item.Status + "</span></td>";
             result += "<td>" + item.BranchName + "</td>";
             result += "<td>" + item.CreateAt + "</td>";
             result += "<td>" + item.ImportCode + "</td>";
             result += "<td>" + item.Description + "</td>";
             result += "<td>" + item.FullName + "</td>";
             result += "<td>" + item.DateReceiver + "</td>";
-
-            if (item.StatusId.Value == 1)
-                label = "label-warning";
-            else if (item.StatusId.Value == 2)
-                label = "label-primary";
-            else label = "label-danger";
-
-            result += "<td><span class='label " + label + "'>" + item.Status + "</span></td>";
+            
             result += "</tr>";
             i++;
         }

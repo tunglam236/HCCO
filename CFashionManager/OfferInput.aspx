@@ -10,7 +10,7 @@
        <div class="panel-group">
         <div class="panel panel-success">
           <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
-            <h4 class="panel-title">Chuỗi cửa hàng</h4>
+            <h4 class="panel-title"><i class="fa fa-crosshairs"></i> Chuỗi cửa hàng</h4>
           </div>
           <div class="panel-collapse">
               <asp:RadioButtonList ID="rdBranchType" AutoPostBack="true" OnSelectedIndexChanged="rdBranchType_SelectedIndexChanged" CssClass="rdList" runat="server" RepeatDirection="Vertical">
@@ -22,7 +22,7 @@
       <div class="panel-group">
         <div class="panel panel-success">
           <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
-            <h4 class="panel-title">Chi nhánh</h4>
+            <h4 class="panel-title"><i class="fa fa-sitemap"></i> Chi nhánh</h4>
           </div>
           <div class="panel-collapse">
               <asp:RadioButtonList ID="rdBranch" CssClass="rdList" runat="server" RepeatDirection="Vertical">
@@ -33,7 +33,7 @@
            <div class="panel-group">
         <div class="panel panel-success">
           <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
-            <h4 class="panel-title">Trạng thái</h4>
+            <h4 class="panel-title"><i class="fa fa-flash"></i> Trạng thái</h4>
           </div>
           <div class="panel-collapse" style="padding:5px;">
               <asp:RadioButtonList ID="rdStatus" CssClass="rdList" runat="server" RepeatDirection="Vertical">
@@ -57,13 +57,14 @@
       <div class="dropdown">
       <button class="btn btn-sm btn-danger dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-th"></i> Hiển thị</button>
         <ul class="dropdown-menu ul-column" style="margin-left:-65px;">
+            <li><a href="#" class="small toggle-vis" data-column="7" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Trạng thái</label> </a></li>
             <li><a href="#" class="small toggle-vis" data-column="1" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Chi nhánh</label> </a></li>
             <li><a href="#" class="small toggle-vis" data-column="2" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ngày đề xuất</label> </a></li>
             <li><a href="#" class="small toggle-vis" data-column="3" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Số đề xuất</label> </a></li>
             <li><a href="#" class="small toggle-vis" data-column="4" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Nội dung đề xuất</label> </a></li>
             <li><a href="#" class="small toggle-vis" data-column="5" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Người đề xuất</label> </a></li>
             <li><a href="#" class="small toggle-vis" data-column="6" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ngày nhận hàng</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="7" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Trạng thái</label> </a></li>
+            
         </ul>
     </div>
 </section>
@@ -75,13 +76,14 @@
                   <thead>
                      <tr>
                         <th class='bg-th center' width="40px">STT</th>
-                        <th class="bg-th">Chi nhánh</th>
+                        <th class="bg-th">Trạng thái</th>
+                         <th class="bg-th">Chi nhánh</th>
                         <th class="bg-th">Ngày đề xuất</th>
                         <th class="bg-th">Số đề xuất</th>
                         <th class="bg-th">Nội dung đề xuất</th>
                         <th class="bg-th">Người đề xuất</th>
                         <th class="bg-th">Ngày nhận hàng</th>
-                        <th class="bg-th">Trạng thái</th>
+                        
                      </tr>
                   </thead>
                   <tbody id="rbody">
@@ -90,13 +92,14 @@
                   <tfoot>
                      <tr>
                       <th class='bg-th center' width="40px">STT</th>
-                       <th class="bg-th">Chi nhánh</th>
+                       <th class="bg-th">Trạng thái</th>
+                         <th class="bg-th">Chi nhánh</th>
                         <th class="bg-th">Ngày đề xuất</th>
                         <th class="bg-th">Số đề xuất</th>
                         <th class="bg-th">Nội dung đề xuất</th>
                         <th class="bg-th">Người đề xuất</th>
                         <th class="bg-th">Ngày nhận hàng</th>
-                        <th class="bg-th">Trạng thái</th>
+                        
                      </tr>
                   </tfoot>
                </table>
@@ -148,11 +151,8 @@
                          </div>
                        </div>
                         <div class="row" style="padding: 5px;">
-                            <div class="col-md-2" style="margin-bottom:10px;">Số lượng đề xuất<br /> 
+                            <div class="col-md-4" style="margin-bottom:10px;">Số lượng đề xuất<br /> 
                                   <input type="text" id="txtQuantityOffer" class="numbers form-control" style="width: 100%;" />
-                            </div>
-                            <div class="col-md-2" style="margin-bottom:10px;">Số lượng nhập<br /> 
-                                  <input type="text" id="txtQuantity" class="numbers form-control" style="width: 100%;" />
                             </div>
                              <div class="col-md-2" style="margin-bottom:10px;">Đơn vị tính<br /> 
                                   <input type="text" id="txtUnit" class="form-control" style="width: 100%;" />
@@ -172,8 +172,7 @@
                                     <th style="width:30px">Xóa</th>
                                     <th>Nguyên phụ liệu</th>
                                     <th>Nhà cung cấp</th>
-                                    <th>SL đề xuất</th>
-                                    <th>SL nhập</th>
+                                    <th>Số lượng</th>
                                     <th>ĐVT</th>
                                     <th>Đơn giá</th>
                                     <th>Ghi chú</th>
@@ -185,16 +184,14 @@
                         </div>
                     <div class="row" style="padding: 5px;">
                         <div class="col-md-12">
-                             <span class=" btn-group">
-                            <button type="button" id="addItem" title="Thêm nguyên phụ liệu" class="btn btn-success" onclick="addMaterial();">
+                            <button type="button" id="addItem" title="Thêm nguyên phụ liệu" class="btn btn-warning" onclick="addMaterial();">
                                 Thêm NPL</button>
                                  <button type="button" id="saveDept" class="btn btn-success" onclick="saveChanges();">
                                 Lưu đề xuất</button>
-                            <button type="button" id="removeDept" title="Xóa đề xuất này" style="display:none;" class="btn btn-success" onclick="deleteDept();">
+                            <button type="button" id="removeDept" title="Xóa đề xuất này" style="display:none;" class="btn btn-danger" onclick="deleteDept();">
                                 Xóa</button>
-                            <button type="button" class="btn btn-success" data-dismiss="modal">
-                                Đóng lại</button></span>
-                            &nbsp;<label> <input type="checkbox" id="ckAutoLoad" checked="checked" /> Auto load</label>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                Đóng lại</button>
                         </div>
                     </div>
                 </div>
@@ -267,9 +264,9 @@
 			        }],
                 language: {
                     buttons: {
-                        copy: 'Copy danh sách',
-                        print: 'In danh sách',
-                        excel: 'Xuất Excel'
+                        copy: 'Copy',
+                        print: 'Print',
+                        excel: 'Export'
                     }
                 }
             });
@@ -292,7 +289,6 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-
             $.ajax({
                 type: 'POST',
                 url: '/Command.aspx/getBranchType',
@@ -404,7 +400,7 @@
                         html += '<td>' + data.d[t].MaterialCode + ' | ' + data.d[t].MaterialName + '</td>';
                         html += '<td>' + data.d[t].SupplierName + '</td>';
                         html += '<td><input type="text" class="numbers format-input" id="quantityOffer' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].QuantityOffer + '" /></td>';
-                        html += '<td><input type="text" class="numbers format-input" id="quantity' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].Quantity + '" /></td>';
+                        //html += '<td><input type="text" class="numbers format-input" id="quantity' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].Quantity + '" /></td>';
                         html += '<td><input type="text" class="numbers format-input" id="unit' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].UnitName + '" /></td>';
                         html += '<td><input type="text" class="numbers format-input" id="price' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].Price + '" /></td>';
                         html += '<td><input type="text" class="format-input-text" id="note' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].Note + '" /></td>';
@@ -420,7 +416,7 @@
             $('#hdDeptId').val('');
             $('#txtDescription').val('');
             $('#txtQuantityOffer').val('');
-            $('#txtQuantity').val('');
+            //$('#txtQuantity').val('');
             $('#txtUnit').val('');
             $('#txtPrice').val('');
             $('#txtNote').val('');
@@ -433,79 +429,9 @@
             document.getElementById('lb').innerText = 'THÊM ĐỀ XUẤT NHẬP';
         }
         function saveChanges() {
-            var des = $('#txtDescription').val();
-            var branchTypeId = $('#dlBranchType').val();
-            var branchId = $('#dlBranch').val();
-
-            var checkbox = $('#ckAutoLoad:checked').val();
-            var ckload = checkbox == 'on' ? true : false;
-            
-            if (branchTypeId == '') showAlert('Chọn chuỗi');
-            else if (branchId == '') showAlert('Chọn chi nhánh');
-            else if (des == '') showAlert('Nhập nội dung đề xuất');
-            else {
-                var data = "";
-                $("#data-detail-soi tr").each(function () {
-                    var id = $(this).attr("data-id");
-                    var mat_id = $(this).attr("data-mat");
-                    var sup_id = $(this).attr("data-sup");
-
-                    var quantityOffer = $('#quantityOffer' + id).val();
-                    var quantity = $('#quantity' + id).val();
-                    var unit = $('#unit' + id).val();
-                    var price = $('#price' + id).val().replace(/,/g, '');
-                    var note = $('#note' + id).val();
-                    if (data != '') data += '#';
-                    data += mat_id + '|' + sup_id + '|' + quantityOffer + '|' + quantity + '|' + price + '|' + unit + '|' + note
-                });
-                if (data != '') {
-                    var id = $('#hdDeptId').val();
-                    
-                    if (id == '') {
-                        $.ajax({
-                            type: 'POST',
-                            url: '/Command.aspx/insertOfferMaterial',
-                            data: '{"branchTypeId":"' + branchTypeId + '","branchId":"' + branchId + '","note":"' + des + '","data":"' + data + '"}',
-                            contentType: 'application/json; charset=utf-8',
-                            dataType: 'json',
-                            success: function (data) {
-                                if (data.d._content == '1') {
-                                    showAlert('Đã thêm phiếu đề xuất nhập');
-                                    if (ckload) {
-                                        setTimeout(function () {
-                                            window.location.href = window.location.href;
-                                        }, 1000);
-                                    }
-                                    else {
-                                        $('#txtDescription').val('');
-                                        $("#data-detail-soi tr").remove();
-                                        $("#addDept").modal('hide');
-                                    }
-                                }
-                                else
-                                    showAlert(data.d._mess);
-                            }
-                        });
-                    }
-                    else
-                    {
-                        //updateChanges();
-                    }
-                }
-                else
-                    showAlert('Chưa có dữ liệu nào để lưu');
-            }
-            return false;
-        }
-        function updateChanges() {
-            if (confirm("Bạn chắc chắn muốn cập nhật phiếu đề xuất ?") == true) {
-                var id = $('#hdDeptId').val();
                 var des = $('#txtDescription').val();
                 var branchTypeId = $('#dlBranchType').val();
                 var branchId = $('#dlBranch').val();
-
-                var checkbox = $('#ckAutoLoad:checked').val();
-                var ckload = checkbox == 'on' ? true : false;
 
                 if (branchTypeId == '') showAlert('Chọn chuỗi');
                 else if (branchId == '') showAlert('Chọn chi nhánh');
@@ -518,36 +444,90 @@
                         var sup_id = $(this).attr("data-sup");
 
                         var quantityOffer = $('#quantityOffer' + id).val();
-                        var quantity = $('#quantity' + id).val();
+                        //var quantity = $('#quantity' + id).val();
                         var unit = $('#unit' + id).val();
                         var price = $('#price' + id).val().replace(/,/g, '');
                         var note = $('#note' + id).val();
                         if (data != '') data += '#';
-                        data += mat_id + '|' + sup_id + '|' + quantityOffer + '|' + quantity + '|' + price + '|' + unit + '|' + note
+                        data += mat_id + '|' + sup_id + '|' + quantityOffer + '|' + quantityOffer + '|' + price + '|' + unit + '|' + note
                     });
                     if (data != '') {
                         var id = $('#hdDeptId').val();
 
                         if (id == '') {
+                            if (confirm("Bạn chắc chắn muốn lưu ?") == true) {
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/Command.aspx/insertOfferMaterial',
+                                    data: '{"branchTypeId":"' + branchTypeId + '","branchId":"' + branchId + '","note":"' + des + '","data":"' + data + '"}',
+                                    contentType: 'application/json; charset=utf-8',
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if (data.d._content == '1') {
+                                            showAlert('Đã thêm phiếu đề xuất nhập');
+                                            
+                                            setTimeout(function () {
+                                                window.location.href = window.location.href;
+                                            }, 1000);
+                                        }
+                                        else
+                                            showAlert(data.d._mess);
+                                    }
+                                });
+                            }
+                        }
+                        else {
+                            updateChanges();
+                        }
+                    }
+                    else
+                        showAlert('Chưa có dữ liệu nào để lưu');
+                }
+            
+            return false;
+        }
+        function updateChanges() {
+            if (confirm("Bạn chắc chắn muốn cập nhật phiếu đề xuất ?") == true) {                
+                var des = $('#txtDescription').val();
+                var branchTypeId = $('#dlBranchType').val();
+                var branchId = $('#dlBranch').val();
+
+                if (branchTypeId == '') showAlert('Chọn chuỗi');
+                else if (branchId == '') showAlert('Chọn chi nhánh');
+                else if (des == '') showAlert('Nhập nội dung đề xuất');
+                else {
+                    var data = "";
+                    $("#data-detail-soi tr").each(function () {
+                        var id = $(this).attr("data-id");
+                        var mat_id = $(this).attr("data-mat");
+                        var sup_id = $(this).attr("data-sup");
+
+                        var quantityOffer = $('#quantityOffer' + id).val();
+                        //var quantity = $('#quantity' + id).val();
+                        var unit = $('#unit' + id).val();
+                        var price = $('#price' + id).val().replace(/,/g, '');
+                        var note = $('#note' + id).val();
+                        if (data != '') data += '#';
+                        data += mat_id + '|' + sup_id + '|' + quantityOffer + '|' + quantityOffer + '|' + price + '|' + unit + '|' + note
+                    });
+                    if (data != '') {
+                        var id_offer = $('#hdDeptId').val();
+                        console.log(id_offer);
+
+                        if (id_offer != '') {
                             $.ajax({
                                 type: 'POST',
                                 url: '/Command.aspx/updateOfferMaterial',
-                                data: '{"Id":"'+id+'","branchTypeId":"' + branchTypeId + '","branchId":"' + branchId + '","note":"' + des + '","data":"' + data + '"}',
+                                data: '{"Id":"' + id_offer + '","branchTypeId":"' + branchTypeId + '","branchId":"' + branchId + '","note":"' + des + '","data":"' + data + '"}',
                                 contentType: 'application/json; charset=utf-8',
                                 dataType: 'json',
                                 success: function (data) {
                                     if (data.d._content == '1') {
                                         showAlert('Đã cập nhật phiếu đề xuất');
-                                        if (ckload) {
-                                            setTimeout(function () {
-                                                window.location.href = window.location.href;
-                                            }, 1000);
-                                        }
-                                        else {
-                                            $('#txtDescription').val('');
-                                            $("#data-detail-soi tr").remove();
-                                            $("#addDept").modal('hide');
-                                        }
+                                        
+                                        setTimeout(function () {
+                                            window.location.href = window.location.href;
+                                        }, 1000);
                                     }
                                     else
                                         showAlert(data.d._mess);
@@ -603,7 +583,7 @@
             var sup_name = $('#dlSupplier option:selected').text();
             
             var quanOffer = $('#txtQuantityOffer').val();
-            var quan = $('#txtQuantity').val();
+            //var quan = $('#txtQuantity').val();
             var unit = $('#txtUnit').val();
             var price = $('#txtPrice').val();
             var note = $('#txtNote').val();
@@ -611,7 +591,7 @@
             if(materialId=='') showAlert('Chọn nguyên phụ liệu');
             else if (supplierId == '') showAlert('Chọn nhà cung cấp');
             else if (quanOffer == '') showAlert('Nhập số lượng đề xuất');
-            else if (quan == '') showAlert('Nhập số lượng nhập');
+            //else if (quan == '') showAlert('Nhập số lượng nhập');
             else if (unit == '') showAlert('Nhập đơn vị tính');
             else if (price == '') showAlert('Nhập đơn giá');
             else {
@@ -629,7 +609,7 @@
                     html += '<td>' + mat_name + '</td>';
                     html += '<td>' + sup_name + '</td>';
                     html += '<td><input type="text" class="numbers format-input" id="quantityOffer' + materialId + '' + supplierId + '" value="' + quanOffer + '" /></td>';
-                    html += '<td><input type="text" class="numbers format-input" id="quantity' + materialId + '' + supplierId + '" value="' + quan + '" /></td>';
+                    //html += '<td><input type="text" class="numbers format-input" id="quantity' + materialId + '' + supplierId + '" value="' + quan + '" /></td>';
                     html += '<td><input type="text" class="numbers format-input" id="unit' + materialId + '' + supplierId + '" value="' + unit + '" /></td>';
                     html += '<td><input type="text" class="numbers format-input" id="price' + materialId + '' + supplierId + '" value="' + price + '" /></td>';
                     html += '<td><input type="text" class="format-input-text" id="note' + materialId + '' + supplierId + '" value="' + note + '" /></td>';
@@ -637,7 +617,7 @@
                     $('#data-detail-soi').append(html);
 
                     $('#txtQuantityOffer').val('');
-                    $('#txtQuantity').val('');
+                    //$('#txtQuantity').val('');
                     $('#txtUnit').val('');
                     $('#txtPrice').val('');
                     $('#txtNote').val('');

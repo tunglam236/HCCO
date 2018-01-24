@@ -3,5 +3,7 @@
     <div class="pull-right hidden-xs">
       HCCO <b>&copy</b> 2017
     </div>
-    <strong>Manager by <i class="fa fa-love"></i><a href="#">HCCO IT</a>
+    <strong>Manager by <i class="fa fa-love"></i><a href="#">HCCO IT</a></strong>
+    <strong> - Tài khoản sử dụng: <a href="#"><asp:Literal ID="lbUser" runat="server"></asp:Literal></a></strong>
+    <strong> - Người sử dụng: <a href="#"><asp:Literal ID="lbName" runat="server"></asp:Literal></a></strong>
   </footer>

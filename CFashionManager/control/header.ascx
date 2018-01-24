@@ -9,7 +9,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/home">CMS</a>
+            <a class="navbar-brand" href="/home"><i class="fa fa-home"></i> CMS</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <asp:Literal ID="ulMenu" runat="server"></asp:Literal>

@@ -101,7 +101,7 @@
                             <div class="col-2 col-xlg-8 col-sm-7 product-info-main">
                                 <p class="tags-product">
                                     Từ khóa:
-                            <asp:Literal ID="lbTag" runat="server"></asp:Literal>
+                                    <asp:Literal ID="lbTag" runat="server"></asp:Literal>
                                 </p>
                                 <h1 class="product-name" id="productname">
                                     <asp:Literal ID="lbProductName" runat="server"></asp:Literal></h1>
@@ -379,7 +379,8 @@
                 success: function (data) {
                     if (data.d.OK == '1') {
                         $('#cph_hdProductId').val(data.d.Id);
-                        $('#productname').text(data.d.Name + ' - ' + data.d.ProTypeCode + data.d.ColorCode + data.d.SizeCode);
+                        $('#productname').text(data.d.Name + ' - ' + data.d.ProTypeCode);
+                        
                         //$('#proSKU').text(data.d.BrandCode + data.d.ProType + '_' + data.d.ProTypeCode + data.d.ColorCode + data.d.SizeCode);
                         var img = data.d.Image;
                         if (img == '') img = '/image/image-coming-soon.png';

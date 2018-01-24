@@ -177,7 +177,7 @@
                         { title: "Sửa dữ liệu" },
                         { title: "Xóa dữ liệu" }],
                         paging: true,
-                        pageLength: 50,
+                        pageLength: 100,
                         destroy: true,
                         lengthChange: true,
                         searching: true,
