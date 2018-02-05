@@ -50,10 +50,20 @@ public partial class ProductDetail : System.Web.UI.Page
                 hdProductTypeCode.Value = p.FirstOrDefault().ProductTypeCode;
                 //lbProductCodeId.Text = p.FirstOrDefault().SKU;
                 //lbBrand.Text = p.FirstOrDefault().BrandName;
+                lbCodeId.Text = p.FirstOrDefault().CodeId;
                 lbDescription.Text = p.FirstOrDefault().Description;
                 lbInfoProduct.Text = p.FirstOrDefault().Content;
                 hdColorName.Value = p.FirstOrDefault().ColorName;
                 hdSizeName.Value = p.FirstOrDefault().SizeName;
+
+                if (p.FirstOrDefault().NoteSale != null && p.FirstOrDefault().NoteSale != "")
+                {
+                    lbNoteSale.Text = "Khuyến mại: <span style='color:#114404;font-weight:bold;'>" + p.FirstOrDefault().NoteSale + "</span>";
+                }
+                else
+                {
+                    lbNoteSale.Text = "";
+                }
                 var size = p.FirstOrDefault().SizeList;
                 
                 if (size.Contains("#"))
@@ -116,22 +126,31 @@ public partial class ProductDetail : System.Web.UI.Page
                     imgZoomFirst = imgZoomFirst.Split('#')[0];
                 }
                 lbImage.Text = "<a class='thumbnail' title='" + p.FirstOrDefault().ProductName + "'><img id='img_product' src='" + imgZoomFirst + "' data-zoom-image='" + imgZoomFirst + "' title='" + p.FirstOrDefault().ProductName + "' alt='" + p.FirstOrDefault().ProductName + "' /></a>";
-                Title = lbLinkProduct.Text = lbProductName.Text = hdProductName.Value = p.FirstOrDefault().ProductName + " - " + p.FirstOrDefault().ProductCode;
+                Title = lbLinkProduct.Text = lbProductName.Text = hdProductName.Value = p.FirstOrDefault().ProductTypeCode + " - " + p.FirstOrDefault().ProductName;
                 liID.Text = hdProductId.Value = p.FirstOrDefault().Id.ToString();
                 liProductCode.Text = p.FirstOrDefault().ProductCode;
                 liImage.Text = hdImage.Value = p.FirstOrDefault().Image;
                 liScore.Text = p.FirstOrDefault().Score == null ? "0" : p.FirstOrDefault().Score.ToString();
-                if(p.FirstOrDefault().Price.Value >999)
+
+                if (p.FirstOrDefault().Price == p.FirstOrDefault().PriceSale)
+                {
                     lbPrice.Text = "<p class='special-price'><span class='price'>" + string.Format("{0:0,0 đ}", p.FirstOrDefault().Price) + "</span></p>";
+                }
                 else
-                    lbPrice.Text = "<p class='special-price'><span class='price'>" + (p.FirstOrDefault().Price.Value==0 ? "---" : p.FirstOrDefault().Price.ToString() + " đ") + "</span></p>";
+                {
+                    lbPrice.Text = "<p class='special-price'><span class='price'>" + string.Format("{0:0,0 đ}", p.FirstOrDefault().PriceSale) + "</span><span class='price' style='font-size:15px;padding-left:5px;'><del>" + string.Format("{0:0,0 đ}", p.FirstOrDefault().Price) + "</del></span></p>";
+                }
+                //if (p.FirstOrDefault().Price.Value >999)
+                //    lbPrice.Text = "<p class='special-price'><span class='price'>" + string.Format("{0:0,0 đ}", p.FirstOrDefault().Price) + "</span></p>";
+                //else
+                //    lbPrice.Text = "<p class='special-price'><span class='price'>" + (p.FirstOrDefault().Price.Value==0 ? "---" : p.FirstOrDefault().Price.ToString() + " đ") + "</span></p>";
 
                 hdColor.Value = p.FirstOrDefault().ColorId.ToString();
                 hdSize.Value = p.FirstOrDefault().SizeId.ToString();
                 hdSale.Value = "0";
                 liPriceSale.Text = "0";
-                liPrice.Text = p.FirstOrDefault().Price.ToString();
-                hdPrice.Value = string.Format("{0:0,0 đ}", p.FirstOrDefault().Price);
+                liPrice.Text = p.FirstOrDefault().PriceSale == p.FirstOrDefault().Price ? p.FirstOrDefault().Price.ToString() : p.FirstOrDefault().PriceSale.ToString();
+                hdPrice.Value = string.Format("{0:0,0 đ}", (p.FirstOrDefault().PriceSale == p.FirstOrDefault().Price ? p.FirstOrDefault().Price : p.FirstOrDefault().PriceSale));
 
                 string tag = p.FirstOrDefault().Tag;
                 if (tag != null && tag.Contains(","))
@@ -143,8 +162,8 @@ public partial class ProductDetail : System.Web.UI.Page
                     }
                 }
                 else lbTag.Text = "<a href='/search/?k=" + Server.UrlEncode(tag) + "'>#" + tag + "</a>";
-                loadImageZoom((p.FirstOrDefault().ImageZoom == null || p.FirstOrDefault().ImageZoom =="") ? (p.FirstOrDefault().Image == null || p.FirstOrDefault().Image == "" ? "/image/image-coming-soon.png" : p.FirstOrDefault().Image) : p.FirstOrDefault().ImageZoom, p.FirstOrDefault().ProductName);
-
+                //loadImageZoom((p.FirstOrDefault().ImageZoom == null || p.FirstOrDefault().ImageZoom =="") ? (p.FirstOrDefault().Image == null || p.FirstOrDefault().Image == "" ? "/image/image-coming-soon.png" : p.FirstOrDefault().Image) : p.FirstOrDefault().ImageZoom, p.FirstOrDefault().ProductName);
+                loadImageZoom(p.FirstOrDefault().ListImage.Length < 5 ? "/image/image-coming-soon.png" : p.FirstOrDefault().ListImage, p.FirstOrDefault().ProductName);
                 loadProductRandom(id);
 
                 HtmlMeta seo_key = new HtmlMeta();
@@ -233,7 +252,7 @@ public partial class ProductDetail : System.Web.UI.Page
     {
         string result = "";
         string ref_member = getRefMember();
-        var p = db.sp_web_cf_loadProductRandom(branchTypeId.ToString()).ToList();
+        var p = db.sp_web_cf_loadProductRandom(branchTypeId.ToString(), id).ToList();
         foreach (var item in p.ToList())
         {
             result += "<div class='row_items'><div class='item'><div class='item-inner'><div class='images-container'>";
@@ -242,7 +261,7 @@ public partial class ProductDetail : System.Web.UI.Page
             
             result += "<a href='/" + ref_member + "detail/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductName) + ".html'>";
             
-            result += "<img src='" + (item.Image == null || item.Image == "" ? "/image/image-coming-soon.png" : item.Image) + "' alt='" + item.ProductName + "' title='" + item.ProductName + "' class='img-responsive' /></a>";
+            result += "<img src='" + (item.Image == null || item.Image == "" ? "/image/image-coming-soon.png" : item.Image) + "' alt='" + item.ProductName + "' title='" + item.ProductName + "' class='img-responsive lazy imgzoom' /></a>";
             
             result += "</div><div class='des-container'>";
             result += "<p class='tags-product'>";
@@ -259,14 +278,26 @@ public partial class ProductDetail : System.Web.UI.Page
                 else
                     result += "<a href='/search/?k=" + Server.UrlEncode(item.Tag.Trim()) + "'>#" + item.Tag.Trim() + "</a>";
             }
+            else
+                result += "<a href='#'></a>";
 
             result += "</p>";
-            result += "<h2 class='product-name'><a href='/" + ref_member + "detail/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductName) + ".html'>" + item.ProductName + "</a></h2>";
+            result += "<h2 class='product-name'><a href='/" + ref_member + "detail/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductName) + ".html'>" + item.ProductTypeCode + " - " + item.ProductName + "</a></h2>";
 
-            result += "<div class='price-box box-regular'><span class='regular-price'><span class='price'>" + (item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price)) + "</span></span></div>";
+            result += "<div class='price-box box-regular'><span class='regular-price'>";
 
-            result += "<button class='button btn-cart' type='button' data-toggle='tooltip' onclick=\"addCart(" + item.Id.ToString() + ",'" + item.ProductName + "','1'" + ",'" + item.Image + "','" + string.Format("{0:0,0}",item.Price) + "',0)\" title='Thêm vào giỏ hàng'>";
-            result += "<span><span>Thêm vào giỏ hàng</span></span></button><div class='box-hover'><div class='ratings'><div class='rating-box'><div class='rating5'>rating</div>";
+            if (item.PriceSale == 0 || item.Price == item.PriceSale)
+                result += "<span class='price'>" + string.Format("{0:0,0 đ}", item.Price) + "</span>";
+            else
+                result += "<span class='price'>" + string.Format("{0:0,0 đ}", item.PriceSale) + "</span><span class='price' style='font-size:12px;padding-left:5px;'><del>" + string.Format("{0:0,0 đ}", item.Price) + "</del></span>";
+
+            result += "</span></div>";
+
+            result += "<button class='button btn-cart' type='button' data-toggle='tooltip' onclick=\"addCart(" + item.Id.ToString() + ",'" + item.ProductName + "','1'" + ",'" + item.Image + "','" + string.Format("{0:0,0}", (item.Price == item.PriceSale ? item.Price.Value : item.PriceSale.Value)) + "',0)\" title='Thêm vào giỏ hàng'>";
+            result += "<span><span>Giỏ hàng</span></span></button>-";
+            result += "<button class='button btn-quick' type='button' data-toggle='modal' data-target='#addQuickModal' onclick=\"showAddQuick(" + item.Id.ToString() + ",'" + item.ProductName + "','" + string.Format("{0:0,0}", (item.Price == item.PriceSale ? item.Price.Value : item.PriceSale.Value)) + "'," + (item.Price == item.PriceSale ? item.Price.ToString() : item.PriceSale.ToString()) + ")\" data-toggle='tooltip' title='Thử đồ sản phẩm này'>";
+            result += "<span><span>Thử đồ</span></span></button>";
+            result += "<div class='box-hover'><div class='ratings'><div class='rating-box'><div class='rating5'>rating</div>";
             result += "</div></div></div></div></div></div></div>";
         }
 
@@ -275,15 +306,19 @@ public partial class ProductDetail : System.Web.UI.Page
     private void loadImageZoom(string image, string name)
     {
         string result = "";
-        if (image != "" && image.Contains("#"))
+        if (image != "" && image.Contains("|"))
         {
-            var p = image.Split('#');
+            var p0 = image.Split('|')[0];
+            var p1 = image.Split('|')[1];
+
+            var _p0 = p0.Split('#');
+            var _p1 = p1.Split('#');
             var t = 0;
-            foreach (var item in p)
+            foreach (var item in _p1)
             {
                 result += "<a id='im_thumb_" + t.ToString() + "' class='thumbnail' style='display: none; padding-bottom: 5px;' href='#' ";
                 result += "data-image='" + item + "' ";
-                result += "data-zoom-image='" + item + "'";
+                result += "data-zoom-image='" + _p1[t] + "'";
                 result += "title='" + name + "'><img id='iml_thumb_" + t.ToString() + "' src='" + item + "' title='" + name + "' alt='" + name + "' /></a>";
                 t++;
             }
@@ -297,6 +332,31 @@ public partial class ProductDetail : System.Web.UI.Page
         }
         lbImageZoom.Text = result;
     }
+    //private void loadImageZoom(string image, string name)
+    //{
+    //    string result = "";
+    //    if (image != "" && image.Contains("#"))
+    //    {
+    //        var p = image.Split('#');
+    //        var t = 0;
+    //        foreach (var item in p)
+    //        {
+    //            result += "<a id='im_thumb_" + t.ToString() + "' class='thumbnail' style='display: none; padding-bottom: 5px;' href='#' ";
+    //            result += "data-image='" + item + "' ";
+    //            result += "data-zoom-image='" + item + "'";
+    //            result += "title='" + name + "'><img id='iml_thumb_" + t.ToString() + "' src='" + item + "' title='" + name + "' alt='" + name + "' /></a>";
+    //            t++;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        result += "<a id='im_thumb_0' class='thumbnail' style='display: none; padding-bottom: 5px;' href='#' ";
+    //        result += "data-image='" + image + "' ";
+    //        result += "data-zoom-image='" + image + "'";
+    //        result += "title='" + name + "'><img id='iml_thumb_0' src='" + image + "' title='" + name + "' alt='" + name + "' /></a>";
+    //    }
+    //    lbImageZoom.Text = result;
+    //}
     string getRefMember()
     {
         if (!string.IsNullOrEmpty(Convert.ToString(Session["cf_mbuser_id"])))

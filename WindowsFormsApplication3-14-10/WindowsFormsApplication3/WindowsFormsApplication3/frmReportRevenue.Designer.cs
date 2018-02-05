@@ -38,6 +38,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmReportRevenue));
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.dgvGrid = new DevComponents.DotNetBar.Controls.DataGridViewX();
+            this.StockCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.txtToDate = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.txtFromDate = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
@@ -47,14 +55,8 @@
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
-            this.StockCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelX5 = new DevComponents.DotNetBar.LabelX();
+            this.cbPaymentType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGrid)).BeginInit();
             this.groupPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtToDate)).BeginInit();
@@ -110,7 +112,7 @@
             this.dgvGrid.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvGrid.EnableHeadersVisualStyles = false;
-            this.dgvGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.dgvGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvGrid.Location = new System.Drawing.Point(0, 73);
             this.dgvGrid.MinimumSize = new System.Drawing.Size(729, 335);
             this.dgvGrid.Name = "dgvGrid";
@@ -129,10 +131,82 @@
             this.dgvGrid.Size = new System.Drawing.Size(1126, 431);
             this.dgvGrid.TabIndex = 5;
             // 
+            // StockCode
+            // 
+            this.StockCode.DataPropertyName = "StockCode";
+            this.StockCode.HeaderText = "Số hóa đơn";
+            this.StockCode.Name = "StockCode";
+            this.StockCode.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "MemberName";
+            this.Column2.HeaderText = "Khách hàng";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Total
+            // 
+            this.Total.DataPropertyName = "Total";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N0";
+            dataGridViewCellStyle2.NullValue = "0";
+            this.Total.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Total.HeaderText = "Tổng tiền";
+            this.Total.Name = "Total";
+            this.Total.ReadOnly = true;
+            // 
+            // TotalDiscount
+            // 
+            this.TotalDiscount.DataPropertyName = "TotalDiscount";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N0";
+            dataGridViewCellStyle3.NullValue = "0";
+            this.TotalDiscount.DefaultCellStyle = dataGridViewCellStyle3;
+            this.TotalDiscount.HeaderText = "Chiết khấu";
+            this.TotalDiscount.Name = "TotalDiscount";
+            this.TotalDiscount.ReadOnly = true;
+            // 
+            // TotalPrice
+            // 
+            this.TotalPrice.DataPropertyName = "TotalPrice";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N0";
+            dataGridViewCellStyle4.NullValue = "0";
+            this.TotalPrice.DefaultCellStyle = dataGridViewCellStyle4;
+            this.TotalPrice.HeaderText = "Thành tiền";
+            this.TotalPrice.Name = "TotalPrice";
+            this.TotalPrice.ReadOnly = true;
+            // 
+            // Note
+            // 
+            this.Note.DataPropertyName = "Note";
+            this.Note.HeaderText = "Ghi chú";
+            this.Note.Name = "Note";
+            this.Note.ReadOnly = true;
+            // 
+            // Column5
+            // 
+            this.Column5.DataPropertyName = "CreateBy";
+            this.Column5.HeaderText = "Người xuất";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.DataPropertyName = "CreateAt";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.Format = "dd/MM/yyyy";
+            this.Column6.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Column6.HeaderText = "Ngày xuất";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            // 
             // groupPanel1
             // 
             this.groupPanel1.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
+            this.groupPanel1.Controls.Add(this.cbPaymentType);
             this.groupPanel1.Controls.Add(this.txtToDate);
             this.groupPanel1.Controls.Add(this.txtFromDate);
             this.groupPanel1.Controls.Add(this.btnSearch);
@@ -141,6 +215,7 @@
             this.groupPanel1.Controls.Add(this.lbRevenue);
             this.groupPanel1.Controls.Add(this.labelX4);
             this.groupPanel1.Controls.Add(this.labelX3);
+            this.groupPanel1.Controls.Add(this.labelX5);
             this.groupPanel1.Controls.Add(this.labelX2);
             this.groupPanel1.DisabledBackColor = System.Drawing.Color.Empty;
             this.groupPanel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -272,7 +347,7 @@
             this.btnSearch.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSearch.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnSearch.Image = global::WindowsFormsApplication3.Properties.Resources.Search;
-            this.btnSearch.Location = new System.Drawing.Point(390, 13);
+            this.btnSearch.Location = new System.Drawing.Point(626, 13);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(108, 23);
             this.btnSearch.TabIndex = 2;
@@ -287,7 +362,7 @@
             // 
             this.lbCount.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.lbCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCount.Location = new System.Drawing.Point(613, 14);
+            this.lbCount.Location = new System.Drawing.Point(839, 14);
             this.lbCount.Name = "lbCount";
             this.lbCount.Size = new System.Drawing.Size(44, 23);
             this.lbCount.TabIndex = 0;
@@ -301,9 +376,9 @@
             // 
             this.lbRevenue.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.lbRevenue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbRevenue.Location = new System.Drawing.Point(773, 14);
+            this.lbRevenue.Location = new System.Drawing.Point(982, 14);
             this.lbRevenue.Name = "lbRevenue";
-            this.lbRevenue.Size = new System.Drawing.Size(201, 23);
+            this.lbRevenue.Size = new System.Drawing.Size(129, 23);
             this.lbRevenue.TabIndex = 0;
             this.lbRevenue.Text = "0";
             // 
@@ -314,7 +389,7 @@
             // 
             // 
             this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX4.Location = new System.Drawing.Point(686, 14);
+            this.labelX4.Location = new System.Drawing.Point(896, 14);
             this.labelX4.Name = "labelX4";
             this.labelX4.Size = new System.Drawing.Size(81, 23);
             this.labelX4.TabIndex = 0;
@@ -327,7 +402,7 @@
             // 
             // 
             this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX3.Location = new System.Drawing.Point(513, 14);
+            this.labelX3.Location = new System.Drawing.Point(739, 14);
             this.labelX3.Name = "labelX3";
             this.labelX3.Size = new System.Drawing.Size(97, 23);
             this.labelX3.TabIndex = 0;
@@ -346,76 +421,31 @@
             this.labelX2.TabIndex = 0;
             this.labelX2.Text = "Đến ngày";
             // 
-            // StockCode
+            // labelX5
             // 
-            this.StockCode.DataPropertyName = "StockCode";
-            this.StockCode.HeaderText = "Số hóa đơn";
-            this.StockCode.Name = "StockCode";
-            this.StockCode.ReadOnly = true;
+            this.labelX5.BackColor = System.Drawing.Color.Transparent;
             // 
-            // Column2
             // 
-            this.Column2.DataPropertyName = "MemberName";
-            this.Column2.HeaderText = "Khách hàng";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
             // 
-            // Total
+            this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX5.Location = new System.Drawing.Point(388, 15);
+            this.labelX5.Name = "labelX5";
+            this.labelX5.Size = new System.Drawing.Size(61, 23);
+            this.labelX5.TabIndex = 0;
+            this.labelX5.Text = "Nguồn tiền";
             // 
-            this.Total.DataPropertyName = "Total";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N0";
-            dataGridViewCellStyle2.NullValue = "0";
-            this.Total.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Total.HeaderText = "Tổng tiền";
-            this.Total.Name = "Total";
-            this.Total.ReadOnly = true;
+            // cbPaymentType
             // 
-            // TotalDiscount
-            // 
-            this.TotalDiscount.DataPropertyName = "TotalDiscount";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N0";
-            dataGridViewCellStyle3.NullValue = "0";
-            this.TotalDiscount.DefaultCellStyle = dataGridViewCellStyle3;
-            this.TotalDiscount.HeaderText = "Chiết khấu";
-            this.TotalDiscount.Name = "TotalDiscount";
-            this.TotalDiscount.ReadOnly = true;
-            // 
-            // TotalPrice
-            // 
-            this.TotalPrice.DataPropertyName = "TotalPrice";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N0";
-            dataGridViewCellStyle4.NullValue = "0";
-            this.TotalPrice.DefaultCellStyle = dataGridViewCellStyle4;
-            this.TotalPrice.HeaderText = "Thành tiền";
-            this.TotalPrice.Name = "TotalPrice";
-            this.TotalPrice.ReadOnly = true;
-            // 
-            // Note
-            // 
-            this.Note.DataPropertyName = "Note";
-            this.Note.HeaderText = "Ghi chú";
-            this.Note.Name = "Note";
-            this.Note.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.DataPropertyName = "CreateBy";
-            this.Column5.HeaderText = "Người xuất";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.DataPropertyName = "CreateAt";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.Format = "dd/MM/yyyy";
-            this.Column6.DefaultCellStyle = dataGridViewCellStyle5;
-            this.Column6.HeaderText = "Ngày xuất";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
+            this.cbPaymentType.DisplayMember = "Text";
+            this.cbPaymentType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbPaymentType.FormattingEnabled = true;
+            this.cbPaymentType.ItemHeight = 15;
+            this.cbPaymentType.Location = new System.Drawing.Point(455, 15);
+            this.cbPaymentType.Name = "cbPaymentType";
+            this.cbPaymentType.Size = new System.Drawing.Size(165, 21);
+            this.cbPaymentType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbPaymentType.TabIndex = 3;
             // 
             // frmReportRevenue
             // 
@@ -459,5 +489,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Note;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx cbPaymentType;
+        private DevComponents.DotNetBar.LabelX labelX5;
     }
 }

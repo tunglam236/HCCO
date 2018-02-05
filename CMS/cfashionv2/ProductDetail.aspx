@@ -58,6 +58,16 @@
                 -webkit-box-shadow: none;
                 box-shadow: none;
             }
+    .transition {
+    -webkit-transform: scale(1.2); 
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+    -webkit-transition: 0.5s ease-in-out;
+    -moz-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+    }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph" runat="Server">
@@ -110,6 +120,14 @@
                                 </p>--%>
                                 <div class="row">
                                     <div class="col-xs-12">
+                                        Mã sản phẩm:
+                                        <div class="btn-group btn-group-horizontal codeid" data-toggle="buttons">
+                                             <asp:Literal ID="lbCodeId" runat="server">10100650</asp:Literal>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
                                         Kích thước (Size):
                                         <div class="btn-group btn-group-horizontal" data-toggle="buttons">
                                              <asp:Literal ID="lbSize" runat="server"></asp:Literal>
@@ -134,6 +152,11 @@
                                 <div class="price-box box-special">
                                     <asp:Literal ID="lbPrice" runat="server"></asp:Literal>
                                 </div>
+                                 
+                                <div class="price-box box-special notesale" style="font-size:18px;">
+                                    <asp:Literal ID="lbNoteSale" runat="server"></asp:Literal>
+                                </div>
+                                
                               <%--  <div class="box-info">
                                     <ul class="list-unstyled">
                                         <li>Mã sản phẩm: <span class="ex-text">
@@ -160,10 +183,10 @@
                                     </div>
                                 <div class="form-group">
                                     <div>
-                                        <button id="orderCart" onclick="addCurrentCart(0);" class="btn btn-danger " type="button" data-toggle="tooltip" title="Đặt hàng luôn sản phẩm này">
+                                        <button id="orderCart" onclick="addCurrentCart(0);" class="btn btn-danger " style="margin-bottom:5px;" type="button" data-toggle="tooltip" title="Đặt hàng luôn sản phẩm này">
                                             <span><i class="fa fa-newspaper-o"></i> Mua ngay</span>
                                         </button>
-                                        <button id="addCart" onclick="addCurrentCart(1);" class="btn btn-success " type="button" data-toggle="tooltip" title="Thêm nhanh vào giỏ hàng">
+                                        <button id="addCart" onclick="addCurrentCart(1);" class="btn btn-success " style="margin-bottom:5px;" type="button" data-toggle="tooltip" title="Thêm nhanh vào giỏ hàng">
                                             <span><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</span>
                                         </button>
                                     </div>
@@ -195,9 +218,7 @@
                                                     <tr>
                                                         <td colspan="2" style="line-height: 30px;">
                                                             <p>
-                                                                Mọi thông tin về sản phẩm, bạn có thể liên hệ để biết thêm thông tin chi tiết về sản phẩm<br />
-                                                                Nhân viên hỗ trợ: Nguyễn Văn A<br />
-                                                                Số điện thoại hỗ trợ: 0912 345 678
+                                                               
                                                             </p>
                                                             <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span><span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span><span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
                                                             <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span><span class="fa fa-stack">
@@ -243,12 +264,82 @@
     <input type="hidden" id="hdSizeName" runat="server" />
     <input type="hidden" runat="server" id="hdImage" runat="server" />
     <input type="hidden" runat="server" id="hdPrice" runat="server" />
+
+    <input type="hidden" id="hd_ProductId" value="" />
+    <input type="hidden" id="hd_Price" value="" />
+
     <asp:Literal ID="liProductCode" Visible="false" runat="server"></asp:Literal>
     <asp:Literal ID="liImage" Visible="false" runat="server"></asp:Literal>
     <asp:Literal ID="liID" Visible="false" runat="server"></asp:Literal>
     <asp:Literal ID="liPrice" Visible="false" runat="server"></asp:Literal>
     <asp:Literal ID="liPriceSale" Visible="false" runat="server"></asp:Literal>
     <asp:Literal ID="liScore" Visible="false" runat="server"></asp:Literal>
+    <div class="modal fade" id="addQuickModal" role="dialog">
+        <div class="modal-dialog  modal-md">
+            <div class="modal-content" style="font-size: 12px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;</button>
+                    <h4 class="modal-title center">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i> Gửi thông tin thử đồ</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="padding: 5px;">
+                        <div class="col-md-6">
+                            Sản phẩm<br />
+                            <input type="text" id="ins_proName" disabled class="form-control" maxlength="30" style="width: 100%;" />
+                        </div>
+                        <div class="col-md-3">
+                            Số lượng<br />
+                            <input type="text" id="ins_Quantity" class="numbers form-control" maxlength="5" value="1" style="width: 100%;" />
+                        </div>
+                        <div class="col-md-3">
+                            Size<br />
+                             <select id="dlSize" class="form-control select2" style="width: 100%;">
+                                <option value="S" selected="selected">Size s</option>
+                                <option value="M">Size M</option>
+                                 <option value="L">Size L</option>
+                                 <option value="XL">Size XL</option>
+                                 <option value="XXL">Size XXL</option>
+                            </select>
+                            
+                        </div>
+                    </div>
+                      <div class="row" style="padding: 5px;">
+                        <div class="col-md-4">
+                            Họ và tên<br />
+                            <input type="text" id="ins_cusName" placeholder="Bắt buộc nhập" class="form-control" maxlength="30" style="width: 100%;" />
+                        </div>
+                        <div class="col-md-4">
+                            Điện thoại<br />
+                            <input type="text" id="ins_Phone" placeholder="Bắt buộc nhập" class="numbers form-control" maxlength="15" value="" style="width: 100%;" />
+                        </div>
+                        <div class="col-md-4">
+                            Địa chỉ<br />
+                            <input type="text" id="ins_Add" class="form-control" maxlength="100" value="" style="width: 100%;" />
+                        </div>
+                          <div class="col-md-12">
+                            Ghi chú<br />
+                            <input type="text" id="ins_Note" class="form-control" maxlength="100" value="" style="width: 100%;" />
+                        </div>
+                    </div>
+                     <div class="row" style="padding: 5px;">
+                          <div class="col-md-12">
+                            <i>Sau khi gửi đơn hàng, nhân viên tư vấn sẽ liên hệ lại với bạn trong thời gian sớm nhất qua số điện thoại của bạn</i>
+                        </div>
+                     </div>
+                    <div class="row" style="padding: 5px;">
+                        <div class="col-md-12 btn-group pull-right">
+                            <button type="button" class="btn btn-success" onclick="addQuick();">
+                                Gửi nhanh</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal">
+                                Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
         $('#review').delegate('.pagination a', 'click', function (e) {
             e.preventDefault();
@@ -299,6 +390,7 @@
         // slider	 
         $(".image-additional").owlCarousel({
             navigation: true,
+            autoPlay: true,
             pagination: false,
             slideSpeed: 500,
             lazyLoad: true,
@@ -328,6 +420,7 @@
         $(".related-product").owlCarousel({
             navigation: true,
             pagination: false,
+            autoPlay: true,
             addClassActive: true,
             lazyLoad: true,
             slideSpeed: 500,
@@ -353,7 +446,65 @@
         });
 
     </script>
+      <script type="text/javascript">
+         $(document).ready(function () {
+             $(".numbers").keypress(function (e) {
+                 if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                     return false;
+                 }
+             });
+             $('.imgzoom').hover(function () {
+                 $(this).addClass('transition');
+             }, function () {
+                 $(this).removeClass('transition');
+             });
+         });
+    </script>
     <script type="text/javascript">
+        function showAddQuick(productId, proName, priceName, price) {
+            $('#ins_proName').val(proName + ' - ' + priceName);
+            $('#hd_ProductId').val(productId);
+            $('#hd_Price').val(price);
+
+            $('#ins_cusName').val('');
+            $('#ins_Phone').val('');
+            $('#ins_Add').val('');
+            $('#ins_Quantity').val('1');
+            $('#ins_Note').val('');
+
+        }
+        function addQuick() {
+            var name = $('#ins_cusName').val();
+            var phone = $('#ins_Phone').val();
+            var add = $('#ins_Add').val();
+            var productId = $('#hd_ProductId').val();
+            var size = $('#dlSize').val();
+            var price = $('#hd_Price').val();
+            var quantity = $('#ins_Quantity').val();
+            var note = $('#ins_Note').val();
+
+            if (price == '' || price.length < 5) price = '0';
+
+            if (name == '' || phone == '') showAlert('Nhập họ tên và số điện thoại bắt buộc')
+            else if (quantity == '') showAlert('Nhập số lượng cần đặt');
+            else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Query.aspx/insertQuickOrder',
+                    data: '{"name":"' + name + '","phone":"' + phone + '","add":"' + add + '","productId":"' + productId + '","size":"' + size + '","price":"' + price + '","quantity":"' + quantity + '","note":"' + note + '"}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.d._content == '1') {
+                            showAlert('Đã gửi đơn hàng thành công');
+                            $('#addQuickModal').modal('hide');
+                        }
+                        else
+                            showAlert(data.d._mess);
+                    }
+                });
+            }
+        }
         function setColor(id,name) {
             $('#cph_hdColor').val(id);
             $('#cph_hdColorName').val(name);
@@ -379,33 +530,40 @@
                 success: function (data) {
                     if (data.d.OK == '1') {
                         $('#cph_hdProductId').val(data.d.Id);
-                        $('#productname').text(data.d.Name + ' - ' + data.d.ProTypeCode);
-                        
-                        //$('#proSKU').text(data.d.BrandCode + data.d.ProType + '_' + data.d.ProTypeCode + data.d.ColorCode + data.d.SizeCode);
-                        var img = data.d.Image;
-                        if (img == '') img = '/image/image-coming-soon.png';
-                        var imgZoom = data.d.ImageZoom;
-                        if (imgZoom == '') imgZoom = '/image/image-coming-soon.png';
-                        $('#cph_hdImage').val(img);
+                        $('#productname').text(data.d.ProTypeCode + ' - ' + data.d.Name);
+                        $('.codeid').text(data.d.BrandCode);
+                        if (data.d.NoteSale != '' && data.d.NoteSale !=null)
+                            $('.notesale').html('Khuyến mại: <b>' + data.d.NoteSale+'</b>');
+                        else
+                            $('.notesale').text('');
 
-                        var t = img.split('#');
-                        var z = imgZoom.split('#');
-                        for (var k = 0; k < t.length; k++) {
-                            if (k == 0) {
-                                $('#img_product').attr("src", z[k]);
-                                $('#img_product').attr("data-zoom-image", z[k]);
-                            }
-                            $('#im_thumb_' + k).attr("data-image", z[k]);
-                            $('#im_thumb_' + k).attr("data-zoom-image", z[k]);
-                            $('#iml_thumb_' + k).attr("src", z[k]);
-                        }
+                        ////$('#proSKU').text(data.d.BrandCode + data.d.ProType + '_' + data.d.ProTypeCode + data.d.ColorCode + data.d.SizeCode);
+                        //var img = data.d.Image;
+                        //if (img == '') img = '/image/image-coming-soon.png';
+                        //var imgZoom = data.d.ImageZoom;
+                        //if (imgZoom == '') imgZoom = '/image/image-coming-soon.png';
+                        $('#cph_hdImage').val(data.d.Image);
+                        //$('#cph_hdColorName').val(data.d.ColorCode);
+                        //$('#cph_hdSizeName').val(data.d.SizeCode);
+                        
+                        //var t = img.split('#');
+                        //var z = imgZoom.split('#');
+                        //for (var k = 0; k < t.length; k++) {
+                        //    if (k == 0) {
+                        //        $('#img_product').attr("src", z[k]);
+                        //        $('#img_product').attr("data-zoom-image", z[k]);
+                        //    }
+                        //    $('#im_thumb_' + k).attr("data-image", z[k]);
+                        //    $('#im_thumb_' + k).attr("data-zoom-image", z[k]);
+                        //    $('#iml_thumb_' + k).attr("src", z[k]);
+                        //}
                     }
                 }
             });
         }
         function addCurrentCart(type) {
             var pro_quantity = document.getElementById("cph_txtquantity").value;
-            var pro_name = document.getElementById("cph_hdProductName").value;
+            var pro_name = $("#productname").text();
             var pro_id = document.getElementById("cph_hdProductId").value;
             var pro_image = document.getElementById("cph_hdImage").value;
             var pro_price = document.getElementById("cph_hdPrice").value;
@@ -419,6 +577,7 @@
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (data) {
+                    console.log(data.d);
                     var totalquantity = document.getElementsByClassName("item-cart");
                     totalquantity[0].innerHTML = data.d._content;
                     additem(pro_name.replace(/ /g, '-'), pro_image, pro_id, pro_name, pro_quantity, pro_price);

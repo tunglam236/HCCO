@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CMS3" Class="CFManagerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=CMS3;Persist Security Info=True;User ID=it_hcc" SettingsObjectName="WindowsFormsApplication3.Properties.Settings" SettingsPropertyName="CMS3ConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CMS0" Class="CFManagerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=CMS0;User ID=it_hcc" SettingsObjectName="WindowsFormsApplication3.Properties.Settings" SettingsPropertyName="CMS0ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.tAccount" Member="tAccounts">
     <Type Name="tAccount">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -685,22 +685,6 @@
       <Column Name="stt" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
-  <Function Name="dbo.sp_ReportRevenue" Method="sp_ReportRevenue">
-    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
-    <Parameter Name="branchId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="fromDate" Type="System.DateTime" DbType="SmallDateTime" />
-    <Parameter Name="toDate" Type="System.DateTime" DbType="SmallDateTime" />
-    <ElementType Name="sp_ReportRevenueResult">
-      <Column Name="StockCode" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-      <Column Name="MemberName" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
-      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="TotalDiscount" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.sp_Product_Search" Method="sp_Product_Search">
     <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
     <Parameter Name="type" Type="System.Int32" DbType="Int" />
@@ -750,28 +734,6 @@
       <Column Name="ProductName" Type="System.String" DbType="NVarChar(234)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.sp_SummaryStock" Method="sp_SummaryStock">
-    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
-    <Parameter Name="branchId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="fromdate" Type="System.DateTime" DbType="SmallDateTime" />
-    <Parameter Name="todate" Type="System.DateTime" DbType="SmallDateTime" />
-    <Parameter Name="billcode" Type="System.String" DbType="VarChar(20)" />
-    <Parameter Name="member" Type="System.String" DbType="NVarChar(64)" />
-    <ElementType Name="sp_SummaryStockResult">
-      <Column Name="InputType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
-      <Column Name="BranchName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="OutputType" Type="System.String" DbType="NVarChar(11) NOT NULL" CanBeNull="false" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
-      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Status" Type="System.String" DbType="NVarChar(7) NOT NULL" CanBeNull="false" />
-      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Discount" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="MemberName" Type="System.String" DbType="NVarChar(87)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.sp_checkDiscount" Method="sp_checkDiscount">
     <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
     <Parameter Name="discountCode" Type="System.String" DbType="VarChar(20)" />
@@ -795,25 +757,6 @@
       <Column Name="Phone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
       <Column Name="Total" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.sp_Product_GetDetailByCodeId" Method="sp_Product_GetDetailByCodeId">
-    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
-    <Parameter Name="branchId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="codeid" Type="System.String" DbType="VarChar(20)" />
-    <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
-    <ElementType Name="sp_Product_GetDetailByCodeIdResult">
-      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="ProductCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="Code" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
-      <Column Name="ProductName" Type="System.String" DbType="NVarChar(234)" CanBeNull="true" />
-      <Column Name="UnitId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UnitName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="IsCombo" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="Discount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="saleType" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Column Name="saleValue" Type="System.Double" DbType="Float" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.sp_getBarCode" Method="sp_getBarCode">
@@ -907,6 +850,66 @@
       <Column Name="IsCombo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="ComboId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Column Name="ProductId" Type="System.String" DbType="NVarChar(113)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Product_GetDetailByCodeId" Method="sp_Product_GetDetailByCodeId">
+    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="branchId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="codeid" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Product_GetDetailByCodeIdResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ProductCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UnitName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IsCombo" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="saleType" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="saleValue" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="priceSale" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_ReportRevenue" Method="sp_ReportRevenue">
+    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="branchId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="fromDate" Type="System.DateTime" DbType="SmallDateTime" />
+    <Parameter Name="toDate" Type="System.DateTime" DbType="SmallDateTime" />
+    <Parameter Name="paymentType" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_ReportRevenueResult">
+      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="MemberName" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalDiscount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_SummaryStock" Method="sp_SummaryStock">
+    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="branchId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="fromdate" Type="System.DateTime" DbType="SmallDateTime" />
+    <Parameter Name="todate" Type="System.DateTime" DbType="SmallDateTime" />
+    <Parameter Name="billcode" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="member" Type="System.String" DbType="NVarChar(64)" />
+    <Parameter Name="paymentType" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_SummaryStockResult">
+      <Column Name="InputType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="OutputType" Type="System.String" DbType="NVarChar(11) NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(7) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="MemberName" Type="System.String" DbType="NVarChar(87)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

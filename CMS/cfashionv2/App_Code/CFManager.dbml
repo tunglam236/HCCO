@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CMS" Class="CFManagerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=CMS;Persist Security Info=True;User ID=it_hcc" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="CFashionManagerConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CMS0" Class="CFManagerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=CMS0;Persist Security Info=True;User ID=it_hcc" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="CFashionManagerConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.tProductType" Member="tProductTypes">
     <Type Name="tProductType">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -384,34 +384,6 @@
     <Parameter Name="email" Type="System.String" DbType="VarChar(64)" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.sp_web_cf_loadProductDetail" Method="sp_web_cf_loadProductDetail">
-    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
-    <Parameter Name="proId" Type="System.Int32" DbType="Int" />
-    <ElementType Name="sp_web_cf_loadProductDetailResult">
-      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ProductTypeCode" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
-      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="BrandName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Image" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="ImageZoom" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="Tag" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
-      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Score" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Column Name="CountryName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="SizeName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ColorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="SizeCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Column Name="ColorCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Column Name="SKU" Type="System.String" DbType="NVarChar(138)" CanBeNull="true" />
-      <Column Name="SizeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ColorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ColorList" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="SizeList" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.sp_web_cf_getProductByColorSize" Method="sp_web_cf_getProductByColorSize">
     <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
     <Parameter Name="proTypeCode" Type="System.String" DbType="VarChar(32)" />
@@ -419,15 +391,21 @@
     <Parameter Name="sizeId" Type="System.String" DbType="VarChar(10)" />
     <ElementType Name="sp_web_cf_getProductByColorSizeResult">
       <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="Image" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="ImageZoom" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="ImageZoom" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="ProductTypeCode" Type="System.String" DbType="VarChar(52)" CanBeNull="true" />
+      <Column Name="ProductTypeCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="ColorCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="SizeCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Column Name="BrandCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BrandCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="ProductType" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="NoteSale" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.sp_sendmail_quickOrder" Method="sp_sendmail_quickOrder">
+    <Parameter Name="Code" Parameter="code" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(64)" />
+    <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.sp_web_cf_loadProduct" Method="sp_web_cf_loadProduct">
     <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
@@ -443,7 +421,23 @@
       <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="Image" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="Tag" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="PriceSale" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="rn" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_cf_loadProductSalest" Method="sp_web_cf_loadProductSalest">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_cf_loadProductSalestResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="NoteSale" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ProductTypeCode" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PriceSale" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="rn" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
     </ElementType>
   </Function>
@@ -459,22 +453,9 @@
       <Column Name="ProductTypeCode" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
       <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="Image" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="Tag1" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.sp_web_cf_loadProductRandom" Method="sp_web_cf_loadProductRandom">
-    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
-    <ElementType Name="sp_web_cf_loadProductRandomResult">
-      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Tag" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="NoteSale" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-      <Column Name="ProductTypeCode" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
-      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Image" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="Tag1" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="PriceSale" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="rn" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.sp_web_cf_loadProductBySearch" Method="sp_web_cf_loadProductBySearch">
@@ -486,10 +467,12 @@
       <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="Tag" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="NoteSale" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
       <Column Name="ProductTypeCode" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
       <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="Image" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PriceSale" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="rn" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.sp_web_cf_loadProductByType" Method="sp_web_cf_loadProductByType">
@@ -503,6 +486,39 @@
       <Column Name="ProductTypeCode" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
       <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="Image" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PriceSale" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_cf_loadProductDetail" Method="sp_web_cf_loadProductDetail">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="proId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_web_cf_loadProductDetailResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductTypeCode" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="BrandName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImageZoom" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Score" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CountryName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SizeName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ColorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SizeCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="ColorCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="SKU" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PriceSale" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="SizeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ColorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CodeId" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="NoteSale" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="ColorList" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SizeList" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ListImage" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.sp_web_cf_loadProductFeature" Method="sp_web_cf_loadProductFeature">
@@ -510,12 +526,30 @@
     <ElementType Name="sp_web_cf_loadProductFeatureResult">
       <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
       <Column Name="NoteSale" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
       <Column Name="Tag" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="ProductTypeCode" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
       <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="Image" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PriceSale" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="rn" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_cf_loadProductRandom" Method="sp_web_cf_loadProductRandom">
+    <Parameter Name="branchType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="idProduct" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_web_cf_loadProductRandomResult">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="NoteSale" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="ProductTypeCode" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Tag" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="PriceSale" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="rn" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.sp_web_cf_loadProductSale" Method="sp_web_cf_loadProductSale">
@@ -528,7 +562,8 @@
       <Column Name="ProductTypeCode" Type="System.String" DbType="VarChar(32)" CanBeNull="true" />
       <Column Name="ProductName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="Image" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="PriceSale" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="NoteSale1" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
     </ElementType>
   </Function>

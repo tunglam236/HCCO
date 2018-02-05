@@ -124,6 +124,7 @@ namespace WindowsFormsApplication3
                             ton.ProductId = int.Parse(dtTemp.Rows[i]["ProductId"].ToString());
                             ton.QuantityIn = byte.Parse(dtTemp.Rows[i]["Quantity"].ToString());
                             ton.CreateAt = DateTime.Now;
+                            ton.Status = 5;//4;//nhap tra lai;//5//nhap tu ncc//6//nhap dieu chuyen
                             db.tStockInventories.InsertOnSubmit(ton);
                         }
                         db.SubmitChanges();

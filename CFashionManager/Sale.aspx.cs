@@ -82,6 +82,7 @@ public partial class Sale : System.Web.UI.Page
             if (item.SaleValue.Value > 999)
                 result += "<td>" + string.Format("{0:0,0}", item.SaleValue) + "</td>";
             else result += "<td>" + item.SaleValue.ToString() + "</td>";
+            result += "<td>" + item.Status + "</td>";
             result += "<td>" + item.CreateAt + "</td>";
             result += "<td>" + item.CreateBy + "</td>";
             

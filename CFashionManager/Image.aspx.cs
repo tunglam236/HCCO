@@ -65,71 +65,67 @@ public partial class Image : System.Web.UI.Page
         string result = hdProductId.Value;
         string color = result.Split('#')[0];
         string id = result.Split('#')[1];
-        var p = from x in db.tProducts where x.Color == int.Parse(color) && x.ProductTypeCode == id.Trim() select x;
+        string _control = "", filename = "", img_path = "", img_save = "";
+        string date = DateTime.Now.ToString("ddMMyyyyHHmmss");
+        string imageZoom = "", imageThumb = "", img_type = "";
+
+        if (color == "") color = "0";
+        var p = from x in db.tProducts
+                where (color == "0" || x.Color == int.Parse(color)) && x.ProductTypeCode == id.Trim() && x.BranchTypeId == int.Parse(rdBranchType.SelectedValue.Trim())
+                select x;
         if (p.Count() > 0)
         {
-            if(id != "")
+            if (id != "")
             {
-                if (fuImage.HasFile)//anh to
+                HttpFileCollection hfc = Request.Files;
+                for (int i = 0; i < hfc.Count; i++)
                 {
-                    string filename = fuImage.FileName.Trim();
-                    string date = DateTime.Now.ToString("ddMMyyyyHHmmss");
-
-                    string img_path = "/upload/product/" + date + "_" + filename.Substring(filename.LastIndexOf('.'));
-
-                    string img_save = "";
-
-                    if (p.FirstOrDefault().BranchTypeId.ToString() == "1")
-                        img_save = "/upload/cnice/product/" + date + "_" + filename.Substring(filename.LastIndexOf('.'));
-                    else
-                        img_save = "/upload/cfashion/product/" + date + "_" + filename.Substring(filename.LastIndexOf('.'));
-
-                    fuImage.SaveAs(Server.MapPath(img_save));
-
-                    foreach (var item in p.ToList())
+                    HttpPostedFile hpf = hfc[i];
+                    _control = hfc.AllKeys[i];
+                    if (hpf.ContentLength > 0)
                     {
-                        if (item.ImageZoom == null || item.ImageZoom == "")
+                        filename = hpf.FileName.Trim();
+
+                        if (p.FirstOrDefault().BranchTypeId.ToString() == "1")
+                            img_path = "/upload/cnice/product/" + img_type + date + "_" + i.ToString() + filename.Substring(filename.LastIndexOf('.'));
+                        else if (p.FirstOrDefault().BranchTypeId.ToString() == "2")
+                            img_path = "/upload/cfashion/product/" + img_type + date + "_" + i.ToString() + filename.Substring(filename.LastIndexOf('.'));
+                        else if (p.FirstOrDefault().BranchTypeId.ToString() == "3")
+                            img_path = "/upload/cn/product/" + img_type + date + "_" + i.ToString() + filename.Substring(filename.LastIndexOf('.'));
+
+                        img_save = "/upload/product/" + img_type + date + "_" + i.ToString() + filename.Substring(filename.LastIndexOf('.'));
+
+                        if (_control.Contains("fuImage"))
                         {
-                            item.ImageZoom = img_path;
+                            if (imageZoom != "") imageZoom += "#";
+                            imageZoom += img_save;
+                            img_type = "";
                         }
                         else
                         {
-                            item.ImageZoom = item.ImageZoom + "#" + img_path;
+                            if (imageThumb != "") imageThumb += "#";
+                            imageThumb += img_save;
+                            img_type = "thumb_";
                         }
+
+                        hpf.SaveAs(Server.MapPath(img_path));
                     }
-                    
                 }
-                if (fuThumb.HasFile)//anh nho
+
+                foreach (var item in p.ToList())
                 {
-                    string filename = fuThumb.FileName.Trim();
-                    string date = DateTime.Now.ToString("ddMMyyyyHHmmss");
-
-                    string img_path = "/upload/product/thumb_" + date + "_" + filename.Substring(filename.LastIndexOf('.'));
-
-                    string img_save = "";
-
-                    if (p.FirstOrDefault().BranchTypeId.ToString() == "1")
-                        img_save = "/upload/cnice/product/thumb_" + date + "_" + filename.Substring(filename.LastIndexOf('.'));
+                    if (item.Image == null || item.Image == "")
+                        item.Image = imageThumb;
                     else
-                        img_save = "/upload/cfashion/product/thumb_" + date + "_" + filename.Substring(filename.LastIndexOf('.'));
+                        item.Image = item.Image + "#" + imageThumb;
+                    if (item.ImageZoom == null || item.ImageZoom == "")
+                        item.ImageZoom = imageZoom;
+                    else
+                        item.ImageZoom = item.ImageZoom + "#" + imageZoom;
 
-                    fuThumb.SaveAs(Server.MapPath(img_save));
-
-                    foreach (var item in p.ToList())
-                    {
-                        if (item.Image == null || item.Image == "")
-                        {
-                            item.Image = img_path;
-                        }
-                        else
-                        {
-                            item.Image = item.Image + "#" + img_path;
-                        }
-                    }
                 }
                 db.SubmitChanges();
             }
-            
             Response.Redirect("/image");
         }
     }

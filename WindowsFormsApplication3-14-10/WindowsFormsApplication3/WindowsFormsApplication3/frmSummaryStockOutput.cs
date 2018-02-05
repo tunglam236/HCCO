@@ -23,10 +23,20 @@ namespace WindowsFormsApplication3
         cls.clsProcess cl = new cls.clsProcess();
         private void frmSummaryStockOutput_Load(object sender, EventArgs e)
         {
-            btnDetail.Enabled = false;
+            //btnDetail.Enabled = false;
             btnPrint.Enabled = false;
             txtFromDate.Text = DateTime.Now.ToString("MM/dd/yyyy");
             txtToDate.Text = DateTime.Now.ToString("MM/dd/yyyy");
+
+            Dictionary<string, string> type = new Dictionary<string, string>();
+            type.Add("0", "Tất cả");
+            type.Add("1", "Tiền mặt");
+            type.Add("2", "Qua ngân hàng");
+            type.Add("3", "Cà thẻ");
+            type.Add("4", "Ship COD");
+            cbPaymentType.DataSource = new BindingSource(type, null);
+            cbPaymentType.DisplayMember = "Value";
+            cbPaymentType.ValueMember = "Key";
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -37,10 +47,10 @@ namespace WindowsFormsApplication3
             {
                 var p = db.sp_SummaryStock(WindowsFormsApplication3.Form1.branch_type_id, WindowsFormsApplication3.Form1.branch_id,
                     DateTime.Parse(cl.returnDatetime(txtFromDate.Text.Trim())),
-                    DateTime.Parse(cl.returnDatetime(txtToDate.Text.Trim())), txtBillCode.Text.Trim(), txtMember.Text.Trim());
+                    DateTime.Parse(cl.returnDatetime(txtToDate.Text.Trim())), txtBillCode.Text.Trim(), txtMember.Text.Trim(), int.Parse(cbPaymentType.SelectedValue.ToString()));
 
                 dgvGrid.DataSource = p;
-                btnDetail.Enabled = false;
+                //btnDetail.Enabled = false;
                 btnPrint.Enabled = false;
                 if (dgvGrid.Rows.Count == 0)
                     MessageBox.Show("Không tìm thấy dữ liệu nào phù hợp", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -319,7 +329,7 @@ namespace WindowsFormsApplication3
         {
             if (e.RowIndex >= 0)
             {
-                btnDetail.Enabled = true;
+                //btnDetail.Enabled = true;
                 btnPrint.Enabled = true;
 
                 var typeId = dgvGrid.Rows[e.RowIndex].Cells["InputType"].Value.ToString();
@@ -334,20 +344,20 @@ namespace WindowsFormsApplication3
             }
         }
 
-        private void btnDetail_Click(object sender, EventArgs e)
-        {
-            frmSummaryStockOutputDetail.type = type;
-            frmSummaryStockOutputDetail.code = code;
-            frmSummaryStockOutputDetail.date = date;
-            frmSummaryStockOutputDetail.price = price;
-            frmSummaryStockOutputDetail.branch = branch;
-            frmSummaryStockOutputDetail.note = note;
-            frmSummaryStockOutputDetail.discount = discount;
+        //private void btnDetail_Click(object sender, EventArgs e)
+        //{
+        //    frmSummaryStockOutputDetail.type = type;
+        //    frmSummaryStockOutputDetail.code = code;
+        //    frmSummaryStockOutputDetail.date = date;
+        //    frmSummaryStockOutputDetail.price = price;
+        //    frmSummaryStockOutputDetail.branch = branch;
+        //    frmSummaryStockOutputDetail.note = note;
+        //    frmSummaryStockOutputDetail.discount = discount;
 
-            var f = new frmSummaryStockOutputDetail();
-            f.MdiParent = WindowsFormsApplication3.Form1.ActiveForm;
-            f.Show();
-        }
+        //    var f = new frmSummaryStockOutputDetail();
+        //    f.MdiParent = WindowsFormsApplication3.Form1.ActiveForm;
+        //    f.Show();
+        //}
 
     }
 }

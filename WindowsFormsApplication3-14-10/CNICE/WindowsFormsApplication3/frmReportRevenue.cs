@@ -22,6 +22,16 @@ namespace WindowsFormsApplication3
         {
             txtFromDate.Text = DateTime.Now.ToString("MM/dd/yyyy");
             txtToDate.Text = DateTime.Now.ToString("MM/dd/yyyy");
+
+            Dictionary<string, string> type = new Dictionary<string, string>();
+            type.Add("0", "Tất cả");
+            type.Add("1", "Tiền mặt");
+            type.Add("2", "Qua ngân hàng");
+            type.Add("3", "Cà thẻ");
+            type.Add("4", "Ship COD");
+            cbPaymentType.DataSource = new BindingSource(type, null);
+            cbPaymentType.DisplayMember = "Value";
+            cbPaymentType.ValueMember = "Key";
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -32,7 +42,7 @@ namespace WindowsFormsApplication3
             {
                 var r= db.sp_ReportRevenue(WindowsFormsApplication3.Form1.branch_type_id, WindowsFormsApplication3.Form1.branch_id,
                     DateTime.Parse(cl.returnDatetime(txtFromDate.Text.Trim())), 
-                    DateTime.Parse(cl.returnDatetime(txtToDate.Text.Trim())));
+                    DateTime.Parse(cl.returnDatetime(txtToDate.Text.Trim())), int.Parse(cbPaymentType.SelectedValue.ToString()));
                 dgvGrid.DataSource = r;
 
                 if (dgvGrid.Rows.Count == 0)

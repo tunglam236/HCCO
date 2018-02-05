@@ -58,6 +58,7 @@ namespace WindowsFormsApplication3
             type.Add("1", "Tiền mặt");
             type.Add("2", "Qua ngân hàng");
             type.Add("3", "Cà thẻ");
+            type.Add("4", "Ship COD");
             cboPaymentType.DataSource = new BindingSource(type, null);
             cboPaymentType.DisplayMember = "Value";
             cboPaymentType.ValueMember = "Key";
@@ -116,11 +117,12 @@ namespace WindowsFormsApplication3
                                 }
                             }
 
-                            double _price = 0, _priSaleValue = 0;
+                            double _price = 0, _priSaleValue = 0, _priceSale = 0;
                             int _priType = 0;
                             _price = d.FirstOrDefault().Price.Value;
                             _priType = d.FirstOrDefault().saleType.Value;
                             _priSaleValue = d.FirstOrDefault().saleValue.Value;
+                            _priceSale = d.FirstOrDefault().priceSale.Value;
 
                             if (_priType == 1)//giam gia tien
                                 _price = _price - d.FirstOrDefault().saleValue.Value;
@@ -128,16 +130,24 @@ namespace WindowsFormsApplication3
                                 _price = _price - ((_price * d.FirstOrDefault().saleValue.Value) / 100);
                             else if (_priType == 3)//dong gia
                                 _price = d.FirstOrDefault().saleValue.Value;
+                            else if (_priType == 4)//tuy chinh gia
+                                _price = d.FirstOrDefault().priceSale.Value;
 
                             DataRow dr = dtTemp.NewRow();
                             dr["ProductId"] = d.FirstOrDefault().Id.ToString();
-                            dr["ProductCode"] = d.FirstOrDefault().ProductCode;
+                            if(txtProductCode.Text.Trim().Contains("CB"))
+                                dr["ProductCode"] = txtProductCode.Text.Trim().ToUpper();
+                            else
+                                dr["ProductCode"] = d.FirstOrDefault().ProductCode;
                             dr["ProductName"] = d.FirstOrDefault().ProductName;
                             dr["Quantity"] = currrent_quantity + 1;
                             dr["UnitId"] = d.FirstOrDefault().UnitId;
                             dr["UnitName"] = d.FirstOrDefault().UnitName;
                             dr["PriceCoss"] = string.Format("{0:0,0}", d.FirstOrDefault().Price.Value);
                             dr["Price"] = string.Format("{0:0,0}", _price);
+                            //if (_priType == 2)
+                            //    dr["Discount"] = _priSaleValue.ToString() + "%";
+                            //else
                             dr["Discount"] = d.FirstOrDefault().Discount > 999 ? string.Format("{0:0,0}", d.FirstOrDefault().Discount) : d.FirstOrDefault().Discount.ToString();
                             dr["Total"] = (currrent_quantity + 1) * _price;
                             dr["IsCombo"] = d.FirstOrDefault().IsCombo;
@@ -145,7 +155,8 @@ namespace WindowsFormsApplication3
                             dr["ToTalPrice"] = string.Format("{0:0,0}", (((currrent_quantity + 1) * _price) - d.FirstOrDefault().Discount));
                             dr["Note"] = _priType == 1 ? "Giảm giá " + string.Format("{0:0,0 đ}", _priSaleValue) :
                                 _priType == 2 ? "Giảm giá " + _priSaleValue.ToString() + " %" :
-                                _priType == 3 ? "Đồng giá " + string.Format("{0:0,0 đ}", _priSaleValue) : "";
+                                _priType == 3 ? "Đồng giá " + string.Format("{0:0,0 đ}", _priSaleValue) :
+                                 _priType == 4 ? "Giảm còn " + string.Format("{0:0,0 đ}", _priceSale) : "";
 
                             dtTemp.Rows.Add(dr);
 
@@ -408,6 +419,7 @@ namespace WindowsFormsApplication3
                                         ton.ProductId = int.Parse(dtTemp.Rows[i]["ProductId"].ToString());
                                         ton.QuantityOut = byte.Parse(dtTemp.Rows[i]["Quantity"].ToString());
                                         ton.CreateAt = DateTime.Now;
+                                        ton.Status = 1;//xuat ban//2//qua tang//3//xuat dieu chuyen
                                         db.tStockInventories.InsertOnSubmit(ton);
                                     }
                                     else
@@ -464,7 +476,7 @@ namespace WindowsFormsApplication3
                                             ton.ProductId = item.ProductId.Value;
                                             ton.QuantityOut = byte.Parse((int.Parse(dtTemp.Rows[i]["Quantity"].ToString()) * item.Quantity.Value).ToString());
                                             ton.CreateAt = DateTime.Now;
-
+                                            ton.Status = 1;//xuat ban//2//qua tang//3//xuat dieu chuyen
                                             db.tStockInventories.InsertOnSubmit(ton);
                                         }
                                     }
@@ -574,13 +586,13 @@ namespace WindowsFormsApplication3
             }
         }
 
-        private void txtProductCode_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsDigit(e.KeyChar) && (!char.IsControl(e.KeyChar)))
-            {
-                e.Handled = true;
-            }
-        }
+        //private void txtProductCode_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    if (!char.IsDigit(e.KeyChar) && (!char.IsControl(e.KeyChar)))
+        //    {
+        //        e.Handled = true;
+        //    }
+        //}
 
         private void txtProductCode_KeyUp(object sender, KeyEventArgs e)
         {

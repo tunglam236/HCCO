@@ -150,6 +150,7 @@
             <li><a href="#" class="small toggle-vis" data-column="6" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Tổng tiền</label> </a></li>
             <li><a href="#" class="small toggle-vis" data-column="7" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Từ ngày</label> </a></li>
             <li><a href="#" class="small toggle-vis" data-column="8" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Đến ngày</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="9" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Trạng thái</label> </a></li>
         </ul>
     </div>
 </section>
@@ -169,6 +170,7 @@
                         <th class="bg-th">Tổng tiền</th>
                         <th class="bg-th">Từ ngày</th>
                         <th class="bg-th">Đến ngày</th>
+                        <th class="bg-th">Trạng thái</th>
                      </tr>
                   </thead>
                   <tbody id="rbody">
@@ -185,6 +187,7 @@
                         <th class="bg-th">Tổng tiền</th>
                         <th class="bg-th">Từ ngày</th>
                         <th class="bg-th">Đến ngày</th>
+                         <th class="bg-th">Trạng thái</th>
                      </tr>
                   </tfoot>
                </table>
@@ -240,9 +243,15 @@
                         </div>
                     </div>
                     <div class="row" style="padding: 5px;">
-                        <div class="col-md-12">Mô tả combo<br />
+                        <div class="col-md-8">Mô tả combo<br />
                             <input type="text" id="txtDescription" class="form-control" style="width: 100%;" />
                         </div>
+                         <div class="col-md-4">Trạng thái<br />
+                            <select id="dlStatus" class="form-control select2" style="width: 100%;">
+                                <option value="1" selected="selected">Áp dụng</option>
+                                <option value="2">Ngưng áp dụng</option>
+                            </select>
+                          </div>
                     </div>
                      <div class="dt_cb" style="font-weight: bold; text-transform: uppercase; font-size: 16px; text-align: center;">
                         Chi tiết sản phẩm combo</div>
@@ -253,7 +262,7 @@
                         </div>
                         <div class="col-md-4">
                             Số lượng<br />
-                            <input type="text" id="quantity" class="numbers form-control" maxlength="5" style="width: 100%;" />
+                            <input type="text" id="quantity" class="numbers form-control proCode" maxlength="5" style="width: 100%;" />
                         </div>
                         
                     </div>
@@ -337,7 +346,7 @@
         </div>
     </div>
     <script>
-        var options = ["2","3","4","6","7","8"];
+        var options = ["2","3","4","6","7","8","9"];
 
         $('.ul-column a').on('click', function (event) {
 
@@ -696,6 +705,8 @@
                         $('#txtTotalPrice').val(data.d.Total);
                         $('#txtFromDate').val(data.d.FromDate);
                         $('#txtToDate').val(data.d.ToDate);
+                        $('#dlStatus').val(data.d.Status);
+                        $('#select2-dlStatus-container').text($('#dlStatus option:selected').text());
                         $('#txtDescription').val(data.d.Description);
                     }
                     else
@@ -742,81 +753,87 @@
             return false;
         }
         function saveChanges() {
-            var branchTypeId = $('#dlBranchType').val();
-            var branchId = $('#dlBranch').val();
-            var code = $('#txtComboCode').val();
-            var name = $('#txtComboName').val();
-            var price = $('#txtTotalPrice').val();
-            var fromdate = $('#txtFromDate').val();
-            var todate = $('#txtToDate').val();
-            var des = $('#txtDescription').val();
-            var data = "";
+            if (confirm("Bạn chắc chắn muốn lưu combo này ?") == true) {
+                var branchTypeId = $('#dlBranchType').val();
+                var branchId = $('#dlBranch').val();
+                var code = $('#txtComboCode').val();
+                var name = $('#txtComboName').val();
+                var price = $('#txtTotalPrice').val();
+                var fromdate = $('#txtFromDate').val();
+                var todate = $('#txtToDate').val();
+                var des = $('#txtDescription').val();
+                var status = $('#dlStatus').val();
+                var data = "";
 
-            $(".combo-rows").each(function () {
-                var id = $(this).attr("data-code");
-                var quantity = $("#quantity" + id).val();
-                if (data != "") data += "#";
-                data += id + "," + quantity;
-            });
-
-            if (data == "") showAlert('Chưa có dữ liệu nào để lưu');
-            else if (name == '') showAlert('Nhập tên chương trình combo');
-            else if (price == '') showAlert('Nhập tổng tiền');
-            else if (fromdate == '') showAlert('Nhập thời gian áp dụng');
-            else {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Command.aspx/insertCombo',
-                    data: '{"branchTypeId":"' + branchTypeId + '","branchId":"' + branchId + '","combocode":"' + code + '","comboname":"' + name + '","totalPrice":"' + price + '","fromdate":"' + fromdate + '","todate":"' + todate + '","note":"' + des + '","data":"' + data + '"}',
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.d._content == '1') {
-                            showAlert('Lưu combo thành công');
-
-                            setTimeout(function () {
-                                window.location.href = window.location.href;
-                            }, 1000);
-                        }
-                        else
-                            showAlert('Có lỗi khi lưu combo, chi tiết: ' + data.d._mess);
-                    }
+                $(".combo-rows").each(function () {
+                    var id = $(this).attr("data-code");
+                    var quantity = $("#quantity" + id).val();
+                    if (data != "") data += "#";
+                    data += id + "," + quantity;
                 });
+
+                if (data == "") showAlert('Chưa có dữ liệu nào để lưu');
+                else if (name == '') showAlert('Nhập tên chương trình combo');
+                else if (price == '') showAlert('Nhập tổng tiền');
+                else if (fromdate == '') showAlert('Nhập thời gian áp dụng');
+                else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Command.aspx/insertCombo',
+                        data: '{"branchTypeId":"' + branchTypeId + '","branchId":"' + branchId + '","combocode":"' + code + '","comboname":"' + name + '","totalPrice":"' + price + '","fromdate":"' + fromdate + '","todate":"' + todate + '","note":"' + des + '","status":"' + status + '","data":"' + data + '"}',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.d._content == '1') {
+                                showAlert('Lưu combo thành công');
+
+                                setTimeout(function () {
+                                    window.location.href = window.location.href;
+                                }, 1000);
+                            }
+                            else
+                                showAlert('Có lỗi khi lưu combo, chi tiết: ' + data.d._mess);
+                        }
+                    });
+                }
             }
         }
         function updateChanges() {
-            var branchTypeId = $('#dlBranchType').val();
-            var branchId = $('#dlBranch').val();
-            var code = $('#txtComboCode').val();
-            var name = $('#txtComboName').val();
-            var price = $('#txtTotalPrice').val();
-            var fromdate = $('#txtFromDate').val();
-            var todate = $('#txtToDate').val();
-            var des = $('#txtDescription').val();
-            var id = $('#hdIdCombo').val();
+            if (confirm("Bạn chắc chắn muốn lưu combo này ?") == true) {
+                var branchTypeId = $('#dlBranchType').val();
+                var branchId = $('#dlBranch').val();
+                var code = $('#txtComboCode').val();
+                var name = $('#txtComboName').val();
+                var price = $('#txtTotalPrice').val();
+                var fromdate = $('#txtFromDate').val();
+                var todate = $('#txtToDate').val();
+                var des = $('#txtDescription').val();
+                var status = $('#dlStatus').val();
+                var id = $('#hdIdCombo').val();
 
-            if (name == '') showAlert('Nhập tên chương trình combo');
-            else if (price == '') showAlert('Nhập tổng tiền');
-            else if (fromdate == '') showAlert('Nhập thời gian áp dụng');
-            else {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Command.aspx/updateCombo',
-                    data: '{"Id":"' + id + '","branchTypeId":"' + branchTypeId + '","branchId":"' + branchId + '","combocode":"' + code + '","comboname":"' + name + '","totalPrice":"' + price + '","fromdate":"' + fromdate + '","todate":"' + todate + '","note":"' + des + '"}',
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.d._content == '1') {
-                            showAlert('Lưu combo thành công');
+                if (name == '') showAlert('Nhập tên chương trình combo');
+                else if (price == '') showAlert('Nhập tổng tiền');
+                else if (fromdate == '') showAlert('Nhập thời gian áp dụng');
+                else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Command.aspx/updateCombo',
+                        data: '{"Id":"' + id + '","branchTypeId":"' + branchTypeId + '","branchId":"' + branchId + '","combocode":"' + code + '","comboname":"' + name + '","totalPrice":"' + price + '","fromdate":"' + fromdate + '","todate":"' + todate + '","note":"' + des + '","status":"' + status + '"}',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.d._content == '1') {
+                                showAlert('Lưu combo thành công');
 
-                            setTimeout(function () {
-                                window.location.href = window.location.href;
-                            }, 1000);
+                                setTimeout(function () {
+                                    window.location.href = window.location.href;
+                                }, 1000);
+                            }
+                            else
+                                showAlert('Có lỗi khi lưu combo, chi tiết: ' + data.d._mess);
                         }
-                        else
-                            showAlert('Có lỗi khi lưu combo, chi tiết: ' + data.d._mess);
-                    }
-                });
+                    });
+                }
             }
         }
         function removeChanges() {

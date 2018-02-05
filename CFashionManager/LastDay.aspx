@@ -128,7 +128,7 @@
         <div class="panel panel-success">
           <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
             <h4 class="panel-title">
-              <a data-toggle="collapse" href="#collapse4">Chuỗi cửa hàng</a>
+              <a>Chuỗi cửa hàng</a>
             </h4>
           </div>
           <div id="collapse4" class="panel-collapse">
@@ -141,7 +141,7 @@
         <div class="panel panel-success">
           <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
             <h4 class="panel-title">
-              <a data-toggle="collapse" href="#collapse3">Chi nhánh</a>
+              <a>Chi nhánh</a>
             </h4>
           </div>
           <div id="collapse3" class="panel-collapse">
@@ -150,11 +150,29 @@
           </div>
         </div>
       </div>
+     <div class="panel-group">
+        <div class="panel panel-success">
+          <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
+            <h4 class="panel-title">
+              <a>Nguồn tiền</a>
+            </h4>
+          </div>
+          <div>
+              <asp:RadioButtonList ID="rdPaymentType" CssClass="rdList" runat="server" RepeatDirection="Vertical">
+                  <asp:ListItem Text="Tất cả" Value="0" Selected="True"></asp:ListItem>
+                  <asp:ListItem Text="Tiền mặt" Value="1"></asp:ListItem>
+                  <asp:ListItem Text="Chuyển khoản" Value="2"></asp:ListItem>
+                  <asp:ListItem Text="Cà thẻ" Value="3"></asp:ListItem>
+                  <asp:ListItem Text="Ship COD" Value="4"></asp:ListItem>
+              </asp:RadioButtonList>
+          </div>
+        </div>
+      </div>
        <div class="panel-group">
         <div class="panel panel-success">
           <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
             <h4 class="panel-title">
-              <a data-toggle="collapse" href="#collapse1">Thời gian</a>
+              <a>Thời gian</a>
             </h4>
           </div>
           <div id="collapse1" class="panel-collapse" style="padding:5px;">
@@ -327,7 +345,7 @@
                 "searching": true,
                 "ordering": true,
                 "info": true,
-                "pageLength": 10,
+                "pageLength": 20,
                 //"drawCallback": function (settings) {
                 //    var api = this.api();
                 //    var rows = api.rows({ page: 'current' }).nodes();

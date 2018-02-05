@@ -256,7 +256,7 @@
                 "searching": true,
                 "ordering": true,
                 "info": true,
-                "pageLength": 10,
+                "pageLength": 20,
                 "autoWidth": false,
                 "order": [[4, 'desc']],
                 "columnDefs": [

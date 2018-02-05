@@ -40,7 +40,16 @@ public partial class Product : System.Web.UI.Page
                             t.Description = item.Description;
                             t.Image = item.Image;
                             t.NoteSale = item.NoteSale;
-                            t.Price = item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price.Value);
+                            if (item.Price.Value == item.PriceSale.Value)
+                            {
+                                t.Price = item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price.Value);
+                                t.PriceSale = "0";
+                            }
+                            else
+                            {
+                                t.Price = item.PriceSale.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.PriceSale.Value);
+                                t.PriceSale = item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price.Value);
+                            }
                             t.Tag = item.Tag;
                             tol.Add(t);
                         }
@@ -68,7 +77,16 @@ public partial class Product : System.Web.UI.Page
                             t.Description = item.Description;
                             t.Image = item.Image;
                             t.NoteSale = item.NoteSale;
-                            t.Price = item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price.Value);
+                            if (item.Price.Value == item.PriceSale.Value)
+                            {
+                                t.Price = item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price.Value);
+                                t.PriceSale = "0";
+                            }
+                            else
+                            {
+                                t.Price = item.PriceSale.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.PriceSale.Value);
+                                t.PriceSale = item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price.Value);
+                            }
                             t.Tag = item.Tag;
                             tol.Add(t);
                         }
@@ -91,7 +109,16 @@ public partial class Product : System.Web.UI.Page
                         t.Description = item.Description;
                         t.Image = item.Image;
                         t.NoteSale = item.NoteSale;
-                        t.Price = item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price.Value);
+                        if (item.Price.Value == item.PriceSale.Value)
+                        {
+                            t.Price = item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price.Value);
+                            t.PriceSale = "0";
+                        }
+                        else
+                        {
+                            t.Price = item.PriceSale.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.PriceSale.Value);
+                            t.PriceSale = item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price.Value);
+                        }
                         t.Tag = item.Tag;
                         tol.Add(t);
                     }
@@ -116,7 +143,16 @@ public partial class Product : System.Web.UI.Page
                         t.Description = item.Description;
                         t.Image = item.Image;
                         t.NoteSale = item.NoteSale;
-                        t.Price = item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price.Value);
+                        if (item.Price.Value == item.PriceSale.Value)
+                        {
+                            t.Price = item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price.Value);
+                            t.PriceSale = "0";
+                        }
+                        else
+                        {
+                            t.Price = item.PriceSale.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.PriceSale.Value);
+                            t.PriceSale = item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price.Value);
+                        }
                         t.Tag = item.Tag;
                         tol.Add(t);
                     }
@@ -135,7 +171,17 @@ public partial class Product : System.Web.UI.Page
                         t.Description = item.Description;
                         t.Image = item.Image;
                         t.NoteSale = item.NoteSale;
-                        t.Price = item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price.Value);
+
+                        if (item.Price.Value == item.PriceSale.Value)
+                        {
+                            t.Price = item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price.Value);
+                            t.PriceSale = "0";
+                        }
+                        else
+                        {
+                            t.Price = item.PriceSale.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.PriceSale.Value);
+                            t.PriceSale = item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price.Value);
+                        }
                         t.Tag = item.Tag;
                         tol.Add(t);
                     }
@@ -162,7 +208,8 @@ public partial class Product : System.Web.UI.Page
                 result += "<div class='item'><div class='item-inner'><div class='col-image'><div class='images-container'>";
                 if (x.NoteSale != null && x.NoteSale != "")
                     result += "<div class='label-pro-new'><span>" + x.NoteSale + "</span></div>";
-                result += "<a href='/" + ref_member + "detail/" + x.Id.ToString() + "/" + cl.ConvertToUnSign(x.ProductName) + ".html'><img src='" + (x.Image == null || x.Image == "" ? "/image/image-coming-soon.png" : x.Image) + "' alt='" + x.ProductName + "' title='" + x.ProductName + "' class='img-responsive lazy' /></a>";
+                result += "<a href='/" + ref_member + "detail/" + x.Id.ToString() + "/" + cl.ConvertToUnSign(x.ProductName) + ".html'>";
+                result += "<img src='" + (x.Image == null || x.Image == "" ? "/image/image-coming-soon.png" : x.Image) + "' alt='" + x.ProductName + "' title='" + x.ProductName + "' class='img-responsive lazy imgzoom' /></a>";
 
                 result += "</div></div><div class='col-des'><div class='des-container'>";
 
@@ -180,16 +227,26 @@ public partial class Product : System.Web.UI.Page
                     else
                         result += "<a href='/search/?k=" + Server.UrlEncode(x.Tag.Trim()) + "'>#" + x.Tag.Trim() + "</a>";
                 }
+                else
+                    result += "<a href='#'></a>";
 
                 result += "</p>";
 
-                result += "<h2 class='product-name'><a href='/" + ref_member + "detail/" + x.Id.ToString() + "/" + cl.ConvertToUnSign(x.ProductName) + ".html'>" + x.ProductCode +" - "+ x.ProductName + "</a></h2>";
+                result += "<h2 class='product-name'><a href='/" + ref_member + "detail/" + x.Id.ToString() + "/" + cl.ConvertToUnSign(x.ProductName) + ".html'>" + x.ProductCode + " - " + x.ProductName + "</a></h2>";
                 result += "<div class='box-rating'></div><div class='price-box box-special'>";
-                result += "<p class='special-price'><span class='price'>" + string.Format("{0:0,0}", x.Price) + "</span></p>";
-
+                result += "<p class='special-price'>";
+                if (x.PriceSale == "0")
+                    result += "<span class='price'>" + string.Format("{0:0,0}", x.Price) + "</span>";
+                else
+                {
+                    result += "<span class='price'>" + x.Price + "</span><span class='price' style='font-size:12px;padding-left:5px;'><del>" + x.PriceSale + "</del></span>";
+                }
+                result += "</p>";
                 result += "</div><p class='product-des'>" + x.Description + "</p>";
-                result += "<button class='button btn-cart' type='button' onclick=\"addCart(" + x.Id.ToString() + ",'" + x.ProductName + "','1'" + ",'" + x.Image + "','" + string.Format("{0:0,0}", x.Price) + "',0)\" data-toggle='tooltip' title='Thêm nhanh vào giỏ hàng'>";
-                result += "<span><span>Thêm vào giỏ hàng</span></span></button>";
+                result += "<button class='button btn-cart' type='button' onclick=\"addCart(" + x.Id.ToString() + ",'" + x.ProductName + "','1'" + ",'" + x.Image + "','" + (x.PriceSale == "0" ? x.PriceSale : x.Price) + "',0)\" data-toggle='tooltip' title='Thêm nhanh vào giỏ hàng'>";
+                result += "<span><span>Giỏ hàng</span></span></button>-";
+                result += "<button class='button btn-quick' type='button' data-toggle='modal' data-target='#addQuickModal' onclick=\"showAddQuick(" + x.Id.ToString() + ",'" + x.ProductName + "','" + (x.PriceSale == "0" ? x.PriceSale : x.Price) + "'," + (x.PriceSale == "0" ? x.PriceSale.Replace(",", "").Replace("đ", "").Replace(",", "") : x.Price.Replace(",", "").Replace("đ", "").Replace(",", "")) + ")\" data-toggle='tooltip' title='Thử đồ sản phẩm này'>";
+                result += "<span><span>Thử đồ</span></span></button>";
                 result += "<div class='box-hover'><div class='ratings'><div class='rating-box'><div class='rating5'>rating</div></div></div></div></div></div></div></div></div>";
             }
 
@@ -304,7 +361,7 @@ public partial class Product : System.Web.UI.Page
         {
             string result = ""; int count = 0; bool close = true;
             string ref_member = getRefMember();
-            var p = db.sp_web_cf_loadProductRandom(branchTypeId.ToString());
+            var p = db.sp_web_cf_loadProductRandom(branchTypeId.ToString(),0);
             foreach (var item in p.ToList())
             {
                 count++;
@@ -320,7 +377,14 @@ public partial class Product : System.Web.UI.Page
                 result += "<a href='/" + ref_member + "detail/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductName) + ".html'>" + item.ProductTypeCode+"</br>"+ item.ProductName + "</a></h2>";
 
                 result += "<div class='price-box box-regular'>";
-                result += "<span class='regular-price'><span class='price'>" + (item.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", item.Price)) + "</span></span></div>";
+                result += "<span class='regular-price'>";
+                if (item.PriceSale == item.Price)
+                    result += "<span class='price'>" + string.Format("{0:0,0 đ}", item.Price) + "</span>";
+                else
+                {
+                    result += "<span class='price'>" + string.Format("{0:0,0 đ}", item.PriceSale) + "</span><span class='price' style='font-size:12px;padding-left:5px;'><del>" + string.Format("{0:0,0 đ}", item.Price) + "</del></span>";
+                }
+                result += "</span></div>";
 
                 result += "<div class='ratings'><div class='rating-box'>";
                 result += "<div class='rating3'>rating</div></div></div></div></div></div>";
@@ -364,7 +428,7 @@ public partial class Product : System.Web.UI.Page
     }
     public class product
     {
-        private string id = "",code="", name = "", price = "",image="", tag="", des="", notesale="";
+        private string id = "",code="", name = "", price = "",image="", tag="", des="", notesale="", pricesale="";
         public string Id
         {
             get { return id; }
@@ -384,6 +448,11 @@ public partial class Product : System.Web.UI.Page
         {
             get { return price; }
             set { price = value; }
+        }
+        public string PriceSale
+        {
+            get { return pricesale; }
+            set { pricesale = value; }
         }
         public string Image
         {

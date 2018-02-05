@@ -26,40 +26,7 @@ namespace WindowsFormsApplication3.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=heineken-pc\\mssql2008r2;Initial Catalog=CFashionManager;Persist Secur" +
-            "ity Info=True;User ID=sa;Password=123")]
-        public string CFashionManagerConnectionString {
-            get {
-                return ((string)(this["CFashionManagerConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=D3VIL;Initial Catalog=CFashionManager;Persist Security Info=True;User" +
-            " ID=it_hcc")]
-        public string CFashionManagerConnectionString1 {
-            get {
-                return ((string)(this["CFashionManagerConnectionString1"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=D3VIL;Initial Catalog=CFashionManager;Persist Security Info=True;User" +
-            " ID=it_hcc;Password=123")]
-        public string CFashionManagerConnectionString2 {
-            get {
-                return ((string)(this["CFashionManagerConnectionString2"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=CFashionManager;User ID=it_hcc")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=CMS0;User ID=it_hcc")]
         public string CFashionManagerConnectionString3 {
             get {
                 return ((string)(this["CFashionManagerConnectionString3"]));
@@ -68,28 +35,8 @@ namespace WindowsFormsApplication3.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=CMS2;User ID=it_hcc")]
-        public string CMS2ConnectionString {
-            get {
-                return ((string)(this["CMS2ConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=CMS2;User ID=it_hcc;Password=123")]
-        public string CMS2ConnectionString1 {
-            get {
-                return ((string)(this["CMS2ConnectionString1"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://cms.hcco.vn/CMServices.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://103.7.43.146:8008/CMServices.asmx")]
         public string WindowsFormsApplication3_WSC_CMServices {
             get {
                 return ((string)(this["WindowsFormsApplication3_WSC_CMServices"]));
@@ -99,10 +46,10 @@ namespace WindowsFormsApplication3.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=CMS3;Persist Security Info=True;User ID=it_hcc")]
-        public string CMS3ConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=CMS0;User ID=it_hcc;Password=123")]
+        public string CMS0ConnectionString {
             get {
-                return ((string)(this["CMS3ConnectionString"]));
+                return ((string)(this["CMS0ConnectionString"]));
             }
         }
     }

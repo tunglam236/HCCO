@@ -192,7 +192,6 @@
             this.txtProductCode.Name = "txtProductCode";
             this.txtProductCode.Size = new System.Drawing.Size(138, 20);
             this.txtProductCode.TabIndex = 0;
-            this.txtProductCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductCode_KeyPress);
             this.txtProductCode.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtProductCode_KeyUp);
             // 
             // txtNote
@@ -290,7 +289,6 @@
             this.cbMember.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbMember.DisplayMember = "Name";
             this.cbMember.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbMember.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbMember.FormattingEnabled = true;
             this.cbMember.ItemHeight = 15;
             this.cbMember.Location = new System.Drawing.Point(100, 47);
@@ -307,7 +305,6 @@
             this.cbUser.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbUser.DisplayMember = "Name";
             this.cbUser.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbUser.FormattingEnabled = true;
             this.cbUser.ItemHeight = 15;
             this.cbUser.Location = new System.Drawing.Point(468, 47);
@@ -324,7 +321,6 @@
             this.cboPaymentType.DisplayMember = "Text";
             this.cboPaymentType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cboPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboPaymentType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboPaymentType.FormattingEnabled = true;
             this.cboPaymentType.ItemHeight = 14;
             this.cboPaymentType.Location = new System.Drawing.Point(834, 10);
@@ -449,7 +445,7 @@
             this.txtCustomePay.TabIndex = 6;
             this.txtCustomePay.Text = "0";
             this.txtCustomePay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtCustomePay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductCode_KeyPress);
+            //this.txtCustomePay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductCode_KeyPress);
             this.txtCustomePay.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCustome_KeyUp);
             this.txtCustomePay.MouseLeave += new System.EventHandler(this.txtCustomePay_MouseLeave);
             // 
@@ -725,7 +721,7 @@
             this.dgvTemp.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvTemp.RowHeadersVisible = false;
             this.dgvTemp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTemp.Size = new System.Drawing.Size(1260, 262);
+            this.dgvTemp.Size = new System.Drawing.Size(1260, 240);
             this.dgvTemp.TabIndex = 2;
             this.dgvTemp.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvTemp_CellBeginEdit);
             this.dgvTemp.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTemp_CellClick);
@@ -841,9 +837,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(1260, 478);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.dgvTemp);
             this.Controls.Add(this.grTTK);
+            this.Controls.Add(this.statusStrip1);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1276, 517);

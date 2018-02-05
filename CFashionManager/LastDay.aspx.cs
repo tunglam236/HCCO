@@ -91,8 +91,8 @@ public partial class LastDay : System.Web.UI.Page
     }
     public string loadBill(string branchType, string branchId, string fromdate, string todate)
     {
-        string outputType = "1";//xuat ban, 2//dieu chuyen
-        string result = "", product=""; int i = 1;
+        
+        string result = ""; int i = 1;
         string fDate = "", tDate = "";
         if (fromdate.Trim() != "")
             fDate = cl.returnDatetime(fromdate.Trim());
@@ -104,10 +104,9 @@ public partial class LastDay : System.Web.UI.Page
         }
       
         //var m = db.sp_web_loadBill(branchType, branchId, fDate, tDate, outputType);
-        var m = db.sp_web_baocaoxuathang(branchType.Trim(), branchId.Trim(), fDate, tDate);
-        double total_discount = 0, total_revenue = 0;
-        int total_code = 0;
-
+        var m = db.sp_web_baocaoxuathang(branchType.Trim(), branchId.Trim(), fDate, tDate, int.Parse(rdPaymentType.SelectedValue));
+        double total_revenue = 0;
+        
         var tmp1 = new Dictionary<string, double>();
 
         foreach (var item in m.ToList())

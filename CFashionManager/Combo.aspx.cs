@@ -80,6 +80,7 @@ public partial class Combo : System.Web.UI.Page
             result += "<td class='right'>" + string.Format("{0:0,0}", item.TotalPrice) + "</td>";
             result += "<td>" + item.StartDate + "</td>";
             result += "<td>" + item.EndDate + "</td>";
+            result += "<td>" + item.Status + "</td>";
             result += "</tr>";
             i++;
         }

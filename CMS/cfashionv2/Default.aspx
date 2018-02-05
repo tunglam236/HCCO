@@ -6,9 +6,22 @@
 <%@ Register TagPrefix="uRow3" TagName="Row3" Src="/control/below-product.ascx" %>
 <%@ Register TagPrefix="ucorporate" TagName="Corporate" Src="/control/corporate.ascx" %>
 <%@ Register TagPrefix="uproducts" TagName="Products" Src="/control/product.ascx" %>
+<%@ Register TagPrefix="uproductsale" TagName="ProductSale" Src="/control/product_salest.ascx" %>
 <%@ Register TagPrefix="unews" TagName="News" Src="/control/news.ascx" %>
 <%@ Register TagPrefix="ubanner" TagName="Banner" Src="/control/banner.ascx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <style type="text/css">
+    .transition {
+    -webkit-transform: scale(1.2); 
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+    -webkit-transition: 0.5s ease-in-out;
+    -moz-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+    }
+</style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="hp" runat="Server">
     <div class="main-row full-width">
@@ -34,8 +47,14 @@
     <uRow3:Row3 ID="uRow3" runat="server" />
     <ucorporate:Corporate ID="ucorporate" runat="server" />
     <uproducts:Products ID="Products" runat="server" />
-    <div class="banner-static static-bottom-melani1" style="padding:10px;">
-         <div class="row">
+    <uproductsale:ProductSale ID="ucProSale" runat="server" />
+     <input type="hidden" id="hdProductId" value="" />
+    <input type="hidden" id="hdPrice" value="" />
+    <%--<div class="banner-static static-bottom-melani1" style="padding:15px;">
+        <div class="group-title">
+            <h2>Sản phẩm bán chạy</h2>
+        </div> 
+        <div class="row">
             <div class="col-lg-2 col-sm-3 col-xs-12" style="padding:0px; margin-left:15px; margin-right:25px;">
                 <div class="image">
                     <a href="#">
@@ -67,16 +86,94 @@
               <div class="col-lg-2 col-sm-3 col-xs-12" style="padding:0px;margin-left:15px;margin-right:25px;">
                 <div class="image">
                     <a href="#">
-                        <img src="image/catalog/frame3/F3 5.jpg" alt="image">
+                        <img src="image/catalog/frame3/F1 5.jpg" alt="image">
                     </a>
                 </div>
             </div>
              
         </div>
+    </div>--%>
+    <%--<unews:News ID="uNews" runat="server" />--%>
+    <div class="modal fade" id="addQuickModal" role="dialog">
+        <div class="modal-dialog  modal-md">
+            <div class="modal-content" style="font-size: 12px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;</button>
+                    <h4 class="modal-title center">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i> Gửi thông tin thử đồ</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="padding: 5px;">
+                        <div class="col-md-6">
+                            Sản phẩm<br />
+                            <input type="text" id="ins_proName" disabled class="form-control" maxlength="30" style="width: 100%;" />
+                        </div>
+                        <div class="col-md-3">
+                            Số lượng<br />
+                            <input type="text" id="ins_Quantity" class="numbers form-control" maxlength="5" value="1" style="width: 100%;" />
+                        </div>
+                        <div class="col-md-3">
+                            Size<br />
+                             <select id="dlSize" class="form-control select2" style="width: 100%;">
+                                <option value="S" selected="selected">Size s</option>
+                                <option value="M">Size M</option>
+                                 <option value="L">Size L</option>
+                                 <option value="XL">Size XL</option>
+                                 <option value="XXL">Size XXL</option>
+                            </select>
+                            
+                        </div>
+                    </div>
+                      <div class="row" style="padding: 5px;">
+                        <div class="col-md-4">
+                            Họ và tên<br />
+                            <input type="text" id="ins_cusName" placeholder="Bắt buộc nhập" class="form-control" maxlength="30" style="width: 100%;" />
+                        </div>
+                        <div class="col-md-4">
+                            Điện thoại<br />
+                            <input type="text" id="ins_Phone" placeholder="Bắt buộc nhập" class="numbers form-control" maxlength="15" value="" style="width: 100%;" />
+                        </div>
+                        <div class="col-md-4">
+                            Địa chỉ<br />
+                            <input type="text" id="ins_Add" class="form-control" maxlength="100" value="" style="width: 100%;" />
+                        </div>
+                          <div class="col-md-12">
+                            Ghi chú<br />
+                            <input type="text" id="ins_Note" class="form-control" maxlength="100" value="" style="width: 100%;" />
+                        </div>
+                    </div>
+                     <div class="row" style="padding: 5px;">
+                          <div class="col-md-12">
+                            <i>Sau khi gửi đơn hàng, nhân viên tư vấn sẽ liên hệ lại với bạn trong thời gian sớm nhất qua số điện thoại của bạn</i>
+                        </div>
+                     </div>
+                    <div class="row" style="padding: 5px;">
+                        <div class="col-md-12 btn-group pull-right">
+                            <button type="button" class="btn btn-success" onclick="addQuick();">
+                                Gửi nhanh</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal">
+                                Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <unews:News ID="uNews" runat="server" />
      <script type="text/javascript">
          $(document).ready(function () {
+             $(".numbers").keypress(function (e) {
+                 if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                     return false;
+                 }
+             });
+
+             $('.imgzoom').hover(function () {
+                 $(this).addClass('transition');
+             }, function () {
+                 $(this).removeClass('transition');
+             });
+
              $.ajax({
                  type: 'POST',
                  url: '/Query.aspx/check_logined',
@@ -129,7 +226,51 @@
          });
     </script>
     <script type="text/javascript">
-        function addCart(id, name, quantity, img,price,sale) {
+        function showAddQuick(productId, proName, priceName, price) {
+            $('#ins_proName').val(proName + ' - ' + priceName);
+            $('#hdProductId').val(productId);
+            $('#hdPrice').val(price);
+
+            $('#ins_cusName').val('');
+            $('#ins_Phone').val('');
+            $('#ins_Add').val('');
+            $('#ins_Quantity').val('1');
+            $('#ins_Note').val('');
+
+        }
+        function addQuick() {
+            var name = $('#ins_cusName').val();
+            var phone = $('#ins_Phone').val();
+            var add = $('#ins_Add').val();
+            var productId = $('#hdProductId').val();
+            var size = $('#dlSize').val();
+            var price = $('#hdPrice').val();
+            var quantity = $('#ins_Quantity').val();
+            var note = $('#ins_Note').val();
+
+            if (price == '' || price.length < 5) price = '0';
+
+            if (name == '' || phone == '') showAlert('Nhập họ tên và số điện thoại bắt buộc')
+            else if (quantity == '') showAlert('Nhập số lượng cần đặt');
+            else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Query.aspx/insertQuickOrder',
+                    data: '{"name":"' + name + '","phone":"' + phone + '","add":"' + add + '","productId":"' + productId + '","size":"' + size + '","price":"' + price + '","quantity":"' + quantity + '","note":"' + note + '"}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.d._content == '1') {
+                            showAlert('Đã gửi đơn hàng thành công');
+                            $('#addQuickModal').modal('hide');
+                        }
+                        else
+                            showAlert(data.d._mess);
+                    }
+                });
+            }
+        }
+        function addCart(id, name, quantity, img, price, sale) {
             $.ajax({
                 type: 'POST',
                 url: '/Query.aspx/addCartByProductId',

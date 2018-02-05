@@ -15,6 +15,52 @@ public partial class Query : System.Web.UI.Page
 
     }
     [WebMethod]
+    public static result insertQuickOrder(string name, string phone, string add, string productId,string size,string price, string quantity, string note)
+    {
+        var r = new result();
+        try
+        {
+            CFManagerDataContext db = new CFManagerDataContext();
+            clsProcess cl = new clsProcess();
+            var code = "COD" + DateTime.Now.ToString("ddMMyyHHmmss");
+            var od = new tOrder();
+            od.Address = add.Trim();
+            od.CustomerName = name.Trim();
+            od.Phone = phone.Trim();
+            od.BranchTypeId = branchTypeId;
+            od.Note = "Size "+size.Trim() + " - " + note.Trim();
+            od.Status = 1;//cho xac nhan
+            od.CreatedAt = DateTime.Now;
+            od.ConfirmStatus = false;
+            od.OrderCode = code;
+            db.tOrders.InsertOnSubmit(od);
+            db.SubmitChanges();
+
+            var p = new tOrderDetail();
+            p.OrderId = od.Id;
+            p.ProductId = int.Parse(productId.Trim());
+
+            if (price.Trim() != "")
+                p.Price = double.Parse(price.Trim());
+            else p.Price = 0;
+
+            p.Quantity = int.Parse(quantity.Trim());
+            p.Score = 0;
+            p.IsSale = false;
+            db.tOrderDetails.InsertOnSubmit(p);
+
+            db.SubmitChanges();
+            db.sp_sendmail_quickOrder(code, "");
+            r._content = "1";
+        }
+        catch
+        {
+            r._mess = "Có lỗi phát sinh, chưa gửi được đơn hàng, vui lòng thử lại";
+            r._content = "0";
+        }
+        return r;
+    }
+    [WebMethod]
     public static result updateInfoMember(string name, string sex, string phone, string email, string birth)
     {
         var r = new result();
@@ -133,6 +179,7 @@ public partial class Query : System.Web.UI.Page
             r.ProTypeCode = x.FirstOrDefault().ProductTypeCode;
             r.ColorCode = x.FirstOrDefault().ColorCode;
             r.SizeCode = x.FirstOrDefault().SizeCode;
+            r.NoteSale = x.FirstOrDefault().NoteSale;
             r.OK = "1";
         }
         else
@@ -877,8 +924,8 @@ public partial class Query : System.Web.UI.Page
             {
                 var pro = db.sp_web_cf_loadProductDetail(branchTypeId.ToString(), int.Parse(id.Trim())).FirstOrDefault();
 
-                cart.AddProduct(id.ToString(), cl.ConvertToUnSign(pro.ProductName), pro.ProductCode, pro.ProductName,
-                    pro.Image==null || pro.Image=="" ? "/image/image-coming-soon.png" : pro.Image, int.Parse(quantity), pro.Price.Value, 0, pro.Score != null ? pro.Score.Value : 0,
+                cart.AddProduct(id.ToString(), cl.ConvertToUnSign(pro.ProductName), pro.CodeId, pro.ProductTypeCode + " - " + pro.ProductName,
+                    pro.Image == null || pro.Image == "" ? "/image/image-coming-soon.png" : pro.Image, int.Parse(quantity), pro.PriceSale.Value, 0, pro.Score != null ? pro.Score.Value : 0,
                     pro.BrandName, pro.CountryName, sale == "1" ? true : false, colorname, sizename);
 
                 HttpContext.Current.Session["cart_count"] = r._content = cart.GetTotalQuantity.ToString();
@@ -913,8 +960,8 @@ public partial class Query : System.Web.UI.Page
             {
                 var pro = db.sp_web_cf_loadProductDetail(branchTypeId.ToString(), int.Parse(id.Trim())).FirstOrDefault();
 
-                cart.AddProduct(id.ToString(), cl.ConvertToUnSign(pro.ProductName), pro.ProductCode, pro.ProductName,
-                     pro.Image == null || pro.Image == "" ? "/image/image-coming-soon.png" : pro.Image, int.Parse(quantity), pro.Price.Value, 0, pro.Score != null ? pro.Score.Value : 0,
+                cart.AddProduct(id.ToString(), cl.ConvertToUnSign(pro.ProductName), pro.CodeId, pro.ProductTypeCode + " - " + pro.ProductName,
+                     pro.Image == null || pro.Image == "" ? "/image/image-coming-soon.png" : pro.Image, int.Parse(quantity), pro.PriceSale.Value, 0, pro.Score != null ? pro.Score.Value : 0,
                     pro.BrandName, pro.CountryName, sale == "1" ? true : false, pro.ColorName, pro.SizeName);
 
                 HttpContext.Current.Session["cart_count"] = r._content = cart.GetTotalQuantity.ToString();
@@ -1267,7 +1314,7 @@ public partial class Query : System.Web.UI.Page
     }
     public class Product
     {
-        private string id = "", image = "", imageZoom = "", name = "", protypecode = "", colorcode = "", sizecode = "", brandcode = "", protype = "";
+        private string id = "", image = "", imageZoom = "", name = "", protypecode = "", colorcode = "", sizecode = "", brandcode = "", protype = "", notesale="";
         private string ok ="", mess = "";
         public string OK
         {
@@ -1323,6 +1370,11 @@ public partial class Query : System.Web.UI.Page
         {
             set { protype = value; }
             get { return protype; }
+        }
+        public string NoteSale
+        {
+            set { notesale = value; }
+            get { return notesale; }
         }
     }
     public class product

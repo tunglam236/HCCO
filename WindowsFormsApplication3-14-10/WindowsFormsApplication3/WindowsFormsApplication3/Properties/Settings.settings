@@ -2,64 +2,24 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WindowsFormsApplication3.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="CFashionManagerConnectionString" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=heineken-pc\mssql2008r2;Initial Catalog=CFashionManager;Persist Security Info=True;User ID=sa;Password=123&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=heineken-pc\mssql2008r2;Initial Catalog=CFashionManager;Persist Security Info=True;User ID=sa;Password=123</Value>
-    </Setting>
-    <Setting Name="CFashionManagerConnectionString1" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=D3VIL;Initial Catalog=CFashionManager;Persist Security Info=True;User ID=it_hcc&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=D3VIL;Initial Catalog=CFashionManager;Persist Security Info=True;User ID=it_hcc</Value>
-    </Setting>
-    <Setting Name="CFashionManagerConnectionString2" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=D3VIL;Initial Catalog=CFashionManager;Persist Security Info=True;User ID=it_hcc;Password=123&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=D3VIL;Initial Catalog=CFashionManager;Persist Security Info=True;User ID=it_hcc;Password=123</Value>
-    </Setting>
     <Setting Name="CFashionManagerConnectionString3" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=.;Initial Catalog=CFashionManager;User ID=it_hcc&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=.;Initial Catalog=CMS0;User ID=it_hcc&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=.;Initial Catalog=CFashionManager;User ID=it_hcc</Value>
-    </Setting>
-    <Setting Name="CMS2ConnectionString" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=.;Initial Catalog=CMS2;User ID=it_hcc&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=.;Initial Catalog=CMS2;User ID=it_hcc</Value>
-    </Setting>
-    <Setting Name="CMS2ConnectionString1" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=.;Initial Catalog=CMS2;User ID=it_hcc;Password=123&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=.;Initial Catalog=CMS2;User ID=it_hcc;Password=123</Value>
+      <Value Profile="(Default)">Data Source=.;Initial Catalog=CMS0;User ID=it_hcc</Value>
     </Setting>
     <Setting Name="WindowsFormsApplication3_WSC_CMServices" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://cms.hcco.vn/CMServices.asmx</Value>
+      <Value Profile="(Default)">http://103.7.43.146:8008/CMServices.asmx</Value>
     </Setting>
-    <Setting Name="CMS3ConnectionString" Type="(Connection string)" Scope="Application">
+    <Setting Name="CMS0ConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=.;Initial Catalog=CMS3;Persist Security Info=True;User ID=it_hcc&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=.;Initial Catalog=CMS0;User ID=it_hcc;Password=123&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=.;Initial Catalog=CMS3;Persist Security Info=True;User ID=it_hcc</Value>
+      <Value Profile="(Default)">Data Source=.;Initial Catalog=CMS0;User ID=it_hcc;Password=123</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -226,7 +226,7 @@ namespace WindowsFormsApplication3
 
             try
             {
-                var d = db.sp_Product_GetDetailByCodeId(WindowsFormsApplication3.Form1.branch_type_id, WindowsFormsApplication3.Form1.branch_id, code.ToString(), int.Parse(v.ToString())).ToList();
+                var d = db.sp_Product_GetDetailByCodeIdCnice(WindowsFormsApplication3.Form1.branch_type_id, WindowsFormsApplication3.Form1.branch_id, code.ToString(), int.Parse(v.ToString())).ToList();
 
                 DataRow r = dtTemp.Rows.Find(id.ToString());
                 if (r != null && !r.IsNull("ProductId"))

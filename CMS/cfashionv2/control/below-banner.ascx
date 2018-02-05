@@ -25,14 +25,14 @@
                               <div class="col-lg-2 col-sm-3 col-xs-12" style="padding:0px;">
                                     <div class="image">
                                         <a href="#">
-                                            <img src="image/catalog/frame1/3.jpg" alt="image">
+                                            <img src="image/catalog/frame1/DX.00002.jpg" alt="image">
                                         </a>
                                     </div>
                                 </div>
                                <div class="col-lg-2 col-sm-3 col-xs-12" style="padding:0px;">
                                     <div class="image">
                                         <a href="#">
-                                            <img src="image/catalog/frame1/4.jpg" alt="image">
+                                            <img src="image/catalog/frame1/BLZ.00002.jpg" alt="image">
                                         </a>
                                     </div>
                                 </div>

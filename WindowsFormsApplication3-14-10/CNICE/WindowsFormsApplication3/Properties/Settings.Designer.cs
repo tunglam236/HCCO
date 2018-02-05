@@ -26,17 +26,17 @@ namespace WindowsFormsApplication3.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=CMS;Persist Security Info=True;User ID=it_hcc")]
-        public string CMSConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=CMS0;User ID=it_hcc")]
+        public string CMS0ConnectionString {
             get {
-                return ((string)(this["CMSConnectionString"]));
+                return ((string)(this["CMS0ConnectionString"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://cms.hcco.vn/CMServices.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://103.7.43.146:8008/CMServices.asmx")]
         public string CManagerv1_WSC_CMServices {
             get {
                 return ((string)(this["CManagerv1_WSC_CMServices"]));
@@ -46,11 +46,11 @@ namespace WindowsFormsApplication3.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=CMS;Persist Security Info=True;User ID=it_hcc;Passw" +
-            "ord=123")]
-        public string CMSConnectionString1 {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=CMS0;Persist Security Info=True;User ID=it_hcc;Pass" +
+            "word=123")]
+        public string CMS0ConnectionString1 {
             get {
-                return ((string)(this["CMSConnectionString1"]));
+                return ((string)(this["CMS0ConnectionString1"]));
             }
         }
     }

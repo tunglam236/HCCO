@@ -196,12 +196,12 @@
                 <div class="modal-body">
                     <div class="row" style="padding: 5px;">
                         <div class="col-md-6">
-                            Chọn hình ảnh<br />
-                            <asp:FileUpload ID="fuImage" runat="server" CssClass="form-control" Style="width:100%;" />
+                            Ảnh lớn<br />
+                            <asp:FileUpload ID="fuImage" Multiple="Multiple" runat="server" CssClass="form-control" Style="width:100%;" />
                         </div>
                         <div class="col-md-6">
                             Ảnh thumbail<br />
-                            <asp:FileUpload ID="fuThumb" runat="server" CssClass="form-control" Style="width:100%;" />
+                            <asp:FileUpload ID="fuThumb" Multiple="Multiple" runat="server" CssClass="form-control" Style="width:100%;" />
                         </div>
                     </div>
                    
@@ -276,9 +276,39 @@
                 "searching": true,
                 "ordering": true,
                 "info": true,
-                "pageLength": 25,
+                "pageLength": 50,
                 "autoWidth": false,
-                "order": [[1, 'asc']]
+                "order": [[1, 'asc']],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        text: 'Copy',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        text: 'Print',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+			        {
+			            extend: 'excelHtml5',
+			            text: 'Export',
+			            exportOptions: {
+			                columns: ':visible'
+			            }
+			        }],
+                language: {
+                    buttons: {
+                        copy: 'Copy danh sách',
+                        print: 'In danh sách',
+                        excel: 'Xuất Excel'
+                    }
+                }
             });
             
             var searchObject = localStorage.getItem('searchImageObject');
@@ -323,6 +353,8 @@
                                 html += 'src="' + img_list[k].replace(/@/g, '/').replace('/upload/', '/upload/cfashion/') + '"></br>';
                             else if (branchType == '1')
                                 html += 'src="' + img_list[k].replace(/@/g, '/').replace('/upload/', '/upload/cnice/') + '"></br>';
+                            else if (branchType == '3')
+                                html += 'src="' + img_list[k].replace(/@/g, '/').replace('/upload/', '/upload/cn/') + '"></br>';
 
                             html += '<a title="Xóa ảnh này" href="#" onclick="return removeImage(1,\'' + id + '\',\'' + img_list[k].replace(/@/g, '/') + '\')" class="fa fa-trash-o"></a>'
                             html += '</td>';
@@ -354,6 +386,8 @@
                                 html += 'src="' + imgZoom_list[k].replace(/@/g, '/').replace('/upload/', '/upload/cfashion/') + '"></br>';
                             else if (branchType == '1')
                                 html += 'src="' + imgZoom_list[k].replace(/@/g, '/').replace('/upload/', '/upload/cnice/') + '"></br>';
+                            else if (branchType == '3')
+                                html += 'src="' + imgZoom_list[k].replace(/@/g, '/').replace('/upload/', '/upload/cn/') + '"></br>';
 
                             html += '<a title="Xóa ảnh này" href="#" onclick="return removeImage(2,\'' + id + '\',\'' + imgZoom_list[k].replace(/@/g, '/') + '\')" class="fa fa-trash-o"></a>'
                             html += '</td>';

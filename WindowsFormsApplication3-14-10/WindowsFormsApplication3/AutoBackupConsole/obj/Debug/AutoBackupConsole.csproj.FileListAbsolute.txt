@@ -7,6 +7,6 @@ E:\@source\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackupCon
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackupConsole\bin\Debug\AutoBackupConsole.exe.config
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackupConsole\bin\Debug\AutoBackupConsole.exe
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackupConsole\bin\Debug\AutoBackupConsole.pdb
-E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackupConsole\obj\Debug\AutoBackupConsole.csprojResolveAssemblyReference.cache
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackupConsole\obj\Debug\AutoBackupConsole.exe
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackupConsole\obj\Debug\AutoBackupConsole.pdb
+E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\AutoBackupConsole\obj\Debug\AutoBackupConsole.csprojResolveAssemblyReference.cache

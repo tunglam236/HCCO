@@ -107,7 +107,7 @@
         <elementListCompartment Id="07c6b500-7811-4862-82fa-59fbb96395b1" absoluteBounds="12.265, 2.71, 1.9700000000000002, 5.826131184895833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(13.25 : 8.63613118489583); (13.25 : 12.2107975260417); (7.70833333333333 : 12.2107975260417 : JumpStart); (7.54166666666667 : 12.2107975260417 : JumpEnd); (5.875 : 12.2107975260417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(13.25 : 8.63613118489583); (13.25 : 12.2107975260417); (5.875 : 12.2107975260417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFManagerDataContext/tProduct/tProduct_tOrderDetail" />
       <nodes>
         <classShapeMoniker Id="2785df09-d57e-45ed-ade8-19ecbb7ded3d" />

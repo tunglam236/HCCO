@@ -227,6 +227,7 @@ namespace WindowsFormsApplication3
                                 ton.ProductId = int.Parse(dtTemp.Rows[i]["ProductId"].ToString());
                                 ton.QuantityOut = byte.Parse(dtTemp.Rows[i]["Quantity"].ToString());
                                 ton.CreateAt = DateTime.Now;
+                                ton.Status = 3;//1//xuat ban//2//qua tang//3//xuat dieu chuyen
                                 db.tStockInventories.InsertOnSubmit(ton);
                             }
                             else
@@ -253,6 +254,7 @@ namespace WindowsFormsApplication3
                                     ton.ProductId = item.ProductId.Value;
                                     ton.QuantityOut = byte.Parse((int.Parse(dtTemp.Rows[i]["Quantity"].ToString()) * item.Quantity.Value).ToString());
                                     ton.CreateAt = DateTime.Now;
+                                    ton.Status = 3;//1//xuat ban//2//qua tang//3//xuat dieu chuyen
                                     db.tStockInventories.InsertOnSubmit(ton);
                                 }
                             }

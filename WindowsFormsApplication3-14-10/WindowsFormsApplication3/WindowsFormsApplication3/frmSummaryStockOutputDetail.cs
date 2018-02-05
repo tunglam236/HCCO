@@ -270,7 +270,7 @@ namespace WindowsFormsApplication3
 
             offset = offset + (int)FontHeight + 5;
             graphic.DrawString("Tổng thanh toán ", new Font("Tahoma", font_size, FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset);
-            graphic.DrawString(total <= 0 ? "0 đ" : string.Format("{ 0:0,0 đ}", total), font, new SolidBrush(Color.Black), startX + 125, startY + offset);
+            graphic.DrawString(total <= 0 ? "0 đ" : string.Format("{0:0,0 đ}", total), font, new SolidBrush(Color.Black), startX + 125, startY + offset);
 
             offset = offset + (int)FontHeight + 5;
             graphic.DrawString("Khách đưa ", new Font("Tahoma", font_size, FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset);

@@ -5,6 +5,7 @@
             <div class="main-col col-sm-12 col-md-12">
                 <div class="row sub-row">
                     <div class="sub-col col-sm-12 col-md-12">
+
                         <script type="text/javascript">
                             $(window).load(function () {
                                 $(".tab_content").hide();
@@ -41,7 +42,7 @@
                                 $(".product-tabs-container-slider .tabs li:first").addClass("active");
                                 $(".owl-demo-tabproduct").owlCarousel({
                                     items: 6,
-                                    autoPlay: false,
+                                    autoPlay: true,
                                     slideSpeed: 1000,
                                     navigation: true,
                                     paginationNumbers: true,

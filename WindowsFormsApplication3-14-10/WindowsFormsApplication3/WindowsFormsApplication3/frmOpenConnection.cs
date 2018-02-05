@@ -29,7 +29,7 @@ namespace WindowsFormsApplication3
                     var con = s.getConnection();
                     cls.clsProcess cls = new WindowsFormsApplication3.cls.clsProcess();
                     connection = cls.Decrypt(con);
-                    //connection = @"Data Source=.;Initial Catalog=CMS;Persist Security Info=True;User ID=it_hcc;Password=123";
+                    //connection = @"Data Source=.;Initial Catalog=CMS0;Persist Security Info=True;User ID=it_hcc;Password=123";
                     this.Close();
                 }
                 else

@@ -17,24 +17,33 @@ namespace WindowsFormsApplication3.cls
             
             try
             {
-                var u = new tMember();
-                u.MemberCode = phone.Replace(" ", "");
-                u.MemberName = name;
-                u.Phone = phone;
-                u.Email = email.Trim();
-                u.Address = add;
-                u.Note = note;
-                u.Sex = sex == "1";
-                if(birthday!="")
-                    u.Birthday = DateTime.Parse(cls.returnDatetime(birthday));
-                u.BranchTypeId = branchtype;
-                u.CreateAt = DateTime.Now;
-                u.JoinCreateAt = DateTime.Now;
-                u.Status = 1;
-                u.CreateBy = WindowsFormsApplication3.Form1.user_id;
-                db.tMembers.InsertOnSubmit(u);
-                db.SubmitChanges();
-                ok = true;
+                var checkPhone = from x in db.tMembers where x.BranchTypeId == branchtype && x.Phone == phone.Trim() select x;
+                if (checkPhone.Count() > 0)
+                {
+                    ok = false;
+                    mess = "Đã tồn tại số điện thoại " + phone.Trim();
+                }
+                else
+                {
+                    var u = new tMember();
+                    u.MemberCode = phone.Replace(" ", "");
+                    u.MemberName = name;
+                    u.Phone = phone;
+                    u.Email = email.Trim();
+                    u.Address = add;
+                    u.Note = note;
+                    u.Sex = sex == "1";
+                    if (birthday != "")
+                        u.Birthday = DateTime.Parse(cls.returnDatetime(birthday));
+                    u.BranchTypeId = branchtype;
+                    u.CreateAt = DateTime.Now;
+                    u.JoinCreateAt = DateTime.Now;
+                    u.Status = 1;
+                    u.CreateBy = WindowsFormsApplication3.Form1.user_id;
+                    db.tMembers.InsertOnSubmit(u);
+                    db.SubmitChanges();
+                    ok = true;
+                }
             }
             catch(Exception ax)
             {

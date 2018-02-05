@@ -42,7 +42,6 @@
             this.txtBillCode = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.txtToDate = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.txtFromDate = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
-            this.btnDetail = new DevComponents.DotNetBar.ButtonX();
             this.btnPrint = new DevComponents.DotNetBar.ButtonX();
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
@@ -59,6 +58,8 @@
             this.Note1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreateAt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreateBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cbPaymentType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.labelX5 = new DevComponents.DotNetBar.LabelX();
             this.groupPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtToDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFromDate)).BeginInit();
@@ -97,22 +98,23 @@
             this.btnSearch.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSearch.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnSearch.Image = global::WindowsFormsApplication3.Properties.Resources.Search;
-            this.btnSearch.Location = new System.Drawing.Point(638, 15);
+            this.btnSearch.Location = new System.Drawing.Point(876, 16);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(160, 23);
+            this.btnSearch.Size = new System.Drawing.Size(121, 23);
             this.btnSearch.TabIndex = 2;
-            this.btnSearch.Text = "Xem danh sách xuất hàng";
+            this.btnSearch.Text = "Xem danh sách";
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // groupPanel1
             // 
             this.groupPanel1.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
+            this.groupPanel1.Controls.Add(this.cbPaymentType);
+            this.groupPanel1.Controls.Add(this.labelX5);
             this.groupPanel1.Controls.Add(this.txtMember);
             this.groupPanel1.Controls.Add(this.txtBillCode);
             this.groupPanel1.Controls.Add(this.txtToDate);
             this.groupPanel1.Controls.Add(this.txtFromDate);
-            this.groupPanel1.Controls.Add(this.btnDetail);
             this.groupPanel1.Controls.Add(this.btnPrint);
             this.groupPanel1.Controls.Add(this.btnSearch);
             this.groupPanel1.Controls.Add(this.labelX1);
@@ -270,24 +272,12 @@
             this.txtFromDate.Size = new System.Drawing.Size(89, 20);
             this.txtFromDate.TabIndex = 0;
             // 
-            // btnDetail
-            // 
-            this.btnDetail.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnDetail.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnDetail.Image = global::WindowsFormsApplication3.Properties.Resources.Search;
-            this.btnDetail.Location = new System.Drawing.Point(804, 15);
-            this.btnDetail.Name = "btnDetail";
-            this.btnDetail.Size = new System.Drawing.Size(109, 23);
-            this.btnDetail.TabIndex = 2;
-            this.btnDetail.Text = "Xem chi tiết";
-            this.btnDetail.Click += new System.EventHandler(this.btnDetail_Click);
-            // 
             // btnPrint
             // 
             this.btnPrint.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnPrint.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnPrint.Image = global::WindowsFormsApplication3.Properties.Resources.save;
-            this.btnPrint.Location = new System.Drawing.Point(922, 15);
+            this.btnPrint.Location = new System.Drawing.Point(1005, 15);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(109, 23);
             this.btnPrint.TabIndex = 2;
@@ -459,6 +449,32 @@
             this.CreateBy.Name = "CreateBy";
             this.CreateBy.ReadOnly = true;
             // 
+            // cbPaymentType
+            // 
+            this.cbPaymentType.DisplayMember = "Text";
+            this.cbPaymentType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbPaymentType.FormattingEnabled = true;
+            this.cbPaymentType.ItemHeight = 15;
+            this.cbPaymentType.Location = new System.Drawing.Point(705, 16);
+            this.cbPaymentType.Name = "cbPaymentType";
+            this.cbPaymentType.Size = new System.Drawing.Size(165, 21);
+            this.cbPaymentType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbPaymentType.TabIndex = 5;
+            // 
+            // labelX5
+            // 
+            this.labelX5.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX5.Location = new System.Drawing.Point(638, 16);
+            this.labelX5.Name = "labelX5";
+            this.labelX5.Size = new System.Drawing.Size(61, 23);
+            this.labelX5.TabIndex = 4;
+            this.labelX5.Text = "Nguồn tiền";
+            // 
             // frmSummaryStockOutput
             // 
             this.AcceptButton = this.btnSearch;
@@ -490,7 +506,6 @@
         private DevComponents.Editors.DateTimeAdv.DateTimeInput txtToDate;
         private DevComponents.Editors.DateTimeAdv.DateTimeInput txtFromDate;
         private DevComponents.DotNetBar.ButtonX btnPrint;
-        private DevComponents.DotNetBar.ButtonX btnDetail;
         private DevComponents.DotNetBar.Controls.DataGridViewX dgvGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn InputType;
         private System.Windows.Forms.DataGridViewTextBoxColumn StockCode;
@@ -508,5 +523,7 @@
         private DevComponents.DotNetBar.Controls.TextBoxX txtBillCode;
         private DevComponents.DotNetBar.LabelX labelX4;
         private DevComponents.DotNetBar.LabelX labelX3;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx cbPaymentType;
+        private DevComponents.DotNetBar.LabelX labelX5;
     }
 }

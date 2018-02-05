@@ -21,7 +21,7 @@ using System.Reflection;
 
 
 
-[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="CMS")]
+[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="CMS0")]
 public partial class CFManagerDataContext : System.Data.Linq.DataContext
 {
 	
@@ -254,18 +254,18 @@ public partial class CFManagerDataContext : System.Data.Linq.DataContext
 		return ((int)(result.ReturnValue));
 	}
 	
-	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_cf_loadProductDetail")]
-	public ISingleResult<sp_web_cf_loadProductDetailResult> sp_web_cf_loadProductDetail([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string branchType, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> proId)
-	{
-		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), branchType, proId);
-		return ((ISingleResult<sp_web_cf_loadProductDetailResult>)(result.ReturnValue));
-	}
-	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_cf_getProductByColorSize")]
 	public ISingleResult<sp_web_cf_getProductByColorSizeResult> sp_web_cf_getProductByColorSize([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string branchType, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(32)")] string proTypeCode, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string colorId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string sizeId)
 	{
 		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), branchType, proTypeCode, colorId, sizeId);
 		return ((ISingleResult<sp_web_cf_getProductByColorSizeResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_sendmail_quickOrder")]
+	public int sp_sendmail_quickOrder([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Code", DbType="VarChar(20)")] string code, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(64)")] string email)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), code, email);
+		return ((int)(result.ReturnValue));
 	}
 	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_cf_loadProduct")]
@@ -275,18 +275,18 @@ public partial class CFManagerDataContext : System.Data.Linq.DataContext
 		return ((ISingleResult<sp_web_cf_loadProductResult>)(result.ReturnValue));
 	}
 	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_cf_loadProductSalest")]
+	public ISingleResult<sp_web_cf_loadProductSalestResult> sp_web_cf_loadProductSalest([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string branchType)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), branchType);
+		return ((ISingleResult<sp_web_cf_loadProductSalestResult>)(result.ReturnValue));
+	}
+	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_cf_loadProductByPrice")]
 	public ISingleResult<sp_web_cf_loadProductByPriceResult> sp_web_cf_loadProductByPrice([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string branchType, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> min, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> max)
 	{
 		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), branchType, min, max);
 		return ((ISingleResult<sp_web_cf_loadProductByPriceResult>)(result.ReturnValue));
-	}
-	
-	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_cf_loadProductRandom")]
-	public ISingleResult<sp_web_cf_loadProductRandomResult> sp_web_cf_loadProductRandom([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string branchType)
-	{
-		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), branchType);
-		return ((ISingleResult<sp_web_cf_loadProductRandomResult>)(result.ReturnValue));
 	}
 	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_cf_loadProductBySearch")]
@@ -303,11 +303,25 @@ public partial class CFManagerDataContext : System.Data.Linq.DataContext
 		return ((ISingleResult<sp_web_cf_loadProductByTypeResult>)(result.ReturnValue));
 	}
 	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_cf_loadProductDetail")]
+	public ISingleResult<sp_web_cf_loadProductDetailResult> sp_web_cf_loadProductDetail([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string branchType, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> proId)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), branchType, proId);
+		return ((ISingleResult<sp_web_cf_loadProductDetailResult>)(result.ReturnValue));
+	}
+	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_cf_loadProductFeature")]
 	public ISingleResult<sp_web_cf_loadProductFeatureResult> sp_web_cf_loadProductFeature([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string branchType)
 	{
 		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), branchType);
 		return ((ISingleResult<sp_web_cf_loadProductFeatureResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_cf_loadProductRandom")]
+	public ISingleResult<sp_web_cf_loadProductRandomResult> sp_web_cf_loadProductRandom([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string branchType, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> idProduct)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), branchType, idProduct);
+		return ((ISingleResult<sp_web_cf_loadProductRandomResult>)(result.ReturnValue));
 	}
 	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_web_cf_loadProductSale")]
@@ -7944,6 +7958,1116 @@ public partial class sp_web_cf_mb_getproductResult
 	}
 }
 
+public partial class sp_web_cf_getProductByColorSizeResult
+{
+	
+	private long _Id;
+	
+	private string _Image;
+	
+	private string _ImageZoom;
+	
+	private string _ProductName;
+	
+	private string _ProductTypeCode;
+	
+	private string _ColorCode;
+	
+	private string _SizeCode;
+	
+	private string _BrandCode;
+	
+	private string _ProductType;
+	
+	private string _NoteSale;
+	
+	public sp_web_cf_getProductByColorSizeResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="BigInt NOT NULL")]
+	public long Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this._Id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+	public string Image
+	{
+		get
+		{
+			return this._Image;
+		}
+		set
+		{
+			if ((this._Image != value))
+			{
+				this._Image = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageZoom", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+	public string ImageZoom
+	{
+		get
+		{
+			return this._ImageZoom;
+		}
+		set
+		{
+			if ((this._ImageZoom != value))
+			{
+				this._ImageZoom = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
+	public string ProductName
+	{
+		get
+		{
+			return this._ProductName;
+		}
+		set
+		{
+			if ((this._ProductName != value))
+			{
+				this._ProductName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeCode", DbType="NVarChar(50)")]
+	public string ProductTypeCode
+	{
+		get
+		{
+			return this._ProductTypeCode;
+		}
+		set
+		{
+			if ((this._ProductTypeCode != value))
+			{
+				this._ProductTypeCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorCode", DbType="NVarChar(10)")]
+	public string ColorCode
+	{
+		get
+		{
+			return this._ColorCode;
+		}
+		set
+		{
+			if ((this._ColorCode != value))
+			{
+				this._ColorCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SizeCode", DbType="NVarChar(10)")]
+	public string SizeCode
+	{
+		get
+		{
+			return this._SizeCode;
+		}
+		set
+		{
+			if ((this._SizeCode != value))
+			{
+				this._SizeCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BrandCode", DbType="VarChar(20)")]
+	public string BrandCode
+	{
+		get
+		{
+			return this._BrandCode;
+		}
+		set
+		{
+			if ((this._BrandCode != value))
+			{
+				this._BrandCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductType", DbType="NVarChar(32)")]
+	public string ProductType
+	{
+		get
+		{
+			return this._ProductType;
+		}
+		set
+		{
+			if ((this._ProductType != value))
+			{
+				this._ProductType = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoteSale", DbType="NVarChar(64)")]
+	public string NoteSale
+	{
+		get
+		{
+			return this._NoteSale;
+		}
+		set
+		{
+			if ((this._NoteSale != value))
+			{
+				this._NoteSale = value;
+			}
+		}
+	}
+}
+
+public partial class sp_web_cf_loadProductResult
+{
+	
+	private long _Id;
+	
+	private System.Nullable<double> _Price;
+	
+	private string _NoteSale;
+	
+	private string _ProductTypeCode;
+	
+	private string _ProductName;
+	
+	private string _Image;
+	
+	private string _Tag;
+	
+	private string _Description;
+	
+	private System.Nullable<double> _PriceSale;
+	
+	private System.Nullable<long> _rn;
+	
+	public sp_web_cf_loadProductResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="BigInt NOT NULL")]
+	public long Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this._Id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
+	public System.Nullable<double> Price
+	{
+		get
+		{
+			return this._Price;
+		}
+		set
+		{
+			if ((this._Price != value))
+			{
+				this._Price = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoteSale", DbType="NVarChar(64)")]
+	public string NoteSale
+	{
+		get
+		{
+			return this._NoteSale;
+		}
+		set
+		{
+			if ((this._NoteSale != value))
+			{
+				this._NoteSale = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeCode", DbType="VarChar(32)")]
+	public string ProductTypeCode
+	{
+		get
+		{
+			return this._ProductTypeCode;
+		}
+		set
+		{
+			if ((this._ProductTypeCode != value))
+			{
+				this._ProductTypeCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
+	public string ProductName
+	{
+		get
+		{
+			return this._ProductName;
+		}
+		set
+		{
+			if ((this._ProductName != value))
+			{
+				this._ProductName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarChar(MAX)")]
+	public string Image
+	{
+		get
+		{
+			return this._Image;
+		}
+		set
+		{
+			if ((this._Image != value))
+			{
+				this._Image = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(128)")]
+	public string Tag
+	{
+		get
+		{
+			return this._Tag;
+		}
+		set
+		{
+			if ((this._Tag != value))
+			{
+				this._Tag = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(1024)")]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this._Description = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PriceSale", DbType="Float")]
+	public System.Nullable<double> PriceSale
+	{
+		get
+		{
+			return this._PriceSale;
+		}
+		set
+		{
+			if ((this._PriceSale != value))
+			{
+				this._PriceSale = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_rn", DbType="BigInt")]
+	public System.Nullable<long> rn
+	{
+		get
+		{
+			return this._rn;
+		}
+		set
+		{
+			if ((this._rn != value))
+			{
+				this._rn = value;
+			}
+		}
+	}
+}
+
+public partial class sp_web_cf_loadProductSalestResult
+{
+	
+	private long _Id;
+	
+	private System.Nullable<double> _Price;
+	
+	private string _Description;
+	
+	private string _NoteSale;
+	
+	private string _Tag;
+	
+	private string _ProductTypeCode;
+	
+	private string _ProductName;
+	
+	private string _Image;
+	
+	private System.Nullable<double> _PriceSale;
+	
+	private System.Nullable<long> _rn;
+	
+	public sp_web_cf_loadProductSalestResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="BigInt NOT NULL")]
+	public long Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this._Id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
+	public System.Nullable<double> Price
+	{
+		get
+		{
+			return this._Price;
+		}
+		set
+		{
+			if ((this._Price != value))
+			{
+				this._Price = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(1024)")]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this._Description = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoteSale", DbType="NVarChar(64)")]
+	public string NoteSale
+	{
+		get
+		{
+			return this._NoteSale;
+		}
+		set
+		{
+			if ((this._NoteSale != value))
+			{
+				this._NoteSale = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(128)")]
+	public string Tag
+	{
+		get
+		{
+			return this._Tag;
+		}
+		set
+		{
+			if ((this._Tag != value))
+			{
+				this._Tag = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeCode", DbType="VarChar(32)")]
+	public string ProductTypeCode
+	{
+		get
+		{
+			return this._ProductTypeCode;
+		}
+		set
+		{
+			if ((this._ProductTypeCode != value))
+			{
+				this._ProductTypeCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
+	public string ProductName
+	{
+		get
+		{
+			return this._ProductName;
+		}
+		set
+		{
+			if ((this._ProductName != value))
+			{
+				this._ProductName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarChar(MAX)")]
+	public string Image
+	{
+		get
+		{
+			return this._Image;
+		}
+		set
+		{
+			if ((this._Image != value))
+			{
+				this._Image = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PriceSale", DbType="Float")]
+	public System.Nullable<double> PriceSale
+	{
+		get
+		{
+			return this._PriceSale;
+		}
+		set
+		{
+			if ((this._PriceSale != value))
+			{
+				this._PriceSale = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_rn", DbType="BigInt")]
+	public System.Nullable<long> rn
+	{
+		get
+		{
+			return this._rn;
+		}
+		set
+		{
+			if ((this._rn != value))
+			{
+				this._rn = value;
+			}
+		}
+	}
+}
+
+public partial class sp_web_cf_loadProductByPriceResult
+{
+	
+	private long _Id;
+	
+	private System.Nullable<double> _Price;
+	
+	private string _Tag;
+	
+	private string _NoteSale;
+	
+	private string _ProductTypeCode;
+	
+	private string _ProductName;
+	
+	private string _Image;
+	
+	private string _Description;
+	
+	private System.Nullable<double> _PriceSale;
+	
+	private System.Nullable<long> _rn;
+	
+	public sp_web_cf_loadProductByPriceResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="BigInt NOT NULL")]
+	public long Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this._Id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
+	public System.Nullable<double> Price
+	{
+		get
+		{
+			return this._Price;
+		}
+		set
+		{
+			if ((this._Price != value))
+			{
+				this._Price = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(128)")]
+	public string Tag
+	{
+		get
+		{
+			return this._Tag;
+		}
+		set
+		{
+			if ((this._Tag != value))
+			{
+				this._Tag = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoteSale", DbType="NVarChar(64)")]
+	public string NoteSale
+	{
+		get
+		{
+			return this._NoteSale;
+		}
+		set
+		{
+			if ((this._NoteSale != value))
+			{
+				this._NoteSale = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeCode", DbType="VarChar(32)")]
+	public string ProductTypeCode
+	{
+		get
+		{
+			return this._ProductTypeCode;
+		}
+		set
+		{
+			if ((this._ProductTypeCode != value))
+			{
+				this._ProductTypeCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
+	public string ProductName
+	{
+		get
+		{
+			return this._ProductName;
+		}
+		set
+		{
+			if ((this._ProductName != value))
+			{
+				this._ProductName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarChar(MAX)")]
+	public string Image
+	{
+		get
+		{
+			return this._Image;
+		}
+		set
+		{
+			if ((this._Image != value))
+			{
+				this._Image = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(1024)")]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this._Description = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PriceSale", DbType="Float")]
+	public System.Nullable<double> PriceSale
+	{
+		get
+		{
+			return this._PriceSale;
+		}
+		set
+		{
+			if ((this._PriceSale != value))
+			{
+				this._PriceSale = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_rn", DbType="BigInt")]
+	public System.Nullable<long> rn
+	{
+		get
+		{
+			return this._rn;
+		}
+		set
+		{
+			if ((this._rn != value))
+			{
+				this._rn = value;
+			}
+		}
+	}
+}
+
+public partial class sp_web_cf_loadProductBySearchResult
+{
+	
+	private long _Id;
+	
+	private string _ProductCode;
+	
+	private System.Nullable<double> _Price;
+	
+	private string _Tag;
+	
+	private string _NoteSale;
+	
+	private string _Description;
+	
+	private string _ProductTypeCode;
+	
+	private string _ProductName;
+	
+	private string _Image;
+	
+	private System.Nullable<double> _PriceSale;
+	
+	private System.Nullable<long> _rn;
+	
+	public sp_web_cf_loadProductBySearchResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="BigInt NOT NULL")]
+	public long Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this._Id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductCode", DbType="NVarChar(50)")]
+	public string ProductCode
+	{
+		get
+		{
+			return this._ProductCode;
+		}
+		set
+		{
+			if ((this._ProductCode != value))
+			{
+				this._ProductCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
+	public System.Nullable<double> Price
+	{
+		get
+		{
+			return this._Price;
+		}
+		set
+		{
+			if ((this._Price != value))
+			{
+				this._Price = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(128)")]
+	public string Tag
+	{
+		get
+		{
+			return this._Tag;
+		}
+		set
+		{
+			if ((this._Tag != value))
+			{
+				this._Tag = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoteSale", DbType="NVarChar(64)")]
+	public string NoteSale
+	{
+		get
+		{
+			return this._NoteSale;
+		}
+		set
+		{
+			if ((this._NoteSale != value))
+			{
+				this._NoteSale = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(1024)")]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this._Description = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeCode", DbType="VarChar(32)")]
+	public string ProductTypeCode
+	{
+		get
+		{
+			return this._ProductTypeCode;
+		}
+		set
+		{
+			if ((this._ProductTypeCode != value))
+			{
+				this._ProductTypeCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
+	public string ProductName
+	{
+		get
+		{
+			return this._ProductName;
+		}
+		set
+		{
+			if ((this._ProductName != value))
+			{
+				this._ProductName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarChar(MAX)")]
+	public string Image
+	{
+		get
+		{
+			return this._Image;
+		}
+		set
+		{
+			if ((this._Image != value))
+			{
+				this._Image = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PriceSale", DbType="Float")]
+	public System.Nullable<double> PriceSale
+	{
+		get
+		{
+			return this._PriceSale;
+		}
+		set
+		{
+			if ((this._PriceSale != value))
+			{
+				this._PriceSale = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_rn", DbType="BigInt")]
+	public System.Nullable<long> rn
+	{
+		get
+		{
+			return this._rn;
+		}
+		set
+		{
+			if ((this._rn != value))
+			{
+				this._rn = value;
+			}
+		}
+	}
+}
+
+public partial class sp_web_cf_loadProductByTypeResult
+{
+	
+	private long _Id;
+	
+	private System.Nullable<double> _Price;
+	
+	private string _NoteSale;
+	
+	private string _Tag;
+	
+	private string _ProductTypeCode;
+	
+	private string _ProductName;
+	
+	private string _Image;
+	
+	private System.Nullable<double> _PriceSale;
+	
+	public sp_web_cf_loadProductByTypeResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="BigInt NOT NULL")]
+	public long Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this._Id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
+	public System.Nullable<double> Price
+	{
+		get
+		{
+			return this._Price;
+		}
+		set
+		{
+			if ((this._Price != value))
+			{
+				this._Price = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoteSale", DbType="NVarChar(64)")]
+	public string NoteSale
+	{
+		get
+		{
+			return this._NoteSale;
+		}
+		set
+		{
+			if ((this._NoteSale != value))
+			{
+				this._NoteSale = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(128)")]
+	public string Tag
+	{
+		get
+		{
+			return this._Tag;
+		}
+		set
+		{
+			if ((this._Tag != value))
+			{
+				this._Tag = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeCode", DbType="VarChar(32)")]
+	public string ProductTypeCode
+	{
+		get
+		{
+			return this._ProductTypeCode;
+		}
+		set
+		{
+			if ((this._ProductTypeCode != value))
+			{
+				this._ProductTypeCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
+	public string ProductName
+	{
+		get
+		{
+			return this._ProductName;
+		}
+		set
+		{
+			if ((this._ProductName != value))
+			{
+				this._ProductName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarChar(MAX)")]
+	public string Image
+	{
+		get
+		{
+			return this._Image;
+		}
+		set
+		{
+			if ((this._Image != value))
+			{
+				this._Image = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PriceSale", DbType="Float")]
+	public System.Nullable<double> PriceSale
+	{
+		get
+		{
+			return this._PriceSale;
+		}
+		set
+		{
+			if ((this._PriceSale != value))
+			{
+				this._PriceSale = value;
+			}
+		}
+	}
+}
+
 public partial class sp_web_cf_loadProductDetailResult
 {
 	
@@ -7983,13 +9107,21 @@ public partial class sp_web_cf_loadProductDetailResult
 	
 	private string _SKU;
 	
+	private System.Nullable<double> _PriceSale;
+	
 	private System.Nullable<int> _SizeId;
 	
 	private System.Nullable<int> _ColorId;
 	
+	private string _CodeId;
+	
+	private string _NoteSale;
+	
 	private string _ColorList;
 	
 	private string _SizeList;
+	
+	private string _ListImage;
 	
 	public sp_web_cf_loadProductDetailResult()
 	{
@@ -8139,7 +9271,7 @@ public partial class sp_web_cf_loadProductDetailResult
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(512)")]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(1024)")]
 	public string Description
 	{
 		get
@@ -8267,7 +9399,7 @@ public partial class sp_web_cf_loadProductDetailResult
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SKU", DbType="NVarChar(138)")]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SKU", DbType="NVarChar(50)")]
 	public string SKU
 	{
 		get
@@ -8279,6 +9411,22 @@ public partial class sp_web_cf_loadProductDetailResult
 			if ((this._SKU != value))
 			{
 				this._SKU = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PriceSale", DbType="Float")]
+	public System.Nullable<double> PriceSale
+	{
+		get
+		{
+			return this._PriceSale;
+		}
+		set
+		{
+			if ((this._PriceSale != value))
+			{
+				this._PriceSale = value;
 			}
 		}
 	}
@@ -8315,6 +9463,38 @@ public partial class sp_web_cf_loadProductDetailResult
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodeId", DbType="VarChar(20)")]
+	public string CodeId
+	{
+		get
+		{
+			return this._CodeId;
+		}
+		set
+		{
+			if ((this._CodeId != value))
+			{
+				this._CodeId = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoteSale", DbType="NVarChar(64)")]
+	public string NoteSale
+	{
+		get
+		{
+			return this._NoteSale;
+		}
+		set
+		{
+			if ((this._NoteSale != value))
+			{
+				this._NoteSale = value;
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorList", DbType="NVarChar(128)")]
 	public string ColorList
 	{
@@ -8346,987 +9526,19 @@ public partial class sp_web_cf_loadProductDetailResult
 			}
 		}
 	}
-}
-
-public partial class sp_web_cf_getProductByColorSizeResult
-{
 	
-	private long _Id;
-	
-	private string _Image;
-	
-	private string _ImageZoom;
-	
-	private string _ProductName;
-	
-	private string _ProductTypeCode;
-	
-	private string _ColorCode;
-	
-	private string _SizeCode;
-	
-	private string _BrandCode;
-	
-	private string _ProductType;
-	
-	public sp_web_cf_getProductByColorSizeResult()
-	{
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="BigInt NOT NULL")]
-	public long Id
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListImage", DbType="NVarChar(MAX)")]
+	public string ListImage
 	{
 		get
 		{
-			return this._Id;
+			return this._ListImage;
 		}
 		set
 		{
-			if ((this._Id != value))
+			if ((this._ListImage != value))
 			{
-				this._Id = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarChar(MAX)")]
-	public string Image
-	{
-		get
-		{
-			return this._Image;
-		}
-		set
-		{
-			if ((this._Image != value))
-			{
-				this._Image = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageZoom", DbType="VarChar(MAX)")]
-	public string ImageZoom
-	{
-		get
-		{
-			return this._ImageZoom;
-		}
-		set
-		{
-			if ((this._ImageZoom != value))
-			{
-				this._ImageZoom = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
-	public string ProductName
-	{
-		get
-		{
-			return this._ProductName;
-		}
-		set
-		{
-			if ((this._ProductName != value))
-			{
-				this._ProductName = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeCode", DbType="VarChar(52)")]
-	public string ProductTypeCode
-	{
-		get
-		{
-			return this._ProductTypeCode;
-		}
-		set
-		{
-			if ((this._ProductTypeCode != value))
-			{
-				this._ProductTypeCode = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorCode", DbType="NVarChar(10)")]
-	public string ColorCode
-	{
-		get
-		{
-			return this._ColorCode;
-		}
-		set
-		{
-			if ((this._ColorCode != value))
-			{
-				this._ColorCode = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SizeCode", DbType="NVarChar(10)")]
-	public string SizeCode
-	{
-		get
-		{
-			return this._SizeCode;
-		}
-		set
-		{
-			if ((this._SizeCode != value))
-			{
-				this._SizeCode = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BrandCode", DbType="VarChar(50)")]
-	public string BrandCode
-	{
-		get
-		{
-			return this._BrandCode;
-		}
-		set
-		{
-			if ((this._BrandCode != value))
-			{
-				this._BrandCode = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductType", DbType="NVarChar(32)")]
-	public string ProductType
-	{
-		get
-		{
-			return this._ProductType;
-		}
-		set
-		{
-			if ((this._ProductType != value))
-			{
-				this._ProductType = value;
-			}
-		}
-	}
-}
-
-public partial class sp_web_cf_loadProductResult
-{
-	
-	private long _Id;
-	
-	private System.Nullable<double> _Price;
-	
-	private string _NoteSale;
-	
-	private string _ProductTypeCode;
-	
-	private string _ProductName;
-	
-	private string _Image;
-	
-	private string _Tag;
-	
-	private string _Description;
-	
-	private System.Nullable<long> _rn;
-	
-	public sp_web_cf_loadProductResult()
-	{
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="BigInt NOT NULL")]
-	public long Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this._Id = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
-	public System.Nullable<double> Price
-	{
-		get
-		{
-			return this._Price;
-		}
-		set
-		{
-			if ((this._Price != value))
-			{
-				this._Price = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoteSale", DbType="NVarChar(64)")]
-	public string NoteSale
-	{
-		get
-		{
-			return this._NoteSale;
-		}
-		set
-		{
-			if ((this._NoteSale != value))
-			{
-				this._NoteSale = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeCode", DbType="VarChar(32)")]
-	public string ProductTypeCode
-	{
-		get
-		{
-			return this._ProductTypeCode;
-		}
-		set
-		{
-			if ((this._ProductTypeCode != value))
-			{
-				this._ProductTypeCode = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
-	public string ProductName
-	{
-		get
-		{
-			return this._ProductName;
-		}
-		set
-		{
-			if ((this._ProductName != value))
-			{
-				this._ProductName = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarChar(MAX)")]
-	public string Image
-	{
-		get
-		{
-			return this._Image;
-		}
-		set
-		{
-			if ((this._Image != value))
-			{
-				this._Image = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(128)")]
-	public string Tag
-	{
-		get
-		{
-			return this._Tag;
-		}
-		set
-		{
-			if ((this._Tag != value))
-			{
-				this._Tag = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(512)")]
-	public string Description
-	{
-		get
-		{
-			return this._Description;
-		}
-		set
-		{
-			if ((this._Description != value))
-			{
-				this._Description = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_rn", DbType="BigInt")]
-	public System.Nullable<long> rn
-	{
-		get
-		{
-			return this._rn;
-		}
-		set
-		{
-			if ((this._rn != value))
-			{
-				this._rn = value;
-			}
-		}
-	}
-}
-
-public partial class sp_web_cf_loadProductByPriceResult
-{
-	
-	private long _Id;
-	
-	private System.Nullable<double> _Price;
-	
-	private string _Tag;
-	
-	private string _NoteSale;
-	
-	private string _ProductTypeCode;
-	
-	private string _ProductName;
-	
-	private string _Image;
-	
-	private string _Tag1;
-	
-	private string _Description;
-	
-	public sp_web_cf_loadProductByPriceResult()
-	{
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="BigInt NOT NULL")]
-	public long Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this._Id = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
-	public System.Nullable<double> Price
-	{
-		get
-		{
-			return this._Price;
-		}
-		set
-		{
-			if ((this._Price != value))
-			{
-				this._Price = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(128)")]
-	public string Tag
-	{
-		get
-		{
-			return this._Tag;
-		}
-		set
-		{
-			if ((this._Tag != value))
-			{
-				this._Tag = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoteSale", DbType="NVarChar(64)")]
-	public string NoteSale
-	{
-		get
-		{
-			return this._NoteSale;
-		}
-		set
-		{
-			if ((this._NoteSale != value))
-			{
-				this._NoteSale = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeCode", DbType="VarChar(32)")]
-	public string ProductTypeCode
-	{
-		get
-		{
-			return this._ProductTypeCode;
-		}
-		set
-		{
-			if ((this._ProductTypeCode != value))
-			{
-				this._ProductTypeCode = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
-	public string ProductName
-	{
-		get
-		{
-			return this._ProductName;
-		}
-		set
-		{
-			if ((this._ProductName != value))
-			{
-				this._ProductName = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarChar(MAX)")]
-	public string Image
-	{
-		get
-		{
-			return this._Image;
-		}
-		set
-		{
-			if ((this._Image != value))
-			{
-				this._Image = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag1", DbType="NVarChar(128)")]
-	public string Tag1
-	{
-		get
-		{
-			return this._Tag1;
-		}
-		set
-		{
-			if ((this._Tag1 != value))
-			{
-				this._Tag1 = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(512)")]
-	public string Description
-	{
-		get
-		{
-			return this._Description;
-		}
-		set
-		{
-			if ((this._Description != value))
-			{
-				this._Description = value;
-			}
-		}
-	}
-}
-
-public partial class sp_web_cf_loadProductRandomResult
-{
-	
-	private long _Id;
-	
-	private System.Nullable<double> _Price;
-	
-	private string _Tag;
-	
-	private string _NoteSale;
-	
-	private string _ProductTypeCode;
-	
-	private string _ProductName;
-	
-	private string _Image;
-	
-	private string _Tag1;
-	
-	private string _Description;
-	
-	public sp_web_cf_loadProductRandomResult()
-	{
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="BigInt NOT NULL")]
-	public long Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this._Id = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
-	public System.Nullable<double> Price
-	{
-		get
-		{
-			return this._Price;
-		}
-		set
-		{
-			if ((this._Price != value))
-			{
-				this._Price = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(128)")]
-	public string Tag
-	{
-		get
-		{
-			return this._Tag;
-		}
-		set
-		{
-			if ((this._Tag != value))
-			{
-				this._Tag = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoteSale", DbType="NVarChar(64)")]
-	public string NoteSale
-	{
-		get
-		{
-			return this._NoteSale;
-		}
-		set
-		{
-			if ((this._NoteSale != value))
-			{
-				this._NoteSale = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeCode", DbType="VarChar(32)")]
-	public string ProductTypeCode
-	{
-		get
-		{
-			return this._ProductTypeCode;
-		}
-		set
-		{
-			if ((this._ProductTypeCode != value))
-			{
-				this._ProductTypeCode = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
-	public string ProductName
-	{
-		get
-		{
-			return this._ProductName;
-		}
-		set
-		{
-			if ((this._ProductName != value))
-			{
-				this._ProductName = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarChar(MAX)")]
-	public string Image
-	{
-		get
-		{
-			return this._Image;
-		}
-		set
-		{
-			if ((this._Image != value))
-			{
-				this._Image = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag1", DbType="NVarChar(128)")]
-	public string Tag1
-	{
-		get
-		{
-			return this._Tag1;
-		}
-		set
-		{
-			if ((this._Tag1 != value))
-			{
-				this._Tag1 = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(512)")]
-	public string Description
-	{
-		get
-		{
-			return this._Description;
-		}
-		set
-		{
-			if ((this._Description != value))
-			{
-				this._Description = value;
-			}
-		}
-	}
-}
-
-public partial class sp_web_cf_loadProductBySearchResult
-{
-	
-	private long _Id;
-	
-	private string _ProductCode;
-	
-	private System.Nullable<double> _Price;
-	
-	private string _Tag;
-	
-	private string _NoteSale;
-	
-	private string _Description;
-	
-	private string _ProductTypeCode;
-	
-	private string _ProductName;
-	
-	private string _Image;
-	
-	public sp_web_cf_loadProductBySearchResult()
-	{
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="BigInt NOT NULL")]
-	public long Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this._Id = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductCode", DbType="NVarChar(50)")]
-	public string ProductCode
-	{
-		get
-		{
-			return this._ProductCode;
-		}
-		set
-		{
-			if ((this._ProductCode != value))
-			{
-				this._ProductCode = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
-	public System.Nullable<double> Price
-	{
-		get
-		{
-			return this._Price;
-		}
-		set
-		{
-			if ((this._Price != value))
-			{
-				this._Price = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(128)")]
-	public string Tag
-	{
-		get
-		{
-			return this._Tag;
-		}
-		set
-		{
-			if ((this._Tag != value))
-			{
-				this._Tag = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoteSale", DbType="NVarChar(64)")]
-	public string NoteSale
-	{
-		get
-		{
-			return this._NoteSale;
-		}
-		set
-		{
-			if ((this._NoteSale != value))
-			{
-				this._NoteSale = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(512)")]
-	public string Description
-	{
-		get
-		{
-			return this._Description;
-		}
-		set
-		{
-			if ((this._Description != value))
-			{
-				this._Description = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeCode", DbType="VarChar(32)")]
-	public string ProductTypeCode
-	{
-		get
-		{
-			return this._ProductTypeCode;
-		}
-		set
-		{
-			if ((this._ProductTypeCode != value))
-			{
-				this._ProductTypeCode = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
-	public string ProductName
-	{
-		get
-		{
-			return this._ProductName;
-		}
-		set
-		{
-			if ((this._ProductName != value))
-			{
-				this._ProductName = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarChar(MAX)")]
-	public string Image
-	{
-		get
-		{
-			return this._Image;
-		}
-		set
-		{
-			if ((this._Image != value))
-			{
-				this._Image = value;
-			}
-		}
-	}
-}
-
-public partial class sp_web_cf_loadProductByTypeResult
-{
-	
-	private long _Id;
-	
-	private System.Nullable<double> _Price;
-	
-	private string _NoteSale;
-	
-	private string _Tag;
-	
-	private string _ProductTypeCode;
-	
-	private string _ProductName;
-	
-	private string _Image;
-	
-	public sp_web_cf_loadProductByTypeResult()
-	{
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="BigInt NOT NULL")]
-	public long Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this._Id = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
-	public System.Nullable<double> Price
-	{
-		get
-		{
-			return this._Price;
-		}
-		set
-		{
-			if ((this._Price != value))
-			{
-				this._Price = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoteSale", DbType="NVarChar(64)")]
-	public string NoteSale
-	{
-		get
-		{
-			return this._NoteSale;
-		}
-		set
-		{
-			if ((this._NoteSale != value))
-			{
-				this._NoteSale = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(128)")]
-	public string Tag
-	{
-		get
-		{
-			return this._Tag;
-		}
-		set
-		{
-			if ((this._Tag != value))
-			{
-				this._Tag = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeCode", DbType="VarChar(32)")]
-	public string ProductTypeCode
-	{
-		get
-		{
-			return this._ProductTypeCode;
-		}
-		set
-		{
-			if ((this._ProductTypeCode != value))
-			{
-				this._ProductTypeCode = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
-	public string ProductName
-	{
-		get
-		{
-			return this._ProductName;
-		}
-		set
-		{
-			if ((this._ProductName != value))
-			{
-				this._ProductName = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarChar(MAX)")]
-	public string Image
-	{
-		get
-		{
-			return this._Image;
-		}
-		set
-		{
-			if ((this._Image != value))
-			{
-				this._Image = value;
+				this._ListImage = value;
 			}
 		}
 	}
@@ -9350,6 +9562,10 @@ public partial class sp_web_cf_loadProductFeatureResult
 	private string _ProductName;
 	
 	private string _Image;
+	
+	private System.Nullable<double> _PriceSale;
+	
+	private System.Nullable<long> _rn;
 	
 	public sp_web_cf_loadProductFeatureResult()
 	{
@@ -9387,7 +9603,7 @@ public partial class sp_web_cf_loadProductFeatureResult
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(512)")]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(1024)")]
 	public string Description
 	{
 		get
@@ -9482,6 +9698,226 @@ public partial class sp_web_cf_loadProductFeatureResult
 			}
 		}
 	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PriceSale", DbType="Float")]
+	public System.Nullable<double> PriceSale
+	{
+		get
+		{
+			return this._PriceSale;
+		}
+		set
+		{
+			if ((this._PriceSale != value))
+			{
+				this._PriceSale = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_rn", DbType="BigInt")]
+	public System.Nullable<long> rn
+	{
+		get
+		{
+			return this._rn;
+		}
+		set
+		{
+			if ((this._rn != value))
+			{
+				this._rn = value;
+			}
+		}
+	}
+}
+
+public partial class sp_web_cf_loadProductRandomResult
+{
+	
+	private long _Id;
+	
+	private System.Nullable<double> _Price;
+	
+	private string _NoteSale;
+	
+	private string _ProductTypeCode;
+	
+	private string _ProductName;
+	
+	private string _Image;
+	
+	private string _Tag;
+	
+	private string _Description;
+	
+	private System.Nullable<double> _PriceSale;
+	
+	private System.Nullable<long> _rn;
+	
+	public sp_web_cf_loadProductRandomResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="BigInt NOT NULL")]
+	public long Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this._Id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float")]
+	public System.Nullable<double> Price
+	{
+		get
+		{
+			return this._Price;
+		}
+		set
+		{
+			if ((this._Price != value))
+			{
+				this._Price = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoteSale", DbType="NVarChar(64)")]
+	public string NoteSale
+	{
+		get
+		{
+			return this._NoteSale;
+		}
+		set
+		{
+			if ((this._NoteSale != value))
+			{
+				this._NoteSale = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductTypeCode", DbType="VarChar(32)")]
+	public string ProductTypeCode
+	{
+		get
+		{
+			return this._ProductTypeCode;
+		}
+		set
+		{
+			if ((this._ProductTypeCode != value))
+			{
+				this._ProductTypeCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(128)")]
+	public string ProductName
+	{
+		get
+		{
+			return this._ProductName;
+		}
+		set
+		{
+			if ((this._ProductName != value))
+			{
+				this._ProductName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="VarChar(MAX)")]
+	public string Image
+	{
+		get
+		{
+			return this._Image;
+		}
+		set
+		{
+			if ((this._Image != value))
+			{
+				this._Image = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tag", DbType="NVarChar(128)")]
+	public string Tag
+	{
+		get
+		{
+			return this._Tag;
+		}
+		set
+		{
+			if ((this._Tag != value))
+			{
+				this._Tag = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(1024)")]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this._Description = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PriceSale", DbType="Float")]
+	public System.Nullable<double> PriceSale
+	{
+		get
+		{
+			return this._PriceSale;
+		}
+		set
+		{
+			if ((this._PriceSale != value))
+			{
+				this._PriceSale = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_rn", DbType="BigInt")]
+	public System.Nullable<long> rn
+	{
+		get
+		{
+			return this._rn;
+		}
+		set
+		{
+			if ((this._rn != value))
+			{
+				this._rn = value;
+			}
+		}
+	}
 }
 
 public partial class sp_web_cf_loadProductSaleResult
@@ -9502,6 +9938,8 @@ public partial class sp_web_cf_loadProductSaleResult
 	private string _Image;
 	
 	private string _Description;
+	
+	private System.Nullable<double> _PriceSale;
 	
 	private string _NoteSale1;
 	
@@ -9621,7 +10059,7 @@ public partial class sp_web_cf_loadProductSaleResult
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(512)")]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(1024)")]
 	public string Description
 	{
 		get
@@ -9633,6 +10071,22 @@ public partial class sp_web_cf_loadProductSaleResult
 			if ((this._Description != value))
 			{
 				this._Description = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PriceSale", DbType="Float")]
+	public System.Nullable<double> PriceSale
+	{
+		get
+		{
+			return this._PriceSale;
+		}
+		set
+		{
+			if ((this._PriceSale != value))
+			{
+				this._PriceSale = value;
 			}
 		}
 	}

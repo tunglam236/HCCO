@@ -17,9 +17,9 @@
                             <div class="col col-text">
                                 <div class="box" style="overflow: hidden;">
                                     <h4 style="margin-left: -175px;background-color: #c2d880;line-height: 30px; font-size:15px;">LOOKBOOK No.1</h4>
-                                    <a href="/lb-detail/6/CFASHION-GIOI-THIEU-BO-LOOK-BOOK---CHAM-DONG.html" class="link">
+                                    <a href="#" class="link">
                                     <p style="font-size:40px; color:#b5a658; padding-left:160px; background-color:#f5dbb4;">CHẠM ĐÔNG</p></a>
-                                    <a href="/lb-detail/6/CFASHION-GIOI-THIEU-BO-LOOK-BOOK---CHAM-DONG.html" class="link">Xem chi tiết</a>
+                                    <a href="#" class="link">Xem chi tiết</a>
                                 </div>
                             </div>
                         </div>

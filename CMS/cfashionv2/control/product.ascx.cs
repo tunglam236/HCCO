@@ -33,7 +33,7 @@ public partial class control_product : System.Web.UI.UserControl
                     content += "<div class='label-pro-new'><span>" + x.NoteSale + "</span></div>";
                 
                 content += "<a class='product-image' href='/" + ref_member + "detail/" + x.Id.ToString() + "/" + cl.ConvertToUnSign(x.ProductName) + ".html'><div class='product-image'>";
-                content += "<img src='" + (x.Image == null || x.Image == "" ? "/image/image-coming-soon.png" : x.Image) + "' alt='" + x.ProductName + "' /></div></a>";
+                content += "<img src='" + (x.Image == null || x.Image == "" ? "/image/image-coming-soon.png" : x.Image) + "' alt='" + x.ProductName + "' class='img-responsive lazy imgzoom' /></div></a>";
                 
                 content += "</div><div class='des-container'>";
                 content += "<p class='tags-product'>";
@@ -50,15 +50,24 @@ public partial class control_product : System.Web.UI.UserControl
                     else
                         content += "<a href='/search/?k=" + Server.UrlEncode(x.Tag.Trim()) + "'>#" + x.Tag.Trim() + "</a>";
                 }
+                else
+                    result += "<a href='#'></a>";
 
                 content += "</p>";
                 content += " <h2 class='product-name'>";
                 content += "<a href='/" + ref_member + "detail/" + x.Id.ToString() + "/" + cl.ConvertToUnSign(x.ProductName) + ".html'>" + x.ProductTypeCode + " - " + x.ProductName + "</a></h2>";
                 content += "<div class='price-box'>";
-                content += "<p class='special-price'><span class='price'>" + (x.Price.Value == 0 ? "---" : string.Format("{0:0,0 đ}", x.Price)) + "</span></p>";
+                content += "<p class='special-price'>";
+                if (x.PriceSale == 0 || x.PriceSale==x.Price)
+                    content += "<span class='price'>" + string.Format("{0:0,0 đ}", x.Price) + "</span>";
+                else
+                    content += "<span class='price'>" + string.Format("{0:0,0 đ}", x.PriceSale) + "</span><span class='price' style='font-size:12px;padding-left:5px;'><del>" + string.Format("{0:0,0 đ}", x.Price) + "</del></span>";
+                content += "</p>";
                 content += "</div>";
-                content += "<button class='button btn-cart' type='button' onclick=\"addCart(" + x.Id.ToString() + ",'" + x.ProductName + "',1" + ",'" + x.Image + "','" + string.Format("{0:0,0}", x.Price.Value) + "',0)\" data-toggle='tooltip' title='Thêm nhanh vào giỏ hàng'>";
-                content += "<span>Thêm vào giỏ hàng</span></button>";
+                content += "<button class='button btn-cart' type='button' onclick=\"addCart(" + x.Id.ToString() + ",'" + x.ProductName + "',1" + ",'" + x.Image + "','" + string.Format("{0:0,0}", (x.Price == x.PriceSale ? x.Price.Value : x.PriceSale.Value)) + "',0)\" data-toggle='tooltip' title='Thêm nhanh vào giỏ hàng'>";
+                content += "<span>Giỏ hàng</span></button>-";
+                content += "<button class='button btn-quick' type='button' data-toggle='modal' data-target='#addQuickModal' onclick=\"showAddQuick(" + x.Id.ToString() + ",'" + x.ProductName + "','" + string.Format("{0:0,0}", (x.Price == x.PriceSale ? x.Price.Value : x.PriceSale.Value)) + "'," + (x.Price == x.PriceSale ? x.Price.ToString() : x.PriceSale.ToString()) + ")\" data-toggle='tooltip' title='Thử đồ sản phẩm này'>";
+                content += "<span><span>Thử đồ</span></span></button>";
                 content += "<div class='box-hover'><div class='ratings'><div class='rating-box'><div class='rating5'>";
                 content += "rating</div></div></div></div></div></div></div></div>";
 

@@ -13,9 +13,9 @@
                             <asp:Literal ID="lbMenuMobile" runat="server"></asp:Literal>
                         </ul>
                     </li>
-                    <li><span class=""><a href="/sale">Khuyến mại</a></span></li>
+                    <%--<li><span class=""><a href="/sale">Khuyến mại</a></span></li>
                     <li><span class=""><a href="/news">Tin tức</a></span></li>
-                    <li><span class=""><a href="/trend">Xu hướng</a></span></li>
+                    <li><span class=""><a href="/trend">Xu hướng</a></span></li>--%>
                     <li><span class=""><a href="/showroom">Showroom</a></span></li>
                 </ul>
             </div>
@@ -68,7 +68,7 @@
                                                 <div class="col col-sm-4">
                                                     <div class="image">
                                                         <a href="#">
-                                                            <img src="/image/catalog/cmsblock/product05.jpg" alt="image"></a>
+                                                            <img src="/image/catalog/cmsblock/3-1.jpg" alt="image"></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -78,7 +78,7 @@
                             </div>
                         </div>
 
-                        <div id="pt_menu_link68" class="pt_menu">
+                        <%--<div id="pt_menu_link68" class="pt_menu">
                             <div class="parentMenu">
                                 <a href="/sale"><span>Khuyến mại</span></a>
                             </div>
@@ -104,7 +104,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>--%>
                             <div id="pt_menu_link31" class="pt_menu">
                                 <div class="parentMenu">
                                     <a href="/showroom"><span>Showroom</span></a>

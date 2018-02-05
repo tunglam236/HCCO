@@ -720,7 +720,7 @@
             this.dgvTemp.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvTemp.RowHeadersVisible = false;
             this.dgvTemp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTemp.Size = new System.Drawing.Size(1260, 262);
+            this.dgvTemp.Size = new System.Drawing.Size(1260, 240);
             this.dgvTemp.TabIndex = 2;
             this.dgvTemp.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvTemp_CellBeginEdit);
             this.dgvTemp.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTemp_CellClick);
@@ -836,9 +836,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(1260, 478);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.dgvTemp);
             this.Controls.Add(this.grTTK);
+            this.Controls.Add(this.statusStrip1);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1276, 517);

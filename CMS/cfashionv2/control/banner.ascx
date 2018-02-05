@@ -264,30 +264,20 @@
             <div class="oc-loading">
             </div>
             <div id="oc-inivoslider" class="slides">
-                <a href="#">
-                    <img style="display: none;" src="/upload/slider/slide3.png" alt="" title="#banner7-caption1" /></a> 
+                <%--<a href="#">
+                    <img style="display: none;" src="/upload/slider/slide3.png" alt="" title="#banner7-caption1" /></a> --%>
                 <a href="/cfashion/16/Gioi-thieu-ve-C-Fashion.html">
-                    <img style="display: none;" src="/upload/slider/slide4.png" alt="" title="#banner7-caption2" /></a>
+                    <img style="display: none;" src="/upload/slider/slide4.png" alt="" title="#banner7-caption1" /></a>
+                <a href="#">
+                    <img style="display: none;" src="/upload/slider/Banner1-1.jpeg" alt="" title="#banner7-caption2" /></a> 
+                <a href="#">
+                    <img style="display: none;" src="/upload/slider/Banner2-2.jpeg" alt="" title="#banner7-caption3" /></a>
+                <a href="#">
+                    <img style="display: none;" src="/upload/slider/thu-do.jpeg" alt=""/></a>
+                <a href="#">
+                    <img style="display: none;" src="/upload/slider/89k.jpeg" alt="" /></a>
             </div>
             <div id="banner7-caption1" class="banner7-caption nivo-html-caption nivo-caption">
-                <div class="timeloading">
-                </div>
-                <div class="banner7-content slider-1">
-                    <div class="container" style="height: 100%;">
-                        <div class="container-inner" style="height: 100%; width: 100%; position: relative;">
-                             <div class="text-content">
-                                <h1 class="title1">
-                                    C'Fashion Grand <span>Openning</span></h1>
-                                <%--<h2 class="sub-title">Tặng Voucher 50% từ 11-24/11/2017</h2>--%>
-                                <div class="banner7-readmore">
-                                    <a href="#" title="shop now">Xem chi tiết</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="banner7-caption2" class="banner7-caption nivo-html-caption nivo-caption">
                 <div class="timeloading">
                 </div>
                 <div class="banner7-content slider-2">
@@ -301,6 +291,44 @@
                               
                                 <div class="banner7-readmore">
                                     <a href="#" title="shop now">Giới thiệu về C'Fashion</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="banner7-caption2" class="banner7-caption nivo-html-caption nivo-caption">
+                <div class="timeloading">
+                </div>
+                <div class="banner7-content slider-1">
+                    <div class="container" style="height: 100%;">
+                        <div class="container-inner" style="height: 100%; width: 100%; position: relative;">
+                             <div class="text-content">
+                                <h1 class="title1">
+                                    BỘ <span>SƯU TẬP</span></h1>
+                                  <h2 class="sub-title">
+                                   SƠ MI + JUYP</h2>
+                                <div class="banner7-readmore">
+                                    <a href="#" title="shop now">SALE 70%</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="banner7-caption3" class="banner7-caption nivo-html-caption nivo-caption">
+                <div class="timeloading">
+                </div>
+                <div class="banner7-content slider-3">
+                    <div class="container" style="height: 100%;">
+                        <div class="container-inner" style="height: 100%; width: 100%; position: relative;">
+                             <div class="text-content">
+                                <h1 class="title1">
+                                    BỘ <span> SƯU TẬP</span></h1>
+                                  <h2 class="sub-title">
+                                   ĐẦM 2018</h2>
+                                <div class="banner7-readmore">
+                                    <a href="#" title="shop now">SALE 70%</a>
                                 </div>
                             </div>
                         </div>

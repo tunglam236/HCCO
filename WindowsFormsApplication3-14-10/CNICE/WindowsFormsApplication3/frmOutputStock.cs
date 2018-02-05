@@ -117,11 +117,12 @@ namespace WindowsFormsApplication3
                                 }
                             }
 
-                            double _price = 0, _priSaleValue = 0;
+                            double _price = 0, _priSaleValue = 0, _priceSale = 0;
                             int _priType = 0;
                             _price = d.FirstOrDefault().Price.Value;
                             _priType = d.FirstOrDefault().saleType.Value;
                             _priSaleValue = d.FirstOrDefault().saleValue.Value;
+                            _priceSale = d.FirstOrDefault().priceSale.Value;
 
                             if (_priType == 1)//giam gia tien
                                 _price = _price - d.FirstOrDefault().saleValue.Value;
@@ -129,6 +130,8 @@ namespace WindowsFormsApplication3
                                 _price = _price - ((_price * d.FirstOrDefault().saleValue.Value) / 100);
                             else if (_priType == 3)//dong gia
                                 _price = d.FirstOrDefault().saleValue.Value;
+                            else if (_priType == 4)//tuy chinh gia
+                                _price = d.FirstOrDefault().priceSale.Value;
 
                             DataRow dr = dtTemp.NewRow();
                             dr["ProductId"] = d.FirstOrDefault().Id.ToString();
@@ -147,7 +150,8 @@ namespace WindowsFormsApplication3
                             dr["ToTalPrice"] = string.Format("{0:0,0}", (((currrent_quantity + 1) * _price) - d.FirstOrDefault().Discount));
                             dr["Note"] = _priType == 1 ? "Giảm giá " + string.Format("{0:0,0 đ}", _priSaleValue) :
                                 _priType == 2 ? "Giảm giá " + _priSaleValue.ToString() + " %" :
-                                _priType == 3 ? "Đồng giá " + string.Format("{0:0,0 đ}", _priSaleValue) : "";
+                                _priType == 3 ? "Đồng giá " + string.Format("{0:0,0 đ}", _priSaleValue) :
+                                _priType == 4 ? "Giảm còn " + string.Format("{0:0,0 đ}", _priceSale) : "";
 
                             dtTemp.Rows.Add(dr);
 
@@ -638,7 +642,7 @@ namespace WindowsFormsApplication3
                     else
                     {
                         //check so luong ton khi sua so luong
-                        var d = db.sp_Product_GetDetailByCodeId(WindowsFormsApplication3.Form1.branch_type_id, WindowsFormsApplication3.Form1.branch_id, code.ToString(), int.Parse(quantity.ToString())).ToList();
+                        var d = db.sp_Product_GetDetailByCodeIdCnice(WindowsFormsApplication3.Form1.branch_type_id, WindowsFormsApplication3.Form1.branch_id, code.ToString(), int.Parse(quantity.ToString())).ToList();
 
                         DataRow r = dtTemp.Rows.Find(id.ToString());
                         if (r != null && !r.IsNull("ProductId"))

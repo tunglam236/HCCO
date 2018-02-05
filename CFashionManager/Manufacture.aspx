@@ -33,14 +33,9 @@
       <button class="btn btn-sm btn-danger dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-th"></i> Hiển thị</button>
         <ul class="dropdown-menu ul-column" style="margin-left:-65px;">
             <li><a href="#" class="small toggle-vis" data-column="1" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Trạng thái</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="2" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ngày ra lệnh</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="3" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ngày nhận</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="4" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ngày hẹn trả</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="5" tabIndex="-1"><label><input type="checkbox" />&nbsp;Ngày trả</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="6" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mẫu</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="7" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Thiết kế</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="8" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Đơn vị gia công</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="9" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ghi chú</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="2" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Mẫu</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="3" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Thiết kế</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="4" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Ghi chú</label> </a></li>
         </ul>
     </div>
 </section>
@@ -53,13 +48,13 @@
                      <tr>
                          <th class='bg-th center' width="40px">STT</th>
                          <th class="bg-th">Trạng thái</th>
-                         <th class="bg-th">Người ra lệnh</th>
+                         <%--<th class="bg-th">Người ra lệnh</th>
                          <th class="bg-th">Ngày nhận</th>
                          <th class="bg-th">Ngày hẹn trả</th>
-                         <th class="bg-th">Ngày trả</th>
+                         <th class="bg-th">Ngày trả</th>--%>
                          <th class="bg-th">Mẫu</th>
                          <th class="bg-th">Thiết kế</th>
-                         <th class="bg-th">Đơn vị gia công</th>
+                         <%--<th class="bg-th">Đơn vị gia công</th>--%>
                          <th class="bg-th">Ghi chú</th>
                      </tr>
                   </thead>
@@ -70,13 +65,13 @@
                      <tr>
                          <th class='bg-th center' width="40px">STT</th>
                          <th class="bg-th">Trạng thái</th>
-                         <th class="bg-th">Người ra lệnh</th>
+                         <%--<th class="bg-th">Người ra lệnh</th>
                          <th class="bg-th">Ngày nhận</th>
                          <th class="bg-th">Ngày hẹn trả</th>
-                         <th class="bg-th">Ngày trả</th>
+                         <th class="bg-th">Ngày trả</th>--%>
                          <th class="bg-th">Mẫu</th>
                          <th class="bg-th">Thiết kế</th>
-                         <th class="bg-th">Đơn vị gia công</th>
+                         <%--<th class="bg-th">Đơn vị gia công</th>--%>
                          <th class="bg-th">Ghi chú</th>
                      </tr>
                   </tfoot>
@@ -103,33 +98,27 @@
                                  <div class="col-md-6">
                                     Mẫu thiết kế<br />
                                      <input type="text" id="txtForm" disabled class="form-control" style="width: 100%;" />
-                                     <%--<select id="dlForm" class="form-control select2" style="width: 100%;">
-                                     </select>--%>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-6">
+                                    Ghi chú<br />
+                                    <input type="text" id="txtNote" class="form-control" style="width: 100%;" maxlength="128" />
+                                </div>
+                              <%--<div class="col-md-2">
                                     Ngày ra lệnh<br />
                                     <input type="text" id="txtCreateAt" class="form-control datepicker2" style="width: 100%;" />
                                 </div>
                                 <div class="col-md-4">
                                     Ngày hẹn trả<br />
                                     <input type="text" id="txtDateExpect" class="form-control datepicker2" style="width: 100%;" />
-                                </div>
-                                <%--<div class="col-md-2">
-                                    Ngày trả<br />
-                                    <input type="text" id="txtDateReturn" disabled class="form-control datepicker2" style="width: 100%;" />
                                 </div>--%>
                             </div>
-                            <div class="row" style="padding: 5px;">
+                            <%--<div class="row" style="padding: 5px;">
                                  <div class="col-md-6">
                                     Đơn vị gia công<br />
                                      <select id="dlSupplier" class="form-control select2" style="width: 100%;">
                                   </select>
                                 </div>
-                                <div class="col-md-6">
-                                    Ghi chú<br />
-                                    <input type="text" id="txtNote" class="form-control" style="width: 100%;" maxlength="128" />
-                                </div>
-                            </div>
+                            </div>--%>
                     </div>
                     <div class=" input-hide" style="font-weight: bold; text-transform: uppercase; font-size: 16px; text-align: center;">
                         Chi tiết lệnh sản xuất
@@ -147,7 +136,7 @@
                                     <th>Size XXL</th>
                                     <th>Ghi chú</th>
                                 </tr>
-                                <tr>
+                                <tr class="func">
                                     <th>Chọn</th>
                                     <th><select id="dlColor" class="form-control select2" style="width: 200px;"></select></th>
                                     <th><input type="text" id="txtS" class="select numbers form-control" style="width: 60px;" /></th>
@@ -230,28 +219,28 @@
                 }
             });
 
-            $('#dlSupplier').find('option').remove().end();
-            var c1 = document.getElementById('dlSupplier');
-            var opt_ = document.createElement('option');
-            opt_.value = '';
-            opt_.innerHTML = 'Chọn đơn vị gia công';
-            c1.appendChild(opt_);
+            //$('#dlSupplier').find('option').remove().end();
+            //var c1 = document.getElementById('dlSupplier');
+            //var opt_ = document.createElement('option');
+            //opt_.value = '';
+            //opt_.innerHTML = 'Chọn đơn vị gia công';
+            //c1.appendChild(opt_);
 
-            $.ajax({
-                type: 'POST',
-                url: '/Command.aspx/getSupplierByType',
-                data: '{"typeId":"2"}',
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function (data) {
-                    for (var i = 0; i < data.d.length; i++) {
-                        var opt = document.createElement('option');
-                        opt.value = data.d[i]._content;
-                        opt.innerHTML = data.d[i]._mess;
-                        c1.appendChild(opt);
-                    }
-                }
-            });
+            //$.ajax({
+            //    type: 'POST',
+            //    url: '/Command.aspx/getSupplierByType',
+            //    data: '{"typeId":"2"}',
+            //    contentType: 'application/json; charset=utf-8',
+            //    dataType: 'json',
+            //    success: function (data) {
+            //        for (var i = 0; i < data.d.length; i++) {
+            //            var opt = document.createElement('option');
+            //            opt.value = data.d[i]._content;
+            //            opt.innerHTML = data.d[i]._mess;
+            //            c1.appendChild(opt);
+            //        }
+            //    }
+            //});
 
             $('#dlColor').find('option').remove().end();
             var dl_color = document.getElementById('dlColor');
@@ -363,44 +352,48 @@
                     var sXXL = $('#txtXXL').val();
                     var note = $('#txtN').val();
 
-                    if (sS == '') sS = 0;
-                    if (sM == '') sM = 0;
-                    if (sL == '') sL = 0;
-                    if (sXL == '') sXL = 0;
-                    if (sXXL == '') sXXL = 0;
+                    if (sS == '' && sM == '' && sL == '' && sXL == '' && sXXL == '')
+                        showAlert('Nhập ít nhất một số lượng');
+                    else {
+                        if (sS == '') sS = 0;
+                        if (sM == '') sM = 0;
+                        if (sL == '') sL = 0;
+                        if (sXL == '') sXL = 0;
+                        if (sXXL == '') sXXL = 0;
 
-                    $('#sumS').val(parseInt($('#sumS').val())+ parseInt(sS));
-                    $('#sumM').val(parseInt($('#sumM').val()) + parseInt(sM));
-                    $('#sumL').val(parseInt($('#sumL').val()) + parseInt(sL));
-                    $('#sumXL').val(parseInt($('#sumXL').val()) + parseInt(sXL));
-                    $('#sumXXL').val(parseInt($('#sumXXL').val()) + parseInt(sXXL));
-                    $('#sumTotal').val(parseInt($('#sumS').val()) + parseInt($('#sumM').val()) + parseInt($('#sumL').val()) + parseInt($('#sumXL').val()) + parseInt($('#sumXXL').val()));
+                        $('#sumS').val(parseInt($('#sumS').val()) + parseInt(sS));
+                        $('#sumM').val(parseInt($('#sumM').val()) + parseInt(sM));
+                        $('#sumL').val(parseInt($('#sumL').val()) + parseInt(sL));
+                        $('#sumXL').val(parseInt($('#sumXL').val()) + parseInt(sXL));
+                        $('#sumXXL').val(parseInt($('#sumXXL').val()) + parseInt(sXXL));
+                        $('#sumTotal').val(parseInt($('#sumS').val()) + parseInt($('#sumM').val()) + parseInt($('#sumL').val()) + parseInt($('#sumXL').val()) + parseInt($('#sumXXL').val()));
 
-                    var html = '';
-                    html += '<tr data-color="' + color + '" data-s="' + sS + '" data-m="' + sM + '" data-l="' + sL + '" data-xl="' + sXL + '" data-xxl="' + sXXL + '" id="rows' + color + '">';
-                    html += '<td style="width:20px;"><a onclick="removeproduct(' + color + ');"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>';
-                    html += '<td>' + color_name + '</td>';
-                    html += '<td><input type="text" class="numbers format-input sizeS" id="sS' + color + '" value="' + sS + '" /></td>';
-                    html += '<td><input type="text" class="numbers format-input sizeM" id="sM' + color + '" value="' + sM + '" /></td>';
-                    html += '<td><input type="text" class="numbers format-input sizeL" id="sL' + color + '" value="' + sL + '" /></td>';
-                    html += '<td><input type="text" class="numbers format-input sizeXL" id="sXL' + color + '" value="' + sXL + '" /></td>';
-                    html += '<td><input type="text" class="numbers format-input sizeXXL" id="sXXL' + color + '" value="' + sXXL + '" /></td>';
-                    html += '<td><input type="text" class="format-input" id="sNote' + color + '" maxlength="128" style="min-width:150px;width:100%; text-align:left;" value="' + note + '" /></td>';
-                    $('#data-detail-soi').append(html);
+                        var html = '';
+                        html += '<tr data-color="' + color + '" data-s="' + sS + '" data-m="' + sM + '" data-l="' + sL + '" data-xl="' + sXL + '" data-xxl="' + sXXL + '" id="rows' + color + '">';
+                        html += '<td style="width:20px;"><a onclick="removeproduct(' + color + ');"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>';
+                        html += '<td>' + color_name + '</td>';
+                        html += '<td><input type="text" class="numbers format-input sizeS" id="sS' + color + '" value="' + sS + '" /></td>';
+                        html += '<td><input type="text" class="numbers format-input sizeM" id="sM' + color + '" value="' + sM + '" /></td>';
+                        html += '<td><input type="text" class="numbers format-input sizeL" id="sL' + color + '" value="' + sL + '" /></td>';
+                        html += '<td><input type="text" class="numbers format-input sizeXL" id="sXL' + color + '" value="' + sXL + '" /></td>';
+                        html += '<td><input type="text" class="numbers format-input sizeXXL" id="sXXL' + color + '" value="' + sXXL + '" /></td>';
+                        html += '<td><input type="text" class="format-input" id="sNote' + color + '" maxlength="128" style="min-width:150px;width:100%; text-align:left;" value="' + note + '" /></td>';
+                        $('#data-detail-soi').append(html);
 
-                    $('#txtS').val('');
-                    $('#txtM').val('');
-                    $('#txtL').val('');
-                    $('#txtXL').val('');
-                    $('#txtXXL').val('');
-                    $('#txtN').val('');
+                        $('#txtS').val('');
+                        $('#txtM').val('');
+                        $('#txtL').val('');
+                        $('#txtXL').val('');
+                        $('#txtXXL').val('');
+                        $('#txtN').val('');
 
-                    $('.sumS').text($('#sumS').val());
-                    $('.sumM').text($('#sumM').val());
-                    $('.sumL').text($('#sumL').val());
-                    $('.sumXL').text($('#sumXL').val());
-                    $('.sumXXL').text($('#sumXXL').val());
-                    $('.sumTotal').text('= ' + $('#sumTotal').val());
+                        $('.sumS').text($('#sumS').val());
+                        $('.sumM').text($('#sumM').val());
+                        $('.sumL').text($('#sumL').val());
+                        $('.sumXL').text($('#sumXL').val());
+                        $('.sumXXL').text($('#sumXXL').val());
+                        $('.sumTotal').text('= ' + $('#sumTotal').val());
+                    }
                 }
                 else
                     showAlert('Đã tồn tại màu sắc ' + color_name + '. Hãy kiểm tra lại');
@@ -428,27 +421,28 @@
             $('#txtN').val('');
             $("#data-detail-soi tr").remove();
         }
-        function update_modal(id, date_create, date_expect, supplierId, formId, formname, note, status) {
+        function update_modal(id, formId, formname, note, status) {
             reset();
             $("#addDept").modal({ show: false });
             $('#hdDeptId').val(id);
             $('#hdFormId').val(formId);
             $('#txtForm').val(formname);
-            $('#txtCreateAt').val(date_create);
-            $('#txtDateExpect').val(date_expect);
-            //$('#txtDateReturn').val(date_return);
+            //$('#txtCreateAt').val(date_create);
+            //$('#txtDateExpect').val(date_expect);
             $('#txtNote').val(note);
 
-            $('#dlSupplier').val(supplierId);
-            $('#select2-dlSupplier-container').text($('#dlSupplier option:selected').text());
+            //$('#dlSupplier').val(supplierId);
+            //$('#select2-dlSupplier-container').text($('#dlSupplier option:selected').text());
 
             document.getElementById('lb').innerText = 'CẬP NHẬT LỆNH SẢN XUẤT';
-
-            if (status == 1) {
+            console.log(status);
+            if (status == '1') {
                 $('.approved').show();
+                $('.func').show();
             }
             else {
                 $('.approved').hide();
+                $('.func').hide();
             }
 
             $.ajax({
@@ -466,12 +460,12 @@
                         html += '<tr data-color="' + data.d[t].ColorId + '" data-s="' + data.d[t].SizeS + '" data-m="' + data.d[t].SizeM + '" data-l="' + data.d[t].SizeL + '" data-xl="' + data.d[t].SizeXL + '" data-xxl="' + data.d[t].SizeXXL + '" id="rows' + data.d[t].ColorId + '">';
                         html += '<td style="width:20px;"><a onclick="removeproduct(' + data.d[t].ColorId + ');"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>';
                         html += '<td>' + data.d[t].ColorName + '</td>';
-                        html += '<td><input type="text" class="numbers format-input sizeS" id="sS' + data.d[t].ColorId + '" value="' + data.d[t].SizeS + '" /></td>';
-                        html += '<td><input type="text" class="numbers format-input sizeM" id="sM' + data.d[t].ColorId + '" value="' + data.d[t].SizeM + '" /></td>';
-                        html += '<td><input type="text" class="numbers format-input sizeL" id="sL' + data.d[t].ColorId + '" value="' + data.d[t].SizeL + '" /></td>';
-                        html += '<td><input type="text" class="numbers format-input sizeXL" id="sXL' + data.d[t].ColorId + '" value="' + data.d[t].SizeXL + '" /></td>';
-                        html += '<td><input type="text" class="numbers format-input sizeXXL" id="sXXL' + data.d[t].ColorId + '" value="' + data.d[t].SizeXXL + '" /></td>';
-                        html += '<td><input type="text" class="format-input" id="sNote' + data.d[t].ColorId + '" maxlength="128" style="min-width:150px;width:100%;text-align:left;" value="' + data.d[t].Note + '" /></td>';
+                        html += '<td><input type="text" ' + (status=='1' ? '' : 'disabled') + ' class="numbers format-input sizeS" id="sS' + data.d[t].ColorId + '" value="' + data.d[t].SizeS + '" /></td>';
+                        html += '<td><input type="text" ' + (status == '1' ? '' : 'disabled') + ' class="numbers format-input sizeM" id="sM' + data.d[t].ColorId + '" value="' + data.d[t].SizeM + '" /></td>';
+                        html += '<td><input type="text" ' + (status == '1' ? '' : 'disabled') + ' class="numbers format-input sizeL" id="sL' + data.d[t].ColorId + '" value="' + data.d[t].SizeL + '" /></td>';
+                        html += '<td><input type="text" ' + (status == '1' ? '' : 'disabled') + ' class="numbers format-input sizeXL" id="sXL' + data.d[t].ColorId + '" value="' + data.d[t].SizeXL + '" /></td>';
+                        html += '<td><input type="text" ' + (status == '1' ? '' : 'disabled') + ' class="numbers format-input sizeXXL" id="sXXL' + data.d[t].ColorId + '" value="' + data.d[t].SizeXXL + '" /></td>';
+                        html += '<td><input type="text" ' + (status == '1' ? '' : 'disabled') + ' class="format-input" id="sNote' + data.d[t].ColorId + '" maxlength="128" style="min-width:150px;width:100%;text-align:left;" value="' + data.d[t].Note + '" /></td>';
                         sumS += parseInt(data.d[t].SizeS);
                         sumM += parseInt(data.d[t].SizeM);
                         sumL += parseInt(data.d[t].SizeL);
@@ -494,15 +488,15 @@
             var idManu = $('#hdDeptId').val();
             var idForm = $('#hdFormId').val();
             
-            var date_create = $('#txtCreateAt').val();
-            var date_expect = $('#txtDateExpect').val();
+            //var date_create = $('#txtCreateAt').val();
+            //var date_expect = $('#txtDateExpect').val();
             var note = $('#txtNote').val();
-            var supplier = $('#dlSupplier').val();
+            //var supplier = $('#dlSupplier').val();
 
-            if (date_create == '') showAlert('Nhập ngày ra lệnh');
-            else if (date_expect == '') showAlert('Nhập ngày hẹn trả');
-            else if (idForm == '') showAlert('Chọn mẫu thiết kế');
-            else if (supplier == '') showAlert('Chọn đơn vị gia công');
+            //if (date_create == '') showAlert('Nhập ngày ra lệnh');
+            //else if (date_expect == '') showAlert('Nhập ngày hẹn trả');
+            if (idForm == '') showAlert('Chọn mẫu thiết kế');
+            //else if (supplier == '') showAlert('Chọn đơn vị gia công');
             else {
                 if (confirm("Bạn chắc chắn muốn lưu lệnh sản xuất này ?") == true) {
                     var id = $('#hdDeptId').val();
@@ -525,12 +519,11 @@
                         $.ajax({
                             type: 'POST',
                             url: '/Command.aspx/updateManufacture',
-                            data: '{"id":"' + idManu + '","date_create":"' + date_create + '","date_expect":"' + date_expect + '","note":"' + note + '","form":"' + idForm + '","supplier":"' + supplier + '","data":"' + data + '"}',
+                            data: '{"id":"' + idManu + '","note":"' + note + '","form":"' + idForm + '","data":"' + data + '"}',
                             contentType: 'application/json; charset=utf-8',
                             dataType: 'json',
                             success: function (data) {
                                 if (data.d._content == '1') {
-
                                     $('#sumS').val('0');
                                     $('#sumM').val('0');
                                     $('#sumL').val('0');
@@ -548,33 +541,6 @@
                         });
                     }
                 }
-            }
-        }
-        function complete() {
-            var code = $('#txtCode').val();
-            var name = $('#txtName').val();
-
-            var content = $('#txtContent').val();
-            if (confirm("Bạn chắc chắn đã hoàn thành mẫu " + name + ' - ' + code + " này ?") == true) {
-                var id = $('#hdDeptId').val();
-                $.ajax({
-                    type: 'POST',
-                    url: '/Command.aspx/completeFormSewing',
-                    data: '{"id":"' + id + '","content":"' + content + '"}',
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.d._content == '1') {
-                            showAlert('Đã cập nhật hoàn thành mẫu [' + name + ' - ' + code + ']');
-
-                            setTimeout(function () {
-                                window.location.href = window.location.href;
-                            }, 1000);
-                        }
-                        else
-                            showAlert(data.d._mess);
-                    }
-                });
             }
         }
     </script>

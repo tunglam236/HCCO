@@ -150,8 +150,9 @@
             <li><a href="#" class="small toggle-vis" data-column="6" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Đến ngày</label> </a></li>
             <li><a href="#" class="small toggle-vis" data-column="7" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Hình thức KM</label> </a></li>
             <li><a href="#" class="small toggle-vis" data-column="8" tabIndex="-1"><label><input type="checkbox" checked/>&nbsp;Giá trị KM</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="9" tabIndex="-1"><label><input type="checkbox" />&nbsp;Ngày tạo</label> </a></li>
-            <li><a href="#" class="small toggle-vis" data-column="10" tabIndex="-1"><label><input type="checkbox" />&nbsp;Người tạo</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="9" tabIndex="-1"><label><input type="checkbox" />&nbsp;Trạng thái</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="10" tabIndex="-1"><label><input type="checkbox" />&nbsp;Ngày tạo</label> </a></li>
+            <li><a href="#" class="small toggle-vis" data-column="11" tabIndex="-1"><label><input type="checkbox" />&nbsp;Người tạo</label> </a></li>
         </ul>
     </div>
 </section>
@@ -171,7 +172,8 @@
                         <th class="bg-th">Đến ngày</th>
                          <th class="bg-th">Hình thức KM</th>
                         <th class="bg-th">Giá trị KM</th>
-                        <th class="bg-th">Ngày tạo</th>
+                        <th class="bg-th">Trạng thái</th>
+                         <th class="bg-th">Ngày tạo</th>
                         <th class="bg-th">Người tạo</th>
                      </tr>
                   </thead>
@@ -189,6 +191,7 @@
                         <th class="bg-th">Đến ngày</th>
                          <th class="bg-th">Hình thức KM</th>
                         <th class="bg-th">Giá trị KM</th>
+                         <th class="bg-th">Trạng thái</th>
                         <th class="bg-th">Ngày tạo</th>
                         <th class="bg-th">Người tạo</th>
                      </tr>
@@ -235,10 +238,19 @@
                                 <option value="1" selected="selected">Giảm giá tiền</option>
                                 <option value="2">Giảm giá phần trăm</option>
                                 <option value="3">Đồng giá</option>
+                                <option value="4">Tùy chỉnh giá</option>
                             </select>
                         </div>
-                        <div class="col-md-4">Giá trị khuyến mại<br />
+                        <div class="col-md-2">Giá trị khuyến mại<br />
                             <input type="text" id="txtTotalPrice" class="input-price form-control" style="width: 100%;" />
+                        </div>
+                         <div class="col-md-2">Độ ưu tiên<br />
+                            <select id="dlPriority" class="form-control select2" style="width: 100%;">
+                                <option value="1" selected="selected">Bình thường</option>
+                                <option value="2">Ưu tiên cấp 1</option>
+                                <option value="3">Ưu tiên cấp 2</option>
+                                <option value="4">Ưu tiên cấp 3</option>
+                            </select>
                         </div>
                        <div class="col-md-4">Mô tả chương trình<br />
                             <input type="text" id="txtDescription" class="form-control" style="width: 100%;" />
@@ -261,23 +273,35 @@
                      <div style="font-weight: bold; text-transform: uppercase; font-size: 16px; text-align: center;">
                         Chi tiết sản phẩm khuyến mại</div>
                     <div class="row" style="padding: 5px;">
-                        <div class="col-md-6">
-                            Nhóm sản phẩm<br />
-                            <select id="dlProductType" class="form-control select2" style="width: 100%;">
+                        <div class="col-md-3">
+                            Mã vạch sản phẩm<br />
+                            <input type="text" id="productCode" class="form-control proCode" maxlength="20" style="width: 100%;" />
+                        </div>
+                        <div class="col-md-3">
+                            Giá khuyến mại<br />
+                            <input type="text" id="txtPrice" class="numbers form-control proCode" maxlength="10" style="width: 100%;" />
+                        </div>
+                        <div class="col-md-3">
+                            Trạng thái<br />
+                        <select id="dlStatus" class="form-control select2" style="width: 100%;">
+                                <option value="1" selected="selected">Áp dụng</option>
+                                <option value="2">Ngưng áp dụng</option>
                             </select>
                         </div>
-                        <div class="col-md-6">
-                            Mã vạch sản phẩm<br />
-                            <input type="text" id="productCode" class="numbers form-control proCode" maxlength="20" style="width: 100%;" />
+                        <div class="col-md-3">
+                            <br />
+                            <a href="#" data-toggle="modal" data-target="#inputQuick" id="btnad" class="btn btn-primary">Nhập nhanh</a>
                         </div>
                     </div>
-                     <div class="row" style="padding: 5px;">
+                     <div class="row" style="padding: 5px;max-width:100%; max-height:180px; overflow-x:auto; overflow-y:auto;">
                         <table id="tbdetail" cellpadding="5" cellspacing="5" border="0" width="98%" class="table-bordered" style="min-width: 500px;
                             margin-left: 15px;">
                             <thead>
                                 <tr>
-                                   
                                     <th>
+                                        STT
+                                    </th>
+                                     <th>
                                         Mã vạch
                                     </th>
                                     <th>
@@ -285,6 +309,9 @@
                                     </th>
                                     <th>
                                         Tên sản phẩm
+                                    </th>
+                                    <th>
+                                        Đơn giá
                                     </th>
                                     <th>
                                         Xóa
@@ -322,9 +349,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="row" style="padding: 5px;">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             Mã vạch sản phẩm<br />
-                            <input type="text" id="ins_productCode" class="numbers form-control" maxlength="20" style="width: 100%;" />
+                            <input type="text" id="ins_productCode" class="form-control" maxlength="20" style="width: 100%;" />
+                        </div>
+                        <div class="col-md-6">
+                            Đơn giá khuyến mại<br />
+                            <input type="text" id="ins_price" class="form-control" maxlength="20" style="width: 100%;" />
                         </div>
                     </div>
                      
@@ -340,8 +371,45 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="inputQuick" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content" style="font-size: 12px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;</button>
+                    <h4 class="modal-title center">
+                        <i class="fa fa-spinner" aria-hidden="true"></i> NHẬP NHANH SẢN PHẨM</h4>
+                </div>
+                <div class="modal-body">
+                    <i>Copy dữ liệu từ file Excel tương ứng với các cột bên dưới và dán vào đây</i>
+                    <div class="row" style="padding: 5px;">
+                        <table cellpadding="5" cellspacing="5" border="0" width="100%" margin-left: 15px;">
+                            <tr>
+                                <th>
+                                    Mã vạch | Giá khuyến mại
+                                </th>
+                                 
+                            </tr>
+                            <tr>
+                                <td>
+                                    <textarea id="txtquick" rows="5" style="width:100%;"></textarea>
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 btn-group" style="padding-left: 5px;">
+                            <button type="button" class="btn btn-success" onclick="getQuick();">Import</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-        var options = ["1","2","3","4","5","6","7"];
+        var options = ["1","2","3","5","6","7","8"];
 
         $('.ul-column a').on('click', function (event) {
 
@@ -375,7 +443,7 @@
                 "order": [[1, 'asc']],
                 "columnDefs": [
                 {
-                    "targets": [4,9,10],
+                    "targets": [4,9,10,11],
                     "visible": false,
                     "searchable": false
                 }],
@@ -441,12 +509,12 @@
                                 data_html += '<td>' + data.d[i].CodeId + '</td>';
                                 data_html += '<td>' + data.d[i].ProCode + '</td>';
                                 data_html += '<td>' + data.d[i].ProName + '</td>';
+                                data_html += '<td>' + data.d[i].Price + '</td>';
                                 data_html += '<td>';
-                                
                                 data_html += '<a href="#" title="Thêm sản phẩm vào chương trình" onclick="showmodal(' + data.d[i].Id + ')" data-toggle="modal" data-target="#addProductToGift" class="btn btn-sm btn-success" style="width:35px; margin-right:10px;"><i class="glyphicon glyphicon-plus-sign"></i></a>';
                                 data_html += '<a href="#" title="Xóa sản phẩm" onclick="return removeDetailCombo(' + data.d[i].Id + ',' + data.d[i].ProductId + ');" class="btn btn-sm btn-danger" style="width:35px; margin-right:10px;"><i class="glyphicon glyphicon-remove-circle"></i></a>';
                                 data_html += '<a href="#" title="Chỉnh sửa chương trình" onclick="return editDetailCombo(' + data.d[i].Id + ');" class="btn btn-sm btn-warning" style="width:35px; margin-right:10px;"><i class="glyphicon glyphicon-edit"></i></a>';
-                                data_html += '</tr>';
+                                data_html += '</td></tr>';
 
                             }
                             html = '<table id="tbdetailcombo" cellpadding="5" cellspacing="5" border="0" style="padding:50px; min-width:915px;width:95%; margin-left:25px;">' +
@@ -455,6 +523,7 @@
                                         '<td class="bold">Mã vạch</td>' +
                                         '<td class="bold">Mã sản phẩm</td>' +
                                         '<td class="bold">Tên sản phẩm</td>' +
+                                        '<td class="bold">Giá khuyến mại</td>' +
                                         '<td class="bold" width="190px">Cập nhật</td>' +
                                     '</tr>' + data_html +
                                 '</table>';
@@ -469,31 +538,6 @@
     <script>
          function changeType(id) {
              loadDrop(id);
-             loadProductType(id);
-         }
-         function loadProductType(branchTypeId) {
-             $('#dlProductType').find('option').remove().end();
-             $.ajax({
-                 type: 'POST',
-                 url: '/Command.aspx/getProductType',
-                 data: '{"typeId":"' + branchTypeId + '"}',
-                 contentType: 'application/json; charset=utf-8',
-                 dataType: 'json',
-                 success: function (data) {
-                     var c1 = document.getElementById('dlProductType');
-                     var opt1 = document.createElement('option');
-                     opt1.value = "";
-                     opt1.innerHTML = "Chọn theo mã vạch";
-                     c1.appendChild(opt1);
-
-                     for (var i = 0; i < data.d.length; i++) {
-                         var opt = document.createElement('option');
-                         opt.value = data.d[i]._content;
-                         opt.innerHTML = data.d[i]._mess;
-                         c1.appendChild(opt);
-                     }
-                 }
-             });
          }
          function loadDrop(branchTypeId) {
              $('#dlBranch').find('option').remove().end();
@@ -532,6 +576,11 @@
                     ins_saveChanges();
                 }
             });
+            $("#ins_price").keypress(function (e) {
+                if (e.which == 13) {
+                    ins_saveChanges();
+                }
+            });
             $(".input-date").keypress(function (e) {
                 if (e.which != 8 && e.which != 0 && (e.which < 47 || e.which > 57)) {
                     return false;
@@ -559,7 +608,6 @@
                         c1.appendChild(opt);
                     }
                     loadDrop($('#dlBranchType').val());
-                    loadProductType($('#dlBranchType').val());
                 }
             });
         });
@@ -580,40 +628,41 @@
         }
         function ins_saveChanges() {
             var proCode = $('#ins_productCode').val();
-            if (proCode == '')
-                showAlert('Nhập mã vạch sản phẩm');
+            var proPrice = $('#ins_price').val();
+
+            if (proCode == '' || proPrice=='')
+                showAlert('Nhập mã vạch sản phẩm và đơn giá');
             else {
                 $.ajax({
                     type: 'POST',
                     url: '/Command.aspx/insertProductGift',
-                    data: '{"idSale":"' + $('#hdGiftId').val() + '","productCode":"' + proCode + '"}',
+                    data: '{"idSale":"' + $('#hdGiftId').val() + '","productCode":"' + proCode + '","price":"'+proPrice+'"}',
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
                     success: function (data) {
                         if (data.d._content == '1') {
 
-                            var arr = data.d._mess;
-                            var d_id = data.d._id;
-
-                            var indexToSplit = arr.indexOf('#');
-                            var first = arr.slice(0, indexToSplit);
-                            var second = arr.slice(indexToSplit + 1);
-
-                            indexToSplit = d_id.indexOf('#');
-                            id_first = d_id.slice(0, indexToSplit);
-                            id_second = d_id.slice(indexToSplit + 1);
-
-                            var html = '';
-                            html += '<tr id="remove-combo' + $('#hdGiftId').val() + '-' + id_second + '"><td>' + $('#tbdetailcombo tr').length + '</td>';
-                            html += '<td>' + proCode + '</td><td>' + first + '</td><td>' + second + '</td>';
-                            html += '<td><a href="#" title="Thêm sản phẩm vào chương trình" onclick="showmodal(' + $('#hdGiftId').val() + ')" data-toggle="modal" data-target="#addProductToGift" class="btn btn-sm btn-success" style="width:35px; margin-right:10px;"><i class="glyphicon glyphicon-plus-sign"></i></a>';
-                            html += '<a href="#" title="Xóa sản phẩm" onclick="return removeDetailCombo(' + id_first + ',' + id_second + ');" class="btn btn-sm btn-danger" style="width:35px; margin-right:10px;"><i class="glyphicon glyphicon-remove-circle"></i></a>';
-                            html += '<a href="#" title="Chỉnh sửa chương trình" onclick="return editDetailCombo(' + $('#hdGiftId').val() + ');" class="btn btn-sm btn-warning" style="width:35px; margin-right:10px;"><i class="glyphicon glyphicon-edit"></i></a>';
-
-                            $('#tbdetailcombo').append(html);
+                            //var arr = data.d._mess;
+                            //var d_id = data.d._id;
+                            //var indexToSplit = arr.indexOf('#');
+                            //var first = arr.slice(0, indexToSplit);
+                            //var second = arr.slice(indexToSplit + 1);
+                            //indexToSplit = d_id.indexOf('#');
+                            //id_first = d_id.slice(0, indexToSplit);
+                            //id_second = d_id.slice(indexToSplit + 1);
+                            //var html = '';
+                            //html += '<tr id="remove-combo' + $('#hdGiftId').val() + '-' + id_second + '"><td>' + $('#tbdetailcombo tr').length + '</td>';
+                            //html += '<td>' + proCode + '</td><td>' + first + '</td><td>' + second + '</td>';
+                            //html += '<td><a href="#" title="Thêm sản phẩm vào chương trình" onclick="showmodal(' + $('#hdGiftId').val() + ')" data-toggle="modal" data-target="#addProductToGift" class="btn btn-sm btn-success" style="width:35px; margin-right:10px;"><i class="glyphicon glyphicon-plus-sign"></i></a>';
+                            //html += '<a href="#" title="Xóa sản phẩm" onclick="return removeDetailCombo(' + id_first + ',' + id_second + ');" class="btn btn-sm btn-danger" style="width:35px; margin-right:10px;"><i class="glyphicon glyphicon-remove-circle"></i></a>';
+                            //html += '<a href="#" title="Chỉnh sửa chương trình" onclick="return editDetailCombo(' + $('#hdGiftId').val() + ');" class="btn btn-sm btn-warning" style="width:35px; margin-right:10px;"><i class="glyphicon glyphicon-edit"></i></a>';
+                            //$('#tbdetailcombo').append(html);
 
                             showAlert('Đã thêm sản phẩm vào chương trình');
-                            $('#addProductToGift').modal('hide');
+                            setTimeout(function () {
+                                window.location.href = window.location.href;
+                            }, 1000);
+                            //$('#addProductToGift').modal('hide');
                         }
                         else
                             showAlert(data.d._mess);
@@ -672,102 +721,100 @@
         }
         function addProduct() {
             var code = $('#productCode').val();
-            var group = $('#dlProductType').val();
+            //var group = $('#dlProductType').val();
             var branchType = $('#dlBranchType').val();
             var hd = $('#hdBranchType').val();
+            var typesale= $('#dlTypeSale').val();
 
-            if (code == '' && group == '')
-                showAlert('Nhập mã vạch sản phẩm hoặc chọn nhóm sản phẩm');
+            if (code == '')
+                showAlert('Nhập mã vạch sản phẩm');
             else
             {
-                if (group != '') {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Command.aspx/getProductIdByType',
-                        data: '{"branchType":"' + branchType + '","typeId":"' + group + '"}',
-                        contentType: 'application/json; charset=utf-8',
-                        dataType: 'json',
-                        success: function (data) {
-                            if (hd != branchType) $('#data-detail tr').remove();
-                            $('#hdBranchType').val($('#dlBranchType').val());
-
-                            for (var i = 0; i < data.d.length; i++) {
-                                var data_html = "";
-                                var arr = data.d[i]._mess;
-                                var indexToSplit = arr.indexOf('#');
-                                var _code = arr.slice(0, indexToSplit);
-                                var _name = arr.slice(indexToSplit + 1);
-
-                                
-                                $("#data-detail tr").each(function () {
-                                    var id = $(this).attr("product");
-                                    if (id == data.d[i]._content)
-                                    {
-                                        $(this).remove();
-                                    }
-                                });
-                                    
-
-                                data_html += '<tr id="remove-' + data.d[i]._content + '" product="' + data.d[i]._content + '" product_id="' + data.d[i]._id + '">';
-                                data_html += '<td>' + data.d[i]._content + '</td>';
-                                data_html += '<td>' + _code + '</td>';
-                                data_html += '<td>' + _name + '</td>';
-                                data_html += '<td>';
-
-                                data_html += '<a href="#" title="Xóa sản phẩm" onclick="return removeproduct(' + data.d[i]._content + ',\'' + _name + '\');" class="btn btn-sm btn-danger" style="width:35px; margin-right:10px;"><i class="glyphicon glyphicon-remove-circle"></i></a>';
-                                data_html += '</tr>';
-
-                                $('#data-detail').append(data_html);
-                                $('#productCode').val('');
-                                $('#productCode').focus();
-                                $('#dlProductType').val('');
-                                $('#select2-dlProductType-container').text('Chọn theo mã vạch');
-                            }
-                        }
-                    });
-
-                }
+                var price = $('#txtPrice').val();
+                if (typesale == '4' && price == '')
+                    showAlert('Nhập đơn giá khuyến mại');
                 else {
-                    if (code != '') {
-                        $.ajax({
-                            type: 'POST',
-                            url: '/Command.aspx/getDetailProduct',
-                            data: '{"branchTypeId":"' + branchType + '","codeId":"' + code + '"}',
-                            contentType: 'application/json; charset=utf-8',
-                            dataType: 'json',
-                            success: function (data) {
-                                if (hd != branchType) $('#data-detail tr').remove();
-                                $('#hdBranchType').val($('#dlBranchType').val());
+                    //if (group != '') {
+                    //    $.ajax({
+                    //        type: 'POST',
+                    //        url: '/Command.aspx/getProductIdByType',
+                    //        data: '{"branchType":"' + branchType + '","typeId":"' + group + '"}',
+                    //        contentType: 'application/json; charset=utf-8',
+                    //        dataType: 'json',
+                    //        success: function (data) {
+                    //            if (hd != branchType) $('#data-detail tr').remove();
+                    //            $('#hdBranchType').val($('#dlBranchType').val());
+                    //            for (var i = 0; i < data.d.length; i++) {
+                    //                var data_html = "";
+                    //                var arr = data.d[i]._mess;
+                    //                var indexToSplit = arr.indexOf('#');
+                    //                var _code = arr.slice(0, indexToSplit);
+                    //                var _name = arr.slice(indexToSplit + 1);
+                    //                $("#data-detail tr").each(function () {
+                    //                    var id = $(this).attr("product");
+                    //                    if (id == data.d[i]._content) {
+                    //                        $(this).remove();
+                    //                    }
+                    //                });
+                    //                data_html += '<tr id="remove-' + data.d[i]._content + '" product="' + data.d[i]._content + '" product_id="' + data.d[i]._id + '">';
+                    //                data_html += '<td>' + data.d[i]._content + '</td>';
+                    //                data_html += '<td>' + _code + '</td>';
+                    //                data_html += '<td>' + _name + '</td>';
+                    //                data_html += '<td>---</td>';
+                    //                data_html += '<td>';
+                    //                data_html += '<a href="#" title="Xóa sản phẩm" onclick="return removeproduct(' + data.d[i]._content + ',\'' + _name + '\');" class="btn btn-sm btn-danger" style="width:35px; margin-right:10px;"><i class="glyphicon glyphicon-remove-circle"></i></a></td>';
+                    //                data_html += '</tr>';
+                    //                $('#data-detail').append(data_html);
+                    //                $('#productCode').val('');
+                    //                $('#productCode').focus();
+                    //                //$('#dlProductType').val('');
+                    //                //$('#select2-dlProductType-container').text('Chọn theo mã vạch');
+                    //            }
+                    //        }
+                    //    });
+                    //}
+                    //else {
+                        if (code != '') {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/Command.aspx/getDetailProduct',
+                                data: '{"branchTypeId":"' + branchType + '","codeId":"' + code + '"}',
+                                contentType: 'application/json; charset=utf-8',
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (hd != branchType) $('#data-detail tr').remove();
+                                    $('#hdBranchType').val($('#dlBranchType').val());
 
+                                    if (data.d.OK == '1') {
+                                        var data_html = "";
 
-                                if (data.d.OK == '1') {
-                                    var data_html = "";
+                                        $("#data-detail tr").each(function () {
+                                            var id = $(this).attr("product");
+                                            if (id == code) {
+                                                $(this).remove();
+                                            }
+                                        });
+                                        if (price == '') price = '0';
+                                        data_html += '<tr id="remove-' + data.d.Id + '" product="' + data.d.CodeId + '" product_id="' + data.d.Id + '">';
+                                        data_html += '<td>' + data.d.CodeId + '</td>';
+                                        data_html += '<td>' + data.d.ProductCode + '</td>';
+                                        data_html += '<td>' + data.d.ProductName + '</td>';
+                                        data_html += '<td class="price' + data.d.Id + '">' + price + '</td>';
+                                        data_html += '<td>';
+                                        data_html += '<a href="#" title="Xóa sản phẩm" onclick="return removeproduct(' + data.d.Id + ',\'' + data.d.ProductName + '\');" class="btn btn-sm btn-danger" style="width:35px; margin-right:10px;"><i class="glyphicon glyphicon-remove-circle"></i></a></td>';
+                                        data_html += '</tr>';
 
-                                    $("#data-detail tr").each(function () {
-                                        var id = $(this).attr("product");
-                                        if (id == code) {
-                                            $(this).remove();
-                                        }
-                                    });
-
-                                    data_html += '<tr id="remove-' + data.d.Id + '" product="' + data.d.CodeId + '" product_id="' + data.d.Id + '">';
-                                    data_html += '<td>' + data.d.CodeId + '</td>';
-                                    data_html += '<td>' + data.d.ProductCode + '</td>';
-                                    data_html += '<td>' + data.d.ProductName + '</td>';
-                                    data_html += '<td>';
-
-                                    data_html += '<a href="#" title="Xóa sản phẩm" onclick="return removeproduct(' + data.d.Id + ',\'' + data.d.ProductName + '\');" class="btn btn-sm btn-danger" style="width:35px; margin-right:10px;"><i class="glyphicon glyphicon-remove-circle"></i></a>';
-                                    data_html += '</tr>';
-
-                                    $('#data-detail').append(data_html);
-                                    $('#productCode').val('');
-                                    $('#productCode').focus();
+                                        $('#data-detail').append(data_html);
+                                        $('#productCode').val('');
+                                        $('#txtPrice').val('');
+                                        $('#productCode').focus();
+                                    }
+                                    else
+                                        showAlert('Không tìm thấy sản phẩm có mã ' + code + '. Kiểm tra lại');
                                 }
-                                else
-                                    showAlert('Không tìm thấy sản phẩm có mã ' + code + '. Kiểm tra lại');
-                            }
-                        });
-                    }
+                            });
+                        }
+                    //}
                 }
             }
             
@@ -781,6 +828,8 @@
                 var type = $('#dlTypeSale').val();
                 var price = $('#txtTotalPrice').val();
                 var des = $('#txtDescription').val();
+                var priority = $('#dlPriority').val();
+                var status = $('#dlStatus').val();
 
                 var start_hour = $('#txtFromHour').val();
                 var fromdate = $('#txtFromDate').val();
@@ -790,11 +839,11 @@
 
                 $("#data-detail tr").each(function () {
                     var id = $(this).attr("product_id");
-
+                    var _price = $('.price' + id).text();
+                    if (_price == '') _price = '0';
                     if (data != "") data += "#";
-                    data += id;
+                    data += id + '|' + _price;
                 });
-
 
                 if (data == "") showAlert('Chưa có dữ liệu nào để lưu');
                 else if (price == '') showAlert('Nhập giá trị khuyến mại');
@@ -805,7 +854,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '/Command.aspx/insertGift',
-                        data: '{"branchTypeId":"' + branchTypeId + '","branchId":"' + branchId + '","name":"' + name + '","des":"' + des + '","type":"' + type + '","minbill":"0","totalPrice":"' + price + '","start_hour":"' + start_hour + '","fromdate":"' + fromdate + '","to_hour":"' + to_hour + '","todate":"' + todate + '","data":"' + data + '"}',
+                        data: '{"branchTypeId":"' + branchTypeId + '","branchId":"' + branchId + '","name":"' + name + '","des":"' + des + '","type":"' + type + '","minbill":"0","totalPrice":"' + price + '","priority":"' + priority + '","start_hour":"' + start_hour + '","fromdate":"' + fromdate + '","to_hour":"' + to_hour + '","todate":"' + todate + '","status":"' + status + '","data":"' + data + '"}',
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
                         success: function (data) {
@@ -821,6 +870,65 @@
                         }
                     });
                 }
+            }
+        }
+        function getQuick() {
+            var branchTypeId = $('#dlBranchType').val();
+            if (branchTypeId == '')
+                showAlert('Chọn chuỗi');
+            else {
+                $('#data-detail tr').remove();
+                var q = $('#txtquick').val();
+                var line = q.split('\n');
+                var data = '';
+                for (var t = 0; t < line.length; t++) {
+                    if (line[t] != '') {
+                        var sp = line[t].split('	');
+                        if (data != '') data += '@';
+                        data += sp[0] + '#' + sp[1].toString().trim();
+                    }
+                }
+
+                var html = '';
+                $.ajax({
+                    type: 'POST',
+                    url: '/Command.aspx/getProductByCodeId',
+                    data: '{"branchTypeId":"' + branchTypeId + '","codeId":"' + data + '"}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#data-detail tr').remove();
+                        for (var k = 0; k < data.d.length; k++) {
+                            var data_html = "";
+
+                            $("#data-detail tr").each(function () {
+                                var id = $(this).attr("product");
+                                if (id == data.d[k]._id) {
+                                    $(this).remove();
+                                }
+                            });
+
+                            data_html += '<tr id="remove-' + data.d[k]._id + '" product="' + data.d[k]._id + '" product_id="' + data.d[k]._id + '">';
+                            data_html += '<td>' + (k+1) + '</td>';
+                            data_html += '<td>' + data.d[k]._mess.split('#')[0] + '</td>';
+                            data_html += '<td>' + data.d[k]._content.split('#')[0] + '</td>';
+                            data_html += '<td>' + data.d[k]._content.split('#')[1] + '</td>';
+                            data_html += '<td class="price' + data.d[k]._id + '">' + data.d[k]._mess.split('#')[1] + '</td>';
+                            data_html += '<td>';
+                            data_html += '<a href="#" title="Xóa sản phẩm" onclick="return removeproduct(' + data.d[k]._id + ',\'' + data.d[k]._content + '\');" class="btn btn-sm btn-danger" style="width:35px; margin-right:10px;"><i class="glyphicon glyphicon-remove-circle"></i></a></td>';
+                            data_html += '</tr>';
+
+                            $('#data-detail').append(data_html);
+                            $('#productCode').val('');
+                            $('#txtPrice').val('');
+                            $('#productCode').focus();
+                        }
+
+                    }
+                });
+
+                $('#quantity').val('1');
+                $('#inputQuick').modal('hide');
             }
         }
     </script>

@@ -31,7 +31,6 @@ public partial class Sale : System.Web.UI.Page
     }
     private void loadProduct(int page)
     {
-
         try
         {
             string result = "";
@@ -60,6 +59,9 @@ public partial class Sale : System.Web.UI.Page
                     else
                         result += "<a href='/search/?k=" + Server.UrlEncode(item.Tag.Trim()) + "'>#" + item.Tag.Trim() + "</a>";
                 }
+                else
+                    result += "<a href='#'></a>";
+
                 result += "</p>";
                 result += "<h2 class='product-name'><a href='/" + ref_member + "detail/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductName) + ".html'>" + item.ProductTypeCode + " - " + item.ProductName + "</a></h2>";
                 result += "<div class='price-box box-special'>";
