@@ -46,9 +46,9 @@
             <div class="box-header with-border">
               <h3 class="box-title"><i class="fa fa-bar-chart"></i> Kết quả bán hàng</h3>
               <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Ẩn/hiện kết quả" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                
               </div>
             </div>
             <div class="box-body">
@@ -109,9 +109,9 @@
             <div class="box-header with-border">
               <h3 class="box-title"><i class="fa fa-line-chart"></i> Doanh thu bán hàng</h3>
               <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Ẩn/hiện kết quả" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                
               </div>
             </div>
             <div class="box-body">
@@ -126,9 +126,9 @@
             <div class="box-header with-border">
               <h3 class="box-title"><i class="fa fa-pie-chart"></i> Số lượng hóa đơn bán ra</h3>
               <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Ẩn/hiện kết quả" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                
               </div>
             </div>
             <div class="box-body">
@@ -143,9 +143,8 @@
             <div class="box-header with-border">
               <h3 class="box-title"><i class="fa fa-sort-numeric-asc"></i> Top sản phẩm C'Fashion bán ra</h3>
               <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Ẩn/hiện kết quả" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                
               </div>
             </div>
             <div class="box-body">
@@ -160,9 +159,9 @@
             <div class="box-header with-border">
               <h3 class="box-title"><i class="fa fa-sort-numeric-asc"></i> Top sản phẩm C'Nice bán ra</h3>
               <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Ẩn/hiện kết quả" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                
               </div>
             </div>
             <div class="box-body">
@@ -340,6 +339,9 @@
 
                             _data1.push({ id: data.d[i].Id, data: data.d[i].RevenueValue });
                         }
+                        console.log(_label);
+                        console.log(_ser);
+                        console.log(_data1);
                         var color = ["rgb(255, 159, 64)", "#059BFF","#FF6384"];
 
                         for (var i = 0; i < _ser.length; i++) {
@@ -355,6 +357,7 @@
                                 datasets: _list
                             }
                         };
+                       
 
                         var ctx2 = document.getElementById('RevenueWeek').getContext("2d");
                         var myChart2 = new Chart(ctx2, { type: 'bar', data: revenueWeek.data, options: _options });

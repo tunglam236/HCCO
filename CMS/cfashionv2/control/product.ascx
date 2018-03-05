@@ -23,7 +23,7 @@
                             });
                                     
                         </script>
-                        <div class="product-tabs-container-slider module-nav2 quickview-add module-style1">
+                        <div class="product-tabs-container-slider module-nav2 quickview-add module-style1" style="margin-top:20px;">
                             <div class="title-product-tabs group-title">
                                 <h2>
                                     Product Tabs</h2>
@@ -35,8 +35,10 @@
                                 <div class="tab_container">
                                     <asp:Literal ID="lbProduct" runat="server"></asp:Literal>
                                 </div>
+                                 
                             </div>
                         </div>
+                       
                         <script type="text/javascript">
                             $(window).load(function () {
                                 $(".product-tabs-container-slider .tabs li:first").addClass("active");

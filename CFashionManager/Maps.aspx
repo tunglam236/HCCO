@@ -14,8 +14,8 @@
           <div class="panel-collapse" style="padding:5px;">
               <asp:RadioButtonList ID="rdStatus" CssClass="rdList" runat="server" RepeatDirection="Vertical">
                   <asp:ListItem Text="Tất cả" Value="" Selected="True"></asp:ListItem>
-                  <asp:ListItem Text="Chưa nhập lệnh" Value="1"></asp:ListItem>
-                  <asp:ListItem Text="Đã nhập lệnh" Value="2"></asp:ListItem>
+                  <asp:ListItem Text="Chưa nhập" Value="1"></asp:ListItem>
+                  <asp:ListItem Text="Đã nhập" Value="2"></asp:ListItem>
               </asp:RadioButtonList>
               <asp:Button ID="Button1" OnClick="btnSearch_Click" runat="server" CssClass="btn btn-primary" Width="99%" Text="Xem dữ liệu" />
           </div>
@@ -300,7 +300,7 @@
             if (createat == '') showAlert('Nhập ngày cấp phát');
             else if (user == '') showAlert("Chọn người nhận");
             else {
-                if (confirm("Bạn chắc chắn muốn lưu lệnh sản xuất này ?") == true) {
+                if (confirm("Bạn chắc chắn muốn lưu kết quả này ?") == true) {
                     var formId = $('#hdFormId').val();
                     var note = $('#txtNote').val();
 
@@ -352,7 +352,7 @@
                         success: function (data) {
                             if (data.d._content == '1') {
 
-                                showAlert('Đã lưu lệnh cấp phát nguyên phụ liệu');
+                                showAlert('Đã lưu kết quả đi sơ đồ nhảy size');
                                 setTimeout(function () {
                                     window.location.href = window.location.href;
                                 }, 1000);

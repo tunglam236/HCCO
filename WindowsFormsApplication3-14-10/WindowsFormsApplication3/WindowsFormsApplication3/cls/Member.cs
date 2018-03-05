@@ -29,6 +29,7 @@ namespace WindowsFormsApplication3.cls
                     u.MemberCode = phone.Replace(" ", "");
                     u.MemberName = name;
                     u.Phone = phone;
+                    u.Password = cls.Encrypt(phone.Trim().Replace(" ", ""));
                     u.Email = email.Trim();
                     u.Address = add;
                     u.Note = note;

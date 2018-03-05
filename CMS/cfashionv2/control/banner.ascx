@@ -266,6 +266,8 @@
             <div id="oc-inivoslider" class="slides">
                 <%--<a href="#">
                     <img style="display: none;" src="/upload/slider/slide3.png" alt="" title="#banner7-caption1" /></a> --%>
+                <a href="#">
+                    <img style="display: none;" src="/upload/slider/hpny.jpg" alt="" title="#banner7-caption0" /></a>
                 <a href="/cfashion/16/Gioi-thieu-ve-C-Fashion.html">
                     <img style="display: none;" src="/upload/slider/slide4.png" alt="" title="#banner7-caption1" /></a>
                 <a href="#">
@@ -277,7 +279,27 @@
                 <a href="#">
                     <img style="display: none;" src="/upload/slider/89k.jpeg" alt="" /></a>
             </div>
-            <div id="banner7-caption1" class="banner7-caption nivo-html-caption nivo-caption">
+            <div id="banner7-caption0" class="banner7-caption nivo-html-caption nivo-caption">
+                <div class="timeloading">
+                </div>
+                <div class="banner7-content slider-2">
+                    <div class="container" style="height: 100%;">
+                        <div class="container-inner" style="height: 100%; width: 100%; position: relative;">
+                            <div class="text-content">
+                                <h1 class="title1">
+                                    C'Fashion</h1>
+                                <h2 class="sub-title">
+                                   CUNG CHÚC TÂN XUÂN </h2>
+                              
+                                <div class="banner7-readmore">
+                                    <a href="#" title="shop now">CHÀO XUÂN MẬU TUẤT 2018</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div id="banner7-caption1" class="banner7-caption nivo-html-caption nivo-caption">
                 <div class="timeloading">
                 </div>
                 <div class="banner7-content slider-2">

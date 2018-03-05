@@ -17976,6 +17976,8 @@ namespace WindowsFormsApplication3
 		
 		private string _Note;
 		
+		private string _PaymentType;
+		
 		public sp_ReportRevenueResult()
 		{
 		}
@@ -18107,6 +18109,22 @@ namespace WindowsFormsApplication3
 				}
 			}
 		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaymentType", DbType="NVarChar(12) NOT NULL", CanBeNull=false)]
+		public string PaymentType
+		{
+			get
+			{
+				return this._PaymentType;
+			}
+			set
+			{
+				if ((this._PaymentType != value))
+				{
+					this._PaymentType = value;
+				}
+			}
+		}
 	}
 	
 	public partial class sp_SummaryStockResult
@@ -18135,6 +18153,8 @@ namespace WindowsFormsApplication3
 		private System.Nullable<double> _Discount;
 		
 		private string _MemberName;
+		
+		private string _PaymentType;
 		
 		public sp_SummaryStockResult()
 		{
@@ -18328,6 +18348,22 @@ namespace WindowsFormsApplication3
 				if ((this._MemberName != value))
 				{
 					this._MemberName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaymentType", DbType="NVarChar(12) NOT NULL", CanBeNull=false)]
+		public string PaymentType
+		{
+			get
+			{
+				return this._PaymentType;
+			}
+			set
+			{
+				if ((this._PaymentType != value))
+				{
+					this._PaymentType = value;
 				}
 			}
 		}

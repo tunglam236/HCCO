@@ -21,31 +21,31 @@ public partial class Account : System.Web.UI.Page
             {
                 loadBranchType();
 
-                lbData.Text = loadAccount(rdBranchType.SelectedValue);
+                lbData.Text = loadAccount(dlGroupUser.SelectedValue);
             }
         }
     }
     void loadBranchType()
     {
-        rdBranchType.DataSource = from x in db.tBranchTypes
-                                  where x.Status == 1
-                                  select new { x.Id, x.Name };
-        rdBranchType.DataTextField = "Name";
-        rdBranchType.DataValueField = "Id";
-        rdBranchType.DataBind();
-        rdBranchType.Items.Insert(0, new ListItem("Tất cả", ""));
-        rdBranchType.SelectedValue = "";
+        dlGroupUser.DataSource = from x in db.tGroupUsers
+                                  where x.Status !=0
+                                  select new { x.Id, x.GroupName };
+        dlGroupUser.DataTextField = "GroupName";
+        dlGroupUser.DataValueField = "Id";
+        dlGroupUser.DataBind();
+        dlGroupUser.Items.Insert(0, new ListItem("Tất cả", ""));
+        dlGroupUser.SelectedValue = "";
     }
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        lbData.Text = loadAccount(rdBranchType.SelectedValue);
+        lbData.Text = loadAccount(dlGroupUser.SelectedValue);
     }
-    public string loadAccount(string branchType)
+    public string loadAccount(string group)
     {
         string result = ""; int i = 1;
 
-        var m = db.sp_web_loadAccount(branchType,"");
+        var m = db.sp_web_loadAccountByGroup(group);
 
         foreach (var item in m.ToList())
         {

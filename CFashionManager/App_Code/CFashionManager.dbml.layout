@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 21, 58.5" name="CFileManager">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 21, 67.75" name="CFileManager">
   <DataContextMoniker Name="/CFileManagerDataContext" />
   <nestedChildShapes>
     <classShape Id="c8e269d0-4e50-4c1a-b652-11c900a40d03" absoluteBounds="6.5, 39.25, 2, 3.3093082682291595">
@@ -74,7 +74,7 @@
         <elementListCompartment Id="258f778f-b6d1-44cd-9c13-abdd28ee305d" absoluteBounds="9.015, 35.71, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8.5 : 40.9046541341146); (8.66666666666667 : 40.9046541341146 : JumpStart); (8.83333333333333 : 40.9046541341146 : JumpEnd); (11.25 : 40.9046541341146); (11.25 : 33.7228011067708); (9.5 : 33.7228011067708); (9.5 : 28.1458154296875); (9.91666666666667 : 28.1458154296875 : JumpStart); (10.0833333333333 : 28.1458154296875 : JumpEnd); (11.25 : 28.1458154296875); (11.25 : 22.1362125651042); (11.2395833333333 : 22.1362125651042 : JumpStart); (11.0729166666667 : 22.1362125651042 : JumpEnd); (10.515626 : 22.1362125651042); (10.515626 : 21.7612125651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.5 : 40.9046541341146); (11.25 : 40.9046541341146); (11.25 : 33.7228011067708); (9.5 : 33.7228011067708); (9.5 : 28.1458154296875); (11.25 : 28.1458154296875); (11.25 : 22.1362125651042); (10.515626 : 22.1362125651042); (10.515626 : 21.7612125651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tSupplier/tSupplier_tStockInput" />
       <nodes>
         <classShapeMoniker Id="c8e269d0-4e50-4c1a-b652-11c900a40d03" />
@@ -138,7 +138,7 @@
         <elementListCompartment Id="cdc1233a-477f-4b84-b902-02d1e577c7c8" absoluteBounds="3.265, 31.335, 1.9700000000000002, 6.7876383463541661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.25 : 32.5777498372396); (5.875 : 32.5777498372396)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.25 : 32.5777498372396); (5.41666666666667 : 32.5777498372396 : JumpStart); (5.58333333333333 : 32.5777498372396 : JumpEnd); (5.875 : 32.5777498372396)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tOrder/tOrder_tOrderDetail" />
       <nodes>
         <classShapeMoniker Id="47f1037c-55ae-4a62-8bef-3a8e32d1ad1b" />
@@ -181,7 +181,7 @@
         <elementListCompartment Id="8a62c3d6-a502-46b7-9f57-f3a05bea1282" absoluteBounds="4.64, 23.71, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.625 : 24.8731929990235); (7.22135416666667 : 24.8731929990235 : JumpStart); (7.38802083333333 : 24.8731929990235 : JumpEnd); (7.77604166666667 : 24.8731929990235 : JumpStart); (7.94270833333333 : 24.8731929990235 : JumpEnd); (8.14322791666667 : 24.8731929990235 : JumpStart); (8.30989458333333 : 24.8731929990235 : JumpEnd); (8.49479416666667 : 24.8731929990235 : JumpStart); (8.66146083333333 : 24.8731929990235 : JumpEnd); (8.75 : 24.8731929990235); (8.75 : 23.375); (9.125 : 23.375); (9.125 : 14.125); (9 : 14.125); (9 : 11.9535953776042); (10 : 11.9535953776042); (10 : 11.5785953776042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.625 : 24.8731929990235); (7.22135416666667 : 24.8731929990235 : JumpStart); (7.38802083333333 : 24.8731929990235 : JumpEnd); (7.77604166666667 : 24.8731929990235 : JumpStart); (7.94270833333333 : 24.8731929990235 : JumpEnd); (8.14322791666667 : 24.8731929990235 : JumpStart); (8.30989458333333 : 24.8731929990235 : JumpEnd); (8.75 : 24.8731929990235); (8.75 : 23.375); (9.125 : 23.375); (9.125 : 14.125); (9 : 14.125); (9 : 11.9535953776042); (10 : 11.9535953776042); (10 : 11.5785953776042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tCombo/tCombo_tComboDetail" />
       <nodes>
         <classShapeMoniker Id="0088c488-d7aa-4bdf-8148-75c68ef9b3ba" />
@@ -200,7 +200,7 @@
         <elementListCompartment Id="4d32868e-679b-4865-b7a7-1cb18a36f387" absoluteBounds="9.015, 24.085, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8.5 : 44.5200512695313); (8.75 : 44.5200512695313); (8.75 : 28.2708154296875); (10 : 28.2708154296875); (10 : 27.8958154296875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.5 : 44.5200512695313); (8.75 : 44.5200512695313); (8.75 : 28.2708154296875); (9.41666666666667 : 28.2708154296875 : JumpStart); (9.58333333333333 : 28.2708154296875 : JumpEnd); (10 : 28.2708154296875); (10 : 27.8958154296875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tGroupUser/tGroupUser_tAccount" />
       <nodes>
         <classShapeMoniker Id="3411d4a8-df99-40fe-91cb-95f505bc59b8" />
@@ -220,7 +220,7 @@
         <classShapeMoniker Id="8e82b70b-11e7-4b02-a439-0f4b567cd24a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.62500175 : 21.8670068359375); (4.62500175 : 21.9305647786458); (9.25 : 21.9305647786458); (9.25 : 19.8181062825521)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(4.62500175 : 21.8670068359375); (4.62500175 : 21.9305647786458); (5.41666666666667 : 21.9305647786458 : JumpStart); (5.58333333333333 : 21.9305647786458 : JumpEnd); (8.91666666666667 : 21.9305647786458 : JumpStart); (9.20833333333333 : 21.9305647786458 : JumpEnd); (9.25 : 21.9305647786458); (9.25 : 19.8181062825521)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tBranchType/tBranchType_tStockInput" />
       <nodes>
         <classShapeMoniker Id="165aa4c1-6d47-4ade-a6a1-6f50e1adfecf" />
@@ -264,28 +264,28 @@
         <elementListCompartment Id="cddc62b6-7f26-4cf8-b9e5-6e5d1861ab26" absoluteBounds="0.765, 21.335, 1.9700000000000002, 4.8646240234375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 22.4459094238281); (2.91666666666667 : 22.4459094238281 : JumpStart); (3.08333333333333 : 22.4459094238281 : JumpEnd); (7.77604166666667 : 22.4459094238281 : JumpStart); (7.94270833333333 : 22.4459094238281 : JumpEnd); (8.91666666666667 : 22.4459094238281 : JumpStart); (9.08333333333333 : 22.4459094238281 : JumpEnd); (11.15625 : 22.4459094238281); (11.15625 : 21.7612125651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 22.4459094238281); (5.41666666666667 : 22.4459094238281 : JumpStart); (5.58333333333333 : 22.4459094238281 : JumpEnd); (7.22135416666667 : 22.4459094238281 : JumpStart); (7.38802083333333 : 22.4459094238281 : JumpEnd); (7.49869791666667 : 22.4459094238281 : JumpStart); (7.66536458333333 : 22.4459094238281 : JumpEnd); (8.14322791666667 : 22.4459094238281 : JumpStart); (8.30989458333333 : 22.4459094238281 : JumpEnd); (11.15625 : 22.4459094238281); (11.15625 : 21.7612125651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tBranch/tBranch_tStockInput" />
       <nodes>
         <classShapeMoniker Id="9ca98819-f15b-41fd-a918-d3f0ab6e31cc" />
         <classShapeMoniker Id="989dcc16-3f63-4cd3-bfba-8e327d620f7d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 23.5873120117188); (2.91666666666667 : 23.5873120117188 : JumpStart); (3.08333333333333 : 23.5873120117188 : JumpEnd); (4.375 : 23.5873120117188); (4.375 : 23); (7.77604166666667 : 23 : JumpStart); (7.94270833333333 : 23 : JumpEnd); (9 : 23); (9 : 17.2131168619792); (10.25 : 17.2131168619792); (10.25 : 16.8381168619792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 23.5873120117188); (2.91666666666667 : 23.5873120117188 : JumpStart); (3.08333333333333 : 23.5873120117188 : JumpEnd); (3.41666666666667 : 23.5873120117188 : JumpStart); (3.58333333333333 : 23.5873120117188 : JumpEnd); (4.375 : 23.5873120117188); (4.375 : 23); (7.22135416666667 : 23 : JumpStart); (7.38802083333333 : 23 : JumpEnd); (7.77604166666667 : 23 : JumpStart); (7.94270833333333 : 23 : JumpEnd); (8.14322791666667 : 23 : JumpStart); (8.30989458333333 : 23 : JumpEnd); (9 : 23); (9 : 17.2131168619792); (10.25 : 17.2131168619792); (10.25 : 16.8381168619792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tBranch/tBranch_tStockOutput" />
       <nodes>
         <classShapeMoniker Id="9ca98819-f15b-41fd-a918-d3f0ab6e31cc" />
         <classShapeMoniker Id="d5fc0998-cb92-41b2-9a20-b93a54545916" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 24.1109777832031); (2.91666666666667 : 24.1109777832031 : JumpStart); (3.08333333333333 : 24.1109777832031 : JumpEnd); (4.625 : 24.1109777832031)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 24.1109777832031); (3.41666666666667 : 24.1109777832031 : JumpStart); (3.58333333333333 : 24.1109777832031 : JumpEnd); (4.625 : 24.1109777832031)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tBranch/tBranch_tCombo" />
       <nodes>
         <classShapeMoniker Id="9ca98819-f15b-41fd-a918-d3f0ab6e31cc" />
         <classShapeMoniker Id="0088c488-d7aa-4bdf-8148-75c68ef9b3ba" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.218748 : 20.875); (1.218748 : 20.625); (3 : 20.625); (3 : 27.1939111328125); (8.75 : 27.1939111328125); (8.75 : 26.4963849980469); (9 : 26.4963849980469)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.218748 : 20.875); (1.218748 : 20.625); (3 : 20.625); (3 : 27.1939111328125); (3.41666666666667 : 27.1939111328125 : JumpStart); (3.58333333333333 : 27.1939111328125 : JumpEnd); (7.22135416666667 : 27.1939111328125 : JumpStart); (7.38802083333333 : 27.1939111328125 : JumpEnd); (7.77604166666667 : 27.1939111328125 : JumpStart); (7.94270833333333 : 27.1939111328125 : JumpEnd); (8.14322791666667 : 27.1939111328125 : JumpStart); (8.30989458333333 : 27.1939111328125 : JumpEnd); (8.75 : 27.1939111328125); (8.75 : 26.4963849980469); (9 : 26.4963849980469)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tBranch/tBranch_tAccount" />
       <nodes>
         <classShapeMoniker Id="9ca98819-f15b-41fd-a918-d3f0ab6e31cc" />
@@ -339,21 +339,21 @@
         <classShapeMoniker Id="21f3c979-4281-4dbe-8eda-b2c0b62ad408" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.25 : 21.3934554036458); (6.875 : 21.3934554036458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.25 : 21.3934554036458); (5.41666666666667 : 21.3934554036458 : JumpStart); (5.58333333333333 : 21.3934554036458 : JumpEnd); (6.875 : 21.3934554036458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tBranchType/tBranchType_tProduct" />
       <nodes>
         <classShapeMoniker Id="165aa4c1-6d47-4ade-a6a1-6f50e1adfecf" />
         <classShapeMoniker Id="29222511-93f9-436f-8c68-e8b07e82481c" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 29.3072827148438); (7.859375 : 29.3072827148438); (7.859375 : 21.9149397786458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.75 : 29.3072827148438); (7.22135416666667 : 29.3072827148438 : JumpStart); (7.38802083333333 : 29.3072827148438 : JumpEnd); (7.859375 : 29.3072827148438); (7.859375 : 21.9149397786458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tBrand/tBrand_tProduct" />
       <nodes>
         <classShapeMoniker Id="0cc45769-4de4-4b56-ac6d-44106a7f7ec2" />
         <classShapeMoniker Id="29222511-93f9-436f-8c68-e8b07e82481c" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(15 : 22.7556062825521); (11.3333333333333 : 22.7556062825521 : JumpStart); (11.1666666666667 : 22.7556062825521 : JumpEnd); (9.08333333333333 : 22.7556062825521 : JumpStart); (8.91666666666667 : 22.7556062825521 : JumpEnd); (8.66146083333333 : 22.7556062825521 : JumpStart); (8.49479416666667 : 22.7556062825521 : JumpEnd); (8.30989458333333 : 22.7556062825521 : JumpStart); (8.14322791666667 : 22.7556062825521 : JumpEnd); (7.94270833333333 : 22.7556062825521 : JumpStart); (7.77604166666667 : 22.7556062825521 : JumpEnd); (7.58203125 : 22.7556062825521); (7.58203125 : 21.9149397786458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(15 : 22.7556062825521); (11.3333333333333 : 22.7556062825521 : JumpStart); (11.1666666666667 : 22.7556062825521 : JumpEnd); (8.30989458333333 : 22.7556062825521 : JumpStart); (8.14322791666667 : 22.7556062825521 : JumpEnd); (7.58203125 : 22.7556062825521); (7.58203125 : 21.9149397786458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tColor/tColor_tProduct" />
       <nodes>
         <classShapeMoniker Id="10dffeda-e09d-49f9-9f07-be3b6d296d74" />
@@ -367,7 +367,7 @@
         <classShapeMoniker Id="29222511-93f9-436f-8c68-e8b07e82481c" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(0.53125 : 12.0401025390625); (0.53125 : 18.5537019856771); (6.875 : 18.5537019856771)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(0.53125 : 12.0401025390625); (0.53125 : 18.5537019856771); (5.41666666666667 : 18.5537019856771 : JumpStart); (5.58333333333333 : 18.5537019856771 : JumpEnd); (6.875 : 18.5537019856771)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tSize/tSize_tProduct" />
       <nodes>
         <classShapeMoniker Id="b66ab96b-e081-4ad2-ba56-df682eef3bcb" />
@@ -380,7 +380,7 @@
         <elementListCompartment Id="40dc8d43-c76e-45d9-a09d-4ba95e0f37e9" absoluteBounds="9.765, 31.585, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8.22656125 : 21.9149397786458); (8.22656125 : 31.28125); (8.49479416666667 : 31.28125 : JumpStart); (8.66146083333333 : 31.28125 : JumpEnd); (8.66666666666667 : 31.28125 : JumpStart); (8.83333333333333 : 31.28125 : JumpEnd); (9.75 : 31.28125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.22656125 : 21.9149397786458); (8.22656125 : 31.28125); (9.41666666666667 : 31.28125 : JumpStart); (9.58333333333333 : 31.28125 : JumpEnd); (9.75 : 31.28125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tProduct/tProduct_tStockInventory" />
       <nodes>
         <classShapeMoniker Id="29222511-93f9-436f-8c68-e8b07e82481c" />
@@ -411,7 +411,7 @@
         <elementListCompartment Id="6758047e-488d-4e70-9cfa-e7a2b3d92816" absoluteBounds="3.5149999999999997, 43.585, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 16.9912019856771); (3.25 : 16.9912019856771); (3.25 : 18.375); (4.01041666666667 : 18.375 : JumpStart); (4.17708333333333 : 18.375 : JumpEnd); (5.5 : 18.375); (5.5 : 22.75); (3.5 : 22.75); (3.5 : 30.625); (5.5 : 30.625); (5.5 : 42.75); (4.5 : 42.75); (4.5 : 43.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 16.9912019856771); (3.25 : 16.9912019856771); (3.25 : 18.375); (5.5 : 18.375); (5.5 : 22.75); (3.5 : 22.75); (3.5 : 30.625); (5.5 : 30.625); (5.5 : 42.75); (4.5 : 42.75); (4.5 : 43.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tMaterial/tMaterial_tExportMaterialDetail" />
       <nodes>
         <classShapeMoniker Id="cbaa5e9f-4ffd-49e7-b0fd-c943abc14384" />
@@ -475,12 +475,6 @@
         <elementListCompartment Id="2d253723-cc7d-42b7-b364-c625a395b4b9" absoluteBounds="5.7650000000000006, 49.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="fad8ff73-c833-4e26-b5e7-af8679932261" absoluteBounds="6.875, 46.25, 2, 2.1554996744791666">
-      <DataClassMoniker Name="/CFileManagerDataContext/tConfigApprove" />
-      <nestedChildShapes>
-        <elementListCompartment Id="289c98f3-d18f-4d1b-899c-85d607852f09" absoluteBounds="6.89, 46.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="855a435b-079e-474e-8fd3-e195dd6026a6" absoluteBounds="3.5, 45.875, 2, 2.3478011067708335">
       <DataClassMoniker Name="/CFileManagerDataContext/tApprove" />
       <nestedChildShapes>
@@ -518,13 +512,13 @@
         <elementListCompartment Id="7ee503d5-53d9-4f59-81f6-f7b46111fa03" absoluteBounds="3.515, 52.71, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="dc3dc2b5-42bc-401e-9a9c-eebc986fc9b9" absoluteBounds="0.625, 51.75, 2, 2.7324039713541666">
+    <classShape Id="dc3dc2b5-42bc-401e-9a9c-eebc986fc9b9" absoluteBounds="0.625, 51.75, 2, 1.9631982421875023">
       <DataClassMoniker Name="/CFileManagerDataContext/tManufacture" />
       <nestedChildShapes>
-        <elementListCompartment Id="905851b3-f1c4-4e4b-a3f1-57369e29606a" absoluteBounds="0.64, 52.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="905851b3-f1c4-4e4b-a3f1-57369e29606a" absoluteBounds="0.64, 52.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.625 : 53.3662019856771); (3.5 : 53.3662019856771)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.625 : 52.9815991210938); (3.5 : 52.9815991210938)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CFileManagerDataContext/tManufacture/tManufacture_tManufactureDetail" />
       <nodes>
         <classShapeMoniker Id="dc3dc2b5-42bc-401e-9a9c-eebc986fc9b9" />
@@ -572,6 +566,36 @@
       <DataClassMoniker Name="/CFileManagerDataContext/tMap" />
       <nestedChildShapes>
         <elementListCompartment Id="fc47180c-5764-4101-9eb3-4fed6185e8c6" absoluteBounds="0.515, 55.585, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="794f8921-61a1-4fab-9fd1-b203dda64077" absoluteBounds="3, 58.5, 2, 3.1170068359375">
+      <DataClassMoniker Name="/CFileManagerDataContext/tOutSourcing" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1cf15347-ad04-4224-b572-a8417d987a9b" absoluteBounds="3.015, 58.96, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="65307c70-930f-4b69-91e7-41a016ec74a8" absoluteBounds="0.625, 61.125, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/CFileManagerDataContext/tKCSManufactureDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a3c7331c-99b6-47c8-996a-04f68ddbf1d7" absoluteBounds="0.64, 61.585, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a92a3e8e-c8b0-4b3f-a17d-f668bdf10bd6" absoluteBounds="1, 58.875, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/CFileManagerDataContext/tKCSManufacture" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ae283723-bb5f-419e-9f24-79dea9b84221" absoluteBounds="1.0150000000000001, 59.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9f418f98-828f-4c5b-a0ad-0889615bebfd" absoluteBounds="0.75, 63.75, 2, 3.6939111328124996">
+      <DataClassMoniker Name="/CFileManagerDataContext/tGantt" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a831f95b-bf0a-43da-a293-056f9c67dc43" absoluteBounds="0.765, 64.21, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="90054f29-cdd6-4a1b-970f-19503ad251aa" absoluteBounds="6.125, 46, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/CFileManagerDataContext/tConfigApprove" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5fbe1eaf-b961-4e0f-8725-74fb63540ec5" absoluteBounds="6.14, 46.46, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

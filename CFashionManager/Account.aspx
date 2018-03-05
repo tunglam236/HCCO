@@ -108,11 +108,11 @@
         <div class="panel panel-success">
           <div class="panel-heading" style="background-color:#27AE60; color:#ffffff;">
             <h4 class="panel-title">
-              <a data-toggle="collapse" href="#collapse3">Chuỗi cửa hàng</a>
+              <a data-toggle="collapse" href="#collapse3"><i class="fa fa-users"></i> Nhóm người dùng</a>
             </h4>
           </div>
           <div id="collapse3" class="panel-collapse" style="padding:5px;">
-              <asp:RadioButtonList ID="rdBranchType" CssClass="rdList" runat="server" RepeatDirection="Vertical">
+              <asp:RadioButtonList ID="dlGroupUser" CssClass="rdList" runat="server" RepeatDirection="Vertical">
               </asp:RadioButtonList>
               <asp:Button ID="btnSearch" OnClick="btnSearch_Click" runat="server" CssClass="btn btn-primary" Width="99%" Text="Xem dữ liệu" />
           </div>

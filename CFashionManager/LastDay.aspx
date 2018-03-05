@@ -227,7 +227,8 @@
                 <li><a href="#" class="small toggle-vis" data-column="27" tabIndex="-1"><label><input type="checkbox" />&nbsp;Ghi chú</label> </a></li>
             </ul>
         </div>
-           <h4><i class="fa fa-money"></i> Tổng doanh thu: <asp:Literal ID="lbTongTien" runat="server" Text="100,000,000 đ"></asp:Literal></h4>
+           <h4><i class="fa fa-hashtag"></i> Số đơn hàng: <asp:Literal ID="lbCount" runat="server" Text="0"></asp:Literal>
+               <i class="fa fa-money"></i> Tổng doanh thu: <asp:Literal ID="lbTongTien" runat="server" Text="0 đ"></asp:Literal></h4>
        </div>
       </section>
         <div class="box box-warning">

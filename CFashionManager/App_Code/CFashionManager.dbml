@@ -756,17 +756,6 @@
       <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.tConfigApprove" Member="tConfigApproves">
-    <Type Name="tConfigApprove">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="tTable" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="tTableName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="GroupApproveBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AproveBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="[Level]" Member="Level" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Column Name="LevelName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.tApprove" Member="tApproves">
     <Type Name="tApprove">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -855,10 +844,6 @@
       <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="FormId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="DateReceiver" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="DateExpect" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Association Name="tManufacture_tManufactureDetail" Member="tManufactureDetails" ThisKey="Id" OtherKey="ManufactureId" Type="tManufactureDetail" />
@@ -943,6 +928,76 @@
       <Column Name="CutNote" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tOutSourcing" Member="tOutSourcings">
+    <Type Name="tOutSourcing">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FormId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateExpect" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateReceiver" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UserCutId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NoteComplete" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tKCSManufactureDetail" Member="tKCSManufactureDetails">
+    <Type Name="tKCSManufactureDetail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FormId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ColorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ColorName" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+      <Column Name="Size" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalQuantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tKCSManufacture" Member="tKCSManufactures">
+    <Type Name="tKCSManufacture">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FormId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CompleteAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="KCSId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tGantt" Member="tGantts">
+    <Type Name="tGantt">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ModuleCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ModuleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DeptId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserReceiver" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ExpectDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CompleteDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CompleteReal" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tConfigApprove" Member="tConfigApproves">
+    <Type Name="tConfigApprove">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tTable" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="tTableName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GroupApproveBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AproveBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Level]" Member="Level" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="LevelName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Days" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.sp_Account_Load" Method="sp_Account_Load">
@@ -2042,27 +2097,6 @@
       <Column Name="ApprovedBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.sp_web_loadManufacture" Method="sp_web_loadManufacture">
-    <Parameter Name="status" Type="System.String" DbType="VarChar(10)" />
-    <ElementType Name="sp_web_loadManufactureResult">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CreateAt" Type="System.String" DbType="VarChar(21)" CanBeNull="true" />
-      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="DateReceiver" Type="System.String" DbType="VarChar(21)" CanBeNull="true" />
-      <Column Name="DateExpect" Type="System.String" DbType="VarChar(21)" CanBeNull="true" />
-      <Column Name="DateCreate" Type="System.String" DbType="VarChar(21)" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="StatusId" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SupplierCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
-      <Column Name="SupplierName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-      <Column Name="FormId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="FormCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="FormName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="DesignBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Status" Type="System.String" DbType="NVarChar(9) NOT NULL" CanBeNull="false" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.sp_web_loadManufactureDetail" Method="sp_web_loadManufactureDetail">
     <Parameter Name="id" Type="System.String" DbType="VarChar(10)" />
     <ElementType Name="sp_web_loadManufactureDetailResult">
@@ -2240,6 +2274,150 @@
       <Column Name="TTPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="CustomePay" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="CustomeReturn" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadManufacture" Method="sp_web_loadManufacture">
+    <Parameter Name="status" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadManufactureResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="StatusId" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="FormId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FormCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="FormName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DesignBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(9) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadOutSourcing" Method="sp_web_loadOutSourcing">
+    <Parameter Name="status" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="supplierId" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadOutSourcingResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CutUserById" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CutUserBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="DateCreate" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="DateExpect" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="DateReceiver" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SupplierName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StatusId" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="FormId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FormCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="FormName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DesignBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(13) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadKCSManufacture" Method="sp_web_loadKCSManufacture">
+    <Parameter Name="status" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="supplier" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadKCSManufactureResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StatusId" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(12) NOT NULL" CanBeNull="false" />
+      <Column Name="SupplierName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="KCSName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="CompleteAt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="FormId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FormCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="FormName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DesignName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ColorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Size" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalQuantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadKCSManufactureDetail" Method="sp_web_loadKCSManufactureDetail">
+    <Parameter Name="formId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_web_loadKCSManufactureDetailResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FormId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ColorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ColorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Size" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalQuantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Gantt_LoadUser" Method="sp_Gantt_LoadUser">
+    <Parameter Name="userId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Gantt_LoadUserResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_web_loadAccountByGroup" Method="sp_web_loadAccountByGroup">
+    <Parameter Name="groupId" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_web_loadAccountByGroupResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GroupUserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BranchTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BranchTypeName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="GroupName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Sex" Type="System.String" DbType="NVarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="Birthday" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(14)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_GanttDetail" Method="sp_GanttDetail">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_GanttDetailResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserCreate" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UserReceiver" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.String" DbType="VarChar(21)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="ExpectDate" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="CompleteDate" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_sendmail_job" Method="sp_sendmail_job">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Gantt_load" Method="sp_Gantt_load">
+    <Parameter Name="userCreate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="userReceiver" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="stt" Type="System.String" DbType="VarChar(2)" />
+    <Parameter Name="start" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="end" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="sp_Gantt_loadResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="StatusName" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ExpectDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="CompleteDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Data" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdUserReceiver" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModuleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

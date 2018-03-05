@@ -553,18 +553,18 @@ namespace WindowsFormsApplication3
 			return ((ISingleResult<sp_Product_GetDetailByCodeIdResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ReportRevenue")]
-		public ISingleResult<sp_ReportRevenueResult> sp_ReportRevenue([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> branchType, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> branchId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallDateTime")] System.Nullable<System.DateTime> fromDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallDateTime")] System.Nullable<System.DateTime> toDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> paymentType)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), branchType, branchId, fromDate, toDate, paymentType);
-			return ((ISingleResult<sp_ReportRevenueResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_SummaryStock")]
 		public ISingleResult<sp_SummaryStockResult> sp_SummaryStock([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> branchType, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> branchId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallDateTime")] System.Nullable<System.DateTime> fromdate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallDateTime")] System.Nullable<System.DateTime> todate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string billcode, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(64)")] string member, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> paymentType)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), branchType, branchId, fromdate, todate, billcode, member, paymentType);
 			return ((ISingleResult<sp_SummaryStockResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ReportRevenue")]
+		public ISingleResult<sp_ReportRevenueResult> sp_ReportRevenue([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> branchType, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> branchId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallDateTime")] System.Nullable<System.DateTime> fromDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallDateTime")] System.Nullable<System.DateTime> toDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> paymentType)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), branchType, branchId, fromDate, toDate, paymentType);
+			return ((ISingleResult<sp_ReportRevenueResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -15572,158 +15572,6 @@ namespace WindowsFormsApplication3
 		}
 	}
 	
-	public partial class sp_ReportRevenueResult
-	{
-		
-		private string _StockCode;
-		
-		private string _MemberName;
-		
-		private System.Nullable<double> _Total;
-		
-		private System.Nullable<double> _TotalDiscount;
-		
-		private System.Nullable<double> _TotalPrice;
-		
-		private System.Nullable<System.DateTime> _CreateAt;
-		
-		private string _CreateBy;
-		
-		private string _Note;
-		
-		public sp_ReportRevenueResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StockCode", DbType="NVarChar(32)")]
-		public string StockCode
-		{
-			get
-			{
-				return this._StockCode;
-			}
-			set
-			{
-				if ((this._StockCode != value))
-				{
-					this._StockCode = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberName", DbType="NVarChar(4000)")]
-		public string MemberName
-		{
-			get
-			{
-				return this._MemberName;
-			}
-			set
-			{
-				if ((this._MemberName != value))
-				{
-					this._MemberName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total", DbType="Float")]
-		public System.Nullable<double> Total
-		{
-			get
-			{
-				return this._Total;
-			}
-			set
-			{
-				if ((this._Total != value))
-				{
-					this._Total = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalDiscount", DbType="Float")]
-		public System.Nullable<double> TotalDiscount
-		{
-			get
-			{
-				return this._TotalDiscount;
-			}
-			set
-			{
-				if ((this._TotalDiscount != value))
-				{
-					this._TotalDiscount = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalPrice", DbType="Float")]
-		public System.Nullable<double> TotalPrice
-		{
-			get
-			{
-				return this._TotalPrice;
-			}
-			set
-			{
-				if ((this._TotalPrice != value))
-				{
-					this._TotalPrice = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreateAt
-		{
-			get
-			{
-				return this._CreateAt;
-			}
-			set
-			{
-				if ((this._CreateAt != value))
-				{
-					this._CreateAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateBy", DbType="NVarChar(128)")]
-		public string CreateBy
-		{
-			get
-			{
-				return this._CreateBy;
-			}
-			set
-			{
-				if ((this._CreateBy != value))
-				{
-					this._CreateBy = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note", DbType="NVarChar(1024)")]
-		public string Note
-		{
-			get
-			{
-				return this._Note;
-			}
-			set
-			{
-				if ((this._Note != value))
-				{
-					this._Note = value;
-				}
-			}
-		}
-	}
-	
 	public partial class sp_SummaryStockResult
 	{
 		
@@ -15750,6 +15598,8 @@ namespace WindowsFormsApplication3
 		private System.Nullable<double> _Discount;
 		
 		private string _MemberName;
+		
+		private string _PaymentType;
 		
 		public sp_SummaryStockResult()
 		{
@@ -15943,6 +15793,192 @@ namespace WindowsFormsApplication3
 				if ((this._MemberName != value))
 				{
 					this._MemberName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaymentType", DbType="NVarChar(12) NOT NULL", CanBeNull=false)]
+		public string PaymentType
+		{
+			get
+			{
+				return this._PaymentType;
+			}
+			set
+			{
+				if ((this._PaymentType != value))
+				{
+					this._PaymentType = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_ReportRevenueResult
+	{
+		
+		private string _StockCode;
+		
+		private string _MemberName;
+		
+		private System.Nullable<double> _Total;
+		
+		private System.Nullable<double> _TotalDiscount;
+		
+		private System.Nullable<double> _TotalPrice;
+		
+		private System.Nullable<System.DateTime> _CreateAt;
+		
+		private string _CreateBy;
+		
+		private string _Note;
+		
+		private string _PaymentType;
+		
+		public sp_ReportRevenueResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StockCode", DbType="NVarChar(32)")]
+		public string StockCode
+		{
+			get
+			{
+				return this._StockCode;
+			}
+			set
+			{
+				if ((this._StockCode != value))
+				{
+					this._StockCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberName", DbType="NVarChar(4000)")]
+		public string MemberName
+		{
+			get
+			{
+				return this._MemberName;
+			}
+			set
+			{
+				if ((this._MemberName != value))
+				{
+					this._MemberName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total", DbType="Float")]
+		public System.Nullable<double> Total
+		{
+			get
+			{
+				return this._Total;
+			}
+			set
+			{
+				if ((this._Total != value))
+				{
+					this._Total = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalDiscount", DbType="Float")]
+		public System.Nullable<double> TotalDiscount
+		{
+			get
+			{
+				return this._TotalDiscount;
+			}
+			set
+			{
+				if ((this._TotalDiscount != value))
+				{
+					this._TotalDiscount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalPrice", DbType="Float")]
+		public System.Nullable<double> TotalPrice
+		{
+			get
+			{
+				return this._TotalPrice;
+			}
+			set
+			{
+				if ((this._TotalPrice != value))
+				{
+					this._TotalPrice = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreateAt
+		{
+			get
+			{
+				return this._CreateAt;
+			}
+			set
+			{
+				if ((this._CreateAt != value))
+				{
+					this._CreateAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateBy", DbType="NVarChar(128)")]
+		public string CreateBy
+		{
+			get
+			{
+				return this._CreateBy;
+			}
+			set
+			{
+				if ((this._CreateBy != value))
+				{
+					this._CreateBy = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note", DbType="NVarChar(1024)")]
+		public string Note
+		{
+			get
+			{
+				return this._Note;
+			}
+			set
+			{
+				if ((this._Note != value))
+				{
+					this._Note = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaymentType", DbType="NVarChar(12) NOT NULL", CanBeNull=false)]
+		public string PaymentType
+		{
+			get
+			{
+				return this._PaymentType;
+			}
+			set
+			{
+				if ((this._PaymentType != value))
+				{
+					this._PaymentType = value;
 				}
 			}
 		}

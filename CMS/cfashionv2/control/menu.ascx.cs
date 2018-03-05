@@ -42,16 +42,13 @@ public partial class control_menu : System.Web.UI.UserControl
             result += "<a class='itemMenuName level0 actParent' href='/category/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductTypeName) + ".html'>";
             result += "<span>" + item.ProductTypeName + "</span></a>";
 
-            mobile += "<li><span class='button-view2 collapse1'><a href='/category/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductTypeName) + ".html'>" + item.ProductTypeName + "</a></span>";
+            mobile += "<li><span class=''><a href='/category/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductTypeName) + ".html'>" + item.ProductTypeName + "</a></span>";
             var child = from n in db.tProductTypes where n.ParentTypeId == item.Id select n;
             if (child.Count() > 0)
                 mobile += "<ul class='level3'>";
             foreach (var c in child.ToList())
             {
-                //<li><span class='button-view2 collapse1'><a href='ProductList.aspx'>Health & Beauty</a></span>
-                //<ul class='level3'>
-                //<li><span class='  no-close'><a href='ProductList.aspx'>Vitamins</a></span></li>
-                //</ul></li>
+               
                 result += "<div class='itemSubMenu level0'>";
                 result += "<div class='itemMenu level1'>";
                 result += "<a class='itemMenuName level0 act' href='/subcategory/" + c.Id.ToString()+"/"+cl.ConvertToUnSign(c.ProductTypeName) + ".html'><span>" + c.ProductTypeName + "</span></a>";

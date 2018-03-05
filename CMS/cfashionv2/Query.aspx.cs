@@ -132,8 +132,8 @@ public partial class Query : System.Web.UI.Page
         var r = new result();
         CFManagerDataContext db = new CFManagerDataContext();
         clsProcess cl = new clsProcess();
-
-        var check = from x in db.tMembers where x.Email == email.Trim().ToLower() select x;
+        var brand_name = branchTypeId == 1 ? "C'Nice" : branchTypeId == 2 ? "C'Fashion" : "C'N";
+        var check = from x in db.tMembers where x.BranchTypeId== branchTypeId && x.Email == email.Trim().ToLower() select x;
         if (check.Count() == 1)
         {
             try
@@ -141,8 +141,8 @@ public partial class Query : System.Web.UI.Page
                 string pw = Guid.NewGuid().ToString("n").Substring(0, 8);
                 check.FirstOrDefault().Password = cl.MaHoa(pw);
                 db.SubmitChanges();
-                if (cl.SendMail("Khôi phục mật khẩu", "C'nice | Khôi phục mật khẩu", email.Trim(),
-                    "<p>Bạn vừa thực hiện hành động khôi phục lại mật khẩu người dùng tại C'nice." +
+                if (cl.SendMail("Khôi phục mật khẩu", brand_name+" | Khôi phục mật khẩu", email.Trim(),
+                    "<p>Bạn vừa thực hiện hành động khôi phục lại mật khẩu người dùng tại "+ brand_name +
                     "</p><p>Email của bạn: <b>" + email.Trim().ToLower() +
                     "</b></p><p>Mật khẩu mới của bạn là: <b>" + pw + "</b></p>"))
                     r._mess = "Đã gửi lại mật khẩu mới vào mail " + email + " của bạn. Vui lòng kiểm tra hộp thư";
@@ -158,7 +158,7 @@ public partial class Query : System.Web.UI.Page
         else
         {
             r._content = "error";
-            r._mess = "Tài khoản và email không đúng, vui lòng kiểm tra lại";
+            r._mess = "Email không tồn tại trong hệ thống, vui lòng kiểm tra lại";
         }
         return r;
     }

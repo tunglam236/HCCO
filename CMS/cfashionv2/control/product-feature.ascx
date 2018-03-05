@@ -7,7 +7,7 @@
                 <div class="row sub-row">
                     <div class="sub-col col-sm-12 col-md-12">
                         <div class="featured-product-slider quickview-add module-style1">
-                            <div class="group-title">
+                            <div class="group-title" style="margin-top:20px;">
                                 <h2>Sản phẩm nổi bật</h2>
                             </div>
                             <div class="owl-container">

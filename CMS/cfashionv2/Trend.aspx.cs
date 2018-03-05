@@ -43,13 +43,13 @@ public partial class Trend : System.Web.UI.Page
                     select new { x.Id, x.Title, x.Description, x.Image, x.CreateAt, y.FullName };
             foreach (var item in n.Skip((page - 1) * recordPage).Take(recordPage).ToList())
             {
-                result += "<div class='article-layout article-list'><div class='article-item'><div class='article-item-inner row'><div class='article-image col-sm-5'>";
+                result += "<div class='article-layout article-list'><div class='article-item'><div class='article-item-inner row'><div class='article-image col-sm-4'>";
                 result += "<a href='/xu-huong/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.Title) + ".html'><img class=' lazy'  src='" + item.Image + "' alt='" + item.Title + "'/></a></div>";
-                result += "<div class='article-intro col-sm-7'><div class='article-name'>";
+                result += "<div class='article-intro col-sm-8'><div class='article-name'>";
                 result += "<a href='/xu-huong/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.Title) + ".html'>" + item.Title + "</a></div><p class='articledate'>";
                 result += "<i class='fa fa-clock-o' aria-hidden='true'></i>" + item.CreateAt.Value.ToString("dd/MM/yyyy HH:mm:ss") + " / Đăng bởi: " + item.FullName + "</p><div class='intro-content'>";
                 result += "<p>" + item.Description + "</p>";
-                result += "</div><a class='readmore-page' href='/xu-huong/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.Title) + ".html'>Xem thêm<i class='fa fa-arrow-right' aria-hidden='true'></i></a></div></div></div></div>";
+                result += "</div></div></div></div></div>";
             }
 
             lbNews.Text = result;

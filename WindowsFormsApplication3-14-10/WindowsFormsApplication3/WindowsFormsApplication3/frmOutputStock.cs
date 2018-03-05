@@ -56,7 +56,7 @@ namespace WindowsFormsApplication3
             percent = 0;
             Dictionary<string, string> type = new Dictionary<string, string>();
             type.Add("1", "Tiền mặt");
-            type.Add("2", "Qua ngân hàng");
+            type.Add("2", "Chuyển khoản");
             type.Add("3", "Cà thẻ");
             type.Add("4", "Ship COD");
             cboPaymentType.DataSource = new BindingSource(type, null);
@@ -721,29 +721,36 @@ namespace WindowsFormsApplication3
 
         private void txtCustome_KeyUp(object sender, KeyEventArgs e)
         {
-            returnMoney();
+           returnMoney();            
         }
         void returnMoney()
         {
-            double totalprice = double.Parse(txtTotalPrice.Text.Trim().Replace(",", "").Equals("") ? "0" : txtTotalPrice.Text.Trim().Replace(",", ""));
-            double discount = 0;// double.Parse(txtDiscount.Text.Trim().Replace(",", "").Replace("%", "").Equals("") ? "0" : txtDiscount.Text.Trim().Replace(",", "").Replace("%", ""));
-            if(txtDiscount.Text.Trim().Contains("%"))
+            try
             {
-                var d = double.Parse(txtDiscount.Text.Trim().Replace(",", "").Replace("%", "").Equals("") ? "0" : txtDiscount.Text.Trim().Replace(",", "").Replace("%", ""));
-                discount = Math.Round((totalprice * d) / 100, 0);
+                double totalprice = double.Parse(txtTotalPrice.Text.Trim().Replace(",", "").Equals("") ? "0" : txtTotalPrice.Text.Trim().Replace(",", ""));
+                double discount = 0;// double.Parse(txtDiscount.Text.Trim().Replace(",", "").Replace("%", "").Equals("") ? "0" : txtDiscount.Text.Trim().Replace(",", "").Replace("%", ""));
+                if (txtDiscount.Text.Trim().Contains("%"))
+                {
+                    var d = double.Parse(txtDiscount.Text.Trim().Replace(",", "").Replace("%", "").Equals("") ? "0" : txtDiscount.Text.Trim().Replace(",", "").Replace("%", ""));
+                    discount = Math.Round((totalprice * d) / 100, 0);
+                }
+                else
+                    discount = double.Parse(txtDiscount.Text.Trim().Replace(",", "").Replace("%", "").Equals("") ? "0" : txtDiscount.Text.Trim().Replace(",", "").Replace("%", ""));
+
+                txtTotal.Text = totalprice - discount > 999 ? string.Format("{0:0,0}", totalprice - discount) : totalprice - discount <= 0 ? "0" : (totalprice - discount).ToString();
+
+                double total = double.Parse(txtTotal.Text.Trim().Replace(",", "").Equals("") ? "0" : txtTotal.Text.Trim().Replace(",", ""));
+                double customepay = double.Parse(txtCustomePay.Text.Trim().Replace(",", "").Equals("") ? "0" : txtCustomePay.Text.Trim().Replace(",", ""));
+
+                txtCustomeReturn.Text = (customepay - total) == 0 ? (customepay - total).ToString() : string.Format("{0:0,0}", customepay - total);
+                txtCustomePay.Text = customepay.ToString();// customepay > 1000 ? string.Format("{0:0,0}", customepay) : customepay.ToString();
+
+                lbTotalPrice.Text = "Tổng tiền: " + string.Format("{0:0,0}", total) + " (" + cl.money_code(total) + ")";
             }
-            else
-                discount = double.Parse(txtDiscount.Text.Trim().Replace(",", "").Replace("%", "").Equals("") ? "0" : txtDiscount.Text.Trim().Replace(",", "").Replace("%", ""));
-
-            txtTotal.Text = totalprice - discount > 999 ? string.Format("{0:0,0}", totalprice - discount) : totalprice - discount <= 0 ? "0" : (totalprice - discount).ToString();
-
-            double total = double.Parse(txtTotal.Text.Trim().Replace(",", "").Equals("") ? "0" : txtTotal.Text.Trim().Replace(",", ""));
-            double customepay = double.Parse(txtCustomePay.Text.Trim().Replace(",", "").Equals("") ? "0" : txtCustomePay.Text.Trim().Replace(",", ""));
-
-            txtCustomeReturn.Text = (customepay - total) == 0 ? (customepay - total).ToString() : string.Format("{0:0,0}", customepay - total);
-            txtCustomePay.Text = customepay.ToString();// customepay > 1000 ? string.Format("{0:0,0}", customepay) : customepay.ToString();
-
-            lbTotalPrice.Text = "Tổng tiền: " + string.Format("{0:0,0}", total) + " (" + cl.money_code(total) + ")";
+            catch (Exception ax)
+            {
+                MessageBox.Show("Nhập dữ liệu không hợp lệ, hãy kiểm tra lại: " + ax.Message);
+            }
         }
         private void txtCustome_MouseClick(object sender, MouseEventArgs e)
         {
@@ -752,23 +759,30 @@ namespace WindowsFormsApplication3
 
         private void txtDiscount_KeyUp(object sender, KeyEventArgs e)
         {
-            var per = txtDiscount.Text.Trim() == "" ? "0" : txtDiscount.Text.Trim().Replace(",", "");
-            if (txtDiscount.Text.Trim().Length>1 && txtDiscount.Text.Trim().Contains("%"))
+            try
             {
-                per = per.Replace(" ","").Replace("%", "");
-                percent = int.Parse(per);
-                var total = double.Parse(txtTotalPrice.Text.Trim().Replace(",", "").Equals("") ? "0" : txtTotalPrice.Text.Trim().Replace(",", ""));
-                //txtDiscount.Text = string.Format("{0:0,0}", Math.Round((double.Parse(per) * total) / 100), 0);
-                txtDiscount.Text = per+" %";// Math.Round((double.Parse(per) * total) / 100).ToString();
+                var per = txtDiscount.Text.Trim() == "" ? "0" : txtDiscount.Text.Trim().Replace(",", "");
+                if (txtDiscount.Text.Trim().Length > 1 && txtDiscount.Text.Trim().Contains("%"))
+                {
+                    per = per.Replace(" ", "").Replace("%", "");
+                    percent = int.Parse(per);
+                    var total = double.Parse(txtTotalPrice.Text.Trim().Replace(",", "").Equals("") ? "0" : txtTotalPrice.Text.Trim().Replace(",", ""));
+                    //txtDiscount.Text = string.Format("{0:0,0}", Math.Round((double.Parse(per) * total) / 100), 0);
+                    txtDiscount.Text = per + "%";// Math.Round((double.Parse(per) * total) / 100).ToString();
+                }
+                else
+                {
+                    percent = 0;
+                    per = per.Replace("%", "").Replace(" ", "").Equals("") ? "0" : per.Replace("%", "");
+                    //if (double.Parse(per)>999)
+                    txtDiscount.Text = per.ToString();// string.Format("{0:0,0}", double.Parse(per));
+                }
+                returnMoney();
             }
-            else
+            catch (Exception ak)
             {
-                percent = 0;
-                per = per.Replace("%", "").Replace(" ", "").Equals("") ? "0" : per.Replace("%", "");
-                //if (double.Parse(per)>999)
-                txtDiscount.Text = per.ToString();// string.Format("{0:0,0}", double.Parse(per));
+                MessageBox.Show("Nhập dữ liệu không hợp lệ, hãy kiểm tra lại : " + ak.Message);
             }
-            returnMoney();
         }
         private void txtDiscount_MouseClick(object sender, MouseEventArgs e)
         {
@@ -816,6 +830,24 @@ namespace WindowsFormsApplication3
                     memberId = int.Parse(cbMember.SelectedValue.ToString());
                     //load chiet khau khach hang
                 }
+            }
+        }
+
+        private void txtCustomePay_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((!char.IsDigit(e.KeyChar) && (!char.IsControl(e.KeyChar))))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDiscount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar.ToString() == "%")
+                e.Handled = false;
+            else if (!char.IsDigit(e.KeyChar) && (!char.IsControl(e.KeyChar)))
+            {
+                e.Handled = true;
             }
         }
 

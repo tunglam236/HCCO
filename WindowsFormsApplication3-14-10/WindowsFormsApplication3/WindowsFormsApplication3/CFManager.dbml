@@ -872,23 +872,6 @@
       <Column Name="priceSale" Type="System.Double" DbType="Float" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.sp_ReportRevenue" Method="sp_ReportRevenue">
-    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
-    <Parameter Name="branchId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="fromDate" Type="System.DateTime" DbType="SmallDateTime" />
-    <Parameter Name="toDate" Type="System.DateTime" DbType="SmallDateTime" />
-    <Parameter Name="paymentType" Type="System.Int32" DbType="Int" />
-    <ElementType Name="sp_ReportRevenueResult">
-      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
-      <Column Name="MemberName" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
-      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="TotalDiscount" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.sp_SummaryStock" Method="sp_SummaryStock">
     <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
     <Parameter Name="branchId" Type="System.Int32" DbType="Int" />
@@ -910,6 +893,25 @@
       <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="Discount" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="MemberName" Type="System.String" DbType="NVarChar(87)" CanBeNull="true" />
+      <Column Name="PaymentType" Type="System.String" DbType="NVarChar(12) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_ReportRevenue" Method="sp_ReportRevenue">
+    <Parameter Name="branchType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="branchId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="fromDate" Type="System.DateTime" DbType="SmallDateTime" />
+    <Parameter Name="toDate" Type="System.DateTime" DbType="SmallDateTime" />
+    <Parameter Name="paymentType" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_ReportRevenueResult">
+      <Column Name="StockCode" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="MemberName" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalDiscount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="PaymentType" Type="System.String" DbType="NVarChar(12) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
 </Database>

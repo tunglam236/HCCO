@@ -134,7 +134,7 @@ public partial class Command : System.Web.UI.Page
                 //thong bao toi BP may mau khi co mau moi
                 var app_mm = from m in db.tConfigApproves
                          where m.tTable == "tForm" && m.Level == 3
-                         select new { m.GroupApproveBy, m.AproveBy };
+                         select new { m.GroupApproveBy, m.AproveBy, m.Days };
                 if (app_mm.Count() > 0)
                 {
                     //insert vao bang cho may mau
@@ -164,6 +164,18 @@ public partial class Command : System.Web.UI.Page
                         mess.isRead = false;
                         mess.Path = "/sewing";
                         db.tMessages.InsertOnSubmit(mess);
+
+                        var job = new tGantt();
+                        job.ModuleCode = "tSewing";
+                        job.ModuleId = int.Parse(formId.Trim());
+                        job.CreateAt = DateTime.Now;
+                        job.ExpectDate = DateTime.Now.AddDays(app_mm.FirstOrDefault().Days.Value);//lay so ngay config
+                        job.Name = "Hoàn thiện may mẫu mẫu thiết kế " + fName + " - " + fCode;
+                        job.StartDate = DateTime.Now;
+                        job.Status = 1;
+                        job.UserCreate = mm.FirstOrDefault().CreateBy;
+                        job.UserReceiver = app_mm.FirstOrDefault().AproveBy;
+                        db.tGantts.InsertOnSubmit(job);
                     }
                     else
                     {
@@ -189,6 +201,18 @@ public partial class Command : System.Web.UI.Page
                             app_pro.ApproveStatus = 1;//cho may mau;
                             app_pro.Level = 1;
                             db.tApproves.InsertOnSubmit(app_pro);
+
+                            var job = new tGantt();
+                            job.ModuleCode = "tSewing";
+                            job.ModuleId = int.Parse(formId.Trim());
+                            job.CreateAt = DateTime.Now;
+                            job.ExpectDate = DateTime.Now.AddDays(app_mm.FirstOrDefault().Days.Value);//lay so ngay config
+                            job.Name = "Hoàn thiện may mẫu mẫu thiết kế " + fName + " - " + fCode;
+                            job.StartDate = DateTime.Now;
+                            job.Status = 1;
+                            job.UserCreate = mm.FirstOrDefault().CreateBy;
+                            job.UserReceiver = xm.Id;
+                            db.tGantts.InsertOnSubmit(job);
                         }
                     }
                 }
@@ -227,6 +251,34 @@ public partial class Command : System.Web.UI.Page
                 t.SizeL = item.SizeL.ToString();
                 t.SizeXL = item.SizeXL.ToString();
                 t.SizeXXL = item.SizeXXL.ToString();
+                t.Note = item.Note;
+                r.Add(t);
+            }
+        }
+        catch
+        {
+
+        }
+        return r;
+    }
+    [WebMethod]
+    public static List<kcsmanufacturedetail> getKCSManufactureDetail(string idForm)
+    {
+        var r = new List<kcsmanufacturedetail>();
+        try
+        {
+            var db = new CFileManagerDataContext();
+
+            var b = db.sp_web_loadKCSManufactureDetail(int.Parse(idForm.Trim()));
+            foreach (var item in b.ToList())
+            {
+                var t = new kcsmanufacturedetail();
+                t._id = item.Id.ToString();
+                t.ColorId = item.ColorId.ToString();
+                t.ColorName = item.ColorName;
+                t.Size = item.Size.ToString();
+                t.Quantity = item.Quantity.ToString();
+                t.TotalQuantity = item.TotalQuantity.ToString();
                 t.Note = item.Note;
                 r.Add(t);
             }
@@ -320,6 +372,429 @@ public partial class Command : System.Web.UI.Page
         }
         return r;
     }
+    //[WebMethod]
+    //public static result completeOutSourcing(string Id, string formId, string note)
+    //{
+    //    var r = new result();
+    //    try
+    //    {
+    //        var user_id = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+    //        CFileManagerDataContext db = new CFileManagerDataContext();
+
+    //        var b = from x in db.tOutSourcings
+    //                where x.Id == int.Parse(Id.Trim()) && x.FormId == int.Parse(formId.Trim()) && x.Status == 2
+    //                && x.CreateBy == user_id
+    //                select x;
+    //        if (b.Count() > 0)
+    //        {
+    //            b.FirstOrDefault().DateReceiver = DateTime.Now;
+    //            b.FirstOrDefault().NoteComplete = note.Trim();
+
+    //            //update status form
+    //            var form = from x in db.tForms where x.Id == int.Parse(formId.Trim()) select x;
+    //            form.FirstOrDefault().Status = 13;//cho kiem KCS
+
+    //            //tbao toi thiet ke
+    //            var mess = new tMessage();
+    //            mess.BranchTypeId = 2;
+    //            mess.CreateAt = DateTime.Now;
+    //            mess.Message = "Mẫu thiết kế " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa hoàn thành gia công mẫu";
+    //            mess.UsertId = form.FirstOrDefault().CreateBy.Value;
+    //            mess.isRead = false;
+    //            mess.Path = "/form";
+    //            db.tMessages.InsertOnSubmit(mess);
+
+    //            //tbao toi cat sx
+    //            mess = new tMessage();
+    //            mess.BranchTypeId = 2;
+    //            mess.CreateAt = DateTime.Now;
+    //            mess.Message = "Mẫu thiết kế " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa hoàn thành gia công mẫu, chờ KCS";
+    //            mess.UsertId = b.FirstOrDefault().UserCutId.Value;
+    //            mess.isRead = false;
+    //            mess.Path = "/cutmanufacture";
+    //            db.tMessages.InsertOnSubmit(mess);
+
+
+    //            //insert kcs mau san xuat
+    //            //var us = new tKCSManufacture();
+    //            //us.FormId = int.Parse(formId.Trim());
+    //            //us.Status = 1;//chua gia cong
+    //            //us.UserCutId = user_id;
+    //            //us.CreateAt = DateTime.Now;
+    //            //db.tOutSourcings.InsertOnSubmit(us);
+
+
+    //            //tbao cho nguoi buoc tiep theo(KCS)
+    //            //insert approve
+    //            var appro = from n in db.tConfigApproves
+    //                        where n.tTable == "tForm" && n.Level == 10
+    //                        select new { n.AproveBy, n.GroupApproveBy, n.Level };
+    //            if (appro.Count() > 0)
+    //            {
+    //                if (appro.FirstOrDefault().AproveBy != null)
+    //                {
+    //                    //tbao toi kcs
+    //                    mess = new tMessage();
+    //                    mess.BranchTypeId = 2;
+    //                    mess.CreateAt = DateTime.Now;
+    //                    mess.Message = "Mẫu " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa hoàn thành gia công, hãy kiểm KCS";
+    //                    mess.UsertId = appro.FirstOrDefault().AproveBy;
+    //                    mess.isRead = false;
+    //                    mess.Path = "/kcsmanufacture";
+    //                    db.tMessages.InsertOnSubmit(mess);
+
+    //                    //insert bang duyet
+    //                    var ai = new tApprove();
+    //                    ai.tTable = "tKCSManufacture";
+    //                    ai.tTableId = int.Parse(formId.Trim());
+    //                    ai.ApproveBy = appro.FirstOrDefault().AproveBy;
+    //                    ai.ApproveStatus = 1;//cho duyet
+    //                    ai.Level = 1;
+    //                    db.tApproves.InsertOnSubmit(ai);
+    //                }
+    //                else
+    //                {
+    //                    //thong bao toi group kcs
+    //                    var g = from gr in db.tAccounts
+    //                            where gr.Status == 1 && gr.GroupUserId == appro.FirstOrDefault().GroupApproveBy.Value
+    //                            select new { gr.Id };
+    //                    foreach (var item in g.ToList())
+    //                    {
+    //                        //tbao toi nhom kcs
+    //                        mess = new tMessage();
+    //                        mess.BranchTypeId = 2;
+    //                        mess.CreateAt = DateTime.Now;
+    //                        mess.Message = "Mẫu " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa hoàn thành gia công, hãy kiểm KCS";
+    //                        mess.UsertId = item.Id;
+    //                        mess.isRead = false;
+    //                        mess.Path = "/kcsmanufacture";
+    //                        db.tMessages.InsertOnSubmit(mess);
+
+    //                        //insert bang duyet
+    //                        var ai = new tApprove();
+    //                        ai.tTable = "tKCSManufacture";
+    //                        ai.tTableId = int.Parse(formId.Trim());
+    //                        ai.ApproveBy = item.Id;
+    //                        ai.ApproveStatus = 1;//cho duyet
+    //                        ai.Level = 1;
+    //                        db.tApproves.InsertOnSubmit(ai);
+    //                    }
+    //                }
+    //            }
+    //            db.SubmitChanges();
+    //            r._content = "1";
+    //        }
+    //        else
+    //        {
+    //            r._content = "0";
+    //            r._mess = "Không tìm thấy thông tin lệnh sản xuất, hoặc lệnh sản xuất đã được hoàn thành. Hãy kiểm tra lại";
+    //        }
+    //    }
+    //    catch (Exception ax)
+    //    {
+    //        r._content = "0";
+    //        r._mess = "Có lỗi khi lưu thông tin, chi tiết: " + ax.Message;
+    //    }
+    //    return r;
+    //}
+    [WebMethod]
+    public static result updateOutSourcing(string Id,string formId,string supplierId, string dateCreate,string dateExpect, string note)
+    {
+        var r = new result();
+        try
+        {
+            var user_id = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            clsProcess cl = new clsProcess();
+            var b = from x in db.tOutSourcings where x.Id== int.Parse(Id.Trim()) && 
+                    x.FormId == int.Parse(formId.Trim()) && x.Status == 1 select x;
+            if (b.Count() > 0)
+            {
+                var check = from role in db.tApproves
+                            where role.tTable == "tOutSourcing" && role.tTableId == int.Parse(formId.Trim())
+                            && role.ApproveStatus == 1 && role.ApproveBy == user_id
+                            select role;
+                if (check.Count() > 0)
+                {
+                    check.FirstOrDefault().ApproveAt = DateTime.Now;
+                    check.FirstOrDefault().ApproveStatus = 2;//da nhap
+
+                    //update cut maps
+                    b.FirstOrDefault().SupplierId = int.Parse(supplierId.Trim());
+                    b.FirstOrDefault().DateCreate = DateTime.Parse(cl.returnDatetime(dateCreate.Trim()));
+                    b.FirstOrDefault().DateExpect = DateTime.Parse(cl.returnDatetime(dateExpect.Trim()));
+                    b.FirstOrDefault().Status = 2;//da nhan gia cong
+                    b.FirstOrDefault().Note = note.Trim();
+                    b.FirstOrDefault().CreateBy = user_id;
+
+                    //update status form
+                    var form = from x in db.tForms where x.Id == int.Parse(formId.Trim()) select x;
+                    form.FirstOrDefault().Status = 12;//dang gia cong
+
+                    //xoa nhung user khac hoan thanh mau
+                    var del_app = from x in db.tApproves
+                                  where x.tTable == "tOutSourcing" && x.tTableId == int.Parse(formId.Trim())
+                                  && x.ApproveBy != user_id
+                                  && x.ApproveStatus == 1
+                                  select x;
+                    db.tApproves.DeleteAllOnSubmit(del_app);
+
+                    //tbao
+                    //tbao toi thiet ke
+                    var mess = new tMessage();
+                    mess.BranchTypeId = 2;
+                    mess.CreateAt = DateTime.Now;
+                    mess.Message = "Mẫu thiết kế " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa được giao đi gia công sản xuất";
+                    mess.UsertId = form.FirstOrDefault().CreateBy.Value;
+                    mess.isRead = false;
+                    mess.Path = "/form";
+                    db.tMessages.InsertOnSubmit(mess);
+
+                    //tbao toi cat sx
+                    mess = new tMessage();
+                    mess.BranchTypeId = 2;
+                    mess.CreateAt = DateTime.Now;
+                    mess.Message = "Mẫu thiết kế " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa được giao đi gia công sản xuất";
+                    mess.UsertId = b.FirstOrDefault().UserCutId.Value;
+                    mess.isRead = false;
+                    mess.Path = "/cutmanufacture";
+                    db.tMessages.InsertOnSubmit(mess);
+
+                    //insert kcs mau san xuat
+                    var us = new tKCSManufacture();
+                    us.FormId = int.Parse(formId.Trim());
+                    us.SupplierId = int.Parse(supplierId.Trim());
+                    us.Status = 1;//chua kiem
+                    us.CreateAt = DateTime.Now;
+                    db.tKCSManufactures.InsertOnSubmit(us);
+
+                    //insert so luong kiem kcs
+                    var dz = from n in db.tProductOrders
+                             where n.FormId == int.Parse(formId.Trim())
+                             select n;
+                    foreach (var item in dz.ToList())
+                    {
+                        var kd = new tKCSManufactureDetail();
+                        kd.FormId = int.Parse(formId.Trim());
+                        kd.ColorId = item.ColorId;
+                        kd.ColorName = item.ColorName;
+                        kd.Size = item.Size;
+                        kd.Quantity = item.Quantity;
+                        kd.TotalQuantity = 0;
+                        db.tKCSManufactureDetails.InsertOnSubmit(kd);
+                    }
+                    db.SubmitChanges();
+                    //tbao cho nguoi buoc tiep theo(KCS)
+                    //insert approve
+                    var appro = from n in db.tConfigApproves
+                                            where n.tTable == "tForm" && n.Level == 10
+                                            select new { n.AproveBy, n.GroupApproveBy, n.Level };
+                    if (appro.Count() > 0)
+                    {
+                        if (appro.FirstOrDefault().AproveBy != null)
+                        {
+                            //tbao toi kcs
+                            mess = new tMessage();
+                            mess.BranchTypeId = 2;
+                            mess.CreateAt = DateTime.Now;
+                            mess.Message = "Mẫu " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa được giao đi gia công, chờ kiểm KCS sau ngày " + dateExpect;
+                            mess.UsertId = appro.FirstOrDefault().AproveBy;
+                            mess.isRead = false;
+                            mess.Path = "/kcsmanufacture";
+                            db.tMessages.InsertOnSubmit(mess);
+
+                            //insert bang duyet
+                            var ai = new tApprove();
+                            ai.tTable = "tKCSManufacture";
+                            ai.tTableId = int.Parse(formId.Trim());
+                            ai.ApproveBy = appro.FirstOrDefault().AproveBy;
+                            ai.ApproveStatus = 1;//cho duyet
+                            ai.Level = 1;
+                            db.tApproves.InsertOnSubmit(ai);
+                        }
+                        else
+                        {
+                            //thong bao toi group kcs
+                            var g = from gr in db.tAccounts
+                                    where gr.Status == 1 && gr.GroupUserId == appro.FirstOrDefault().GroupApproveBy.Value
+                                    select new { gr.Id };
+                            foreach (var item in g.ToList())
+                            {
+                                //tbao toi nhom kcs
+                                mess = new tMessage();
+                                mess.BranchTypeId = 2;
+                                mess.CreateAt = DateTime.Now;
+                                mess.Message = "Mẫu " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa được giao đi gia công, chờ kiểm KCS sau ngày " + dateExpect;
+                                mess.UsertId = item.Id;
+                                mess.isRead = false;
+                                mess.Path = "/kcsmanufacture";
+                                db.tMessages.InsertOnSubmit(mess);
+
+                                //insert bang duyet
+                                var ai = new tApprove();
+                                ai.tTable = "tKCSManufacture";
+                                ai.tTableId = int.Parse(formId.Trim());
+                                ai.ApproveBy = item.Id;
+                                ai.ApproveStatus = 1;//cho duyet
+                                ai.Level = 1;
+                                db.tApproves.InsertOnSubmit(ai);
+                            }
+                        }
+                    }
+                    db.SubmitChanges();
+                    r._content = "1";
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Bạn không có quyền nhập thông tin này, hãy kiểm tra lại";
+                }
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy thông tin mẫu, hoặc mẫu đã được hoàn thành. Hãy kiểm tra lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu thông tin, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result updateKCSManufacture(string formId, string data, string complete)
+    {
+        var r = new result();
+        try
+        {
+            var user_id = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+            CFileManagerDataContext db = new CFileManagerDataContext();
+
+            //kiem tra kcs quyen duyet...
+            var check = from role in db.tApproves
+                        where role.tTable == "tKCSManufacture" && role.tTableId == int.Parse(formId.Trim())
+                        && (role.ApproveStatus == 1 || role.ApproveStatus==2) && role.ApproveBy == user_id
+                        select role;
+            if (check.Count() > 0)
+            {
+                check.FirstOrDefault().ApproveAt = DateTime.Now;
+                check.FirstOrDefault().ApproveStatus = 2;//da nhap
+
+                //xoa nhung user khac hoan thanh mau
+                var del_app = from x in db.tApproves
+                              where x.tTable == "tKCSManufacture" && x.tTableId == int.Parse(formId.Trim())
+                              && x.ApproveBy != user_id
+                              && x.ApproveStatus == 1
+                              select x;
+                db.tApproves.DeleteAllOnSubmit(del_app);
+
+                var b = from x in db.tKCSManufactures
+                        where x.FormId == int.Parse(formId.Trim()) && (x.Status == 1 || x.Status == 2)
+                        select x;
+                if (b.Count() > 0)
+                {
+                    if (complete.Trim() == "1")
+                        b.FirstOrDefault().Status = 2;//dang kiem kcs
+                    else
+                    {
+                        b.FirstOrDefault().Status = 3;//da kiem du kcs
+                        b.FirstOrDefault().CompleteAt = DateTime.Now;
+
+                        //update status form
+                        var form = from f in db.tForms where f.Id == int.Parse(formId.Trim()) select f;
+                        form.FirstOrDefault().Status = 14;//hoan thien mau
+                        //tbao
+                        var mess = new tMessage();
+                        mess.BranchTypeId = 2;
+                        mess.CreateAt = DateTime.Now;
+                        mess.Message = "Mẫu " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa hoàn thành kiểm KCS";
+                        mess.UsertId = form.FirstOrDefault().CreateBy;
+                        mess.isRead = false;
+                        mess.Path = "/form";
+                        db.tMessages.InsertOnSubmit(mess);
+
+                        //thongbao cho nguoi tiep theo....
+                       
+                        var appro = from n in db.tConfigApproves
+                                    where n.tTable == "tForm" && n.Level == 11
+                                    select new { n.AproveBy, n.GroupApproveBy, n.Level };
+                        if (appro.Count() > 0)
+                        {
+                            if (appro.FirstOrDefault().AproveBy != null)
+                            {
+                                //tbao toi nguoi nhap thong tin san pham
+                                mess = new tMessage();
+                                mess.BranchTypeId = 2;
+                                mess.CreateAt = DateTime.Now;
+                                mess.Message = "Mẫu " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa hoàn thành kiểm tra KCS, hãy nhập thông tin sản phẩm";
+                                mess.UsertId = appro.FirstOrDefault().AproveBy;
+                                mess.isRead = false;
+                                mess.Path = "/product";
+                                db.tMessages.InsertOnSubmit(mess);
+                            }
+                            else
+                            {
+                                //thong bao toi group
+                                var g = from gr in db.tAccounts
+                                        where gr.Status == 1 && gr.GroupUserId == appro.FirstOrDefault().GroupApproveBy.Value
+                                        select new { gr.Id };
+                                foreach (var item in g.ToList())
+                                {
+                                    //tbao toi nhom nhap thong tin san pham
+                                    mess = new tMessage();
+                                    mess.BranchTypeId = 2;
+                                    mess.CreateAt = DateTime.Now;
+                                    mess.Message = "Mẫu " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa hoàn thành kiểm tra KCS, hãy nhập thông tin sản phẩm";
+                                    mess.UsertId = item.Id;
+                                    mess.isRead = false;
+                                    mess.Path = "/product";
+                                    db.tMessages.InsertOnSubmit(mess);
+                                }
+                            }
+                        }
+                    }
+                    b.FirstOrDefault().KCSId = user_id;
+
+                    //update chi tiet
+                    var up = from u in db.tKCSManufactureDetails
+                             where u.FormId == int.Parse(formId.Trim())
+                             select u;
+                    foreach (var item in up.ToList())
+                    {
+                        item.TotalQuantity = 0;
+                    }
+                    var t1 = data.Trim().Split('#');
+                    for (int i = 0; i < t1.Length; i++)
+                    {
+                        var t2 = t1[i].Trim().Split('|');
+                        var d = from k in db.tKCSManufactureDetails where k.Id == int.Parse(t2[0]) select k;
+                        d.FirstOrDefault().TotalQuantity = int.Parse(t2[1]);
+                        d.FirstOrDefault().Note = t2[2];
+                    }
+                    db.SubmitChanges();
+                    r._content = "1";
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Không tìm thấy thông tin mẫu KCS, hoặc mẫu đã được kiểm hoàn thành. Hãy kiểm tra lại";
+                }
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Bạn không có quyền kiểm KCS mẫu này. Hãy kiểm tra lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu thông tin kiểm KCS, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
     [WebMethod]
     public static result updateCutManufacture(string formId, string date, string note)
     {
@@ -342,14 +817,15 @@ public partial class Command : System.Web.UI.Page
                     check.FirstOrDefault().ApproveStatus = 2;//da nhap
 
                     //update cut maps
-                    b.FirstOrDefault().CutCompleteDate = DateTime.Parse(cl.returnDatetime(date.Trim()));
+                    if(date.Trim()!="")
+                        b.FirstOrDefault().CutCompleteDate = DateTime.Parse(cl.returnDatetime(date.Trim()));
                     b.FirstOrDefault().CutStatus = 2;
                     b.FirstOrDefault().CutNote = note.Trim();
                     b.FirstOrDefault().CutUserBy = user_id;
 
                     //update status form
                     var form = from x in db.tForms where x.Id == int.Parse(formId.Trim()) select x;
-                    form.FirstOrDefault().Status = 11;//dang gia cong
+                    form.FirstOrDefault().Status = 11;//cho nhan gia cong
 
                     //xoa nhung user khac hoan thanh mau
                     var del_app = from x in db.tApproves
@@ -370,8 +846,73 @@ public partial class Command : System.Web.UI.Page
                     mess.Path = "/form";
                     db.tMessages.InsertOnSubmit(mess);
 
-                    db.SubmitChanges();
+                    //insert maps
+                    var us = new tOutSourcing();
+                    us.FormId = int.Parse(formId.Trim());
+                    us.Status = 1;//chua gia cong
+                    us.UserCutId = user_id;
+                    us.CreateAt = DateTime.Now;
+                    db.tOutSourcings.InsertOnSubmit(us);
 
+
+                    //tbao cho nguoi buoc tiep theo(cho gia cong sx)
+                    //insert approve
+                    var appro = from n in db.tConfigApproves
+                                where n.tTable == "tForm" && n.Level == 9
+                                select new { n.AproveBy, n.GroupApproveBy, n.Level };
+                    if (appro.Count() > 0)
+                    {
+                        if (appro.FirstOrDefault().AproveBy != null)
+                        {
+                            //tbao toi nguoi giao nhan cho gia cong
+                            mess = new tMessage();
+                            mess.BranchTypeId = 2;
+                            mess.CreateAt = DateTime.Now;
+                            mess.Message = "Mẫu " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa hoàn thành cắt sản xuất, cần giao cho gia công";
+                            mess.UsertId = appro.FirstOrDefault().AproveBy;
+                            mess.isRead = false;
+                            mess.Path = "/outsourcing";
+                            db.tMessages.InsertOnSubmit(mess);
+
+                            //insert bang duyet
+                            var ai = new tApprove();
+                            ai.tTable = "tOutSourcing";
+                            ai.tTableId = int.Parse(formId.Trim());
+                            ai.ApproveBy = appro.FirstOrDefault().AproveBy;
+                            ai.ApproveStatus = 1;//cho duyet
+                            ai.Level = 1;
+                            db.tApproves.InsertOnSubmit(ai);
+                        }
+                        else
+                        {
+                            //thong bao toi group
+                            var g = from gr in db.tAccounts
+                                    where gr.Status == 1 && gr.GroupUserId == appro.FirstOrDefault().GroupApproveBy.Value
+                                    select new { gr.Id };
+                            foreach (var item in g.ToList())
+                            {
+                                //tbao toi nhom di so do nhay size
+                                mess = new tMessage();
+                                mess.BranchTypeId = 2;
+                                mess.CreateAt = DateTime.Now;
+                                mess.Message = "Mẫu " + form.FirstOrDefault().Name + " - " + form.FirstOrDefault().Code + " vừa hoàn thành cắt sản xuất, cần giao cho gia công";
+                                mess.UsertId = item.Id;
+                                mess.isRead = false;
+                                mess.Path = "/outsourcing";
+                                db.tMessages.InsertOnSubmit(mess);
+
+                                //insert bang duyet
+                                var ai = new tApprove();
+                                ai.tTable = "tOutSourcing";
+                                ai.tTableId = int.Parse(formId.Trim());
+                                ai.ApproveBy = item.Id;
+                                ai.ApproveStatus = 1;//cho duyet
+                                ai.Level = 1;
+                                db.tApproves.InsertOnSubmit(ai);
+                            }
+                        }
+                    }
+                    db.SubmitChanges();
                     r._content = "1";
                 }
                 else
@@ -416,11 +957,7 @@ public partial class Command : System.Web.UI.Page
                 {
                     check.FirstOrDefault().ApproveAt = DateTime.Now;
                     check.FirstOrDefault().ApproveStatus = 2;//da nhap
-
-                    //b.FirstOrDefault().DateCreate = DateTime.Parse(cls.returnDatetime(date_create.Trim()));
                     b.FirstOrDefault().CreateBy = user_id;
-                    //b.FirstOrDefault().SupplierId = int.Parse(supplier.Trim());
-                    //b.FirstOrDefault().DateExpect = DateTime.Parse(cls.returnDatetime(date_expect.Trim()));
                     b.FirstOrDefault().Note = note.Trim();
                     b.FirstOrDefault().Status = 2;//da nhap lenh
                     db.SubmitChanges();
@@ -512,7 +1049,7 @@ public partial class Command : System.Web.UI.Page
                             //insert bang duyet
                             var ai = new tApprove();
                             ai.tTable = "tMaps";
-                            ai.tTableId = int.Parse(id.Trim());
+                            ai.tTableId = int.Parse(form.Trim());
                             ai.ApproveBy = appro.FirstOrDefault().AproveBy;
                             ai.ApproveStatus = 1;//cho duyet
                             ai.Level = 1;
@@ -539,7 +1076,7 @@ public partial class Command : System.Web.UI.Page
                                 //insert bang duyet
                                 var ai = new tApprove();
                                 ai.tTable = "tMaps";
-                                ai.tTableId = int.Parse(id.Trim());
+                                ai.tTableId = int.Parse(form.Trim());
                                 ai.ApproveBy = item.Id;
                                 ai.ApproveStatus = 1;//cho duyet
                                 ai.Level = 1;
@@ -1544,28 +2081,41 @@ public partial class Command : System.Web.UI.Page
         try
         {
             CFileManagerDataContext db = new CFileManagerDataContext();
-            clsProcess cl = new clsProcess();
-            var d = new tDiscount();
-            d.BranchTypeId = int.Parse(branchType.Trim());
-            d.DiscountName = name.Trim();
-            d.DiscountType = byte.Parse(type.Trim());
-            d.DiscountNumber = int.Parse(number.Trim().Replace(",",""));
-            d.DiscountValue = double.Parse(values.Trim().Replace(",", ""));
-            d.StartDate = DateTime.Parse(cl.returnDatetime(fromdate.Trim()));
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Voucher"
+                             select new { _x.sView, _x.sInsert };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sInsert == true)
+            {
+                clsProcess cl = new clsProcess();
+                var d = new tDiscount();
+                d.BranchTypeId = int.Parse(branchType.Trim());
+                d.DiscountName = name.Trim();
+                d.DiscountType = byte.Parse(type.Trim());
+                d.DiscountNumber = int.Parse(number.Trim().Replace(",", ""));
+                d.DiscountValue = double.Parse(values.Trim().Replace(",", ""));
+                d.StartDate = DateTime.Parse(cl.returnDatetime(fromdate.Trim()));
 
-            if (todate.Trim()!="")
-                d.EndDate= DateTime.Parse(cl.returnDatetime(todate.Trim()));
+                if (todate.Trim() != "")
+                    d.EndDate = DateTime.Parse(cl.returnDatetime(todate.Trim()));
 
-            d.OrderMinValue = double.Parse(minorder.Trim().Replace(",", ""));
-            d.Status = 1;
-            d.CreateAt = DateTime.Now;
-            d.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-            db.tDiscounts.InsertOnSubmit(d);
-            db.SubmitChanges();
+                d.OrderMinValue = double.Parse(minorder.Trim().Replace(",", ""));
+                d.Status = 1;
+                d.CreateAt = DateTime.Now;
+                d.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.tDiscounts.InsertOnSubmit(d);
+                db.SubmitChanges();
 
-            string gencode = genDiscountCode(d.Id.ToString(), int.Parse(number.Trim()));
-            r._content = "1";
-            r._mess = gencode;
+                string gencode = genDiscountCode(d.Id.ToString(), int.Parse(number.Trim()));
+                r._content = "1";
+                r._mess = gencode;
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = mess_role;
+            }
         }
         catch (Exception ax)
         {
@@ -1581,42 +2131,55 @@ public partial class Command : System.Web.UI.Page
         try
         {
             CFileManagerDataContext db = new CFileManagerDataContext();
-            clsProcess cl = new clsProcess();
-            var d = from x in db.tDiscounts where x.Id == int.Parse(id.Trim()) select x;
-            if (d.Count() > 0)
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Voucher"
+                             select new { _x.sView, _x.sModifie };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sModifie == true)
             {
-                if (int.Parse(number.Trim().Replace(",", "")) < d.FirstOrDefault().DiscountNumber.Value)
+                clsProcess cl = new clsProcess();
+                var d = from x in db.tDiscounts where x.Id == int.Parse(id.Trim()) select x;
+                if (d.Count() > 0)
                 {
-                    r._content = "0";
-                    r._mess = "Số lượng mã Voucher không được nhỏ hơn số lượng cũ";
+                    if (int.Parse(number.Trim().Replace(",", "")) < d.FirstOrDefault().DiscountNumber.Value)
+                    {
+                        r._content = "0";
+                        r._mess = "Số lượng mã Voucher không được nhỏ hơn số lượng cũ";
+                    }
+                    else
+                    {
+                        d.FirstOrDefault().BranchTypeId = int.Parse(branchType.Trim());
+                        d.FirstOrDefault().DiscountName = name.Trim();
+                        d.FirstOrDefault().DiscountType = byte.Parse(type.Trim());
+                        d.FirstOrDefault().DiscountNumber = int.Parse(number.Trim().Replace(",", ""));
+                        d.FirstOrDefault().DiscountValue = double.Parse(values.Trim().Replace(",", ""));
+                        d.FirstOrDefault().StartDate = DateTime.Parse(cl.returnDatetime(fromdate.Trim()));
+
+                        if (todate.Trim() != "")
+                            d.FirstOrDefault().EndDate = DateTime.Parse(cl.returnDatetime(todate.Trim()));
+                        else d.FirstOrDefault().EndDate = null;
+
+                        d.FirstOrDefault().OrderMinValue = double.Parse(minorder.Trim().Replace(",", ""));
+                        d.FirstOrDefault().ModifiedAt = DateTime.Now;
+                        d.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                        db.SubmitChanges();
+
+                        string gencode = genDiscountCode(id.Trim(), int.Parse(number.Trim()));
+                        r._content = "1";
+                        r._mess = gencode;
+                    }
                 }
                 else
                 {
-                    d.FirstOrDefault().BranchTypeId = int.Parse(branchType.Trim());
-                    d.FirstOrDefault().DiscountName = name.Trim();
-                    d.FirstOrDefault().DiscountType = byte.Parse(type.Trim());
-                    d.FirstOrDefault().DiscountNumber = int.Parse(number.Trim().Replace(",", ""));
-                    d.FirstOrDefault().DiscountValue = double.Parse(values.Trim().Replace(",", ""));
-                    d.FirstOrDefault().StartDate = DateTime.Parse(cl.returnDatetime(fromdate.Trim()));
-
-                    if (todate.Trim() != "")
-                        d.FirstOrDefault().EndDate = DateTime.Parse(cl.returnDatetime(todate.Trim()));
-                    else d.FirstOrDefault().EndDate = null;
-
-                    d.FirstOrDefault().OrderMinValue = double.Parse(minorder.Trim().Replace(",", ""));
-                    d.FirstOrDefault().ModifiedAt = DateTime.Now;
-                    d.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-                    db.SubmitChanges();
-
-                    string gencode = genDiscountCode(id.Trim(), int.Parse(number.Trim()));
-                    r._content = "1";
-                    r._mess = gencode;
+                    r._content = "0";
+                    r._mess = "Không tìm thấy thông tin Voucher, hãy thử lại";
                 }
             }
             else
             {
                 r._content = "0";
-                r._mess = "Không tìm thấy thông tin Voucher, hãy thử lại";
+                r._mess = mess_role;
             }
         }
         catch (Exception ax)
@@ -2151,6 +2714,171 @@ public partial class Command : System.Web.UI.Page
         {
             r._content = "0";
             r._mess = "Có lỗi khi lưu module duyệt, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result completeGantt(string id,string expectdate, string completedate, string comment)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            clsProcess cl = new clsProcess();
+
+            DateTime d1, d2;
+            var k1 = DateTime.TryParse(cl.returnDatetime(expectdate), out d1);
+            var k2 = DateTime.TryParse(cl.returnDatetime(completedate), out d2);
+            if (k1 && k2)
+            {
+                var check = from x in db.tGantts where x.Id == int.Parse(id.Trim()) && x.Status == 1
+                            && x.UserReceiver== int.Parse(HttpContext.Current.Session["cm_userId"].ToString())
+                            select x;
+                if (check.Count() > 0)
+                {
+                    check.FirstOrDefault().Status = d2 > d1 ? byte.Parse("3") : byte.Parse("2");
+                    check.FirstOrDefault().Comment = comment.Trim();
+                    check.FirstOrDefault().CompleteDate = d2;
+                    check.FirstOrDefault().CompleteReal = DateTime.Now;
+                    db.SubmitChanges();
+                    r._content = "1";
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Công việc đã cập nhật hoàn thành hoặc không tìm thấy công việc của bạn, hãy kiểm tra lại";
+                }
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Lỗi định dạng ngày tháng, kiểm tra lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu hoàn thành công việc, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+
+    [WebMethod]
+    public static result completeJob(string id, string comment)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            clsProcess cl = new clsProcess();
+
+            var job = from x in db.tGantts where x.Id == int.Parse(id.Trim()) select x;
+            if (job.Count() > 0)
+            {
+                job.FirstOrDefault().Status = (DateTime.Parse(DateTime.Now.ToString("MM/dd/yyyy")) - job.FirstOrDefault().ExpectDate.Value).TotalDays > 0 ? byte.Parse("3") : byte.Parse("2");
+                job.FirstOrDefault().Comment = comment.Trim();
+                job.FirstOrDefault().CompleteDate = DateTime.Now;
+                job.FirstOrDefault().CompleteReal = DateTime.Now;
+                db.SubmitChanges();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Công việc đã cập nhật hoàn thành hoặc không tìm thấy công việc của bạn, hãy kiểm tra lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu hoàn thành công việc, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+   
+    [WebMethod]
+    public static result insertGantt(string userreceiver, string data)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            clsProcess cl = new clsProcess();
+
+            var tmp = data.Trim().Split('#');
+            for (int k = 0; k < tmp.Length; k++)
+            {
+                var d = tmp[k].Split('|');
+                //nhieu user
+                if (userreceiver.Trim().Contains(','))
+                {
+                    var p = userreceiver.Substring(1);
+                    p = p.Substring(0, p.Length - 1);
+                    var t = p.Split(',');
+                    for(var u=0;u<t.Length; u++)
+                    {
+                        var b = new tGantt();
+                        b.CreateAt = DateTime.Now;
+                        b.UserCreate = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                        b.UserReceiver = int.Parse(t[u]);
+                        b.Name = d[0].Replace("'", "");
+                        b.StartDate = DateTime.Parse(cl.returnDatetime(d[1]));
+                        b.ExpectDate = DateTime.Parse(cl.returnDatetime(d[2]));
+                        b.Note = d[3];
+                        b.Status = 1;
+                        db.tGantts.InsertOnSubmit(b);
+                    }
+                }
+                else
+                {
+                    var b = new tGantt();
+                    b.CreateAt = DateTime.Now;
+                    b.UserCreate = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                    b.UserReceiver = int.Parse(userreceiver.Trim());
+                    b.Name = d[0].Replace("'", "");
+                    b.StartDate = DateTime.Parse(cl.returnDatetime(d[1]));
+                    b.ExpectDate = DateTime.Parse(cl.returnDatetime(d[2]));
+                    b.Note = d[3];
+                    b.Status = 1;
+                    db.tGantts.InsertOnSubmit(b);
+                }
+            }
+            db.SubmitChanges();
+            r._content = "1";
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi lưu công việc, chi tiết: " + ax.Message;
+        }
+        return r;
+    }
+    [WebMethod]
+    public static result removeGantt(string id)
+    {
+        var r = new result();
+        try
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var d = from x in db.tGantts
+                    where x.Id == int.Parse(id.Trim()) && x.Status == 1 && x.UserCreate == int.Parse(HttpContext.Current.Session["cm_userId"].ToString())
+                    select x;
+            if (d.Count() > 0)
+            {
+                d.FirstOrDefault().Status = 0;//xoa job
+                db.SubmitChanges();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = "Không tìm thấy công việc của bạn hoặc bạn không có quyền xóa công việc này, hãy kiểm tra lại";
+            }
+        }
+        catch (Exception ax)
+        {
+            r._content = "0";
+            r._mess = "Có lỗi khi xóa công việc, chi tiết: " + ax.Message;
         }
         return r;
     }
@@ -2743,7 +3471,7 @@ public partial class Command : System.Web.UI.Page
         {
             CFileManagerDataContext db = new CFileManagerDataContext();
 
-            var user_id= int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+            var user_id = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
 
             var b = from x in db.tForms where x.Id == int.Parse(id.Trim()) && x.InputNorm == false select x;
             if (b.Count() > 0)
@@ -2779,6 +3507,26 @@ public partial class Command : System.Web.UI.Page
 
                     b.FirstOrDefault().Status = 3;//cho nhan nguyen phu lieu
                     b.FirstOrDefault().InputNorm = true;//da nhap dinh muc
+
+
+                    var job = from j in db.tGantts
+                              where j.ModuleId == int.Parse(id.Trim()) && j.ModuleCode == "tCut" && j.UserReceiver == user_id
+                              && j.Status == 1
+                              select j;
+                    if (job.Count() > 0)
+                    {
+                        job.FirstOrDefault().Status = 2;
+                        job.FirstOrDefault().CompleteDate = DateTime.Now;
+                        job.FirstOrDefault().CompleteReal = DateTime.Now;
+                        job.FirstOrDefault().Comment = content.Trim() == "" ? "Đã hoàn thành cắt rập" : content.Trim();
+                    }
+                    
+                    //xoa nhung cat rap khac k cat
+                    var job_del = from j in db.tGantts
+                              where j.ModuleId == int.Parse(id.Trim()) && j.ModuleCode == "tCut" && j.UserReceiver != user_id
+                              && j.Status == 1
+                              select j;
+                    db.tGantts.DeleteAllOnSubmit(job_del);
 
                     //thong bao can nhap NPL toi thiet ke
                     var mess = new tMessage();
@@ -2914,7 +3662,7 @@ public partial class Command : System.Web.UI.Page
             //check nguoi duyet
             var appro = from n in db.tConfigApproves
                         where n.tTable == "tForm" && n.Level == 1
-                        select new { n.Id, n.AproveBy, n.GroupApproveBy, n.Level };
+                        select new { n.Id, n.AproveBy, n.GroupApproveBy, n.Level, n.Days };
             if (appro.Count() > 0)
             {
                 if (appro.FirstOrDefault().AproveBy != null)
@@ -2937,6 +3685,18 @@ public partial class Command : System.Web.UI.Page
                     app.ApproveStatus = 1;//cho duyet
                     app.Level = 1;
                     db.tApproves.InsertOnSubmit(app);
+
+                    var job = new tGantt();
+                    job.ModuleCode = "tForm";
+                    job.ModuleId = b.Id;
+                    job.CreateAt = DateTime.Now;
+                    job.ExpectDate = DateTime.Now.AddDays(appro.FirstOrDefault().Days.Value);//lay so ngay config
+                    job.Name = "Duyệt mẫu hình ảnh " + name + " - " + code;
+                    job.StartDate = DateTime.Now;
+                    job.Status = 1;
+                    job.UserCreate= int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                    job.UserReceiver = appro.FirstOrDefault().AproveBy;
+                    db.tGantts.InsertOnSubmit(job);
                 }
                 else
                 {
@@ -3084,6 +3844,19 @@ public partial class Command : System.Web.UI.Page
                         select c;
             if (check.Count() > 0)
             {
+                var job = from j in db.tGantts where j.ModuleId == int.Parse(id.Trim()) && j.ModuleCode== "tSewing"
+                          && j.UserReceiver== user_id && j.Status == 1
+                          select j;
+                if (job.Count() > 0)
+                {
+                    job.FirstOrDefault().StartDate = DateTime.Parse(DateTime.Now.ToString("MM/dd/yyyy"));
+
+                    var job_del = from jd in db.tGantts
+                                  where jd.ModuleId == int.Parse(id.Trim()) && jd.ModuleCode == "tSewing" && jd.UserReceiver != user_id && jd.Status == 1
+                                  select jd;
+
+                    db.tGantts.DeleteAllOnSubmit(job_del);
+                }
                 //neu van chua hoan thanh het mau thi k dc chon mau tiep theo
                 var check_not = from not in db.tSewings where not.UserCut == user_id && (not.Status == 2 || not.Status == 4) select not;
                 if (check_not.Count() == 0)
@@ -3164,10 +3937,21 @@ public partial class Command : System.Web.UI.Page
 
             var b = from x in db.tSewings
                     where x.FormId == int.Parse(id.Trim()) && x.UserCut == int.Parse(user_id)
-                    && x.DateComplete == null && (x.Status == 2 || x.Status==4)//dang cho hoac sua lai mau
+                    && x.DateComplete == null && (x.Status == 2 || x.Status == 4)//dang cho hoac sua lai mau
                     select x;
             if (b.Count() > 0)
             {
+                var job = from j in db.tGantts
+                          where j.ModuleId == int.Parse(id.Trim()) && j.ModuleCode == "tSewing" && j.Status == 1
+                          select j;
+                if (job.Count() > 0)
+                {
+                    job.FirstOrDefault().Status = 2;//hoan thanh may mau;
+                    job.FirstOrDefault().CompleteDate = DateTime.Now;
+                    job.FirstOrDefault().CompleteReal = DateTime.Now;
+                    job.FirstOrDefault().Comment = content.Trim() == "" ? "Hoàn thành may mẫu" : content.Trim();
+                }
+
                 b.FirstOrDefault().Status = 3;//hoan thanh mau
                 b.FirstOrDefault().DateComplete = DateTime.Now;//ngay hoan thanh mau
                 b.FirstOrDefault().Note = content.Trim();///ghi chu hoan thanh
@@ -3831,7 +4615,8 @@ public partial class Command : System.Web.UI.Page
                     db.tApproves.DeleteAllOnSubmit(del_app);
                     //db.SubmitChanges();
 
-                    b.FirstOrDefault().ApprovedStatus = 2;//da duyet
+                    b.FirstOrDefault().ApprovedStatus = byte.Parse(status.Trim());
+                    b.FirstOrDefault().Status = 2;//da duyet
                     b.FirstOrDefault().ApprovedAt = DateTime.Now;
                     b.FirstOrDefault().ApprovedBy = user_id;
                     b.FirstOrDefault().ApprovedNote = content.Trim();
@@ -3839,7 +4624,7 @@ public partial class Command : System.Web.UI.Page
                     if (status.Trim() == "2")//neu duyet thi sang buoc tiep theo
                     {
                         //bang duyet
-                        get_app.FirstOrDefault().ApproveStatus= byte.Parse(status.Trim());//trang thai duyet
+                        get_app.FirstOrDefault().ApproveStatus= 2;//trang thai duyet
                         get_app.FirstOrDefault().ApproveContent = content.Trim();
                         get_app.FirstOrDefault().ApproveAt = DateTime.Now;
 
@@ -3858,7 +4643,7 @@ public partial class Command : System.Web.UI.Page
                         //thong bao toi nguoi duyet tiep theo
                         var appro = from n in db.tConfigApproves
                                     where n.tTable == "tForm" && n.Level == level
-                                    select new { n.Id, n.GroupApproveBy, n.AproveBy, n.Level };
+                                    select new { n.Id, n.GroupApproveBy, n.AproveBy, n.Level,n.Days };
                         if (appro.Count() > 0)
                         {
                             b.FirstOrDefault().Status = 2;//chuyen sang cho cat rap
@@ -3882,6 +4667,18 @@ public partial class Command : System.Web.UI.Page
                                 app.ApproveStatus = 1;//cho duyet;
                                 app.Level = byte.Parse(level.ToString());
                                 db.tApproves.InsertOnSubmit(app);
+
+                                var job = new tGantt();
+                                job.ModuleCode = "tCut";
+                                job.ModuleId = int.Parse(id.Trim());
+                                job.CreateAt = DateTime.Now;
+                                job.ExpectDate = DateTime.Now.AddDays(appro.FirstOrDefault().Days.Value);//lay so ngay config
+                                job.Name = "Hoàn thiện cắt rập mẫu thiết kế " + b_name + " - " + b_code;
+                                job.StartDate = DateTime.Now;
+                                job.Status = 1;
+                                job.UserCreate = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                                job.UserReceiver = appro.FirstOrDefault().AproveBy;
+                                db.tGantts.InsertOnSubmit(job);
                             }
                             else
                             {
@@ -3907,6 +4704,18 @@ public partial class Command : System.Web.UI.Page
                                     app.ApproveStatus = 1;//cho duyet;
                                     app.Level = byte.Parse(level.ToString());
                                     db.tApproves.InsertOnSubmit(app);
+
+                                    var job = new tGantt();
+                                    job.ModuleCode = "tCut";
+                                    job.ModuleId = int.Parse(id.Trim());
+                                    job.CreateAt = DateTime.Now;
+                                    job.ExpectDate = DateTime.Now.AddDays(appro.FirstOrDefault().Days.Value);//lay so ngay config
+                                    job.Name = "Bạn có mẫu thiết kế " + b_name + " - " + b_code + " mới cần cắt rập";
+                                    job.StartDate = DateTime.Now;
+                                    job.Status = 1;
+                                    job.UserCreate = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                                    job.UserReceiver = item.Id;
+                                    db.tGantts.InsertOnSubmit(job);
                                 }
                             }
                         }
@@ -3930,9 +4739,8 @@ public partial class Command : System.Web.UI.Page
                     }
                     else
                     {
-                        //neu ko duyet
-                        b.FirstOrDefault().Status= byte.Parse(status.Trim());//trang thai duyet
-                        
+                        get_app.FirstOrDefault().ApproveStatus = 3;//trang thai k duyet       
+
                         //thong bao ko duyet toi thiet ke
                         var mess = new tMessage();
                         mess.BranchTypeId = 2;
@@ -3944,6 +4752,15 @@ public partial class Command : System.Web.UI.Page
                         mess.isRead = false;
                         mess.Path = "/form";
                         db.tMessages.InsertOnSubmit(mess);
+                    }
+
+                    var job_form = from j in db.tGantts where j.ModuleId == int.Parse(id.Trim()) select j;
+                    if (job_form.Count() > 0)
+                    {
+                        job_form.FirstOrDefault().CompleteDate = DateTime.Now;
+                        job_form.FirstOrDefault().CompleteReal = DateTime.Now;
+                        job_form.FirstOrDefault().Status = (DateTime.Now - job_form.FirstOrDefault().ExpectDate.Value).TotalDays > 0 ? byte.Parse("3") : byte.Parse("2");
+                        job_form.FirstOrDefault().Comment = status == "2" ? "Đã duyệt mẫu" : "Đã hủy mẫu";
                     }
                     db.SubmitChanges();
                     r._content = "1";
@@ -5311,65 +6128,78 @@ public partial class Command : System.Web.UI.Page
         try
         {
             CFileManagerDataContext db = new CFileManagerDataContext();
-            var checkCodeId = from c in db.tProducts
-                              where c.CodeId == codeId.Trim() && c.BranchTypeId == int.Parse(branchType.Trim())
-                              select c;
-            if (checkCodeId.Count() == 0)
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Product"
+                             select new { _x.sView, _x.sInsert };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sInsert == true)
             {
-                clsProcess cl = new clsProcess();
-                var p = new tProduct();
-                p.CodeId = codeId.Trim();
-                p.ProductCode = proCode.Trim();
-                p.ProductName = proName.Trim();
-                p.ProductTypeCode = proTypeCode.Trim();
-                p.ParentProductTypeId = int.Parse(proType.Trim().Split(',')[1]);
-                p.ProductTypeId = int.Parse(proType.Trim().Split(',')[0]);
-                p.BranchTypeId = int.Parse(branchType.Trim());
-                if (supplierId.Trim() != "" && supplierId != null)
-                    p.SupplierId = int.Parse(supplierId.Trim());
-                p.Description = des.Trim();
-                if (brandId.Trim() != "null" && brandId != null && brandId != "")
-                    p.BrandId = int.Parse(brandId.Trim());
-                if (color.Trim() != "null" && color != null && color != "")
-                    p.Color = int.Parse(color.Trim());
-                if (size.Trim() != "null" && size != null && size != "")
-                    p.Size = int.Parse(size.Trim());
-                if (material.Trim() != "" && material != null && material != "")
-                    p.Material = material.Trim();
-                if (composition.Trim() != "" && composition != null && composition != "")
-                    p.Composition = composition.Trim();
-                p.Status = byte.Parse(status.Trim());
-                if (year.Trim() != "" && year != null && year != "")
-                    p.YearId = int.Parse(year.Trim());
-                p.Note = note.Trim();
-                p.NoteSale = notesale.Trim();
-                p.Tag = tag.Trim();
-                if (expiry.Trim() != "")
-                    p.ExpiryDate = DateTime.Parse(cl.returnDatetime(expiry.Trim()));
-                if (unit.Trim() != "")
-                    p.UnitId = int.Parse(unit.Trim());
-                if (capacity.Trim() != "")
-                    p.CapacityName = capacity.Trim();
-                p.Catalog = catalog.Trim();
-
-                if (national.Trim() != "")
+                var checkCodeId = from c in db.tProducts
+                                  where c.CodeId == codeId.Trim() && c.BranchTypeId == int.Parse(branchType.Trim())
+                                  select c;
+                if (checkCodeId.Count() == 0)
                 {
-                    p.CountryId = int.Parse(national.Trim());
-                    p.CountryName = nationalname.Trim();
-                }
-                p.Image = "";
-                p.ImageZoom = "";
-                p.CreateAt = DateTime.Now;
-                p.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-                db.tProducts.InsertOnSubmit(p);
-                db.SubmitChanges();
+                    clsProcess cl = new clsProcess();
+                    var p = new tProduct();
+                    p.CodeId = codeId.Trim();
+                    p.ProductCode = proCode.Trim();
+                    p.ProductName = proName.Trim();
+                    p.ProductTypeCode = proTypeCode.Trim();
+                    p.ParentProductTypeId = int.Parse(proType.Trim().Split(',')[1]);
+                    p.ProductTypeId = int.Parse(proType.Trim().Split(',')[0]);
+                    p.BranchTypeId = int.Parse(branchType.Trim());
+                    if (supplierId.Trim() != "" && supplierId != null)
+                        p.SupplierId = int.Parse(supplierId.Trim());
+                    p.Description = des.Trim();
+                    if (brandId.Trim() != "null" && brandId != null && brandId != "")
+                        p.BrandId = int.Parse(brandId.Trim());
+                    if (color.Trim() != "null" && color != null && color != "")
+                        p.Color = int.Parse(color.Trim());
+                    if (size.Trim() != "null" && size != null && size != "")
+                        p.Size = int.Parse(size.Trim());
+                    if (material.Trim() != "" && material != null && material != "")
+                        p.Material = material.Trim();
+                    if (composition.Trim() != "" && composition != null && composition != "")
+                        p.Composition = composition.Trim();
+                    p.Status = byte.Parse(status.Trim());
+                    if (year.Trim() != "" && year != null && year != "")
+                        p.YearId = int.Parse(year.Trim());
+                    p.Note = note.Trim();
+                    p.NoteSale = notesale.Trim();
+                    p.Tag = tag.Trim();
+                    if (expiry.Trim() != "")
+                        p.ExpiryDate = DateTime.Parse(cl.returnDatetime(expiry.Trim()));
+                    if (unit.Trim() != "")
+                        p.UnitId = int.Parse(unit.Trim());
+                    if (capacity.Trim() != "")
+                        p.CapacityName = capacity.Trim();
+                    p.Catalog = catalog.Trim();
 
-                r._content = "1";
+                    if (national.Trim() != "")
+                    {
+                        p.CountryId = int.Parse(national.Trim());
+                        p.CountryName = nationalname.Trim();
+                    }
+                    p.Image = "";
+                    p.ImageZoom = "";
+                    p.CreateAt = DateTime.Now;
+                    p.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                    db.tProducts.InsertOnSubmit(p);
+                    db.SubmitChanges();
+
+                    r._content = "1";
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Mã vạch đã tồn tại, kiểm tra lại";
+                }
             }
             else
             {
                 r._content = "0";
-                r._mess = "Mã vạch đã tồn tại, kiểm tra lại";
+                r._mess = mess_role;
             }
         }
         catch (Exception ax)
@@ -5389,87 +6219,100 @@ public partial class Command : System.Web.UI.Page
         try
         {
             CFileManagerDataContext db = new CFileManagerDataContext();
-            clsProcess cl = new clsProcess();
-            var p = from x in db.tProducts where x.Id == int.Parse(Id.Trim()) select x;
-            if (p.Count() > 0)
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Product"
+                             select new { _x.sView, _x.sModifie };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sModifie == true)
             {
-                p.FirstOrDefault().CodeId = codeId.Trim();
-                p.FirstOrDefault().ProductCode = proCode.Trim();
-                p.FirstOrDefault().ProductName = proName.Trim();
-                p.FirstOrDefault().ProductTypeCode = proTypeCode.Trim();
-                if (proType.Trim().Split(',')[1] == "0")
-                    p.FirstOrDefault().ParentProductTypeId = null;
-                else
-                    p.FirstOrDefault().ParentProductTypeId = int.Parse(proType.Trim().Split(',')[1]);
-
-                p.FirstOrDefault().ProductTypeId = int.Parse(proType.Trim().Split(',')[0]);
-                p.FirstOrDefault().BranchTypeId = int.Parse(branchType.Trim());
-
-                if (supplierId.Trim() != "" && supplierId != null)
-                    p.FirstOrDefault().SupplierId = int.Parse(supplierId.Trim());
-                else p.FirstOrDefault().SupplierId = null;
-
-                p.FirstOrDefault().Description = des.Trim();
-                if (brandId.Trim() != "null" && brandId != null && brandId != "")
-                    p.FirstOrDefault().BrandId = int.Parse(brandId.Trim());
-                else p.FirstOrDefault().BrandId = null;
-
-                if (color.Trim() != "null" && color != null && color != "")
-                    p.FirstOrDefault().Color = int.Parse(color.Trim());
-                else p.FirstOrDefault().Color = null;
-
-                if (size.Trim() != "null" && size != null && size != "")
-                    p.FirstOrDefault().Size = int.Parse(size.Trim());
-                else p.FirstOrDefault().Size = null;
-
-                if (material.Trim() != "" && material != null && material != "")
-                    p.FirstOrDefault().Material = material.Trim();
-                else p.FirstOrDefault().Material = null;
-
-                if (composition.Trim() != "" && composition != null && composition != "")
-                    p.FirstOrDefault().Composition = composition.Trim();
-                else p.FirstOrDefault().Composition = null;
-
-                if (expiry.Trim() != "")
-                    p.FirstOrDefault().ExpiryDate = DateTime.Parse(cl.returnDatetime(expiry.Trim()));
-                else p.FirstOrDefault().ExpiryDate = null;
-
-                if (unit.Trim() != "")
-                    p.FirstOrDefault().UnitId = int.Parse(unit.Trim());
-                else p.FirstOrDefault().UnitId = null;
-
-                if (capacity.Trim() != "")
-                    p.FirstOrDefault().CapacityName = capacity.Trim();
-                else p.FirstOrDefault().CapacityName = "";
-
-                p.FirstOrDefault().Catalog = catalog.Trim();
-                if (national.Trim() != "")
+                clsProcess cl = new clsProcess();
+                var p = from x in db.tProducts where x.Id == int.Parse(Id.Trim()) select x;
+                if (p.Count() > 0)
                 {
-                    p.FirstOrDefault().CountryId = int.Parse(national.Trim());
-                    p.FirstOrDefault().CountryName = nationalname.Trim();
+                    p.FirstOrDefault().CodeId = codeId.Trim();
+                    p.FirstOrDefault().ProductCode = proCode.Trim();
+                    p.FirstOrDefault().ProductName = proName.Trim();
+                    p.FirstOrDefault().ProductTypeCode = proTypeCode.Trim();
+                    if (proType.Trim().Split(',')[1] == "0")
+                        p.FirstOrDefault().ParentProductTypeId = null;
+                    else
+                        p.FirstOrDefault().ParentProductTypeId = int.Parse(proType.Trim().Split(',')[1]);
+
+                    p.FirstOrDefault().ProductTypeId = int.Parse(proType.Trim().Split(',')[0]);
+                    p.FirstOrDefault().BranchTypeId = int.Parse(branchType.Trim());
+
+                    if (supplierId.Trim() != "" && supplierId != null)
+                        p.FirstOrDefault().SupplierId = int.Parse(supplierId.Trim());
+                    else p.FirstOrDefault().SupplierId = null;
+
+                    p.FirstOrDefault().Description = des.Trim();
+                    if (brandId.Trim() != "null" && brandId != null && brandId != "")
+                        p.FirstOrDefault().BrandId = int.Parse(brandId.Trim());
+                    else p.FirstOrDefault().BrandId = null;
+
+                    if (color.Trim() != "null" && color != null && color != "")
+                        p.FirstOrDefault().Color = int.Parse(color.Trim());
+                    else p.FirstOrDefault().Color = null;
+
+                    if (size.Trim() != "null" && size != null && size != "")
+                        p.FirstOrDefault().Size = int.Parse(size.Trim());
+                    else p.FirstOrDefault().Size = null;
+
+                    if (material.Trim() != "" && material != null && material != "")
+                        p.FirstOrDefault().Material = material.Trim();
+                    else p.FirstOrDefault().Material = null;
+
+                    if (composition.Trim() != "" && composition != null && composition != "")
+                        p.FirstOrDefault().Composition = composition.Trim();
+                    else p.FirstOrDefault().Composition = null;
+
+                    if (expiry.Trim() != "")
+                        p.FirstOrDefault().ExpiryDate = DateTime.Parse(cl.returnDatetime(expiry.Trim()));
+                    else p.FirstOrDefault().ExpiryDate = null;
+
+                    if (unit.Trim() != "")
+                        p.FirstOrDefault().UnitId = int.Parse(unit.Trim());
+                    else p.FirstOrDefault().UnitId = null;
+
+                    if (capacity.Trim() != "")
+                        p.FirstOrDefault().CapacityName = capacity.Trim();
+                    else p.FirstOrDefault().CapacityName = "";
+
+                    p.FirstOrDefault().Catalog = catalog.Trim();
+                    if (national.Trim() != "")
+                    {
+                        p.FirstOrDefault().CountryId = int.Parse(national.Trim());
+                        p.FirstOrDefault().CountryName = nationalname.Trim();
+                    }
+                    else
+                    {
+                        p.FirstOrDefault().CountryId = null;
+                        p.FirstOrDefault().CountryName = null;
+                    }
+                    p.FirstOrDefault().Status = byte.Parse(status.Trim());
+                    if (year.Trim() != "" && year != null && year != "")
+                        p.FirstOrDefault().YearId = int.Parse(year.Trim());
+                    else
+                        p.FirstOrDefault().YearId = null;
+                    p.FirstOrDefault().Note = note.Trim();
+                    p.FirstOrDefault().NoteSale = notesale.Trim();
+                    p.FirstOrDefault().Tag = tag.Trim();
+                    p.FirstOrDefault().ModifiedAt = DateTime.Now;
+                    p.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                    db.SubmitChanges();
+                    r._content = "1";
                 }
                 else
                 {
-                    p.FirstOrDefault().CountryId = null;
-                    p.FirstOrDefault().CountryName = null;
+                    r._content = "0";
+                    r._mess = "Không tìm thấy sản phẩm " + proName + ". Vui lòng thử lại";
                 }
-                p.FirstOrDefault().Status = byte.Parse(status.Trim());
-                if (year.Trim() != "" && year != null && year != "")
-                    p.FirstOrDefault().YearId = int.Parse(year.Trim());
-                else
-                    p.FirstOrDefault().YearId = null;
-                p.FirstOrDefault().Note = note.Trim();
-                p.FirstOrDefault().NoteSale = notesale.Trim();
-                p.FirstOrDefault().Tag = tag.Trim();
-                p.FirstOrDefault().ModifiedAt = DateTime.Now;
-                p.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-                db.SubmitChanges();
-                r._content = "1";
             }
             else
             {
                 r._content = "0";
-                r._mess = "Không tìm thấy sản phẩm " + proName + ". Vui lòng thử lại";
+                r._mess = mess_role;
             }
         }
         catch (Exception ax)
@@ -5488,19 +6331,32 @@ public partial class Command : System.Web.UI.Page
         try
         {
             CFileManagerDataContext db = new CFileManagerDataContext();
-            var p = from x in db.tProducts where x.Id == int.Parse(Id.Trim()) select x;
-            if (p.Count() > 0)
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Product"
+                             select new { _x.sView, _x.sDel };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sDel == true)
             {
-                p.FirstOrDefault().Status = 0;
-                p.FirstOrDefault().ModifiedAt = DateTime.Now;
-                p.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-                db.SubmitChanges();
-                r._content = "1";
+                var p = from x in db.tProducts where x.Id == int.Parse(Id.Trim()) select x;
+                if (p.Count() > 0)
+                {
+                    p.FirstOrDefault().Status = 0;
+                    p.FirstOrDefault().ModifiedAt = DateTime.Now;
+                    p.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                    db.SubmitChanges();
+                    r._content = "1";
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Không tìm thấy sản phẩm " + proName + ". Vui lòng thử lại";
+                }
             }
             else
             {
                 r._content = "0";
-                r._mess = "Không tìm thấy sản phẩm " + proName + ". Vui lòng thử lại";
+                r._mess = mess_role;
             }
         }
         catch (Exception ax)
@@ -5697,11 +6553,24 @@ public partial class Command : System.Web.UI.Page
         CFileManagerDataContext db = new CFileManagerDataContext();
         try
         {
-            var pr = from x in db.tProductPrices where x.Id == int.Parse(idPrice.Trim()) select x;
-            db.tProductPrices.DeleteAllOnSubmit(pr);
-            db.SubmitChanges();
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Price"
+                             select new { _x.sView, _x.sDel };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sDel == true)
+            {
+                var pr = from x in db.tProductPrices where x.Id == int.Parse(idPrice.Trim()) select x;
+                db.tProductPrices.DeleteAllOnSubmit(pr);
+                db.SubmitChanges();
 
-            r._content = "1";
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = mess_role;
+            }
         }
         catch (Exception ax)
         {
@@ -5716,22 +6585,36 @@ public partial class Command : System.Web.UI.Page
     {
         var r = new result();
         CFileManagerDataContext db = new CFileManagerDataContext();
+
         clsProcess cl = new clsProcess();
         try
         {
-            var si = new tProductPrice();
-            si.ProductId = Int64.Parse(productId.Trim());
-            si.Price = double.Parse(price.Trim().Replace(",", ""));
-            si.FromDate = DateTime.Parse(cl.returnDatetime(fromdate.Trim()));
-            if (todate.Trim() != "")
-                si.EndDate = DateTime.Parse(cl.returnDatetime(todate.Trim()));
-            si.ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-            si.ModifiedDate = DateTime.Now;
-            db.tProductPrices.InsertOnSubmit(si);
-            db.SubmitChanges();
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Price"
+                             select new { _x.sView, _x.sInsert };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sInsert == true)
+            {
+                var si = new tProductPrice();
+                si.ProductId = Int64.Parse(productId.Trim());
+                si.Price = double.Parse(price.Trim().Replace(",", ""));
+                si.FromDate = DateTime.Parse(cl.returnDatetime(fromdate.Trim()));
+                if (todate.Trim() != "")
+                    si.EndDate = DateTime.Parse(cl.returnDatetime(todate.Trim()));
+                si.ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                si.ModifiedDate = DateTime.Now;
+                db.tProductPrices.InsertOnSubmit(si);
+                db.SubmitChanges();
 
-            r._id = si.Id.ToString();
-            r._content = "1";
+                r._id = si.Id.ToString();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = mess_role;
+            }
         }
         catch (Exception ax)
         {
@@ -5749,53 +6632,66 @@ public partial class Command : System.Web.UI.Page
         clsProcess cl = new clsProcess();
         try
         {
-            if (proCode.Trim().Equals(""))
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Price"
+                             select new { _x.sView, _x.sInsert };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sInsert == true)
             {
-                //1 | BLZ001 | T01 | Tím than
-                var prCode = productCodeList.Replace(" ", "").Split('|');
-                var pl = from x in db.tProducts
-                         where x.ProductTypeCode == prCode[1] && x.Color==int.Parse(prCode[0])
-                         select new { x.Id };
-                foreach (var item in pl.ToList())
+                if (proCode.Trim().Equals(""))
                 {
-                    var si = new tProductPrice();
-                    si.ProductId = item.Id;
-                    si.Price = double.Parse(price.Trim().Replace(",", ""));
-                    si.FromDate = DateTime.Parse(cl.returnDatetime(fromdate.Trim()));
-                    si.ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-                    si.ModifiedDate = DateTime.Now;
-                    if (todate.Trim() != "")
-                        si.EndDate = DateTime.Parse(cl.returnDatetime(todate.Trim()));
-                    db.tProductPrices.InsertOnSubmit(si);
-                }
-                
-                db.SubmitChanges();
+                    //1 | BLZ001 | T01 | Tím than
+                    var prCode = productCodeList.Replace(" ", "").Split('|');
+                    var pl = from x in db.tProducts
+                             where x.ProductTypeCode == prCode[1] && x.Color == int.Parse(prCode[0])
+                             select new { x.Id };
+                    foreach (var item in pl.ToList())
+                    {
+                        var si = new tProductPrice();
+                        si.ProductId = item.Id;
+                        si.Price = double.Parse(price.Trim().Replace(",", ""));
+                        si.FromDate = DateTime.Parse(cl.returnDatetime(fromdate.Trim()));
+                        si.ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                        si.ModifiedDate = DateTime.Now;
+                        if (todate.Trim() != "")
+                            si.EndDate = DateTime.Parse(cl.returnDatetime(todate.Trim()));
+                        db.tProductPrices.InsertOnSubmit(si);
+                    }
 
-                r._content = "1";
-            }
-            else
-            {
-                var pl = from x in db.tProducts
-                         where x.CodeId == proCode.Trim()
-                         select new { x.Id };
-                if (pl.Count() > 0)
-                {
-                    var si = new tProductPrice();
-                    si.ProductId = pl.FirstOrDefault().Id;
-                    si.Price = double.Parse(price.Trim().Replace(",", ""));
-                    si.FromDate = DateTime.Parse(cl.returnDatetime(fromdate.Trim()));
-                    if (todate.Trim() != "")
-                        si.EndDate = DateTime.Parse(cl.returnDatetime(todate.Trim()));
-                    db.tProductPrices.InsertOnSubmit(si);
                     db.SubmitChanges();
-                    r._id = si.Id.ToString();
+
                     r._content = "1";
                 }
                 else
                 {
-                    r._content = "0";
-                    r._mess = "Không tìm thấy sản phẩm có mã vạch: "+proCode.Trim();
+                    var pl = from x in db.tProducts
+                             where x.CodeId == proCode.Trim()
+                             select new { x.Id };
+                    if (pl.Count() > 0)
+                    {
+                        var si = new tProductPrice();
+                        si.ProductId = pl.FirstOrDefault().Id;
+                        si.Price = double.Parse(price.Trim().Replace(",", ""));
+                        si.FromDate = DateTime.Parse(cl.returnDatetime(fromdate.Trim()));
+                        if (todate.Trim() != "")
+                            si.EndDate = DateTime.Parse(cl.returnDatetime(todate.Trim()));
+                        db.tProductPrices.InsertOnSubmit(si);
+                        db.SubmitChanges();
+                        r._id = si.Id.ToString();
+                        r._content = "1";
+                    }
+                    else
+                    {
+                        r._content = "0";
+                        r._mess = "Không tìm thấy sản phẩm có mã vạch: " + proCode.Trim();
+                    }
                 }
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = mess_role;
             }
         }
         catch (Exception ax)
@@ -5814,22 +6710,36 @@ public partial class Command : System.Web.UI.Page
         clsProcess cl = new clsProcess();
         try
         {
-            var si = from x in db.tProductPrices where x.Id == int.Parse(id.Trim()) select x;
-            if (si.Count() > 0)
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Price"
+                             select new { _x.sView, _x.sModifie };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sModifie == true)
             {
-                si.FirstOrDefault().Price = double.Parse(price.Trim().Replace(",", ""));
-                si.FirstOrDefault().FromDate = DateTime.Parse(cl.returnDatetime(fromdate.Trim()));
-                if (todate.Trim() != "")
-                    si.FirstOrDefault().EndDate = DateTime.Parse(cl.returnDatetime(todate.Trim()));
-                else si.FirstOrDefault().EndDate = null;
-                si.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-                si.FirstOrDefault().ModifiedDate = DateTime.Now;
-                db.SubmitChanges();
+                var si = from x in db.tProductPrices where x.Id == int.Parse(id.Trim()) select x;
+                if (si.Count() > 0)
+                {
+                    si.FirstOrDefault().Price = double.Parse(price.Trim().Replace(",", ""));
+                    si.FirstOrDefault().FromDate = DateTime.Parse(cl.returnDatetime(fromdate.Trim()));
+                    if (todate.Trim() != "")
+                        si.FirstOrDefault().EndDate = DateTime.Parse(cl.returnDatetime(todate.Trim()));
+                    else si.FirstOrDefault().EndDate = null;
+                    si.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                    si.FirstOrDefault().ModifiedDate = DateTime.Now;
+                    db.SubmitChanges();
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Không tìm thấy thông tin đơn giá, hãy thử lại";
+                }
             }
             else
             {
                 r._content = "0";
-                r._mess = "Không tìm thấy thông tin đơn giá, hãy thử lại";
+                r._mess = mess_role;
+
             }
             r._content = "1";
         }
@@ -5976,64 +6886,77 @@ public partial class Command : System.Web.UI.Page
         clsProcess cl = new clsProcess();
         try
         {
-            var si = new tHourGold();
-            si.BranchTypeId = int.Parse(branchTypeId.Trim());
-            si.BranchId = int.Parse(branchId.Trim());
-            si.Name = name.Trim();
-            si.Description = des.Trim();
-            si.SaleValue = double.Parse(totalPrice.Trim().Replace(",", ""));
-            si.SaleType = byte.Parse(type.Trim());
-            si.Priority = byte.Parse(priority.Trim());
-            si.Status = byte.Parse(status.Trim());
-            si.MinBill = double.Parse(minbill.Trim().Replace(",", "").Equals("") ? "0" : minbill.Trim().Replace(",", ""));
-            var st_h = start_hour.Trim();
-            if (st_h.Contains("PM"))
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Gift"
+                             select new { _x.sView, _x.sInsert };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sInsert == true)
             {
-                var h = st_h.Substring(0, st_h.IndexOf(' ')).Split(':');
-                si.FromHour = (int.Parse(h[0]) + 12).ToString() + ":" + h[1].ToString();
-
-            }
-            else
-                si.FromHour = st_h.Substring(0, st_h.IndexOf(' '));
-
-            si.FromDate = DateTime.Parse(cl.returnDatetime(fromdate.Trim()));
-            si.ToDate = DateTime.Parse(cl.returnDatetime(todate.Trim()));
-
-            st_h = to_hour.Trim();
-            if (st_h.Contains("PM"))
-            {
-                var h = st_h.Substring(0, st_h.IndexOf(' ')).Split(':');
-                si.ToHour = (int.Parse(h[0]) + 12).ToString() + ":" + h[1].ToString();
-
-            }
-            else
-                si.ToHour = st_h.Substring(0, st_h.IndexOf(' '));
-
-
-            si.CreateAt = DateTime.Now;
-            si.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-            db.tHourGolds.InsertOnSubmit(si);
-            db.SubmitChanges();
-
-
-            var split = data.Split('#');
-            if (split.Length > 0)
-            {
-                for (int i = 0; i < split.Length; i++)
+                var si = new tHourGold();
+                si.BranchTypeId = int.Parse(branchTypeId.Trim());
+                si.BranchId = int.Parse(branchId.Trim());
+                si.Name = name.Trim();
+                si.Description = des.Trim();
+                si.SaleValue = double.Parse(totalPrice.Trim().Replace(",", ""));
+                si.SaleType = byte.Parse(type.Trim());
+                si.Priority = byte.Parse(priority.Trim());
+                si.Status = byte.Parse(status.Trim());
+                si.MinBill = double.Parse(minbill.Trim().Replace(",", "").Equals("") ? "0" : minbill.Trim().Replace(",", ""));
+                var st_h = start_hour.Trim();
+                if (st_h.Contains("PM"))
                 {
-                    var d = split[i].Split('|');
+                    var h = st_h.Substring(0, st_h.IndexOf(' ')).Split(':');
+                    si.FromHour = (int.Parse(h[0]) + 12).ToString() + ":" + h[1].ToString();
 
-                    var dsi = new tHourGoldDetail();
-                    dsi.HourGoldId = si.Id;
-                    dsi.ProductId = Int64.Parse(d[0]);
-                    dsi.Price = double.Parse(d[1].Replace(",", "").Replace(" ",""));
-                    db.tHourGoldDetails.InsertOnSubmit(dsi);
                 }
+                else
+                    si.FromHour = st_h.Substring(0, st_h.IndexOf(' '));
+
+                si.FromDate = DateTime.Parse(cl.returnDatetime(fromdate.Trim()));
+                si.ToDate = DateTime.Parse(cl.returnDatetime(todate.Trim()));
+
+                st_h = to_hour.Trim();
+                if (st_h.Contains("PM"))
+                {
+                    var h = st_h.Substring(0, st_h.IndexOf(' ')).Split(':');
+                    si.ToHour = (int.Parse(h[0]) + 12).ToString() + ":" + h[1].ToString();
+
+                }
+                else
+                    si.ToHour = st_h.Substring(0, st_h.IndexOf(' '));
+
+
+                si.CreateAt = DateTime.Now;
+                si.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.tHourGolds.InsertOnSubmit(si);
+                db.SubmitChanges();
+
+
+                var split = data.Split('#');
+                if (split.Length > 0)
+                {
+                    for (int i = 0; i < split.Length; i++)
+                    {
+                        var d = split[i].Split('|');
+
+                        var dsi = new tHourGoldDetail();
+                        dsi.HourGoldId = si.Id;
+                        dsi.ProductId = Int64.Parse(d[0]);
+                        dsi.Price = double.Parse(d[1].Replace(",", "").Replace(" ", ""));
+                        db.tHourGoldDetails.InsertOnSubmit(dsi);
+                    }
+                }
+
+                db.SubmitChanges();
+
+                r._content = "1";
             }
-
-            db.SubmitChanges();
-
-            r._content = "1";
+            else
+            {
+                r._content = "0";
+                r._mess = mess_role;
+            }
         }
         catch (Exception ax)
         {
@@ -6051,14 +6974,27 @@ public partial class Command : System.Web.UI.Page
         try
         {
             CFileManagerDataContext db = new CFileManagerDataContext();
-            var codeId = db.sp_StockInput_GetCodeId().FirstOrDefault().CodeId.Value;
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "InputStock"
+                             select new { _x.sView, _x.sInsert };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sInsert == true)
+            {
+                var codeId = db.sp_StockInput_GetCodeId().FirstOrDefault().CodeId.Value;
 
-            var inputCode = "NKDC" + DateTime.Now.ToString("ddMMyy") + (codeId + 1).ToString("D3");
+                var inputCode = "NKDC" + DateTime.Now.ToString("ddMMyy") + (codeId + 1).ToString("D3");
 
-            db.sp_StockInput_InsertData(inputCode, int.Parse(branchTypeId.Trim()), int.Parse(branchId.Trim()),
-                int.Parse(branchfrom.Trim()), outputcode.Trim(), note.Trim(), int.Parse(HttpContext.Current.Session["cm_userId"].ToString()));
+                db.sp_StockInput_InsertData(inputCode, int.Parse(branchTypeId.Trim()), int.Parse(branchId.Trim()),
+                    int.Parse(branchfrom.Trim()), outputcode.Trim(), note.Trim(), int.Parse(HttpContext.Current.Session["cm_userId"].ToString()));
 
-            r._content = "1";
+                r._content = "1";
+            }
+            else
+            {
+                r._mess = mess_role;
+                r._content = "0";
+            }
         }
         catch (Exception ax)
         {
@@ -6112,58 +7048,71 @@ public partial class Command : System.Web.UI.Page
 
         try
         {
-            var codeId = db.sp_StockOutput_GetCodeId().FirstOrDefault().CodeId.Value;
-
-            var si = new tStockOutput();
-            si.StockCode = "XKDC" + DateTime.Now.ToString("ddMMyy") + (codeId + 1).ToString("D3");
-            si.BranchTypeId = int.Parse(branchTypeId.Trim());
-            si.BranchId = int.Parse(branchId.Trim());
-            si.BranchToId = int.Parse(tobranchId.Trim());
-            si.OutputType = 2;//xuat dieu chuyen
-            si.Note = note.Trim();
-            si.TotalPrice = 0;// double.Parse(totalPrice.Trim().Replace(",", ""));
-            si.Total = 0;
-            si.Discount = 0;
-            si.Status = 2;
-            si.CreateAt = DateTime.Now;
-            si.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-            db.tStockOutputs.InsertOnSubmit(si);
-            db.SubmitChanges();
-
-
-            var split = data.Split('#');
-            if (split.Length > 0)
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "OutputStock"
+                             select new { _x.sView, _x.sInsert };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sInsert == true)
             {
-                for (int i = 0; i < split.Length; i++)
+                var codeId = db.sp_StockOutput_GetCodeId().FirstOrDefault().CodeId.Value;
+
+                var si = new tStockOutput();
+                si.StockCode = "XKDC" + DateTime.Now.ToString("ddMMyy") + (codeId + 1).ToString("D3");
+                si.BranchTypeId = int.Parse(branchTypeId.Trim());
+                si.BranchId = int.Parse(branchId.Trim());
+                si.BranchToId = int.Parse(tobranchId.Trim());
+                si.OutputType = 2;//xuat dieu chuyen
+                si.Note = note.Trim();
+                si.TotalPrice = 0;// double.Parse(totalPrice.Trim().Replace(",", ""));
+                si.Total = 0;
+                si.Discount = 0;
+                si.Status = 2;
+                si.CreateAt = DateTime.Now;
+                si.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.tStockOutputs.InsertOnSubmit(si);
+                db.SubmitChanges();
+
+
+                var split = data.Split('#');
+                if (split.Length > 0)
                 {
-                    var d = split[i].Split(',');
+                    for (int i = 0; i < split.Length; i++)
+                    {
+                        var d = split[i].Split(',');
 
-                    var dsi = new tStockOutputDetail();
-                    dsi.StockOutputId = si.Id;
-                    dsi.ProductId = Int64.Parse(d[0]);
-                    dsi.Quantity = int.Parse(d[1]);
-                    dsi.Price = 0;
-                    dsi.IsCombo = false;
-                    dsi.ComboId = 0;
-                    dsi.ComboQuantity = 0;
-                    db.tStockOutputDetails.InsertOnSubmit(dsi);
+                        var dsi = new tStockOutputDetail();
+                        dsi.StockOutputId = si.Id;
+                        dsi.ProductId = Int64.Parse(d[0]);
+                        dsi.Quantity = int.Parse(d[1]);
+                        dsi.Price = 0;
+                        dsi.IsCombo = false;
+                        dsi.ComboId = 0;
+                        dsi.ComboQuantity = 0;
+                        db.tStockOutputDetails.InsertOnSubmit(dsi);
 
-                    //insert inventory
-                    var inv = new tStockInventory();
-                    inv.BranchTypeId = int.Parse(branchTypeId.Trim());
-                    inv.BranchId = int.Parse(branchId.Trim());
-                    inv.ProductId = int.Parse(d[0]);
-                    inv.QuantityOut = int.Parse(d[1]);
-                    inv.QuantityIn = 0;
-                    inv.Status = 3;//1;//xuat ban//2//xuat qua tang//3//xuat dieu chuyen
-                    inv.CreateAt = DateTime.Now;
-                    db.tStockInventories.InsertOnSubmit(inv);
+                        //insert inventory
+                        var inv = new tStockInventory();
+                        inv.BranchTypeId = int.Parse(branchTypeId.Trim());
+                        inv.BranchId = int.Parse(branchId.Trim());
+                        inv.ProductId = int.Parse(d[0]);
+                        inv.QuantityOut = int.Parse(d[1]);
+                        inv.QuantityIn = 0;
+                        inv.Status = 3;//1;//xuat ban//2//xuat qua tang//3//xuat dieu chuyen
+                        inv.CreateAt = DateTime.Now;
+                        db.tStockInventories.InsertOnSubmit(inv);
+                    }
                 }
+
+                db.SubmitChanges();
+
+                r._content = "1";
             }
-
-            db.SubmitChanges();
-
-            r._content = "1";
+            else
+            {
+                r._content = "0";
+                r._mess = mess_role;
+            }
         }
         catch (Exception ax)
         {
@@ -6180,23 +7129,35 @@ public partial class Command : System.Web.UI.Page
         try
         {
             CFileManagerDataContext db = new CFileManagerDataContext();
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Supplier"
+                             select new { _x.sView, _x.sInsert };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sInsert == true)
+            {
+                var s = new tSupplier();
+                s.SupplierCode = code.Trim();
+                s.SupplierName = name.Trim();
+                s.BranchTypeId = int.Parse(branchTypeId.Trim());
+                s.Address = address.Trim();
+                s.Phone = phone.Trim();
+                s.ContactName = contact.Trim();
+                s.Info = info.Trim();
+                s.Status = 1;
+                s.CreateAt = DateTime.Now;
+                s.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.tSuppliers.InsertOnSubmit(s);
+                db.SubmitChanges();
 
-            var s = new tSupplier();
-            s.SupplierCode = code.Trim();
-            s.SupplierName = name.Trim();
-            s.BranchTypeId = int.Parse(branchTypeId.Trim());
-            s.Address = address.Trim();
-            s.Phone = phone.Trim();
-            s.ContactName = contact.Trim();
-            s.Info = info.Trim();
-            s.Status = 1;
-            s.CreateAt = DateTime.Now;
-            s.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-            db.tSuppliers.InsertOnSubmit(s);
-            db.SubmitChanges();
-
-            r._id = s.Id.ToString();
-            r._content = "1";
+                r._id = s.Id.ToString();
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = mess_role;
+            }
         }
         catch (Exception ax)
         {
@@ -6248,26 +7209,39 @@ public partial class Command : System.Web.UI.Page
         {
             CFileManagerDataContext db = new CFileManagerDataContext();
 
-            var s = from x in db.tSuppliers where x.Id == int.Parse(Id.Trim()) select x;
-            if (s.Count() > 0)
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Supplier"
+                             select new { _x.sView, _x.sModifie };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sModifie == true)
             {
-                s.FirstOrDefault().SupplierCode = code.Trim();
-                s.FirstOrDefault().SupplierName = name.Trim();
-                s.FirstOrDefault().BranchTypeId = int.Parse(branchTypeId.Trim());
-                s.FirstOrDefault().Address = address.Trim();
-                s.FirstOrDefault().Phone = phone.Trim();
-                s.FirstOrDefault().ContactName = contact.Trim();
-                s.FirstOrDefault().Info = info.Trim();
-                s.FirstOrDefault().ModifiedAt = DateTime.Now;
-                s.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-                db.SubmitChanges();
+                var s = from x in db.tSuppliers where x.Id == int.Parse(Id.Trim()) select x;
+                if (s.Count() > 0)
+                {
+                    s.FirstOrDefault().SupplierCode = code.Trim();
+                    s.FirstOrDefault().SupplierName = name.Trim();
+                    s.FirstOrDefault().BranchTypeId = int.Parse(branchTypeId.Trim());
+                    s.FirstOrDefault().Address = address.Trim();
+                    s.FirstOrDefault().Phone = phone.Trim();
+                    s.FirstOrDefault().ContactName = contact.Trim();
+                    s.FirstOrDefault().Info = info.Trim();
+                    s.FirstOrDefault().ModifiedAt = DateTime.Now;
+                    s.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                    db.SubmitChanges();
 
-                r._content = "1";
+                    r._content = "1";
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Không tìm thấy thông tin nhà cung cấp, hãy thử lại";
+                }
             }
             else
             {
                 r._content = "0";
-                r._mess = "Không tìm thấy thông tin nhà cung cấp, hãy thử lại";
+                r._mess = mess_role;
             }
         }
         catch (Exception ax)
@@ -6286,19 +7260,32 @@ public partial class Command : System.Web.UI.Page
         {
             CFileManagerDataContext db = new CFileManagerDataContext();
 
-            var s = from x in db.tSuppliers where x.Id == int.Parse(Id.Trim()) select x;
-            if (s.Count() > 0)
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Supplier"
+                             select new { _x.sView, _x.sDel };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sDel == true)
             {
-                s.FirstOrDefault().Status = 0;
-                s.FirstOrDefault().ModifiedAt = DateTime.Now;
-                s.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-                db.SubmitChanges();
-                r._content = "1";
+                var s = from x in db.tSuppliers where x.Id == int.Parse(Id.Trim()) select x;
+                if (s.Count() > 0)
+                {
+                    s.FirstOrDefault().Status = 0;
+                    s.FirstOrDefault().ModifiedAt = DateTime.Now;
+                    s.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                    db.SubmitChanges();
+                    r._content = "1";
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Không tìm thấy thông tin nhà cung cấp, hãy thử lại";
+                }
             }
             else
             {
                 r._content = "0";
-                r._mess = "Không tìm thấy thông tin nhà cung cấp, hãy thử lại";
+                r._mess = mess_role;
             }
         }
         catch (Exception ax)
@@ -6542,56 +7529,69 @@ public partial class Command : System.Web.UI.Page
 
         try
         {
-            var codeId = db.sp_StockInput_GetCodeId().FirstOrDefault().CodeId.Value;
-            
-            var si = new tStockInput();
-            si.StockInputCode = "PNHH" + DateTime.Now.ToString("ddMMyy") + (codeId + 1).ToString("D3");
-            si.BranchTypeId = int.Parse(branchTypeId.Trim());
-            si.BranchId = int.Parse(branchId.Trim());
-            si.SupplierId = int.Parse(supplierId.Trim());
-            si.InputType = 1;//nhap tu ncc
-            si.Note = note.Trim();
-            si.TotalPrice = double.Parse(totalPrice.Trim().Replace(",", ""));
-            si.Status = 1;
-            si.CreateAt = DateTime.Now;
-            si.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-            db.tStockInputs.InsertOnSubmit(si);
-            db.SubmitChanges();
-
-            
-            var split = data.Split('#');
-            if (split.Length > 0)
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "InputStock"
+                             select new { _x.sView, _x.sInsert };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sInsert == true)
             {
-                for (int i = 0; i < split.Length; i++)
+                var codeId = db.sp_StockInput_GetCodeId().FirstOrDefault().CodeId.Value;
+
+                var si = new tStockInput();
+                si.StockInputCode = "PNHH" + DateTime.Now.ToString("ddMMyy") + (codeId + 1).ToString("D3");
+                si.BranchTypeId = int.Parse(branchTypeId.Trim());
+                si.BranchId = int.Parse(branchId.Trim());
+                si.SupplierId = int.Parse(supplierId.Trim());
+                si.InputType = 1;//nhap tu ncc
+                si.Note = note.Trim();
+                si.TotalPrice = double.Parse(totalPrice.Trim().Replace(",", ""));
+                si.Status = 1;
+                si.CreateAt = DateTime.Now;
+                si.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.tStockInputs.InsertOnSubmit(si);
+                db.SubmitChanges();
+
+
+                var split = data.Split('#');
+                if (split.Length > 0)
                 {
-                    var d = split[i].Split(',');
-                    
-                    var dsi = new tStockInputDetail();
-                    dsi.StockInputId = si.Id;
-                    dsi.ProductId = Int64.Parse(d[0]);
-                    dsi.Quantity = int.Parse(d[1]);
-                    dsi.Price = 0;
-                    dsi.IsCombo = false;
-                    dsi.ComboId = 0;
-                    dsi.ComboQuantity = 0;
-                    db.tStockInputDetails.InsertOnSubmit(dsi);
+                    for (int i = 0; i < split.Length; i++)
+                    {
+                        var d = split[i].Split(',');
 
-                    //insert inventory
-                    var inv = new tStockInventory();
-                    inv.BranchTypeId = int.Parse(branchTypeId.Trim());
-                    inv.BranchId = int.Parse(branchId.Trim());
-                    inv.ProductId = int.Parse(d[0]);
-                    inv.QuantityIn = int.Parse(d[1]);
-                    inv.QuantityOut = 0;
-                    inv.CreateAt = DateTime.Now;
-                    inv.Status = 5;//4;//nhap tra lai;//5//nhap tu ncc//6//nhap dieu chuyen
-                    db.tStockInventories.InsertOnSubmit(inv);
+                        var dsi = new tStockInputDetail();
+                        dsi.StockInputId = si.Id;
+                        dsi.ProductId = Int64.Parse(d[0]);
+                        dsi.Quantity = int.Parse(d[1]);
+                        dsi.Price = 0;
+                        dsi.IsCombo = false;
+                        dsi.ComboId = 0;
+                        dsi.ComboQuantity = 0;
+                        db.tStockInputDetails.InsertOnSubmit(dsi);
+
+                        //insert inventory
+                        var inv = new tStockInventory();
+                        inv.BranchTypeId = int.Parse(branchTypeId.Trim());
+                        inv.BranchId = int.Parse(branchId.Trim());
+                        inv.ProductId = int.Parse(d[0]);
+                        inv.QuantityIn = int.Parse(d[1]);
+                        inv.QuantityOut = 0;
+                        inv.CreateAt = DateTime.Now;
+                        inv.Status = 5;//4;//nhap tra lai;//5//nhap tu ncc//6//nhap dieu chuyen
+                        db.tStockInventories.InsertOnSubmit(inv);
+                    }
                 }
-            }
-            
-            db.SubmitChanges();
 
-            r._content = "1";
+                db.SubmitChanges();
+
+                r._content = "1";
+            }
+            else
+            {
+                r._content = "0";
+                r._mess = mess_role;
+            }
         }
         catch (Exception ax)
         {
@@ -6676,28 +7676,41 @@ public partial class Command : System.Web.UI.Page
         CFileManagerDataContext db = new CFileManagerDataContext();
         try
         {
-            var cb = from m in db.tHourGolds where m.Id == int.Parse(idSale.Trim()) select new { m.BranchTypeId };
-            var p = db.sp_web_loadGiftDetail_Insert(cb.FirstOrDefault().BranchTypeId.ToString(), productCode);
-            int count = 0;
-            foreach (var item in p.ToList())
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Gift"
+                             select new { _x.sView, _x.sInsert };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sInsert == true)
             {
-                var c = new tHourGoldDetail();
-                c.HourGoldId = int.Parse(idSale.Trim());
-                c.ProductId = item.Id;
-                c.Price = double.Parse(price.Trim().Replace(",", ""));
-                db.tHourGoldDetails.InsertOnSubmit(c);
-                db.SubmitChanges();
+                var cb = from m in db.tHourGolds where m.Id == int.Parse(idSale.Trim()) select new { m.BranchTypeId };
+                var p = db.sp_web_loadGiftDetail_Insert(cb.FirstOrDefault().BranchTypeId.ToString(), productCode);
+                int count = 0;
+                foreach (var item in p.ToList())
+                {
+                    var c = new tHourGoldDetail();
+                    c.HourGoldId = int.Parse(idSale.Trim());
+                    c.ProductId = item.Id;
+                    c.Price = double.Parse(price.Trim().Replace(",", ""));
+                    db.tHourGoldDetails.InsertOnSubmit(c);
+                    db.SubmitChanges();
 
-                l._mess = item.ProductCode + "#" + item.ProductName;
-                l._content = "1";
-                l._id = c.HourGoldId.ToString() + "#" + item.Id.ToString();
-                count++;
+                    l._mess = item.ProductCode + "#" + item.ProductName;
+                    l._content = "1";
+                    l._id = c.HourGoldId.ToString() + "#" + item.Id.ToString();
+                    count++;
+                }
+
+                if (count == 0)
+                {
+                    l._content = "0";
+                    l._mess = "Không tìm thấy mã vạch sản phẩm [" + productCode + "]";
+                }
             }
-
-            if (count == 0)
+            else
             {
                 l._content = "0";
-                l._mess = "Không tìm thấy mã vạch sản phẩm [" + productCode + "]";
+                l._mess = mess_role;
             }
         }
         catch (Exception ax)
@@ -6753,20 +7766,42 @@ public partial class Command : System.Web.UI.Page
     public static result removeGiftDetail(string id, string proId)
     {
         var l = new result();
-        CFileManagerDataContext db = new CFileManagerDataContext();
-        var p = from x in db.tHourGoldDetails
-                where x.HourGoldId == int.Parse(id.Trim()) && x.ProductId==int.Parse(proId.Trim())
-                select x;
-        if (p.Count() > 0)
+        try
         {
-            db.tHourGoldDetails.DeleteAllOnSubmit(p);
-            db.SubmitChanges();
-            l._content = "1";
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Gift"
+                             select new { _x.sView, _x.sDel };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sDel == true)
+            {
+                
+                var p = from x in db.tHourGoldDetails
+                        where x.HourGoldId == int.Parse(id.Trim()) && x.ProductId == int.Parse(proId.Trim())
+                        select x;
+                if (p.Count() > 0)
+                {
+                    db.tHourGoldDetails.DeleteAllOnSubmit(p);
+                    db.SubmitChanges();
+                    l._content = "1";
+                }
+                else
+                {
+                    l._content = "0";
+                    l._mess = "Không tìm thấy thông tin khuyến mại, hãy thử lại";
+                }
+            }
+            else
+            {
+                l._content = "0";
+                l._mess = mess_role;
+            }
         }
-        else
+        catch (Exception ax)
         {
             l._content = "0";
-            l._mess = "Không tìm thấy thông tin khuyến mại, hãy thử lại";
+            l._mess = ax.Message;
         }
         return l;
     }
@@ -7026,46 +8061,46 @@ public partial class Command : System.Web.UI.Page
     public static result forgotPass(string email)
     {
         var r = new result();
-        //if (email.Trim().Equals(""))
-        //{
-        //    r._content = "error";
-        //    r._mess = "Nhập email của bạn";
-        //}
-        //else
-        //{
-        //    CFileManagerDataContext db = new CFileManagerDataContext();
-        //    clsProcess cl = new clsProcess();
-        //    var check = from x in db.tAccounts where x.Email == email.Trim().ToLower() select x;
-        //    if (check.Count() == 1)
-        //    {
-        //        try
-        //        {
-        //            string pw = Guid.NewGuid().ToString("n").Substring(0, 8);
-        //            check.FirstOrDefault().Password = cl.MaHoa(pw);
-        //            db.SubmitChanges();
-        //            if (cl.SendMail("Khôi phục mật khẩu", "C'File | Khôi phục mật khẩu", email, "<p>Bạn vừa thực hiện hành động khôi phục lại mật khẩu người dùng tại C'File.</p><p>Tài khoản của bạn: <b>" + email.Trim().ToLower() + "</b></p><p>Mật khẩu mới của bạn là: <b>" + pw + "</b></p>"))
-        //            {
-        //                r._content = "ok";
-        //                r._mess = "Đã gửi lại mật khẩu mới vào mail của bạn. Vui lòng kiểm tra hộp thư";
-        //            }
-        //            else
-        //            {
-        //                r._content = "error";
-        //                r._mess = "Gửi email chưa thành công, có thể lỗi do đường truyền. Bạn vui lòng thử lại";
-        //            }
-        //        }
-        //        catch (Exception ax)
-        //        {
-        //            r._content = "error";
-        //            r._mess = ax.Message;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        r._mess = "Tài khoản và email không đúng, vui lòng kiểm tra lại";
-        //        r._content = "error";
-        //    }
-        //}
+        if (email.Trim().Equals(""))
+        {
+            r._content = "error";
+            r._mess = "Nhập email của bạn";
+        }
+        else
+        {
+            CFileManagerDataContext db = new CFileManagerDataContext();
+            clsProcess cl = new clsProcess();
+            var check = from x in db.tAccounts where x.Status == 1 && x.Email == email.Trim().ToLower() select x;
+            if (check.Count() >0)
+            {
+                try
+                {
+                    string pw = Guid.NewGuid().ToString("n").Substring(0, 8);
+                    check.FirstOrDefault().Password = cl.Encrypt(pw);
+                    db.SubmitChanges();
+                    if (cl.SendMail("Khôi phục mật khẩu", "SMS_ERP | Khôi phục mật khẩu", email, "<p>Bạn vừa thực hiện hành động khôi phục lại mật khẩu người dùng.</p><p>Tài khoản của bạn: <b>" + check.FirstOrDefault().Username + "</b></p><p>Email của bạn: <b>" + email.Trim().ToLower() + "</b></p><p>Mật khẩu mới của bạn là: <b>" + pw + "</b></p>"))
+                    {
+                        r._content = "ok";
+                        r._mess = "Đã gửi lại mật khẩu mới vào mail của bạn. Vui lòng kiểm tra hộp thư";
+                    }
+                    else
+                    {
+                        r._content = "error";
+                        r._mess = "Gửi email chưa thành công, có thể lỗi do đường truyền. Bạn vui lòng thử lại";
+                    }
+                }
+                catch (Exception ax)
+                {
+                    r._content = "error";
+                    r._mess = ax.Message;
+                }
+            }
+            else
+            {
+                r._mess = "Tài khoản và email không đúng, vui lòng kiểm tra lại";
+                r._content = "error";
+            }
+        }
         return r;
     }
     [WebMethod]
@@ -7077,30 +8112,43 @@ public partial class Command : System.Web.UI.Page
         {
             
             CFileManagerDataContext db = new CFileManagerDataContext();
-            clsProcess cl = new clsProcess();
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Account"
+                             select new { _x.sView, _x.sInsert };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sInsert == true)
+            {
+                clsProcess cl = new clsProcess();
 
-            var a = new tAccount();
-            a.Username = user.Trim();
-            a.FullName = fullname.Trim();
-            a.Sex = sex.Trim().Equals("1") ? true : false;
-            if (birth.Trim() != "")
-                a.Birthday = DateTime.Parse(cl.returnDatetime(birth.Trim()));
-            a.Email = email.Trim();
-            a.Phone = phone.Trim();
-            a.Address = add.Trim();
-            a.Password = cl.Encrypt(pass.Trim());
-            a.GroupUserId = int.Parse(group.Trim());
-            a.BranchTypeId = int.Parse(branchtype.Trim());
-            a.BranchId = int.Parse(branch.Trim());
-            a.Note = note.Trim();
-            a.Status = byte.Parse(status.Trim());
-            a.CreateAt = DateTime.Now;
-            a.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-            db.tAccounts.InsertOnSubmit(a);
-            db.SubmitChanges();
+                var a = new tAccount();
+                a.Username = user.Trim();
+                a.FullName = fullname.Trim();
+                a.Sex = sex.Trim().Equals("1") ? true : false;
+                if (birth.Trim() != "")
+                    a.Birthday = DateTime.Parse(cl.returnDatetime(birth.Trim()));
+                a.Email = email.Trim();
+                a.Phone = phone.Trim();
+                a.Address = add.Trim();
+                a.Password = cl.Encrypt(pass.Trim());
+                a.GroupUserId = int.Parse(group.Trim());
+                a.BranchTypeId = int.Parse(branchtype.Trim());
+                a.BranchId = int.Parse(branch.Trim());
+                a.Note = note.Trim();
+                a.Status = byte.Parse(status.Trim());
+                a.CreateAt = DateTime.Now;
+                a.CreateBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                db.tAccounts.InsertOnSubmit(a);
+                db.SubmitChanges();
 
-            l._content = "1";
-            l._id = a.Id.ToString();
+                l._content = "1";
+                l._id = a.Id.ToString();
+            }
+            else
+            {
+                l._content = "0";
+                l._mess = mess_role;
+            }
         }
         catch(Exception ax)
         {
@@ -7118,36 +8166,49 @@ public partial class Command : System.Web.UI.Page
         {
 
             CFileManagerDataContext db = new CFileManagerDataContext();
-            clsProcess cl = new clsProcess();
-
-            var a = from x in db.tAccounts where x.Id == int.Parse(id.Trim()) select x;
-            if (a.Count() > 0)
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Account"
+                             select new { _x.sView, _x.sModifie };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sModifie == true)
             {
-                a.FirstOrDefault().Username = user.Trim();
-                a.FirstOrDefault().FullName = fullname.Trim();
-                a.FirstOrDefault().Sex = sex.Trim().Equals("1") ? true : false;
-                if (birth.Trim() != "")
-                    a.FirstOrDefault().Birthday = DateTime.Parse(cl.returnDatetime(birth.Trim()));
-                else a.FirstOrDefault().Birthday = null;
+                clsProcess cl = new clsProcess();
 
-                a.FirstOrDefault().Email = email.Trim();
-                a.FirstOrDefault().Phone = phone.Trim();
-                a.FirstOrDefault().Address = add.Trim();
-                a.FirstOrDefault().GroupUserId = int.Parse(group.Trim());
-                a.FirstOrDefault().BranchTypeId = int.Parse(branchtype.Trim());
-                a.FirstOrDefault().BranchId = int.Parse(branch.Trim());
-                a.FirstOrDefault().Note = note.Trim();
-                a.FirstOrDefault().Status = byte.Parse(status.Trim());
-                a.FirstOrDefault().ModifiedAt = DateTime.Now;
-                a.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-                db.SubmitChanges();
+                var a = from x in db.tAccounts where x.Id == int.Parse(id.Trim()) select x;
+                if (a.Count() > 0)
+                {
+                    a.FirstOrDefault().Username = user.Trim();
+                    a.FirstOrDefault().FullName = fullname.Trim();
+                    a.FirstOrDefault().Sex = sex.Trim().Equals("1") ? true : false;
+                    if (birth.Trim() != "")
+                        a.FirstOrDefault().Birthday = DateTime.Parse(cl.returnDatetime(birth.Trim()));
+                    else a.FirstOrDefault().Birthday = null;
 
-                l._content = "1";
+                    a.FirstOrDefault().Email = email.Trim();
+                    a.FirstOrDefault().Phone = phone.Trim();
+                    a.FirstOrDefault().Address = add.Trim();
+                    a.FirstOrDefault().GroupUserId = int.Parse(group.Trim());
+                    a.FirstOrDefault().BranchTypeId = int.Parse(branchtype.Trim());
+                    a.FirstOrDefault().BranchId = int.Parse(branch.Trim());
+                    a.FirstOrDefault().Note = note.Trim();
+                    a.FirstOrDefault().Status = byte.Parse(status.Trim());
+                    a.FirstOrDefault().ModifiedAt = DateTime.Now;
+                    a.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                    db.SubmitChanges();
+
+                    l._content = "1";
+                }
+                else
+                {
+                    l._content = "0";
+                    l._mess = "Không tìm thấy thông tin tài khoản, hãy thử lại";
+                }
             }
             else
             {
                 l._content = "0";
-                l._mess = "Không tìm thấy thông tin tài khoản, hãy thử lại";
+                l._mess = mess_role;
             }
         }
         catch (Exception ax)
@@ -7164,21 +8225,33 @@ public partial class Command : System.Web.UI.Page
         try
         {
             CFileManagerDataContext db = new CFileManagerDataContext();
-
-            var b = from x in db.tAccounts where x.Id == int.Parse(id.Trim()) select x;
-            if (b.Count() > 0)
+            var check_role = from _x in db.tGroupRoles
+                             from _y in db.tRoles
+                             where _x.RoleId == _y.Id && _x.GroupId == int.Parse(HttpContext.Current.Session["cm_groupId"].ToString())
+                             && _y.ModuleCode == "Account"
+                             select new { _x.sView, _x.sDel };
+            if (check_role.Count() > 0 && check_role.FirstOrDefault().sDel == true)
             {
-                b.FirstOrDefault().Status = 0;
-                b.FirstOrDefault().ModifiedAt = DateTime.Now;
-                b.FirstOrDefault().ModifiedBy= int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
-                db.SubmitChanges();
+                var b = from x in db.tAccounts where x.Id == int.Parse(id.Trim()) select x;
+                if (b.Count() > 0)
+                {
+                    b.FirstOrDefault().Status = 0;
+                    b.FirstOrDefault().ModifiedAt = DateTime.Now;
+                    b.FirstOrDefault().ModifiedBy = int.Parse(HttpContext.Current.Session["cm_userId"].ToString());
+                    db.SubmitChanges();
 
-                r._content = "1";
+                    r._content = "1";
+                }
+                else
+                {
+                    r._content = "0";
+                    r._mess = "Không tìm thấy thông tin tài khoản, hãy thử lại";
+                }
             }
             else
             {
                 r._content = "0";
-                r._mess = "Không tìm thấy thông tin tài khoản, hãy thử lại";
+                r._mess = mess_role;
             }
         }
         catch (Exception ax)
@@ -7308,6 +8381,23 @@ public partial class Command : System.Web.UI.Page
             var n = new result();
             n._id = item.Id.ToString();
             n._content = item.Username + " | " + item.FullName;
+            r.Add(n);
+        }
+
+        return r;
+    }
+    [WebMethod]
+    public static List<result> loadUserAll()
+    {
+        var r = new List<result>();
+        CFileManagerDataContext db = new CFileManagerDataContext();
+        var l = from x in db.tAccounts from y in db.tGroupUsers
+                where x.GroupUserId== y.Id && x.Status ==1 orderby y.GroupName select new { x.Id, x.FullName, y.GroupName };
+        foreach (var item in l.ToList())
+        {
+            var n = new result();
+            n._id = item.Id.ToString();
+            n._content = item.GroupName + " | " + item.FullName;
             r.Add(n);
         }
 
@@ -7735,6 +8825,66 @@ public partial class Command : System.Web.UI.Page
             get { return mess; }
         }
     }
+    public class ganttdetail
+    {
+        private string id = "", usercreate = "", userreceiver = "", date = "", start = "", expect = "", 
+            complete = "", content = "", note = "", comment = "", mess="";
+        public string _id
+        {
+            set { id = value; }
+            get { return id; }
+        }
+        public string _mess
+        {
+            set { mess = value; }
+            get { return mess; }
+        }
+        public string _usercreate
+        {
+            set { usercreate = value; }
+            get { return usercreate; }
+        }
+        public string _userreceiver
+        {
+            set { userreceiver = value; }
+            get { return userreceiver; }
+        }
+        public string _date
+        {
+            set { date = value; }
+            get { return date; }
+        }
+        public string _start
+        {
+            set { start = value; }
+            get { return start; }
+        }
+        public string _expect
+        {
+            set { expect = value; }
+            get { return expect; }
+        }
+        public string _complete
+        {
+            set { complete = value; }
+            get { return complete; }
+        }
+        public string _content
+        {
+            set { content = value; }
+            get { return content; }
+        }
+        public string _note
+        {
+            set { note = value; }
+            get { return note; }
+        }
+        public string _comment
+        {
+            set { comment = value; }
+            get { return comment; }
+        }
+    }
     public class mapsdetail
     {
         private string id = "", content = "", mess = "", colorid = "", colorname = "", materialid = "", type = "", normvalue = "", unitname = "", totalnorm = "";
@@ -7787,6 +8937,55 @@ public partial class Command : System.Web.UI.Page
         {
             set { totalnorm = value; }
             get { return totalnorm; }
+        }
+    }
+    public class kcsmanufacturedetail
+    {
+        private string id = "", content = "", mess = "", colorid = "", colorname = "", size = "", quantity = "", totalquantity = "", note = "";
+        public string _id
+        {
+            set { id = value; }
+            get { return id; }
+        }
+        public string _content
+        {
+            set { content = value; }
+            get { return content; }
+        }
+        public string _mess
+        {
+            set { mess = value; }
+            get { return mess; }
+        }
+        public string ColorId
+        {
+            set { colorid = value; }
+            get { return colorid; }
+        }
+        public string ColorName
+        {
+            set { colorname = value; }
+            get { return colorname; }
+        }
+        public string Size
+        {
+            set { size = value; }
+            get { return size; }
+        }
+        public string Quantity
+        {
+            set { quantity = value; }
+            get { return quantity; }
+        }
+        public string TotalQuantity
+        {
+            set { totalquantity = value; }
+            get { return totalquantity; }
+        }
+        public string Note
+        {
+            set { note = value; }
+            get { return note; }
         }
     }
     public class manufacturedetail

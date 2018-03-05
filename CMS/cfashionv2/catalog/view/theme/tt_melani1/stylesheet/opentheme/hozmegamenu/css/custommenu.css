@@ -170,7 +170,7 @@ div.pt_menu .parentMenu a, .parentMenu .block-title {
     padding: 0 15px;
 }
 .mobilemenu li {
-	background: #333;
+	background: #42827c0f;
 	cursor: pointer;
 	list-style-type: none;
 	padding: 0;
@@ -380,9 +380,8 @@ body:not(.common-home) #pt_custommenu {
 	opacity: .9;
 }
 .pt_custommenu div.popup .inner-popup{
-	padding: 30px 0 25px 0;
+	padding: 11px 0 0px 0;
 	background: #fff;
-	 
 	float: left;
 	width: 100%;
 	-webkit-box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.15);

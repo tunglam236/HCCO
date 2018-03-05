@@ -38,11 +38,13 @@
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.btnSearch = new DevComponents.DotNetBar.ButtonX();
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.cbPaymentType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.txtMember = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.txtBillCode = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.txtToDate = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.txtFromDate = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.btnPrint = new DevComponents.DotNetBar.ButtonX();
+            this.labelX5 = new DevComponents.DotNetBar.LabelX();
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.dgvGrid = new DevComponents.DotNetBar.Controls.DataGridViewX();
@@ -55,11 +57,10 @@
             this.Discount1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PaymentType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Note1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreateAt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreateBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.labelX5 = new DevComponents.DotNetBar.LabelX();
-            this.cbPaymentType = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.groupPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtToDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFromDate)).BeginInit();
@@ -156,6 +157,19 @@
             this.groupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.groupPanel1.TabIndex = 4;
             this.groupPanel1.Text = "Danh sách hóa đơn xuất hàng";
+            // 
+            // cbPaymentType
+            // 
+            this.cbPaymentType.DisplayMember = "Text";
+            this.cbPaymentType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbPaymentType.FormattingEnabled = true;
+            this.cbPaymentType.ItemHeight = 15;
+            this.cbPaymentType.Location = new System.Drawing.Point(697, 16);
+            this.cbPaymentType.Name = "cbPaymentType";
+            this.cbPaymentType.Size = new System.Drawing.Size(158, 21);
+            this.cbPaymentType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbPaymentType.TabIndex = 4;
             // 
             // txtMember
             // 
@@ -284,6 +298,19 @@
             this.btnPrint.Text = "In phiếu xuất";
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
+            // labelX5
+            // 
+            this.labelX5.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX5.Location = new System.Drawing.Point(638, 16);
+            this.labelX5.Name = "labelX5";
+            this.labelX5.Size = new System.Drawing.Size(63, 23);
+            this.labelX5.TabIndex = 0;
+            this.labelX5.Text = "Nguồn tiền";
+            // 
             // labelX4
             // 
             this.labelX4.BackColor = System.Drawing.Color.Transparent;
@@ -327,6 +354,7 @@
             this.Discount1,
             this.TotalPrice,
             this.Status,
+            this.PaymentType,
             this.Note1,
             this.CreateAt,
             this.CreateBy});
@@ -373,6 +401,7 @@
             this.BranchName.HeaderText = "Chi nhánh";
             this.BranchName.Name = "BranchName";
             this.BranchName.ReadOnly = true;
+            this.BranchName.Visible = false;
             // 
             // OutputType
             // 
@@ -426,6 +455,13 @@
             this.Status.ReadOnly = true;
             this.Status.Visible = false;
             // 
+            // PaymentType
+            // 
+            this.PaymentType.DataPropertyName = "PaymentType";
+            this.PaymentType.HeaderText = "Nguồn tiền";
+            this.PaymentType.Name = "PaymentType";
+            this.PaymentType.ReadOnly = true;
+            // 
             // Note1
             // 
             this.Note1.DataPropertyName = "Note";
@@ -448,32 +484,6 @@
             this.CreateBy.HeaderText = "Người xuất";
             this.CreateBy.Name = "CreateBy";
             this.CreateBy.ReadOnly = true;
-            // 
-            // labelX5
-            // 
-            this.labelX5.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX5.Location = new System.Drawing.Point(638, 16);
-            this.labelX5.Name = "labelX5";
-            this.labelX5.Size = new System.Drawing.Size(63, 23);
-            this.labelX5.TabIndex = 0;
-            this.labelX5.Text = "Nguồn tiền";
-            // 
-            // cbPaymentType
-            // 
-            this.cbPaymentType.DisplayMember = "Text";
-            this.cbPaymentType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbPaymentType.FormattingEnabled = true;
-            this.cbPaymentType.ItemHeight = 15;
-            this.cbPaymentType.Location = new System.Drawing.Point(697, 16);
-            this.cbPaymentType.Name = "cbPaymentType";
-            this.cbPaymentType.Size = new System.Drawing.Size(158, 21);
-            this.cbPaymentType.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbPaymentType.TabIndex = 4;
             // 
             // frmSummaryStockOutput
             // 
@@ -507,6 +517,12 @@
         private DevComponents.Editors.DateTimeAdv.DateTimeInput txtFromDate;
         private DevComponents.DotNetBar.ButtonX btnPrint;
         private DevComponents.DotNetBar.Controls.DataGridViewX dgvGrid;
+        private DevComponents.DotNetBar.Controls.TextBoxX txtMember;
+        private DevComponents.DotNetBar.Controls.TextBoxX txtBillCode;
+        private DevComponents.DotNetBar.LabelX labelX4;
+        private DevComponents.DotNetBar.LabelX labelX3;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx cbPaymentType;
+        private DevComponents.DotNetBar.LabelX labelX5;
         private System.Windows.Forms.DataGridViewTextBoxColumn InputType;
         private System.Windows.Forms.DataGridViewTextBoxColumn StockCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn BranchName;
@@ -516,14 +532,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Discount1;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PaymentType;
         private System.Windows.Forms.DataGridViewTextBoxColumn Note1;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateAt;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateBy;
-        private DevComponents.DotNetBar.Controls.TextBoxX txtMember;
-        private DevComponents.DotNetBar.Controls.TextBoxX txtBillCode;
-        private DevComponents.DotNetBar.LabelX labelX4;
-        private DevComponents.DotNetBar.LabelX labelX3;
-        private DevComponents.DotNetBar.Controls.ComboBoxEx cbPaymentType;
-        private DevComponents.DotNetBar.LabelX labelX5;
     }
 }

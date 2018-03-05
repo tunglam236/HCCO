@@ -7,10 +7,10 @@
     <div class="news-category">
         <div class="container">
             <div class="container-inner">
-            <h2 class="category-name">Tin tức</h2>
+            <h2 class="category-name">Tin khuyến mại</h2>
                 <ul class="breadcrumb">
                     <li><a href="/home">Trang chủ</a></li>
-                    <li><a href="/news">Tin tức</a></li>
+                    <li><a href="/news">Tin khuyến mại</a></li>
                 </ul>
             </div>
         </div>

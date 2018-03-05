@@ -671,30 +671,7 @@
             }
             return false;
         }
-        function updateDetailCombo(id) {
-            if (confirm("Bạn chắc chắn muốn cập nhật ?") == true) {
-                
-                var quan = $('#combo_quantity' + id).val();
-                if (quan == '' || quan=='0') showAlert('Nhập số lượng sản phẩm');
-                else {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Command.aspx/updateDetailCombo',
-                        data: '{"id":"' + id + '","quantity":"' + quan + '"}',
-                        contentType: 'application/json; charset=utf-8',
-                        dataType: 'json',
-                        success: function (data) {
-                            if (data.d._content == '1') {
-                                showAlert('Cập nhật thành công');
-                            }
-                            else
-                                showAlert(data.d._mess);
-                        }
-                    });
-                }
-            }
-            return false;
-        }
+        
         function removeDetailCombo(id, proId) {
             if (confirm("Bạn chắc chắn muốn xóa ?") == true) {
                 $.ajax({

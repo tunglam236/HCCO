@@ -23,7 +23,7 @@ public partial class LastInventory : System.Web.UI.Page
                 txtToDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 loadBranchType();
                 loadBranch(dlBranchType.SelectedValue);
-                lbData.Text = loadInventory(dlBranchType.SelectedValue, dlBranch.SelectedValue, txtFromDate.Text.Trim(), txtToDate.Text.Trim());
+                //lbData.Text = loadInventory(dlBranchType.SelectedValue, dlBranch.SelectedValue, txtFromDate.Text.Trim(), txtToDate.Text.Trim());
             }
         }
     }

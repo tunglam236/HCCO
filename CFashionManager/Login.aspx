@@ -24,7 +24,7 @@
         </div>
         <div class="login-box-body">
             <p class="login-box-msg">
-                Đăng nhập hệ thống quản lý chuỗi</p>
+                Đăng nhập hệ thống quản lý doanh nghiệp ERP</p>
             <div class="form-group has-feedback">
                 <asp:TextBox ID="txtAccount" runat="server" CssClass="form-control" placeholder="Tài khoản"></asp:TextBox>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

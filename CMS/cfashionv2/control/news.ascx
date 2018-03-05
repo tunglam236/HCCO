@@ -8,9 +8,8 @@
                         <div id="blog_home" class="menu-recent module-nav2 box-module">
                             <div>
                                 <div class="blog-title group-title">
-                                    <%--<p>New our blogs</p>--%>
                                     <h2>
-                                        <span>Tin tức nổi bật</span>
+                                        <span>Tin khuyến mại</span>
                                     </h2>
                                 </div>
                                 <div class="owl-container">
@@ -21,7 +20,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- sub-col -->
                 </div>
             </div>
         </div>

@@ -80,7 +80,7 @@
             <div id="lbmess" style="display: inline; padding: 8px;">...</div>
         </div>
         <div class="alert alert-success" id="divloading" style="position: fixed; top: 0px; right: 0px; width: auto; z-index: 999999; height: 60px;">
-            <button type="button" class="close" data-dismiss="alert">
+            <button type="button" class="close">
                 x</button>
             <b>Đang tải dữ liệu...</b>
         </div>

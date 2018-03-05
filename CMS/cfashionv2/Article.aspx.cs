@@ -51,7 +51,7 @@ public partial class Article : System.Web.UI.Page
                 result += "<div class='articles-tit'><a class='articles-name' href='/article/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.Title) + ".html'>";
                 result += item.Title + "</a></div><div class='articles-intro' style='max-height:110px;'>";
                 result += "<p style='font-size:13px;'>" + item.Description + "</p></div>";
-                result += "<a class='read-more' href='/cfashion/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.Title) + ".html'>Xem thêm</a></div></div></div>";
+                result += "</div></div></div>";
             }
 
             lbNews.Text = result;

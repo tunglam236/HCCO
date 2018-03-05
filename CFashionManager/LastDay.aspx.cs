@@ -106,12 +106,16 @@ public partial class LastDay : System.Web.UI.Page
         //var m = db.sp_web_loadBill(branchType, branchId, fDate, tDate, outputType);
         var m = db.sp_web_baocaoxuathang(branchType.Trim(), branchId.Trim(), fDate, tDate, int.Parse(rdPaymentType.SelectedValue));
         double total_revenue = 0;
-        
+        int count = 0; string code = "";
         var tmp1 = new Dictionary<string, double>();
 
         foreach (var item in m.ToList())
         {
-            
+            if (code != item.StockCode)
+            {
+                count++;
+                code = item.StockCode;
+            }
             result += "<tr class='detail-rows' id='" + item.Id.ToString() + "' title='Click để xem chi tiết'>";
             result += "<td class='center childrows'></td>";
             result += "<td>" + item.BranchCode + "</td>";
@@ -164,6 +168,7 @@ public partial class LastDay : System.Web.UI.Page
             i++;
             
         }
+        lbCount.Text = count < 999 ? count.ToString() : string.Format("{0:0,0}", count);
         lbTongTien.Text = total_revenue == 0 ? "0" : string.Format("{0:0,0 đ}", total_revenue);
         return result;
     }

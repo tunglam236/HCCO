@@ -399,13 +399,20 @@
                         }
                         html += '<td>' + data.d[t].MaterialCode + ' | ' + data.d[t].MaterialName + '</td>';
                         html += '<td>' + data.d[t].SupplierName + '</td>';
-                        html += '<td><input type="text" class="numbers format-input" id="quantityOffer' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].QuantityOffer + '" /></td>';
-                        //html += '<td><input type="text" class="numbers format-input" id="quantity' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].Quantity + '" /></td>';
-                        html += '<td><input type="text" class="numbers format-input" id="unit' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].UnitName + '" /></td>';
-                        html += '<td><input type="text" class="numbers format-input" id="price' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].Price + '" /></td>';
-                        html += '<td><input type="text" class="format-input-text" id="note' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].Note + '" /></td>';
+                        html += '<td><input type="text" maxlength="6" class="numbers format-input" id="quantityOffer' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].QuantityOffer + '" /></td>';
+                        html += '<td><input type="text" maxlength="20" class="format-input" id="unit' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].UnitName + '" /></td>';
+                        html += '<td><input type="text" maxlength="10" class="numbers format-input" id="price' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].Price + '" /></td>';
+                        html += '<td><input type="text" maxlength="128" class="format-input-text" id="note' + data.d[t].MaterialId + '' + data.d[t].SupplierId + '" value="' + data.d[t].Note + '" /></td>';
                         html += '</tr>';
                         $('#data-detail-soi').append(html);
+
+                        setTimeout(function () {
+                            $(".numbers").keypress(function (e) {
+                                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                                    return false;
+                                }
+                            });
+                        }, 1000);
 
                     }
                 }
@@ -583,7 +590,6 @@
             var sup_name = $('#dlSupplier option:selected').text();
             
             var quanOffer = $('#txtQuantityOffer').val();
-            //var quan = $('#txtQuantity').val();
             var unit = $('#txtUnit').val();
             var price = $('#txtPrice').val();
             var note = $('#txtNote').val();
@@ -591,7 +597,6 @@
             if(materialId=='') showAlert('Chọn nguyên phụ liệu');
             else if (supplierId == '') showAlert('Chọn nhà cung cấp');
             else if (quanOffer == '') showAlert('Nhập số lượng đề xuất');
-            //else if (quan == '') showAlert('Nhập số lượng nhập');
             else if (unit == '') showAlert('Nhập đơn vị tính');
             else if (price == '') showAlert('Nhập đơn giá');
             else {
@@ -608,11 +613,10 @@
                     html += '<td><a onclick="removeproduct(' + materialId + '' + supplierId + ');"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>';
                     html += '<td>' + mat_name + '</td>';
                     html += '<td>' + sup_name + '</td>';
-                    html += '<td><input type="text" class="numbers format-input" id="quantityOffer' + materialId + '' + supplierId + '" value="' + quanOffer + '" /></td>';
-                    //html += '<td><input type="text" class="numbers format-input" id="quantity' + materialId + '' + supplierId + '" value="' + quan + '" /></td>';
-                    html += '<td><input type="text" class="numbers format-input" id="unit' + materialId + '' + supplierId + '" value="' + unit + '" /></td>';
-                    html += '<td><input type="text" class="numbers format-input" id="price' + materialId + '' + supplierId + '" value="' + price + '" /></td>';
-                    html += '<td><input type="text" class="format-input-text" id="note' + materialId + '' + supplierId + '" value="' + note + '" /></td>';
+                    html += '<td><input type="text" maxlength="6" class="numbers format-input" id="quantityOffer' + materialId + '' + supplierId + '" value="' + quanOffer + '" /></td>';
+                    html += '<td><input type="text" maxlength="20" class="format-input" id="unit' + materialId + '' + supplierId + '" value="' + unit + '" /></td>';
+                    html += '<td><input type="text" maxlength="10" class="numbers format-input" id="price' + materialId + '' + supplierId + '" value="' + price + '" /></td>';
+                    html += '<td><input type="text" maxlength="128" class="format-input-text" id="note' + materialId + '' + supplierId + '" value="' + note + '" /></td>';
                     html += '</tr>';
                     $('#data-detail-soi').append(html);
 
@@ -621,6 +625,14 @@
                     $('#txtUnit').val('');
                     $('#txtPrice').val('');
                     $('#txtNote').val('');
+
+                    setTimeout(function () {
+                        $(".numbers").keypress(function (e) {
+                            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                                return false;
+                            }
+                        });
+                    }, 1000);
 
                 }
                 else

@@ -27,8 +27,8 @@ public partial class control_product_feature : System.Web.UI.UserControl
                 result += "<div class='row_items'>";
 
             result += "<div class='item'><div class='item-inner'><div class='images-container'>";
-            if(item.NoteSale!=null && item.NoteSale!="")
-                result += "<div class='label-pro-new'><span>"+item.NoteSale+"</span></div>";
+            if (item.NoteSale != null && item.NoteSale != "")
+                result += "<div class='label-pro-new'><span>" + item.NoteSale + "</span></div>";
 
             result += "<a class='product-image' href='/" + ref_member + "detail/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductName) + ".html'><img src='" + (item.Image == null || item.Image == "" ? "/image/image-coming-soon.png" : item.Image) + "' alt='" + item.ProductName + "' class='img-responsive lazy imgzoom' /></a>";
             
@@ -54,7 +54,7 @@ public partial class control_product_feature : System.Web.UI.UserControl
             result += "<h2 class='product-name'><a href='/" + ref_member + "detail/" + item.Id.ToString() + "/" + cl.ConvertToUnSign(item.ProductName) + ".html'>" + item.ProductTypeCode + " - " + item.ProductName + "</a></h2>";
             result += "<div class='price-box box-special'><p class='special-price'>";
 
-            if (item.PriceSale == 0 || item.Price==item.PriceSale)
+            if (item.PriceSale == 0 || item.Price == item.PriceSale)
                 result += "<span class='price'>" + string.Format("{0:0,0 đ}", item.Price) + "</span>";
             else
                 result += "<span class='price'>" + string.Format("{0:0,0 đ}", item.PriceSale) + "</span><span class='price' style='font-size:12px;padding-left:5px;'><del>" + string.Format("{0:0,0 đ}", item.Price) + "</del></span>";

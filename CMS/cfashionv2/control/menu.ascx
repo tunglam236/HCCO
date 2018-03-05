@@ -7,14 +7,33 @@
                     <a class="btn btn-navbar navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><span class="brand navbar-brand">C'Fashion</span>
                 </div>
                 <ul id="ma-mobilemenu" class="mobilemenu nav-collapse collapse">
-                    <li><span class=""><a href="/home">C'Fashion</a></span></li>
+                    <li><span class="button-view1 collapse1"><a href="/home">C'Fashion</a></span>
+                         <ul class="level2">
+                            <li><span class=""><a href="/cfashion/16/Gioi-thieu-ve-C-Fashion.html">Giới thiệu về C'Fashion</a></span></li>
+                            <li><span class=""><a href="/cfashion/17/Chinh-sach-khach-hang-than-thiet.html">Chính sách khách hàng thân thiết</a></span></li>
+                            <li><span class=""><a href="/cfashion/18/Huong-dan-chon-Size-C-Fashion.html">Hướng dẫn chọn size</a></span></li>
+                            <li><span class=""><a href="/cfashion/19/Huong-dan-mua-hang.html">Hướng dẫn mua hàng</a></span></li>
+                             <li><span class=""><a href="/cfashion/20/Hinh-thuc-thanh-toan.html">Hình thức thanh toán</a></span></li>
+                             <li><span class=""><a href="/cfashion/21/Huong-dan-giao-nhan-hang.html">Hướng dẫn giao hàng</a></span></li>
+                             <li><span class=""><a href="/cfashion/22/Chinh-sach-doi-tra.html">Chính sách đổi trả</a></span></li>
+                        </ul>
+                    </li>
                     <li><span class=" button-view1 collapse1"><a href="/product">Sản phẩm</a></span>
                         <ul class="level2">
                             <asp:Literal ID="lbMenuMobile" runat="server"></asp:Literal>
                         </ul>
                     </li>
+                    <li><span class=" button-view1 collapse1"><a href="/news">Tin tức</a></span>
+                        <ul class="level2">
+                            <li><span class="">
+                                <a href="/news">Tin khuyến mại</a></span></li>
+                            <li><span class=""><a href="/trend">Xu hướng</a>
+                                </span></li>
+                            <li><span class=""><a href="#">Lookbook</a>
+                                </span></li>
+                        </ul>
+                    </li>
                     <%--<li><span class=""><a href="/sale">Khuyến mại</a></span></li>
-                    <li><span class=""><a href="/news">Tin tức</a></span></li>
                     <li><span class=""><a href="/trend">Xu hướng</a></span></li>--%>
                     <li><span class=""><a href="/showroom">Showroom</a></span></li>
                 </ul>
@@ -73,6 +92,8 @@
                                                 </div>
                                             </div>
                                         </div>
+                                         <div class="clearBoth">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -82,29 +103,30 @@
                             <div class="parentMenu">
                                 <a href="/sale"><span>Khuyến mại</span></a>
                             </div>
-                        </div>
+                        </div>--%>
 
-                        <div id="pt_menu_link30" class="pt_menu">
+                        <div id="pt_menu_link30" class="pt_menu nav-1 pt_menu_had_child">
                             <div class="parentMenu">
-                                <a href="/news"><span>Tin tức</span></a>
+                                <a href="#"><span>Tin tức </span></a>
                             </div>
-                            <div id="popup251" class="popup" style="display: none;">
+		      	    <div id="popup251" class="popup" style="display: none;">
                                 <div class="inner-popup">
                                         <div class="block1">
                                             <div class="inner-popup">
                                                 <div class="block1" id="block1254">
                                                     <div class="column">
-                                                        <div class="itemMenu level1" style="padding-bottom:20px;"><a class="itemMenuName level0 actParent" href="/news"><span>Tin tức C'Fashion</span></a></div>
-                                                        <div class="itemMenu level1" style="padding-bottom:20px;"><a class="itemMenuName level0 actParent" href="/trend"><span>Xu hướng</span></a></div>
-                                                        <div class="itemMenu level1" style="padding-bottom:20px;"><a class="itemMenuName level0 actParent" href="/lookbook"><span>Lookbook</span></a></div>
-                                                        <div class="itemMenu level1" style="padding-bottom:20px;"><a class="itemMenuName level0 actParent" href="#"><span>Tuyển dụng</span></a></div>
+                                                        <div class="itemMenu level1" style="padding-bottom:20px;"><a class="itemMenuName level0 actParent" href="#"><span>Tin tức C'Fashion</span></a></div>
+                                                        <div class="itemMenu level1" style="padding-bottom:20px;"><a class="itemMenuName level0 actParent" href="#"><span>Xu hướng</span></a></div>
+                                                        <div class="itemMenu level1" style="padding-bottom:20px;"><a class="itemMenuName level0 actParent" href="#"><span>Lookbook</span></a></div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="clearBoth">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>--%>
+                            </div>
                             <div id="pt_menu_link31" class="pt_menu">
                                 <div class="parentMenu">
                                     <a href="/showroom"><span>Showroom</span></a>

@@ -716,7 +716,8 @@
                 var capacity = $('#txtCapacity').val();
                 var national = $('#dlNational').val();
                 var nationalname = $('#dlNational option:selected').text();
-
+		if (national != '')
+                    nationalname = nationalname.substring(5, nationalname.length);
                 var expiry = $('#txtExpiryDate').val();
                 var catalog = $('#txtCatalog').val();
 

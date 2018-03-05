@@ -390,6 +390,7 @@
             this.txtVoucher.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVoucher.ForeColor = System.Drawing.Color.Red;
             this.txtVoucher.Location = new System.Drawing.Point(274, 85);
+            this.txtVoucher.MaxLength = 10;
             this.txtVoucher.Name = "txtVoucher";
             this.txtVoucher.Size = new System.Drawing.Size(108, 24);
             this.txtVoucher.TabIndex = 4;
@@ -405,11 +406,13 @@
             this.txtDiscount.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDiscount.ForeColor = System.Drawing.Color.Red;
             this.txtDiscount.Location = new System.Drawing.Point(451, 83);
+            this.txtDiscount.MaxLength = 10;
             this.txtDiscount.Name = "txtDiscount";
             this.txtDiscount.Size = new System.Drawing.Size(93, 27);
             this.txtDiscount.TabIndex = 4;
             this.txtDiscount.Text = "0";
             this.txtDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDiscount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDiscount_KeyPress);
             this.txtDiscount.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDiscount_KeyUp);
             this.txtDiscount.MouseLeave += new System.EventHandler(this.txtDiscount_MouseLeave);
             // 
@@ -440,12 +443,13 @@
             this.txtCustomePay.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCustomePay.ForeColor = System.Drawing.Color.Red;
             this.txtCustomePay.Location = new System.Drawing.Point(837, 83);
+            this.txtCustomePay.MaxLength = 10;
             this.txtCustomePay.Name = "txtCustomePay";
             this.txtCustomePay.Size = new System.Drawing.Size(177, 27);
             this.txtCustomePay.TabIndex = 6;
             this.txtCustomePay.Text = "0";
             this.txtCustomePay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            //this.txtCustomePay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductCode_KeyPress);
+            this.txtCustomePay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCustomePay_KeyPress);
             this.txtCustomePay.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCustome_KeyUp);
             this.txtCustomePay.MouseLeave += new System.EventHandler(this.txtCustomePay_MouseLeave);
             // 

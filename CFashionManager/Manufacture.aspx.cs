@@ -50,12 +50,8 @@ public partial class Manufacture : System.Web.UI.Page
 
             result += "<td><label class='" + label + "'>" + item.Status + "</label></td>";
             result += "<td>" + item.CreateBy + "</td>";
-            //result += "<td>" + item.DateCreate + "</td>";
-            //result += "<td>" + item.DateExpect + "</td>";
-            //result += "<td>" + item.DateReceiver + "</td>";
             result += "<td>" + item.FormCode + " - " + item.FormName + "</td>";
             result += "<td>" + item.DesignBy + "</td>";
-            //result += "<td>" + item.SupplierName + "</td>";
             result += "<td>" + item.Note + "</td>";
             result += "</tr>";
             i++;

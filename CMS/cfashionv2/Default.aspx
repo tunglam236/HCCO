@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    <urow1:Row1 ID="urows1" runat="server" />
+    <%--<urow1:Row1 ID="urows1" runat="server" />--%>
     <urow2:Row2 ID="uRow2" runat="server" />
     <uRow3:Row3 ID="uRow3" runat="server" />
     <ucorporate:Corporate ID="ucorporate" runat="server" />
@@ -93,7 +93,7 @@
              
         </div>
     </div>--%>
-    <%--<unews:News ID="uNews" runat="server" />--%>
+    <unews:News ID="uNews" runat="server" />
     <div class="modal fade" id="addQuickModal" role="dialog">
         <div class="modal-dialog  modal-md">
             <div class="modal-content" style="font-size: 12px;">
@@ -160,7 +160,7 @@
             </div>
         </div>
     </div>
-     <script type="text/javascript">
+    <script type="text/javascript">
          $(document).ready(function () {
              $(".numbers").keypress(function (e) {
                  if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {

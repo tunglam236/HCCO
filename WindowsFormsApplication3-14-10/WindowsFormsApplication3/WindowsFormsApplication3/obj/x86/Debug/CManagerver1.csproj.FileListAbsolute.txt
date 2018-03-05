@@ -146,4 +146,3 @@ E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\Windo
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\stdole.dll
 E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\DevComponents.DotNetBar2.xml
-E:\Git\Source\HCCO\WindowsFormsApplication3-14-10\WindowsFormsApplication3\WindowsFormsApplication3\obj\x86\Debug\CManagerver1.csprojResolveAssemblyReference.cache

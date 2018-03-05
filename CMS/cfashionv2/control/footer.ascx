@@ -1,9 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="footer.ascx.cs" Inherits="control_footer" %>
 <footer>
-               <div class="newsletter-group">
+               <%--<div class="newsletter-group">
                   <div class="container">
                      <div class="container-inner">
-                      <%--  <div class="newletter-subscribe-container">
+                     <div class="newletter-subscribe-container">
                            <div class="newletter-subscribe">
                               <div id="boxes-normal" class="newletter-container">
                                  <div style="" id="dialog-normal" class="window">
@@ -39,11 +39,10 @@
                               <li><a class="facebook icon ion-social-facebook" title="Facebook" href="http://facebook.com/cfashionvn"><span>facebook</span></a></li>
                               <li><a class="youtube icon ion-social-youtube" title="Youtube" href="javascript:void(0)"><span>youtube</span></a></li>
                            </ul>
-                        </div>--%>
-
+                        </div>
                      </div>
                   </div>
-               </div>
+               </div>--%>
                <div class="footer-top">
                   <div class="container">
                      <div class="row">

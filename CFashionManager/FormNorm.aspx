@@ -111,7 +111,7 @@
                         &times;</button>
                     <h4 class="modal-title center">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                        <span id="lb">DUYỆT MẪU THIẾT KẾ</span>
+                        <span id="lb">NHẬP ĐỊNH MỨC VẢI</span>
                     </h4>
                 </div>
                 <div class="modal-body">
